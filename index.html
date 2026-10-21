@@ -1,0 +1,1506 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Redes de Datos · Guía Parcial 1</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#1c2430;--mut:#5b6675;--line:#dfe3ea;--acc:#1f5fbf;--acc2:#0e8a6a;--warn:#b45309;--warnbg:#fff6e5;--okbg:#e9f7f1;--infobg:#eaf1fc;--code:#f0f2f6}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12161c;--card:#1a2029;--ink:#e6eaf0;--mut:#9aa6b6;--line:#2c3542;--acc:#6ea8ff;--acc2:#4fd1a5;--warn:#f0b35a;--warnbg:#33290f;--okbg:#12302a;--infobg:#16263f;--code:#232b37}}
+:root[data-theme="dark"]{--bg:#12161c;--card:#1a2029;--ink:#e6eaf0;--mut:#9aa6b6;--line:#2c3542;--acc:#6ea8ff;--acc2:#4fd1a5;--warn:#f0b35a;--warnbg:#33290f;--okbg:#12302a;--infobg:#16263f;--code:#232b37}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{display:grid;grid-template-columns:260px minmax(0,1fr);max-width:1200px;margin:0 auto}
+nav{position:sticky;top:0;height:100vh;overflow:auto;padding:20px 14px;border-right:1px solid var(--line);font-size:14px}
+nav b{display:block;margin-bottom:8px;font-size:15px}
+nav a{display:block;padding:4px 8px;border-radius:6px;color:var(--mut);text-decoration:none}
+nav a:hover{background:var(--card);color:var(--acc)}
+main{padding:24px 28px 80px;min-width:0}
+h1{font-size:30px;margin:0 0 4px}
+h2{font-size:23px;margin:44px 0 10px;padding-top:12px;border-top:3px solid var(--acc)}
+h3{font-size:18px;margin:24px 0 6px;color:var(--acc)}
+h4{margin:16px 0 4px}
+p{margin:8px 0}
+.sub{color:var(--mut);margin-bottom:18px}
+table{border-collapse:collapse;width:100%;margin:10px 0;background:var(--card);font-size:14.5px}
+th,td{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top}
+th{background:var(--infobg)}
+.scroll{overflow-x:auto}
+code,.mono{font-family:ui-monospace,Consolas,monospace;background:var(--code);padding:1px 5px;border-radius:4px;font-size:.92em}
+pre{background:var(--code);padding:12px;border-radius:8px;overflow:auto;font-size:13.5px;line-height:1.45}
+.box{border-left:4px solid var(--acc);background:var(--infobg);padding:10px 14px;border-radius:0 8px 8px 0;margin:12px 0}
+.box.ok{border-color:var(--acc2);background:var(--okbg)}
+.box.warn{border-color:var(--warn);background:var(--warnbg)}
+.box b:first-child{display:block}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:12px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.card h4{margin-top:0;color:var(--acc)}
+ul,ol{margin:6px 0;padding-left:22px}
+li{margin:3px 0}
+details{background:var(--card);border:1px solid var(--line);border-radius:8px;margin:8px 0;padding:8px 12px}
+summary{cursor:pointer;font-weight:600}
+details p{margin:8px 0 2px}
+.pin{display:inline-block;width:100%;padding:2px 6px;border-radius:4px;font-size:13px;color:#111;font-weight:600}
+.bv{background:repeating-linear-gradient(45deg,#fff,#fff 6px,#49b36b 6px,#49b36b 10px)}
+.v{background:#49b36b}.bn{background:repeating-linear-gradient(45deg,#fff,#fff 6px,#f29a38 6px,#f29a38 10px)}
+.n{background:#f29a38}.a{background:#5a8fe6}.ba{background:repeating-linear-gradient(45deg,#fff,#fff 6px,#5a8fe6 6px,#5a8fe6 10px)}
+.bm{background:repeating-linear-gradient(45deg,#fff,#fff 6px,#9a6a45 6px,#9a6a45 10px)}.m{background:#9a6a45;color:#fff}
+.bar{display:flex;border-radius:8px;overflow:hidden;font-size:13px;text-align:center;color:#fff;margin:10px 0}
+.bar div{padding:8px 4px}
+.tag{display:inline-block;font-size:12px;padding:1px 8px;border-radius:99px;background:var(--infobg);color:var(--acc);font-weight:600}
+@media (max-width:820px){table{display:block;overflow-x:auto}.bar{font-size:11px}.wrap{display:block}nav{position:static;height:auto;border-right:0;border-bottom:1px solid var(--line);columns:2}main{padding:18px 16px 60px}}
+@media print{nav{display:none}.wrap{display:block}details{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav>
+<b>Redes de Datos · Parcial 1</b>
+<a href="#s0">0. Cómo estudiar con esto</a>
+<a href="#s1">1. Red y clasificación</a>
+<a href="#s2">2. Modelo OSI capa por capa</a>
+<a href="#s3">3. Elementos de una LAN</a>
+<a href="#s4">4. Servidores</a>
+<a href="#s5">5. Topologías</a>
+<a href="#s6">6. Acceso al medio</a>
+<a href="#s7">7. Token Ring, Token Bus, MSAU</a>
+<a href="#snp" style="color:var(--acc);font-weight:700">★ Norma vs protocolo</a>
+<a href="#s8">8. 802.3: trama y variantes clásicas</a>
+<a href="#s9">9. Evolución de Ethernet</a>
+<a href="#s10">10. Wi-Fi 802.11</a>
+<a href="#s11">11. MAC e IP</a>
+<a href="#s12">12. Dispositivos de interconexión</a>
+<a href="#s13">13. Dominios de colisión y broadcast</a>
+<a href="#s14">14. Cómo trabaja el switch</a>
+<a href="#s14b">15. Switching: STP y VLAN</a>
+<a href="#s15">16. P2P vs servidor dedicado</a>
+<a href="#s16">17. Cableado estructurado</a>
+<a href="#s17">18. Normas TIA 569/606/607/942</a>
+<a href="#s18">19. Modelo TCP/IP</a>
+<a href="#s18b">20. IPv4 y subneteo</a>
+<a href="#s19">21. Pares que se confunden</a>
+<a href="#s20">22. Autoevaluación</a>
+</nav>
+<main>
+<h1>Redes de Datos — Guía de estudio, Parcial 1</h1>
+<div class="sub">UTN FRT · Ciclo 2026 · Cátedra Mag. Ing. Patricia Nazar · Unidades 1, 2 y 3 + actividades expuestas<br>Versión 1.2 · 14 de octubre de 2026</div>
+<details><summary>Historial de versiones</summary>
+<p><b>1.2 · 14/10/2026</b> — Revisión completa contra el material oficial del aula virtual (apuntes de la Ing. Nazar). Se reescribe el modelo OSI capa por capa (PDU, medios físicos, señalización, subcapas MAC/LLC, red, transporte, sesión, presentación). Se suman: trama Ethernet campo por campo, variantes 10BASE5/10BASE2/10BASE-T con sus límites, regla 5-4-3, variantes de Fast Ethernet, redes inalámbricas completas (modos de AP, antenas, diseño, seguridad, RTS/CTS, escaneo-autenticación-asociación), conmutación con STP y VLAN, y el modelo TCP/IP completo (TCP, UDP, puertos, IP, ICMP, ARP, RARP, clases, direcciones especiales y subneteo con ejemplos). Se corrigen las unidades de datos de las capas superiores, la nomenclatura de normas y varios datos menores. Autoevaluación ampliada (41 a 70).</p>
+<p><b>1.1 · 14/10/2026</b> — Nueva sección destacada "Norma vs protocolo de comunicación" con definiciones, diferencias, ejemplos y trampas de examen. Se amplía la tabla de pares que se confunden y se suman 8 preguntas a la autoevaluación (33 a 40).</p>
+<p><b>1.0 · 07/10/2026</b> — Versión inicial: unidades 1 y 2, actividades expuestas, cableado estructurado, normas TIA y autoevaluación.</p>
+</details>
+
+<h2 id="s0">0. Cómo estudiar con esto</h2>
+<p>El parcial es <b>multiple choice / verdadero-falso</b>. Ese formato no premia saber recitar: premia distinguir cosas parecidas (física vs lógica, CD vs CA, colisión vs broadcast, flooding vs broadcast). Por eso cada sección cierra la idea con el "por qué", y al final tenés una sección de pares que se confunden y una autoevaluación con respuestas ocultas.</p>
+<div class="box"><b>Las cinco distinciones que la profesora marcó en clase</b>
+Protocolo de acceso al medio ≠ protocolo de comunicación · Protocolo de comunicación ≠ norma de comunicación · Dirección física ≠ dirección lógica · Contención ≠ token passing · Los sistemas operativos son independientes de las normas.<br>Las dos primeras están desarrolladas a fondo en la sección <a href="#snp">★ Norma vs protocolo</a>.</div>
+<p>Las cajas <span class="tag">ámbar</span> marcan puntos donde el material de clase simplifica o donde un apunte tenía un error: conviene saber las dos versiones (la de clase y la exacta).</p>
+
+<h2 id="s1">1. Qué es una red y cómo se clasifican</h2>
+<p>Una <b>red de computadoras</b> es un conjunto de nodos (PCs, impresoras, servidores, celulares) interconectados a través de un <b>medio común</b>. El objetivo primario es <b>compartir recursos</b>:</p>
+<ul>
+<li><b>Hardware:</b> impresoras, discos.</li>
+<li><b>Software:</b> aplicaciones (todos usan la misma versión, lo que facilita el soporte) y <b>datos</b>.</li>
+</ul>
+<h3>Clasificación por distribución geográfica</h3>
+<div class="scroll"><table>
+<tr><th></th><th>LAN</th><th>MAN</th><th>WAN</th></tr>
+<tr><td><b>Alcance</b></td><td>Edificio, oficina, campus (hasta unos pocos km)</td><td>Una ciudad o grupo de ciudades (radio &lt; 100 km)</td><td>Países, continentes, el planeta</td></tr>
+<tr><td><b>Velocidad</b></td><td>Alta (100 Mbps a 10 Gbps)</td><td>Similar a la LAN</td><td>Históricamente menor: "sacrifica velocidad por distancia"</td></tr>
+<tr><td><b>Dueño</b></td><td>La propia organización</td><td>Operador u organización grande</td><td>Proveedores de telecomunicaciones</td></tr>
+<tr><td><b>Tecnologías</b></td><td>Ethernet 802.3, Wi-Fi 802.11</td><td>Fibra metropolitana, Metro Ethernet</td><td>Red telefónica conmutada (histórico), fibra, enlaces satelitales, MPLS</td></tr>
+<tr><td><b>Ejemplo</b></td><td>Laboratorio de la facultad</td><td>Red que une las sedes de un organismo en una ciudad</td><td>Internet</td></tr>
+</table></div>
+<p>Una MAN suele ser el resultado de <b>interconectar varias LAN</b>. Internet es el mejor ejemplo de WAN.</p>
+<div class="box ok"><b>¿De qué dependen distancia y velocidad?</b>
+La <b>distancia</b> depende del medio y sus materiales (cobre atenúa más que fibra), de la norma y de si hay repetidores. La <b>velocidad</b> la fija la <b>norma de comunicación</b>, pero en la práctica manda el eslabón más lento entre placa de red, cable y puerto del switch. Se mide en bits por segundo (Mbps, Gbps) con herramientas como un test de velocidad, <code>iperf</code> entre dos equipos, o la velocidad de vínculo que informa el adaptador.</div>
+<p><b>¿La red de la FRT es una LAN?</b> Sí: está dentro de un predio acotado y la administra la propia institución. Lo que la hace LAN es el alcance y la administración, no la cantidad de equipos.</p>
+
+<h2 id="s2">2. Modelo ISO-OSI capa por capa</h2>
+<p><b>ISO</b> = International Standard Organization. <b>OSI</b> = Open Systems Interconnection. La <b>motivación</b> fue fijar reglas que permitieran comunicar computadoras de <b>distintos fabricantes y modelos</b>: sin reglas comunes, la comunicación entre dispositivos distintos sería imposible.</p>
+<ul>
+<li>Divide el proceso de networking en <b>7 capas</b>, cada una con una subtarea funcional y única, que cumple en coordinación con las demás.</li>
+<li>Cada capa se comunica con la de arriba y la de abajo a través de puntos de acceso llamados <b>SAP</b> (Service Access Point).</li>
+<li>Además hay comunicación entre <b>capas pares</b> de máquinas diferentes.</li>
+</ul>
+<h3>Las 7 capas agrupadas en 3 funciones</h3>
+<table>
+<tr><th>Función</th><th>Capas</th><th>Qué aportan</th></tr>
+<tr><td><b>Servicios</b></td><td>7 Aplicación · 6 Presentación · 5 Sesión</td><td>Los servicios de red que usa el usuario</td></tr>
+<tr><td><b>Networking</b></td><td>4 Transporte · 3 Red</td><td>Llevar el mensaje de un punto A a un punto B y asegurarse de que llegue</td></tr>
+<tr><td><b>Comunicación</b></td><td>2 Enlace · 1 Física</td><td>La comunicación sobre el medio de la red</td></tr>
+</table>
+<p>Para recordar el orden de abajo hacia arriba: <b>F</b>ísica, <b>E</b>nlace, <b>R</b>ed, <b>T</b>ransporte, <b>S</b>esión, <b>P</b>resentación, <b>A</b>plicación.</p>
+
+<h3>Comunicación vertical (encapsulamiento) y horizontal</h3>
+<p><b>Vertical:</b> dentro de una misma máquina, los datos bajan capa por capa y cada una le agrega su encabezado (AH, PH, SH, TH, RH, EH). La capa de enlace agrega además un <b>trailer</b> al final. En el receptor el proceso es inverso: cada capa saca su encabezado y pasa el resto hacia arriba.</p>
+<pre>Aplicación   [AH|Datos]                          → APDU  (mensaje)
+Presentación [PH|AH|Datos]                       → PPDU  (mensaje)
+Sesión       [SH|PH|AH|Datos]                    → SPDU  (mensaje)
+Transporte   [TH|SH|PH|AH|Datos]                 → Segmento
+Red          [RH|TH|SH|PH|AH|Datos]              → Paquete / datagrama
+Enlace       [EH|RH|TH|SH|PH|AH|Datos|Trailer]   → Trama (frame)
+Física       0110100101…                         → Bits</pre>
+<p><b>Horizontal:</b> cada capa se comunica con su capa par en la otra máquina, usando su propio protocolo (transporte con transporte, red con red).</p>
+<div class="box warn"><b>Unidad de datos de las capas superiores</b>
+En la versión anterior figuraba "Datos" para las capas 5 a 7. Según la cátedra, en esas tres capas la unidad se llama <b>mensaje</b> (APDU, PPDU y SPDU). En la capa de red, <b>paquete</b> se usa para el servicio orientado a conexión y <b>datagrama</b> para el no orientado a conexión.</div>
+
+<h3>Capa 1 — Física</h3>
+<p>Establece las <b>características físicas y eléctricas</b> de las conexiones. Incluye las especificaciones de cuatro cosas:</p>
+<ol>
+<li><b>Medio de transmisión:</b> el camino físico por donde fluyen los datos. Puede ser guiado (cableado: UTP, STP, coaxil, fibra) o inalámbrico (microondas, ondas de radio, infrarrojo).</li>
+<li><b>Dispositivos de transmisión</b> (ver abajo).</li>
+<li><b>Topologías físicas</b>: bus, estrella, anillo (sección 5).</li>
+<li><b>Señalización de datos.</b></li>
+</ol>
+<h4>Tres problemas de la señal</h4>
+<ul>
+<li><b>Atenuación:</b> debilitamiento, pérdida o degradación de la señal con la distancia. Se corrige con <b>repetidores</b>.</li>
+<li><b>EMI</b> (ElectroMagnetic Interference): la forma más común de ruido que puede distorsionar la señal (motores eléctricos, cafeteras, televisores).</li>
+<li><b>Crosstalk</b> (diafonía): dos cables físicamente cercanos se interfieren a través de sus campos magnéticos. El trenzado de los pares lo reduce.</li>
+</ul>
+<h4>Medios guiados según la cátedra</h4>
+<div class="scroll"><table>
+<tr><th></th><th>UTP</th><th>STP</th><th>Coaxil</th><th>Fibra óptica</th></tr>
+<tr><td>Qué es</td><td>Pares trenzados sin blindaje (2 o 4 pares). Conector RJ-45</td><td>Igual al UTP con una cobertura adicional, normalmente de aluminio</td><td>Conductor central y malla. Fino (bus, 10BASE2) y grueso (10BASE5)</td><td>Transmite con <b>luz</b> en lugar de electricidad</td></tr>
+<tr><td>Costo</td><td>Bajo</td><td>Más caro que UTP</td><td>Moderado (el grueso es el más caro)</td><td>Alto</td></tr>
+<tr><td>Instalación</td><td>Fácil</td><td>Más difícil que UTP</td><td>Simple, pero la reparación se complica</td><td>Compleja, requiere experiencia</td></tr>
+<tr><td>Capacidad</td><td>1–100 Mbps según categoría (tabla general: 155 Mbps)</td><td>Hasta 155 Mbps</td><td>500 Mbps (mayor que el par trenzado, pero no se aprovecha)</td><td>2 Gbps (grandes anchos de banda)</td></tr>
+<tr><td>Atenuación / distancia</td><td>La peor: se limita a <b>100 m</b></td><td>Igual que UTP: 100 m</td><td>Menor que UTP: ~1 km</td><td>Muy poca: ~60 km</td></tr>
+<tr><td>EMI</td><td>La peor de todas</td><td>No la elimina, pero es mejor que UTP</td><td>Aceptable, mejor que el par trenzado</td><td>Excelente: no sufre interferencias eléctricas</td></tr>
+</table></div>
+<p>La fibra es <b>el medio más confiable</b>. Los valores de capacidad de la tabla son los de la cátedra (históricos); hoy el UTP Cat 6A lleva 10 Gbps y la fibra mucho más, pero el <b>orden relativo</b> entre medios es lo que importa.</p>
+<h4>Dispositivos de transmisión de la capa física</h4>
+<table>
+<tr><th>Destinados a la comunicación</th><th>Destinados a la interconectividad</th></tr>
+<tr><td><b>Módem:</b> la PC habla digital y el medio (por ejemplo la línea telefónica) analógico. El módem <b>modula</b> (digital → analógica) y <b>demodula</b> (analógica → digital). Puede ser interno o externo.<br><b>Multiplexor:</b> permite enviar múltiples señales por un mismo medio (ej.: TV por cable).</td><td><b>Repetidor:</b> regenera la señal para que viaje mayores distancias.<br><b>Hub:</b> repetidor que además organiza el cableado como una <b>estrella física</b>. Hay hubs <b>pasivos</b> (solo reparten la señal, sin regenerarla) y <b>activos</b> (la regeneran y amplifican).</td></tr>
+</table>
+<h4>Señalización y métodos de señalización</h4>
+<ul>
+<li><b>Analógica:</b> ondas electromagnéticas; ideales para largas distancias pero muy susceptibles al ruido.</li>
+<li><b>Digital:</b> dos estados, 0 y 1. Es la que usan las LAN.</li>
+</ul>
+<div class="grid">
+<div class="card"><h4>Baseband (banda base)</h4>Usa <b>toda la capacidad del medio para una sola señal</b> a la vez. Señalización <b>digital</b>. Para combinar varias conversaciones usa <b>TDM</b> (multiplexación por división de tiempo): cada una ocupa el canal en su ranura de tiempo. <b>Se usa en LAN.</b></div>
+<div class="card"><h4>Broadband (banda ancha)</h4>Comparte el ancho de banda entre <b>múltiples canales analógicos</b>, cada uno en una frecuencia distinta: <b>FDM</b> (multiplexación por división de frecuencia). Ejemplo: TV por cable. <b>Se usa en WAN.</b></div>
+</div>
+
+<h3>Capa 2 — Enlace de datos</h3>
+<p>Su función principal es <b>brindar confiabilidad al medio físico</b>. Se divide en dos subcapas:</p>
+<div class="grid">
+<div class="card"><h4>MAC (Medium Access Control)</h4><b>Control de acceso al medio:</b> determina quién, cómo y cuándo accede al medio (polling, contención, token passing).<br><b>Direccionamiento físico:</b> trabaja con las direcciones MAC.</div>
+<div class="card"><h4>LLC (Logical Link Control)</h4><b>Sincronización de tramas:</b> emisor y receptor saben dónde empieza y termina cada trama.<br><b>Control de flujo:</b> no saturar al receptor.<br><b>Chequeo de errores.</b></div>
+</div>
+<p><b>Control de flujo por ventana (window flow control):</b></p>
+<ul>
+<li><b>Estático:</b> se fija un tamaño de ventana, por ejemplo 7: el emisor no puede enviar la octava trama sin haber recibido el ACK de la primera.</li>
+<li><b>Dinámico:</b> los dispositivos de la red ajustan el tamaño de la ventana.</li>
+</ul>
+<p><b>Chequeo de errores:</b> el emisor hace un cálculo sobre los bits de la trama y pone el resultado en un campo extra, el <b>FCS</b>. El receptor repite el cálculo y compara; si no coincide, asume que hubo error. El método típico es el <b>CRC</b> (Cyclic Redundancy Check): la trama se toma como un número binario largo que se divide por un divisor fijo, y se compara el resto calculado con el recibido.</p>
+
+<h3>Capa 3 — Red</h3>
+<p>Provee <b>comunicación lógica de LAN a LAN</b>. Tres funciones:</p>
+<ol>
+<li><b>Internetworking:</b> definir un camino lógico entre cualquier punto de la LAN A y cualquiera de la LAN B. Se apoya en el <b>camino de red</b> (lo dan las capas 1 y 2: la física da la ruta y la de enlace las reglas) y en el <b>direccionamiento lógico</b>, que agrupa a las PCs según el segmento donde están y lo asigna el administrador.</li>
+<li><b>Ruteo:</b> definir el <b>camino óptimo</b> entre dos LAN. Implica <b>descubrir rutas</b> (los routers arman tablas de ruteo comunicándose con otros routers mediante protocolos como RIP) y <b>elegir la mejor</b> según parámetros como cantidad de saltos (hops), demora o congestión.</li>
+<li><b>Control de la red:</b> <b>control de flujo</b> (cuántos datos viajan por un camino) y <b>secuenciamiento</b> (divide los mensajes de transporte en paquetes y los rearma en destino; como pueden llegar desordenados, cada paquete lleva un identificador y un número de secuencia).</li>
+</ol>
+<div class="box"><b>Protocolos ruteables vs protocolos de enrutamiento</b>
+<b>Ruteables:</b> viajan con los paquetes y llevan los datos (ej.: <b>IP</b>). <b>De enrutamiento:</b> los usan los routers para descubrir los caminos posibles y armar sus tablas (ej.: <b>RIP, IGRP</b>).</div>
+
+<h3>Capa 4 — Transporte</h3>
+<p>Asegura el arribo de los datos completos y los entrega al protocolo correcto de las capas superiores, mediante:</p>
+<ul>
+<li><b>Direccionamiento de servicios:</b> que el pedido llegue al servicio adecuado (hoy: los <b>puertos</b>).</li>
+<li><b>Segmentación:</b> divide los mensajes de las capas superiores para pasarlos a red, y reagrupa lo que viene de red para pasarlo hacia arriba.</li>
+<li><b>Chequeo de errores:</b> porque los paquetes pueden perderse o demorarse en la interred.</li>
+</ul>
+
+<h3>Capa 5 — Sesión</h3>
+<ul>
+<li><b>Establece la sesión</b> entre dos hosts: verificación de usuario y contraseña, número de conexión, acuerdo sobre los servicios requeridos.</li>
+<li><b>Transfiere datos</b> mediante un diálogo, en modo <b>simplex</b> (un solo sentido), <b>half duplex</b> (los dos sentidos, uno por vez) o <b>full duplex</b> (los dos sentidos a la vez).</li>
+<li><b>Cierra la conexión</b>, en forma planeada o accidental.</li>
+</ul>
+
+<h3>Capa 6 — Presentación ("el traductor del modelo OSI")</h3>
+<p>Garantiza que lo que envía la aplicación de un sistema pueda ser entendido por la aplicación del otro, estableciendo el contexto sintáctico del diálogo:</p>
+<ul>
+<li>Traduce entre formatos usando un formato común: del formato local al estándar de red y viceversa (sintaxis y semántica).</li>
+<li>Define el código para representar caracteres (<b>ASCII, EBCDIC</b>).</li>
+<li>Da formato a la información para mostrarla o imprimirla.</li>
+<li><b>Comprime</b> los datos si hace falta.</li>
+<li>Aplica procesos <b>criptográficos</b>.</li>
+</ul>
+
+<h3>Capa 7 — Aplicación</h3>
+<p>Es la <b>interfaz con el usuario</b>. Ahí están las aplicaciones de red para acceder a servicios de archivos, impresión, mensajes, bases de datos y aplicaciones.</p>
+
+<h3>Consideraciones generales (preguntables)</h3>
+<table>
+<tr><th>Función</th><th>Capa</th><th>Pregunta que responde</th></tr>
+<tr><td rowspan="3"><b>Chequeo de error</b></td><td>Enlace</td><td>¿Los datos recibidos son correctos?</td></tr>
+<tr><td>Transporte</td><td>¿Llegaron los datos al destino correcto?</td></tr>
+<tr><td>Sesión</td><td>¿Continúa el diálogo?</td></tr>
+<tr><td rowspan="2"><b>Control de flujo</b></td><td>LLC (enlace)</td><td>¿Qué cantidad de datos puede manejar el receptor?</td></tr>
+<tr><td>Red</td><td>¿Cuántos datos soporta una ruta determinada?</td></tr>
+</table>
+
+<h3>Resumen y equivalencia con TCP/IP</h3>
+<div class="scroll"><table>
+<tr><th>#</th><th>Capa OSI</th><th>Qué hace</th><th>Unidad (PDU)</th><th>Dispositivo / ejemplo</th><th>TCP/IP</th></tr>
+<tr><td>7</td><td>Aplicación</td><td>Interfaz con el usuario, servicios de red</td><td rowspan="3">Mensaje (APDU, PPDU, SPDU)</td><td>HTTP, DNS, DHCP, FTP, SMTP</td><td rowspan="3"><b>Aplicación</b></td></tr>
+<tr><td>6</td><td>Presentación</td><td>Traducción, código de caracteres, compresión, encriptación</td><td>ASCII, EBCDIC</td></tr>
+<tr><td>5</td><td>Sesión</td><td>Establece, mantiene y cierra el diálogo</td><td>—</td></tr>
+<tr><td>4</td><td>Transporte</td><td>Extremo a extremo, segmentación, servicio correcto</td><td>Segmento</td><td>TCP, UDP · puertos</td><td><b>Transporte</b></td></tr>
+<tr><td>3</td><td>Red</td><td>Internetworking, ruteo, direccionamiento lógico</td><td>Paquete / datagrama</td><td>Router · IP, ICMP, RIP</td><td><b>Internet</b> (interred)</td></tr>
+<tr><td>2</td><td>Enlace</td><td>Confiabilidad del medio: MAC (acceso, dirección física) y LLC (tramas, flujo, errores)</td><td>Trama</td><td>Switch, puente, NIC</td><td rowspan="2"><b>Acceso a la red</b> (interfaz de red)</td></tr>
+<tr><td>1</td><td>Física</td><td>Medio, señalización, conectores, topología física</td><td>Bits</td><td>Hub, repetidor, módem, cables</td></tr>
+</table></div>
+<p>TCP/IP agrupa las 7 capas en 4 (se desarrolla en la sección del modelo TCP/IP). La idea potente de trabajar por capas: <b>cada capa se reemplaza sin tocar las demás</b>. Por eso pasar de cable a Wi-Fi cambia solo la capa de acceso a la red (802.3 por 802.11), mientras IP, TCP y las aplicaciones siguen igual.</p>
+
+<h2 id="s3">3. Elementos de una LAN</h2>
+<div class="grid">
+<div class="card"><h4>Servidores</h4>PC con características físicas especiales que ejecuta software especial para <b>ofrecer</b> recursos o servicios al resto de la red.</div>
+<div class="card"><h4>Clientes</h4>Cualquier dispositivo que <b>solicita</b> recursos o servicios: una PC, una impresora, un celular.</div>
+<div class="card"><h4>NIC (placa de red)</h4>Interfaz entre la PC y la red. <b>Ejecuta el protocolo de acceso al medio.</b></div>
+<div class="card"><h4>Medio de comunicación</h4>Cable (coaxil, par trenzado, fibra óptica) o aire (inalámbrico).</div>
+<div class="card"><h4>Dispositivos de interconexión</h4>Repetidor y hub (capa 1), puente y switch (capa 2), router (capa 3).</div>
+<div class="card"><h4>Software</h4>El que corre en el servidor para cumplir su función y el que corre en las estaciones (WS) para acceder a los servicios.</div>
+</div>
+<h3>La NIC en detalle</h3>
+<p>La placa trabaja hacia dos lados. Hacia adentro intercambia datos con el procesador y la RAM por el bus de la PC. Hacia afuera transmite y recibe en la velocidad y formato que exige el medio. Sus funciones:</p>
+<ul>
+<li>Convierte datos en señales eléctricas (o de luz, o radio) y viceversa.</li>
+<li>Determina si la trama recibida está dirigida a esta PC (compara la MAC destino con la propia).</li>
+<li>Controla el flujo de datos por el cable y ejecuta el acceso al medio.</li>
+</ul>
+<p>Se elige según la <b>arquitectura de la computadora</b> (PCI, PCIe, USB) y la <b>norma a implementar</b>. Ejemplos de la clase: placa PCI Gigabit 10/100/1000, adaptador USB a RJ45 de 1 Gb (1000BASE-T), adaptador USB inalámbrico 802.11ax.</p>
+<div class="box warn"><b>IRQ, puerto de E/S y dirección de memoria base</b>
+El slide pide "definir IRQ (3), I/O port (278-27F) y memoria base". Eran los recursos que había que configurar a mano en las placas viejas (ISA). Hoy los asigna el sistema automáticamente (Plug and Play). Si aparece en el parcial: son los tres parámetros de configuración de hardware de una NIC.</div>
+<h3>Características que debe tener el software de red</h3>
+<p>Dar recursos en forma <b>transparente</b> al usuario, proveer <b>niveles de seguridad</b>, ser <b>tolerante a fallas</b>, ser <b>independiente de la norma de comunicación</b> y <b>compatible con otros sistemas operativos</b>. De acá sale la frase de clase: los SO son independientes de las normas (Windows funciona igual sobre Ethernet que sobre Wi-Fi).</p>
+
+<h2 id="s4">4. Servidores: roles, hardware y software</h2>
+<p>Un servidor es un equipo que provee servicios, datos y recursos a muchos clientes. Lo que lo distingue de una PC común: <b>disponibilidad 24/7</b>, <b>tolerancia a fallos</b> (fuentes redundantes, discos en RAID) y <b>sistema operativo dedicado</b> (Windows Server, distribuciones Linux). Está siempre "a la escucha"; el cliente es el que inicia la comunicación.</p>
+<div class="scroll"><table>
+<tr><th>Servidor</th><th>Rol</th><th>Hardware que más pesa</th><th>Software típico</th></tr>
+<tr><td><b>Dominio</b></td><td>Autentica usuarios y aplica políticas de seguridad a toda la red</td><td>RAM media, RAID</td><td>Active Directory (Windows Server)</td></tr>
+<tr><td><b>DNS</b></td><td>Traduce nombres (utn.edu.ar) a direcciones IP</td><td>Poca demanda de cómputo</td><td>BIND9, DNS de Windows Server</td></tr>
+<tr><td><b>DHCP</b></td><td>Asigna automáticamente IP, máscara, puerta de enlace y DNS</td><td>Recursos mínimos</td><td>ISC Kea, DHCP de Windows Server</td></tr>
+<tr><td><b>Proxy</b></td><td>Intermediario entre clientes e Internet: caché, filtrado, auditoría</td><td>RAM y disco rápido (por la caché)</td><td>Squid</td></tr>
+<tr><td><b>Archivos</b></td><td>Almacenamiento centralizado con permisos y cuotas</td><td>Mucho disco en RAID</td><td>Samba, NFS, Windows Server</td></tr>
+<tr><td><b>Base de datos</b></td><td>Guarda y consulta datos estructurados con alto volumen de transacciones</td><td>Mucha RAM, SSD NVMe</td><td>MySQL, PostgreSQL, SQL Server</td></tr>
+<tr><td><b>FTP</b></td><td>Transferencia de archivos entre equipos y redes distintas</td><td>Disco y ancho de banda</td><td>vsftpd, ProFTPD</td></tr>
+<tr><td><b>Web</b></td><td>Entrega páginas y aplicaciones por HTTP/HTTPS</td><td>CPU y RAM según concurrencia</td><td>Apache, Nginx, IIS</td></tr>
+<tr><td><b>Mail</b></td><td>Envía (SMTP), recibe y guarda buzones (IMAP/POP3)</td><td>Disco para buzones</td><td>Postfix, Exchange</td></tr>
+<tr><td><b>Juego</b></td><td>Mantiene el estado de la partida sincronizado entre jugadores en tiempo real y valida las acciones (anti-trampas)</td><td>CPU de alta frecuencia por núcleo, baja latencia de red</td><td>Servidores de CS2, Valorant, Minecraft, FiveM</td></tr>
+</table></div>
+<p>En el servidor de juego aparecen dos conceptos propios: el <b>tick rate</b> (cuántas veces por segundo el servidor actualiza el estado del juego) y la <b>autoridad del servidor</b> (el servidor decide qué pasó de verdad, no el cliente, y por eso puede detectar trampas).</p>
+
+<h2 id="s5">5. Topologías</h2>
+<p>Hay que separar siempre dos cosas:</p>
+<ul>
+<li><b>Topología física:</b> lo tangible. Cómo están conectados los nodos con cables.</li>
+<li><b>Topología lógica:</b> cómo fluye la información por ese medio. <b>La determina el protocolo de acceso al medio</b>, que a su vez lo define la norma.</li>
+</ul>
+<h3>Físicas</h3>
+<div class="scroll"><table>
+<tr><th>Topología</th><th>Cómo es</th><th>Características</th></tr>
+<tr><td><b>Bus</b></td><td>Un solo cable (segmento) coaxil al que se conectan todas las PCs con conectores T; terminadores en las puntas. Ej.: 10BASE2, 10BASE5.</td><td>Baja confiabilidad: un corte tira toda la red. Difícil encontrar la falla (se buscaba por <b>búsqueda dicotómica</b>: partir el bus a la mitad y ver qué mitad anda). Para agregar un nodo hay que interrumpir la red. En desuso.</td></tr>
+<tr><td><b>Estrella</b></td><td>Todos los nodos van a un dispositivo central (hub o switch). Ej.: 10BASE-T en adelante.</td><td>Punto central de falla: el concentrador. Instalación más limpia. Fácil de expandir. Si se corta un cable cae solo ese nodo. Es la que se usa hoy.</td></tr>
+<tr><td><b>Anillo</b></td><td>Cada nodo se conecta a sus dos vecinos formando un círculo cerrado, sin terminadores.</td><td>La señal viaja en un solo sentido. Cada nodo es un repetidor que regenera la señal. Si un nodo se detiene puede caer toda la red.</td></tr>
+<tr><td><b>Híbrida</b></td><td>Combinación: bus-estrella, estrella-anillo.</td><td>Nace para superar límites de cantidad de estaciones, de alcance y de mantenimiento.</td></tr>
+</table></div>
+<h3>Lógicas</h3>
+<table>
+<tr><th>Lógica</th><th>La genera</th><th>Normas</th></tr>
+<tr><td><b>Bus o difusión</b></td><td>Protocolos de <b>contención</b>: lo que transmite uno lo ven todos los que comparten el medio</td><td>802.3 (CSMA/CD), 802.11 (CSMA/CA)</td></tr>
+<tr><td><b>Anillo o secuencial</b></td><td><b>Token passing</b>: la información pasa de estación en estación en orden</td><td>802.5 Token Ring, 802.4 Token Bus, FDDI</td></tr>
+</table>
+<div class="box ok"><b>Física y lógica pueden no coincidir (pregunta típica)</b>
+<ul>
+<li>Ethernet con hub o switch: <b>estrella física, bus lógico</b>.</li>
+<li>Token Ring con MSAU: <b>estrella física, anillo lógico</b>.</li>
+<li>Token Bus: <b>bus físico, anillo lógico</b>.</li>
+<li>Wi-Fi en infraestructura: estrella física (todos al AP), bus lógico.</li>
+</ul></div>
+<p><b>¿La topología lógica condiciona la física?</b> No la determina. La misma lógica (bus) funcionó sobre un bus coaxil y funciona sobre una estrella. La nota de clase lo resume así: la topología lógica viene dada por el protocolo de acceso al medio que define la norma; la norma también dice sobre qué topologías físicas puede montarse.</p>
+<div class="box warn"><b>La figura de "servidor dedicado" no es una estrella</b>
+El dibujo con el servidor en el centro y las PCs alrededor muestra una relación de dependencia (las PCs validan su ingreso contra el servidor). El slide aclara que <b>no representa una topología física estrella</b>: el centro de una estrella es un hub o switch, nunca un servidor.</div>
+
+<h2 id="s6">6. Protocolos de acceso al medio</h2>
+<p>Resuelven una sola pregunta: en un medio compartido, <b>quién puede transmitir y cuándo</b>. Viven en la capa 2 (subcapa MAC), los define la norma y los ejecuta la NIC. Hay tres familias.</p>
+<h3>Polling (sondeo)</h3>
+<p>Relación maestro-esclavo. El maestro interroga cíclicamente a cada esclavo para ver si tiene datos. Es <b>determinístico</b> (se sabe cuánto espera cada uno) pero tiene un punto débil evidente: <b>si cae el maestro no hay comunicación</b>.</p>
+<h3>Contención (contienda)</h3>
+<p>Nadie reparte turnos. Las estaciones compiten por el medio y pueden chocar. Es <b>probabilístico</b>: no se puede garantizar cuánto tarda una estación en transmitir.</p>
+<div class="scroll"><table>
+<tr><th>Protocolo</th><th>Cómo funciona</th><th>Dato clave</th></tr>
+<tr><td><b>Aloha puro</b></td><td>Transmite cuando tiene algo, sin escuchar antes y sin sincronización.</td><td>Muchísimas colisiones. Aprovecha como máximo ~18 % del canal.</td></tr>
+<tr><td><b>Aloha ranurado</b></td><td>El tiempo se divide en ranuras y solo se empieza a transmitir al inicio de una. Si dos tramas chocan, se solapan completas, no a medias.</td><td>Duplica el rendimiento (~37 %). Requiere sincronizar las estaciones.</td></tr>
+<tr><td><b>CSMA</b></td><td><b>CS</b> (Carrier Sense): escucha antes de hablar, <i>listen before talk</i>. <b>MA</b> (Multiple Access): muchas estaciones comparten el medio y transmite una por vez.</td><td>Baja las colisiones pero no las elimina: dos pueden escuchar libre al mismo tiempo.</td></tr>
+<tr><td><b>CSMA/CD</b></td><td>Agrega <b>CD</b> (Collision Detection): escucha también <b>mientras</b> transmite, <i>listen while talk</i>. Si detecta choque, aborta, espera un tiempo aleatorio (backoff) y reintenta.</td><td><b>IEEE 802.3 Ethernet</b>, medio cableado.</td></tr>
+<tr><td><b>CSMA/CA</b></td><td><b>CA</b> (Collision Avoidance): escucha, y aunque el canal esté libre <b>espera un tiempo al azar</b> antes de transmitir. El receptor confirma con <b>ACK</b>; si no llega, se retransmite.</td><td><b>IEEE 802.11 Wi-Fi</b>.</td></tr>
+</table></div>
+<h4>Variantes de persistencia de CSMA (qué hace si encuentra el canal ocupado)</h4>
+<ul>
+<li><b>1-persistente:</b> se queda escuchando y transmite apenas se libera (probabilidad 1). <b>Es la que usa Ethernet.</b></li>
+<li><b>p-persistente:</b> cuando se libera, transmite con probabilidad p (o espera con 1−p). Para medios ranurados.</li>
+<li><b>No persistente:</b> si está ocupado, no se queda escuchando; espera un tiempo aleatorio y recién ahí vuelve a sensar. Menos colisiones, más demora; el medio queda desocupado un rato tras cada transmisión.</li>
+</ul>
+<div class="box ok"><b>CD vs CA: por qué son distintos</b>
+En cable la placa puede transmitir y escuchar a la vez, así que <b>detecta</b> el choque y lo corrige después. Por aire no: mientras transmite, su propia señal tapa a todas las demás, así que no puede detectar nada. Como no puede detectar, <b>evita</b> (espera aleatoria antes de transmitir) y usa el ACK para saber si la trama llegó. Los 4 pasos de CSMA/CA: escuchar → esperar (backoff) → transmitir la trama completa → recibir ACK.</div>
+<h3>Token passing (pasaje de testigo)</h3>
+<p>Circula de NIC a NIC una trama especial, el <b>token</b>. Solo transmite quien lo tiene. <b>No hay colisiones</b> y el retardo máximo está acotado: es <b>determinístico</b>. Se implementa en Token Ring (802.5), Token Bus (802.4) y FDDI. Detalle en la sección siguiente.</p>
+<div class="box"><b>Contención vs token passing (era el objetivo de la clase 2)</b>
+Con poca carga la contención es más ágil: transmito apenas quiero. Con mucha carga las colisiones crecen y el rendimiento cae, mientras que el token mantiene un rendimiento estable y predecible. Ethernet ganó igual porque es simple y barato, y porque el switch full-duplex eliminó las colisiones.</div>
+
+<h2 id="s7">7. Token Ring, Token Bus y la MSAU</h2>
+<h3>IEEE 802.5 — Token Ring</h3>
+<ul>
+<li>Topología lógica en <b>anillo unidireccional</b>: la señal circula siempre en el mismo sentido.</li>
+<li>Cada estación es un <b>repetidor activo</b>: recibe, regenera y pasa al siguiente.</li>
+<li>Velocidades: <b>4 Mbps</b> y luego <b>16 Mbps</b>.</li>
+<li>Una estación cumple el rol de <b>Monitor Activo</b>: vigila que no se pierda el token y elimina tramas huérfanas que quedarían dando vueltas.</li>
+</ul>
+<h4>El token</h4>
+<p>Son <b>3 bytes</b>: <b>SD</b> (Starting Delimiter, marca el inicio con una violación del código Manchester), <b>AC</b> (Access Control: prioridad, <b>bit T</b> y reserva) y <b>ED</b> (Ending Delimiter). El <b>bit T</b> en 0 indica token libre; el emisor lo pone en 1 y eso convierte al token en el encabezado de una trama de datos.</p>
+<h4>Ciclo de transmisión</h4>
+<ol>
+<li><b>Captura:</b> la estación que quiere transmitir retiene el token libre.</li>
+<li><b>Inyección:</b> envía la trama con dirección destino y origen.</li>
+<li><b>Copia y acuse:</b> la trama recorre el anillo; el destino la copia y activa los bits <b>A</b> (dirección reconocida) y <b>C</b> (trama copiada) del campo Frame Status.</li>
+<li><b>Liberación:</b> la trama vuelve al emisor, que la retira del anillo y genera un token nuevo.</li>
+</ol>
+<p>El emisor sabe si la trama llegó mirando los bits A y C cuando vuelve: es una confirmación hecha por hardware.</p>
+<h3>El problema del anillo físico y la MSAU</h3>
+<p>En un anillo físico puro todo está en serie: una estación apagada o un cable cortado abre el anillo y cae toda la red, y agregar una terminal obliga a abrirlo. La solución fue cablear en <b>estrella física</b> hacia un concentrador, la <b>MSAU</b> (Multistation Access Unit; el clásico es el IBM 8228, de 8 puertos), que mantiene el <b>anillo cerrado por dentro</b>.</p>
+<ul>
+<li><b>Relés de bypass:</b> la placa encendida envía una tensión que activa el relé del puerto y la inserta en el anillo. Si la PC se apaga o se desconecta, el relé cae y el puerto queda puenteado: el anillo sigue cerrado sin esa estación.</li>
+<li><b>Puertos Ring-In (RI) y Ring-Out (RO):</b> permiten encadenar MSAUs. El RO de una va al RI de la siguiente y el último RO vuelve al primer RI, formando un anillo más grande.</li>
+<li><b>Autorrecuperación:</b> si se corta el troncal entre dos MSAUs, se cierra el lazo por el camino de respaldo. Esta idea inspiró los <b>anillos dobles contrarrotativos de FDDI</b>.</li>
+</ul>
+<h3>IEEE 802.4 — Token Bus</h3>
+<ul>
+<li><b>Bus físico</b> (coaxil) con <b>anillo lógico</b>: las estaciones se ordenan por dirección y se pasan el token en ese orden.</li>
+<li>Como el medio es un bus, la trama la reciben todas, pero solo actúa la estación a la que va dirigido el token.</li>
+<li>Nació para la industria (General Motors, protocolo MAP) donde hace falta tiempo real garantizado en líneas de producción.</li>
+<li>Contra: es complejo. Hay que mantener el anillo lógico cuando una estación entra, sale o se cae.</li>
+</ul>
+<div class="scroll"><table>
+<tr><th></th><th>802.5 Token Ring</th><th>802.4 Token Bus</th><th>802.3 Ethernet</th></tr>
+<tr><td>Topología física</td><td>Estrella (MSAU) / anillo</td><td>Bus coaxil</td><td>Bus / estrella</td></tr>
+<tr><td>Topología lógica</td><td>Anillo</td><td>Anillo</td><td>Bus (difusión)</td></tr>
+<tr><td>Acceso</td><td>Token passing</td><td>Token passing</td><td>CSMA/CD</td></tr>
+<tr><td>Comportamiento</td><td>Determinístico</td><td>Determinístico</td><td>Probabilístico</td></tr>
+<tr><td>Con alta carga</td><td>Estable</td><td>Predecible</td><td>Se degradaba por colisiones (con hubs)</td></tr>
+</table></div>
+
+<h2 id="snp">★ Norma de comunicación vs protocolo de comunicación</h2>
+<p>Es una de las distinciones que la profesora remarcó en clase y es fácil de confundir porque en el lenguaje de todos los días se dice "el protocolo Ethernet" o "la norma TCP/IP". En la cátedra son dos cosas distintas, y hay un tercer concepto en el medio (el protocolo de acceso al medio) que conviene ubicar bien.</p>
+
+<h3>Norma de comunicación</h3>
+<div class="box"><b>Definición</b>
+Es un <b>estándar</b> publicado por un organismo reconocido que especifica las <b>características físicas y de enlace</b> que deben cumplir los equipos y medios para poder comunicarse entre sí, sin importar el fabricante: el medio de transmisión, la velocidad, la codificación de la señal, los conectores, las distancias máximas, las topologías admitidas, el formato de la trama y el método de acceso al medio.</div>
+<ul>
+<li><b>Quién las emite:</b> organismos de estandarización. IEEE (familia 802), TIA/EIA (cableado), ANSI (FDDI), ISO, ITU.</li>
+<li><b>Dónde actúa:</b> capas <b>1 y 2</b> (física y enlace) del modelo OSI; en TCP/IP, la capa de acceso a la red.</li>
+<li><b>Quién la implementa:</b> el <b>hardware</b>: la placa de red, el cable, el switch, el access point. Cuando comprás una placa "Gigabit Ethernet" estás comprando hardware que cumple la norma 802.3ab.</li>
+<li><b>Para qué existe:</b> <b>interoperabilidad</b>. Una placa Realtek se entiende con un switch TP-Link porque los dos cumplen la misma norma.</li>
+</ul>
+<p><b>Qué fija una norma, tomando 802.3ab (Gigabit Ethernet) como ejemplo:</b></p>
+<table>
+<tr><th>Aspecto</th><th>Lo que dice 802.3ab</th></tr>
+<tr><td>Medio</td><td>UTP Cat 5e o superior, 4 pares</td></tr>
+<tr><td>Velocidad</td><td>1000 Mbps</td></tr>
+<tr><td>Distancia</td><td>100 m por segmento</td></tr>
+<tr><td>Codificación</td><td>PAM-5</td></tr>
+<tr><td>Conector</td><td>RJ-45</td></tr>
+<tr><td>Topología física</td><td>Estrella</td></tr>
+<tr><td>Acceso al medio</td><td>CSMA/CD (heredado de 802.3; en la práctica full-duplex)</td></tr>
+<tr><td>Trama</td><td>Formato Ethernet con MAC destino, MAC origen, datos y FCS</td></tr>
+</table>
+<p><b>Ejemplos de normas:</b> IEEE 802.3 (Ethernet) y sus variantes 802.3i, 802.3u, 802.3ab, 802.3an · IEEE 802.4 (Token Bus) · IEEE 802.5 (Token Ring) · IEEE 802.11 y sus versiones b/a/g/n/ac/ax · ANSI FDDI · TIA/EIA-568 (cableado).</p>
+
+<h3>Protocolo de comunicación</h3>
+<div class="box"><b>Definición</b>
+Es un <b>conjunto de reglas y convenciones</b> que gobiernan el intercambio de mensajes entre dos entidades pares (la misma capa en dos equipos distintos): qué formato tienen los mensajes, qué significa cada campo, en qué orden se envían, cómo se responde y qué hacer si algo falla.</div>
+<p>Todo protocolo tiene tres elementos (Stallings):</p>
+<ul>
+<li><b>Sintaxis:</b> el formato de los datos. Qué campos tiene el mensaje y de qué tamaño (por ejemplo, el encabezado IP con origen, destino, TTL).</li>
+<li><b>Semántica:</b> qué significa cada campo y qué acción provoca (un TTL en 0 implica descartar el paquete y avisar con ICMP).</li>
+<li><b>Temporización:</b> cuándo y a qué velocidad se envían los mensajes y en qué secuencia (el saludo de tres vías de TCP, los tiempos de espera antes de retransmitir).</li>
+</ul>
+<ul>
+<li><b>Dónde actúa:</b> principalmente en las capas <b>3 a 7</b> (red, transporte, aplicación).</li>
+<li><b>Quién lo implementa:</b> el <b>software</b>: el sistema operativo (la pila TCP/IP de Windows o Linux) y las aplicaciones (el navegador habla HTTP).</li>
+<li><b>Quién los define:</b> en el caso de TCP/IP, el IETF mediante documentos llamados RFC.</li>
+<li><b>Es independiente del medio:</b> IP, TCP y HTTP funcionan igual por cable, por Wi-Fi o por fibra.</li>
+</ul>
+<p><b>Ejemplos de protocolos:</b> IP e ICMP (capa de red) · TCP y UDP (transporte) · HTTP/HTTPS, DNS, DHCP, FTP, SMTP, POP3, IMAP, Telnet (aplicación) · ARP (resuelve IP → MAC, en el límite entre capa 2 y 3) · históricamente IPX/SPX de Novell y NetBEUI de Microsoft.</p>
+<p>Se habla de <b>suite</b> o <b>pila</b> de protocolos cuando varios trabajan juntos en capas: <b>TCP/IP</b> no es un protocolo único sino una familia.</p>
+
+<h3>Lado a lado</h3>
+<div class="scroll"><table>
+<tr><th></th><th>Norma de comunicación</th><th>Protocolo de comunicación</th></tr>
+<tr><td><b>Qué es</b></td><td>Estándar que especifica medio, velocidad, señal, conectores, trama y acceso al medio</td><td>Reglas de diálogo entre entidades pares: formato, significado y secuencia de los mensajes</td></tr>
+<tr><td><b>Capas</b></td><td>1 y 2 (física y enlace)</td><td>3 a 7 (red hacia arriba)</td></tr>
+<tr><td><b>Implementación</b></td><td>Hardware: NIC, cable, switch, AP</td><td>Software: sistema operativo y aplicaciones</td></tr>
+<tr><td><b>Organismos</b></td><td>IEEE, TIA/EIA, ANSI, ISO, ITU</td><td>IETF (RFC) en TCP/IP</td></tr>
+<tr><td><b>Determina</b></td><td>La velocidad, las distancias, la topología física y la lógica</td><td>Cómo se direccionan, encaminan, transportan e interpretan los datos</td></tr>
+<tr><td><b>Si lo cambio</b></td><td>Cambio placa, cable o switch</td><td>Cambio o configuro software</td></tr>
+<tr><td><b>Ejemplos</b></td><td>802.3, 802.3u, 802.3ab, 802.5, 802.11ax, FDDI</td><td>IP, TCP, UDP, HTTP, DNS, DHCP, ARP</td></tr>
+</table></div>
+
+<h3>¿Y el protocolo de acceso al medio?</h3>
+<p>Es el tercer concepto y explica por qué la profesora puso dos desigualdades en lugar de una:</p>
+<ul>
+<li>El <b>protocolo de acceso al medio</b> (CSMA/CD, CSMA/CA, token passing, polling) es un protocolo en el sentido de que son reglas, pero <b>no es un protocolo de comunicación</b>: no define cómo se direccionan ni se interpretan los datos, solo <b>quién usa el medio y cuándo</b>.</li>
+<li><b>Vive dentro de la norma</b>: 802.3 incluye CSMA/CD; 802.11 incluye CSMA/CA; 802.5 incluye token passing. Por eso se dice que lo <b>define la norma</b> y lo <b>ejecuta la NIC</b>.</li>
+<li>Y como determina la topología lógica, la cadena completa es: <b>norma → protocolo de acceso al medio → topología lógica</b>.</li>
+</ul>
+<pre>Capa 7 │ HTTP, DNS, DHCP, FTP      ┐
+Capa 4 │ TCP, UDP                  ├─ PROTOCOLOS DE COMUNICACIÓN (software, SO)
+Capa 3 │ IP, ICMP                  ┘
+───────┼──────────────────────────────────────────────────────────
+Capa 2 │ trama + CSMA/CD o CSMA/CA ┐  NORMA DE COMUNICACIÓN (hardware, NIC)
+Capa 1 │ cable, señal, conector    ┘  ← el acceso al medio está acá adentro</pre>
+
+<h3>Cómo se ve en tu propia PC</h3>
+<p>Un mismo <code>ipconfig /all</code> muestra las dos cosas:</p>
+<table>
+<tr><th>Línea del ipconfig</th><th>Qué revela</th></tr>
+<tr><td>Descripción: Realtek Gaming GbE Family Controller</td><td><b>Norma</b>: 802.3ab (Gigabit Ethernet)</td></tr>
+<tr><td>Descripción: MediaTek Wi-Fi 6E MT7922</td><td><b>Norma</b>: 802.11ax</td></tr>
+<tr><td>Dirección IPv4, máscara, puerta de enlace</td><td><b>Protocolo</b>: IP</td></tr>
+<tr><td>DHCP habilitado, servidor DHCP, concesión</td><td><b>Protocolo</b>: DHCP</td></tr>
+<tr><td>Servidores DNS</td><td><b>Protocolo</b>: DNS</td></tr>
+</table>
+<p>Si desenchufás el cable y te pasás a Wi-Fi, <b>cambia la norma</b> (802.3 → 802.11) y con ella el acceso al medio (CD → CA), pero <b>los protocolos siguen siendo los mismos</b>: sigue habiendo IP, DHCP y DNS. Esa es la prueba práctica de que son capas independientes, y de por qué la cátedra dice que los sistemas operativos son independientes de las normas: la pila TCP/IP del SO corre igual sobre cualquier norma.</p>
+
+<div class="box ok"><b>Analogía para fijarlo</b>
+Pensá en una llamada telefónica. La <b>norma</b> es todo lo que hace que la llamada pueda existir: el tipo de línea, el aparato, la red, el conector de la pared. El <b>protocolo</b> es cómo se desarrolla la conversación: decir "hola", identificarse, hablar por turnos, confirmar que el otro entendió y despedirse. Podés cambiar el teléfono fijo por un celular (otra norma) y la conversación sigue las mismas reglas (mismo protocolo). El <b>acceso al medio</b> sería la regla de quién habla cuando hay varios en la misma línea: es parte de cómo funciona la línea, no de la conversación.</div>
+
+<div class="box warn"><b>Trampas de examen</b>
+<ul>
+<li>"TCP/IP es una norma de comunicación" → <b>falso</b> en el marco de la cátedra: es una suite de protocolos.</li>
+<li>"IEEE 802.3 es un protocolo de comunicación" → <b>falso</b>: es una norma. Coloquialmente se dice "protocolo Ethernet", pero en el parcial es norma.</li>
+<li>"CSMA/CD es un protocolo de comunicación" → <b>falso</b>: es un protocolo de acceso al medio, definido dentro de la norma 802.3.</li>
+<li>"La velocidad de la LAN la determina el protocolo TCP/IP" → <b>falso</b>: la determina la norma.</li>
+<li>"Para pasar de cable a Wi-Fi hay que cambiar de protocolo de comunicación" → <b>falso</b>: se cambia de norma; IP y TCP siguen igual.</li>
+<li>"La norma de comunicación es independiente del sistema operativo" → <b>verdadero</b>.</li>
+</ul></div>
+
+<h2 id="s8">8. IEEE 802.3 Ethernet: la norma, la trama y las variantes clásicas</h2>
+<table>
+<tr><th>Norma</th><th>Qué es</th><th>Acceso al medio</th></tr>
+<tr><td>IEEE 802.3</td><td>Ethernet</td><td>CSMA/CD</td></tr>
+<tr><td>IEEE 802.4</td><td>Token Bus</td><td>Token passing</td></tr>
+<tr><td>IEEE 802.5</td><td>Token Ring</td><td>Token passing</td></tr>
+<tr><td>IEEE 802.11</td><td>Redes inalámbricas (Wi-Fi)</td><td>CSMA/CA</td></tr>
+</table>
+<h3>Qué es Ethernet según la cátedra</h3>
+<ul>
+<li>La desarrollaron <b>Digital (DEC), Intel y Xerox</b> (por eso "DIX") y luego se tomó como base de la norma <b>IEEE 802.3</b>.</li>
+<li>Es la norma de <b>mayor aceptación</b> del mercado por su costo, puesta en marcha y mantenimiento.</li>
+<li><b>No es buena para ambientes de alta carga.</b></li>
+<li><b>Topología lógica:</b> bus, con acceso CSMA/CD. <b>Topología física:</b> bus o estrella.</li>
+<li><b>Velocidades:</b> Standard Ethernet 10 Mbps · Fast Ethernet 100 Mbps · Gigabit Ethernet 1 Gbps.</li>
+</ul>
+<div class="box"><b>CSMA/CD en tres palabras</b>
+<b>CS</b> Carrier Sense: detectar canal libre antes de transmitir (<i>listen before talk</i>). <b>MA</b> Multiple Access: muchas estaciones usan el medio, una transmite por vez. <b>CD</b> Collision Detection: si se produce una colisión hay que detectarla para abortar la transmisión (<i>listen while talk</i>).</div>
+
+<h3>Formato de la trama 802.3</h3>
+<div class="bar"><div style="background:#7a8aa0;flex:7">Preámbulo<br>7 B</div><div style="background:#5b6675;flex:2">SD<br>1</div><div style="background:#c0392b;flex:6">MAC destino<br>6 B</div><div style="background:#b7950b;flex:6">MAC origen<br>6 B</div><div style="background:#17a2a0;flex:3">Long.<br>2 B</div><div style="background:#1f5fbf;flex:18">Datos (+ padding)<br>46 a 1500 B</div><div style="background:#5e8f1f;flex:4">FCS<br>4 B</div></div>
+<div class="scroll"><table>
+<tr><th>Campo</th><th>Tamaño</th><th>Para qué</th></tr>
+<tr><td><b>Preamble</b> (preámbulo)</td><td>7 bytes</td><td>Sincronización entre emisor y receptor</td></tr>
+<tr><td><b>SD</b> (Start Delimiter / SFD)</td><td>1 byte</td><td>Indica el principio de la trama</td></tr>
+<tr><td><b>DA</b> — dirección destino</td><td>6 bytes</td><td>MAC destino</td></tr>
+<tr><td><b>SA</b> — dirección origen</td><td>6 bytes</td><td>MAC origen</td></tr>
+<tr><td><b>Length / Type</b></td><td>2 bytes</td><td>En una trama <b>802.3</b> indica la <b>longitud</b> del campo de datos. En una trama <b>Ethernet II</b> indica el <b>tipo de protocolo</b> que transporta (por ejemplo IP)</td></tr>
+<tr><td><b>Data</b></td><td>0 a 1500 bytes</td><td>Los datos (el paquete de capa 3)</td></tr>
+<tr><td><b>Padding</b> (relleno)</td><td>variable</td><td>Se agrega cuando los datos son <b>menos de 46 bytes</b>, para llegar al mínimo</td></tr>
+<tr><td><b>FCS</b></td><td>4 bytes</td><td>Chequeo de errores (CRC)</td></tr>
+</table></div>
+<p><b>Tamaño mínimo de la trama: 64 bytes</b> (de MAC destino a FCS: 6 + 6 + 2 + 46 + 4). Por eso el padding: si los datos no llegan a 46 bytes, se rellenan. El máximo es 1518 bytes (con 1500 de datos). El mínimo existe para que la trama dure lo suficiente como para que CSMA/CD alcance a detectar una colisión mientras se está transmitiendo.</p>
+<p><b>La trama 802.3 con encabezado LLC</b> (la imagen del aula virtual): dentro del campo de datos de una trama 802.3 viaja el encabezado de la subcapa LLC: <b>DSAP</b> (1 byte, punto de acceso al servicio destino), <b>SSAP</b> (1 byte, origen) y <b>Control</b> (1 byte). Por eso a los datos "útiles" les quedan entre <b>43 y 1497 bytes</b>. Acá se ven en la práctica los <b>SAP</b> del modelo OSI: indican a qué protocolo de la capa de arriba se entregan los datos.</p>
+<pre>| MAC dest 6 | MAC orig 6 | Long 2 | DSAP 1 | SSAP 1 | Control 1 | Datos 43–1497 | FCS 4 |
+  └────── encabezado MAC ───────┘   └────────── LLC ───────────┘</pre>
+
+<h3>Cómo se lee un nombre como 10BASE-T</h3>
+<p>La cátedra lo define como <b>&lt;velocidad de transmisión&gt;&lt;método de señalización&gt;&lt;longitud máxima del segmento&gt;</b>. En las variantes de coaxil el último número son los cientos de metros; desde el par trenzado pasó a ser una letra que indica el medio.</p>
+<div class="grid">
+<div class="card"><h4>10 → velocidad</h4>En Mbps. 10, 100, 1000 (1 Gbps), 10G (10 Gbps).</div>
+<div class="card"><h4>BASE → señalización</h4><b>Baseband</b> (banda base): la señal digital ocupa todo el canal, una sola comunicación por vez. Lo opuesto es <b>BROAD</b> (broadband, banda ancha): varias señales analógicas en frecuencias distintas.</div>
+<div class="card"><h4>T, 2, 5, FL → medio / longitud</h4>En coaxil, centenas de metros del segmento (5 = 500 m, 2 ≈ 200 m). En los demás, la letra del medio.</div>
+</div>
+<table>
+<tr><th>Sufijo</th><th>Medio</th><th>Distancia máx. del segmento</th></tr>
+<tr><td><b>5</b></td><td>Coaxil grueso (10BASE5)</td><td>500 m</td></tr>
+<tr><td><b>2</b></td><td>Coaxil fino (10BASE2)</td><td><b>185 m</b> (el "2" viene de redondear a 200)</td></tr>
+<tr><td><b>T</b></td><td>Par trenzado (Twisted pair)</td><td>100 m</td></tr>
+<tr><td><b>TX</b></td><td>Par trenzado, 2 pares (100BASE-TX)</td><td>100 m</td></tr>
+<tr><td><b>F</b> / <b>FL</b> / <b>FX</b></td><td>Fibra / Fiber Link (multimodo)</td><td>~2 km en 10BASE-FL; 400 m (half) o 2 km (full) en 100BASE-FX</td></tr>
+<tr><td><b>SX</b></td><td>Fibra, longitud de onda corta (multimodo)</td><td>cientos de metros</td></tr>
+<tr><td><b>LX</b></td><td>Fibra, longitud de onda larga (monomodo, también multimodo)</td><td>kilómetros</td></tr>
+<tr><td><b>CX</b></td><td>Cobre blindado corto</td><td>25 m</td></tr>
+</table>
+<div class="box warn"><b>185, no 200</b>
+En clase se anota 10BASE2 = 200 m. El valor exacto (también en el apunte oficial de 802.3) es <b>185 m</b>. Si en una opción aparecen los dos, 185 es el correcto.</div>
+
+<h3>Las variantes clásicas de 10 Mbps en detalle</h3>
+<p>Cada NIC trae el conector de su variante: <b>BNC</b> para 10BASE2, <b>RJ-45</b> para 10BASE-T y <b>DIX (DB-15, AUI)</b> para 10BASE5. Hubo placas <b>combo</b> con los tres.</p>
+<div class="scroll"><table>
+<tr><th></th><th>10BASE5 (coaxil grueso)</th><th>10BASE2 (coaxil fino)</th><th>10BASE-T (UTP)</th></tr>
+<tr><td>Topología física</td><td>Bus</td><td>Bus</td><td>Estrella (hub)</td></tr>
+<tr><td>Long. máx. del segmento</td><td><b>500 m</b></td><td><b>185 m</b></td><td><b>100 m</b> del hub al transceiver</td></tr>
+<tr><td>Conectores</td><td>DIX (DB-15)</td><td>BNC y conectores T, terminadores en las puntas</td><td>RJ-45 en cada extremo</td></tr>
+<tr><td>Transceiver</td><td><b>Externo</b>, se conecta al cable con <b>llaves vampiro</b></td><td>Incluido en la placa</td><td>Incluido en la placa</td></tr>
+<tr><td>Cable PC → transceiver</td><td>Hasta 50 m</td><td>—</td><td>—</td></tr>
+<tr><td>Distancia mínima entre transceivers</td><td>2,5 m</td><td>(0,5 m entre conectores T)</td><td>—</td></tr>
+<tr><td>Segmentos máximos</td><td>5</td><td>5</td><td>—</td></tr>
+<tr><td>PCs por segmento</td><td>100</td><td>30</td><td>1 por puerto del hub</td></tr>
+<tr><td>Segmentos poblados</td><td>3</td><td>3</td><td>—</td></tr>
+<tr><td>Longitud total de la red</td><td><b>2500 m</b> (5 × 500)</td><td><b>925 m</b> (5 × 185)</td><td>—</td></tr>
+<tr><td>Cable</td><td>Coaxil grueso</td><td>Coaxil fino (RG-58)</td><td>UTP Categoría 3, 4 o 5</td></tr>
+<tr><td>Backbone entre hubs</td><td>—</td><td>—</td><td>Coaxil o fibra óptica</td></tr>
+<tr><td>Total de computadoras</td><td colspan="3" style="text-align:center"><b>1024 por especificación</b></td></tr>
+</table></div>
+<p><b>10BASE-FL</b> (fibra): el medio más confiable, usa luz; caro y de instalación compleja, pero con gran ancho de banda, distancias mayores y sin interferencias eléctricas.</p>
+
+<h3>Regla de los segmentos: 5-4-3</h3>
+<p>Entre <b>dos PCs cualesquiera</b> de una red Ethernet de 10 Mbps no puede haber más de:</p>
+<div class="grid">
+<div class="card"><h4>5 segmentos</h4>en serie</div>
+<div class="card"><h4>4 repetidores</h4>(o hubs) entre ellos</div>
+<div class="card"><h4>3 segmentos poblados</h4>con PCs conectadas. Los otros 2 son no poblados: solo unen repetidores</div>
+</div>
+<p><b>Por qué existe:</b> todo lo unido por repetidores y hubs es <b>un único dominio de colisión</b>. Si la red es demasiado larga, una estación puede terminar de transmitir su trama antes de que le llegue la señal de una colisión ocurrida en la otra punta, y entonces CSMA/CD falla. La regla 5-4-3 acota el retardo de propagación. Con switches la regla deja de aplicar, porque cada puerto es un dominio de colisión aparte.</p>
+
+<h3>Ventajas y desventajas de Ethernet (según la cátedra)</h3>
+<table>
+<tr><th>Ventajas</th><th>Desventajas</th></tr>
+<tr><td>Relativamente barata<br>Soporta una importante variedad de cableado<br>Fácil de instalar</td><td><b>Mala en alta carga</b>: alto nivel de colisiones<br><b>No maneja prioridades ni reserva</b><br>Usa un protocolo de acceso <b>no determinístico</b>, por lo que <b>no es buena para tiempo real</b></td></tr>
+</table>
+<p>Compará con Token Ring (sección 7): justamente lo que a Ethernet le falta (prioridades, reserva, determinismo) es lo que el token passing tiene.</p>
+
+<h2 id="s9">9. Evolución de Ethernet sobre par trenzado</h2>
+<p>Ethernet nació de Xerox, DEC e Intel (DIX) y sirvió de base para IEEE 802.3. Opera en <b>capa 1</b> (señales eléctricas o de luz) y <b>capa 2</b> (tramas con MAC origen y destino). Es la norma más adoptada por costo, facilidad de instalación y mantenimiento.</p>
+<div class="scroll"><table>
+<tr><th></th><th>Ethernet</th><th>Fast Ethernet</th><th>Gigabit Ethernet</th><th>10 Gigabit Ethernet</th></tr>
+<tr><td><b>Nombre</b></td><td>10BASE-T</td><td>100BASE-TX</td><td>1000BASE-T</td><td>10GBASE-T</td></tr>
+<tr><td><b>Estándar</b></td><td>802.3i (1990)</td><td>802.3u (1995)</td><td>802.3ab (1999)</td><td>802.3an (2006)</td></tr>
+<tr><td><b>Velocidad</b></td><td>10 Mbps</td><td>100 Mbps</td><td>1 Gbps</td><td>10 Gbps</td></tr>
+<tr><td><b>Cable mínimo</b></td><td>Cat 3 (16 MHz)</td><td>Cat 5 (100 MHz)</td><td>Cat 5e (100 MHz)</td><td>Cat 6A (500 MHz) para 100 m; Cat 6 solo hasta ~55 m</td></tr>
+<tr><td><b>Pares usados</b></td><td>2 (uno transmite, otro recibe)</td><td>2 (uno transmite, otro recibe)</td><td>4, cada uno en ambos sentidos a la vez</td><td>4, cada uno en ambos sentidos a la vez</td></tr>
+<tr><td><b>Codificación</b></td><td>Manchester</td><td>4B/5B + MLT-3</td><td>PAM-5 con código Trellis</td><td>PAM-16 con 64B/65B</td></tr>
+<tr><td><b>CSMA/CD</b></td><td>Sí (half) / no en full</td><td>Sí (half) / no en full</td><td>Definido en teoría; en la práctica siempre full-duplex</td><td>No existe: solo full-duplex</td></tr>
+<tr><td><b>Novedad</b></td><td>Reemplaza el coaxil en bus por estrella sobre UTP</td><td>Auto-negociación con 10BASE-T; impulsa los switches full-duplex</td><td>DSP que cancela eco y diafonía para usar los 4 pares en los dos sentidos</td><td>Muy sensible a la diafonía entre cables vecinos (Alien Crosstalk); mayor consumo y calor</td></tr>
+</table></div>
+<p>La idea que une todo: la velocidad se multiplicó por 1000 en 16 años <b>sin salir del par trenzado ni del límite de 100 m</b>. Se logró usando más pares, usándolos en los dos sentidos a la vez y metiendo más bits por símbolo (más niveles de señal), lo que exige cables de mejor categoría porque los niveles quedan más juntos y el ruido molesta más.</p>
+<div class="box warn"><b>Dos detalles del cuadro comparativo de clase</b>
+En el cuadro figura "8B/10B" para Gigabit y "64B/66B" para 10G. Esas codificaciones corresponden a las variantes de <b>fibra</b> (1000BASE-X y 10GBASE-R). Sobre cobre son las de la tabla de arriba: PAM-5 con Trellis en 1000BASE-T y PAM-16 con 64B/65B en 10GBASE-T. Si el parcial usa el cuadro de clase, reconocé esas opciones como las "de clase".</div>
+
+<h3>IEEE 802.3u — Fast Ethernet en detalle</h3>
+<ul>
+<li>Lanzada en <b>1995</b> para aumentar la velocidad de Ethernet a <b>100 Mbps</b>.</li>
+<li>Diseñada sobre <b>par trenzado y fibra óptica</b>. <b>No soporta coaxil.</b></li>
+<li><b>Topología lógica:</b> bus, con CSMA/CD. <b>Topología física:</b> estrella.</li>
+<li><b>Auto-negociación:</b> dispositivos 10BASE-T y 100BASE-T se reconocen entre sí y pasan automáticamente a una velocidad que ambos aceptan.</li>
+<li><b>Compatible</b> con cualquier Ethernet: las placas se ajustan a la velocidad del adaptador más lento (a costa de velocidad). Se instala casi sin cambiar la infraestructura y fue la solución más adoptada hasta que la superó Gigabit.</li>
+</ul>
+<div class="scroll"><table>
+<tr><th>Variante</th><th>Medio</th><th>Conector</th><th>Distancia</th><th>Modo</th><th>Codificación</th></tr>
+<tr><td colspan="6"><b>Cobre</b></td></tr>
+<tr><td><b>100BASE-TX</b></td><td>2 pares de UTP Cat 5 (o superior) o STP tipo 1. Un par transmite, el otro recibe</td><td>RJ-45</td><td>100 m</td><td>Half (hub) o full (switch)</td><td>4B/5B con MLT-3 (señal de 3 niveles de voltaje), compatible con FDDI</td></tr>
+<tr><td><b>100BASE-T4</b></td><td>4 pares de UTP Cat 3 o superior (cable telefónico de baja calidad, para aprovechar instalaciones existentes). Un par transmite siempre hacia el hub, otro en sentido contrario, y los otros dos conmutan de sentido</td><td>RJ-45</td><td>100 m</td><td><b>Solo half</b> (hub)</td><td>8B/6T</td></tr>
+<tr><td><b>100BASE-T2</b></td><td>2 pares de UTP Cat 3 o superior</td><td>RJ-45</td><td>100 m</td><td>Half (hub)</td><td>(ver nota)</td></tr>
+<tr><td colspan="6"><b>Fibra óptica</b></td></tr>
+<tr><td><b>100BASE-FX</b></td><td>2 fibras multimodo 62,5/125 µm (una transmite, otra recibe). Luz normal (LED)</td><td>SC</td><td><b>400 m half / 2 km full</b></td><td>Estrella; no admite hubs</td><td>4B/5B a NRZI (tecnología de FDDI)</td></tr>
+<tr><td><b>100BASE-SX</b></td><td>Fibra multimodo, láser de longitud de onda corta</td><td>SC o ST</td><td>300 m</td><td>Full</td><td>4B/5B</td></tr>
+<tr><td><b>100BASE-BX</b></td><td>Una sola fibra para los dos sentidos</td><td>SC</td><td>(ver nota)</td><td>Full</td><td>4B/5B</td></tr>
+</table></div>
+<div class="box warn"><b>Datos del apunte de Fast Ethernet a tomar con cuidado</b>
+El apunte indica para 100BASE-SX "fibra 50/125 µm (monomodo)": la fibra de 50/125 µm es <b>multimodo</b> (la monomodo tiene núcleo de ~9 µm). Para 100BASE-T2 pone codificación 4B/5B; la norma usa PAM5x5. Para 100BASE-BX indica 300 m; la norma real usa fibra monomodo y llega a 10 km. En un examen de la cátedra, si la pregunta sale textual del apunte, respondé con el apunte; si no, con el dato real.</div>
+<h4>Full duplex en Fast Ethernet</h4>
+<ul>
+<li>Permite comunicación bidireccional simultánea: <b>100 Mbps en cada sentido, hasta 200 Mbps de ancho de banda total</b>.</li>
+<li>Se logra <b>desactivando la detección de colisiones</b>.</li>
+<li><b>Solo los switches</b> pueden ofrecer full duplex a las estaciones y servidores conectados.</li>
+<li>Con fibra en full duplex, la distancia entre dos equipos terminales (ETD) llega a <b>2 km</b>.</li>
+<li><b>Half duplex</b>, en cambio, permite una sola dirección a la vez y necesita detectar colisiones: transmite un solo dispositivo por vez.</li>
+</ul>
+<h4>El switch en una red Fast Ethernet</h4>
+<ul>
+<li>Adapta cada puerto a 10 o 100 Mbps según el dispositivo conectado.</li>
+<li>Cada puerto forma parte de un dominio de colisión distinto.</li>
+<li>Tiene un <b>buffer</b> para repartir los paquetes que entran a los puertos que corresponde.</li>
+<li>Puede aprender 1024 o 2048 direcciones MAC por puerto.</li>
+<li>Permite configurar <b>VLAN</b>.</li>
+</ul>
+
+<h3>Gigabit y 10 Gigabit: qué cambia en cada capa</h3>
+<div class="scroll"><table>
+<tr><th></th><th>Fast 100M</th><th>Gigabit 1G</th><th>10 Gigabit 10G</th></tr>
+<tr><td>Norma</td><td>802.3u</td><td>802.3ab</td><td>802.3an</td></tr>
+<tr><td>Cable</td><td>Cat 5</td><td>Cat 5e / 6</td><td>Cat 6A / 7, o fibra (10GBASE-SR multimodo, 10GBASE-LR monomodo)</td></tr>
+<tr><td>Pares activos</td><td>2 (TX + RX)</td><td>4 bidireccionales</td><td>4 bidireccionales</td></tr>
+<tr><td>Codificación (capa 1)</td><td>4B/5B + MLT-3</td><td>PAM-5: 5 niveles de voltaje, 2 bits por símbolo</td><td>PAM-16: 16 niveles, más bits por símbolo, con corrección de errores (FEC)</td></tr>
+<tr><td>Frecuencia de señal</td><td>31,25 MHz</td><td>62,5 MHz</td><td>~400–500 MHz (problema de Alien Crosstalk)</td></tr>
+<tr><td>CSMA/CD</td><td>Sí, en half duplex</td><td>Residual (full duplex dominante)</td><td><b>Eliminado</b>: solo full duplex</td></tr>
+<tr><td>Trama y MAC (capa 2)</td><td colspan="3" style="text-align:center"><b>Sin cambios</b>: misma trama, MAC de 48 bits, MTU 1500 bytes</td></tr>
+<tr><td>Equipos</td><td>Switch o hub, NIC 100M</td><td>Switches Gigabit (L2/L3), NIC con DSP</td><td>Switches y NIC 10G, transceptores SFP+ para fibra</td></tr>
+</table></div>
+<div class="box ok"><b>La conclusión que hay que llevarse</b>
+De Fast Ethernet a 10 Gigabit, <b>la capa 2 casi no cambia</b>: la trama y la MAC son el mismo "sobre". <b>Toda la evolución está en la capa 1</b>: más pares activos, uso bidireccional, más niveles de voltaje y mejor cable. Wi-Fi, en cambio, cambia <b>las dos capas</b>: la 1 (aire, RF) y la 2 (CSMA/CA, otra trama, encriptación).</div>
+<h3>Half-duplex y full-duplex</h3>
+<ul>
+<li><b>Half-duplex:</b> se transmite o se recibe, no las dos cosas a la vez. Es el modo obligado con hubs (medio compartido) y necesita CSMA/CD.</li>
+<li><b>Full-duplex:</b> se transmite y recibe simultáneamente. Requiere un enlace punto a punto dedicado (PC–switch). Como no hay con quién chocar, <b>CSMA/CD no actúa</b>.</li>
+</ul>
+<p>Por eso "Ethernet clásico" es bus lógico compartido con CSMA/CD, y "Ethernet moderno" es punto a punto full-duplex conmutado. La norma 802.3 sigue definiendo CSMA/CD aunque en una red con switches ya no se use.</p>
+
+<h2 id="s10">10. Redes inalámbricas — IEEE 802.11</h2>
+<p>Son redes cuyo <b>medio de transmisión es el aire</b>. Usan ondas electromagnéticas: <b>radiofrecuencia</b> o <b>luz infrarroja</b> en banda base (sin modular). Su principal ventaja es la <b>movilidad</b>.</p>
+
+<h3>Topologías básicas de una WLAN</h3>
+<div class="grid">
+<div class="card"><h4>Ad hoc</h4>Cada nodo se comunica <b>peer to peer</b> con los otros, <b>sin pasar por un access point</b>. Cada nodo es emisor y receptor. Para pocos equipos y redes temporales.</div>
+<div class="card"><h4>Infraestructura</h4>Un <b>access point (AP)</b> hace de nodo central y enlaza al resto; su función es similar a la de un hub o switch. Concentra las señales de los usuarios y se conecta, generalmente por cable de cobre, a la red cableada existente (Ethernet). Es el modo de casas, oficinas y la facultad.</div>
+</div>
+<p><b>Elementos de una WLAN:</b> <b>tarjetas de red inalámbricas</b> (envían y reciben; su velocidad depende de los estándares que cumplan) y <b>puntos de acceso</b> (reciben la información de las distintas tarjetas). También: routers Wi-Fi (AP + router en un solo equipo, el gateway de una casa), controladores WLAN, antenas y amplificadores.</p>
+
+<h3>Modos de funcionamiento de un AP</h3>
+<table>
+<tr><th>Modo</th><th>Qué hace</th></tr>
+<tr><td><b>AP o infraestructura</b></td><td>El más habitual, el de los routers Wi-Fi. Crea una red Wi-Fi en su zona de cobertura. Agregando APs se amplía la capacidad de la red.</td></tr>
+<tr><td><b>WDS</b> (Wireless Distribution System)</td><td>Conexión inalámbrica directa entre dos APs: un <b>puente inalámbrico</b> para unir dos redes separadas. No está en el estándar Wi-Fi, así que puede fallar entre APs de distinto fabricante.</td></tr>
+<tr><td><b>WDS con AP</b></td><td>Mezcla de los dos: hace de puente con otro AP y a la vez da red Wi-Fi a clientes. Poco usado por rendimiento.</td></tr>
+<tr><td><b>Repetidor</b> (range extender)</td><td>Amplía la cobertura de la red Wi-Fi existente (por ejemplo, la del router del proveedor).</td></tr>
+<tr><td><b>Cliente inalámbrico</b></td><td>El AP se comporta como un cliente Wi-Fi. Sirve para hacer puentes con APs de otro fabricante.</td></tr>
+</table>
+
+<h3>Tipos de antenas</h3>
+<table>
+<tr><th>Antena</th><th>Cobertura</th><th>Alcance</th><th>Uso</th></tr>
+<tr><td><b>Direccional</b></td><td>Concentra la señal en un sentido</td><td>Mayor</td><td>Enlaces punto a punto</td></tr>
+<tr><td><b>Omnidireccional</b></td><td>360°</td><td>Menor</td><td>Oficinas abiertas, pasillos, salas, exteriores</td></tr>
+<tr><td><b>Sectorial</b></td><td>Haz más amplio que la direccional y menos que la omni</td><td>Intermedio</td><td>Mezcla de las dos; suele ser la más cara</td></tr>
+</table>
+
+<h3>Estándares IEEE 802.11</h3>
+<div class="scroll"><table>
+<tr><th>Norma</th><th>Año</th><th>Nombre comercial</th><th>Banda</th><th>Velocidad máx. teórica</th><th>Modulación</th><th>Notas</th></tr>
+<tr><td>802.11b</td><td>1999</td><td>—</td><td>2,4 GHz</td><td>11 Mbps</td><td>DSSS</td><td>Barato, buen alcance, poca obstrucción. Lento, pocos usuarios, sensible a microondas y teléfonos inalámbricos</td></tr>
+<tr><td>802.11a</td><td>1999</td><td>—</td><td>5 GHz</td><td>54 Mbps</td><td>OFDM</td><td>Creado a la par del b. Más rápido, más usuarios, menos interferencia. Más caro, menor alcance, más sensible a obstáculos</td></tr>
+<tr><td>802.11g</td><td>2003</td><td>—</td><td>2,4 GHz</td><td>54 Mbps</td><td>OFDM</td><td>Compatible con 802.11b. Sensible a la interferencia de su banda</td></tr>
+<tr><td>802.11n</td><td>2009</td><td>Wi-Fi 4</td><td>2,4 y 5 GHz</td><td>600 Mbps</td><td>OFDM + MIMO</td><td>Compatible con a/b/g. Duplica el alcance con varias antenas (<b>MIMO</b>: múltiples transmisores y receptores)</td></tr>
+<tr><td>802.11ac</td><td>2013</td><td>Wi-Fi 5</td><td>5 GHz</td><td>6,9 Gbps</td><td>OFDM, QAM-256</td><td>El aula virtual aclara (fe de erratas) que transmite en <b>5 GHz</b></td></tr>
+<tr><td>802.11ax</td><td>2021</td><td>Wi-Fi 6 / 6E</td><td>2,4, 5 y 6 GHz (6 GHz solo 6E)</td><td>9,6 Gbps</td><td>OFDMA, QAM-1024</td><td>Más eficiente con muchos dispositivos</td></tr>
+</table></div>
+<ul>
+<li><b>OFDM</b> (Orthogonal Frequency-Division Multiplexing): divide la señal de radio en muchas sub-señales que se transmiten <b>simultáneamente en distintas frecuencias</b>. Permite mucho caudal y reduce la diafonía.</li>
+<li><b>DSSS</b> (Direct Sequence Spread Spectrum) y <b>FHSS</b> (Frequency Hopping Spread Spectrum): técnicas de espectro ensanchado de las primeras normas. <b>No interoperan entre sí.</b></li>
+<li>La <b>Wi-Fi Alliance</b> es la organización que <b>certifica la interoperabilidad</b> de los productos 802.11. "Wi-Fi" es una marca suya; la norma es de la IEEE.</li>
+<li>2,4 GHz llega más lejos y atraviesa mejor las paredes, pero es más lenta y está más saturada; 5 y 6 GHz son más rápidas y con menos alcance. Las velocidades reales siempre son bastante menores que las teóricas.</li>
+</ul>
+
+<h3>802.11 en el modelo OSI</h3>
+<table>
+<tr><th>Capa física</th><th>Capa de enlace</th></tr>
+<tr><td>Técnicas de modulación: espectro ensanchado (FHSS, DSSS), OFDM, infrarrojo.<br>Características físicas y eléctricas de antenas, access points, amplificadores.<br>Medio: el aire, bandas de 2,4 / 5 / 6 GHz.</td><td>Quién usa el medio, cómo se accede y cuándo se puede transmitir.<br>Control de errores a nivel de bits.<br>Subcapa MAC con <b>DCF</b> (Distributed Coordination Function), basada en <b>CSMA/CA</b>.<br>Trama propia, distinta de la Ethernet, con hasta 3 o 4 direcciones MAC (origen, destino, AP).<br>Seguridad (WPA2/WPA3) en capa 2.</td></tr>
+</table>
+
+<h3>Acceso al medio: CSMA/CA en detalle</h3>
+<p>En redes inalámbricas <b>no se puede escuchar mientras se transmite</b>, así que las colisiones no pueden detectarse: hay que intentar evitarlas.</p>
+<ol>
+<li>La estación escucha el canal.</li>
+<li>Si está <b>ocupado</b>, espera.</li>
+<li>Si está <b>libre</b>, espera además un tiempo aleatorio (<b>random backoff timer</b>) y, si sigue libre, transmite. El backoff evita que dos estaciones que escucharon libre al mismo tiempo arranquen juntas.</li>
+<li>Opcionalmente, antes de los datos se usa <b>RTS/CTS</b>.</li>
+<li>El receptor confirma con <b>ACK</b>. Si el ACK no llega en un plazo predeterminado, se retransmite.</li>
+</ol>
+<table>
+<tr><th>Trama de control</th><th>Quién la manda</th><th>Para qué</th></tr>
+<tr><td><b>RTS</b> (Request To Send)</td><td>El cliente que quiere transmitir</td><td>Pide permiso indicando la longitud de los datos. Es el primer paso de un enlace de dos vías, optativo, pensado para el problema de los clientes ocultos</td></tr>
+<tr><td><b>CTS</b> (Clear To Send)</td><td>El AP (receptor)</td><td>Autoriza al cliente, repite la longitud e incluye un <b>valor de tiempo</b>: los demás clientes que lo oyen se callan ese tiempo, lo que minimiza colisiones</td></tr>
+<tr><td><b>ACK</b></td><td>El receptor de los datos</td><td>Confirma que la trama llegó sin errores; si no llega, el emisor reenvía</td></tr>
+</table>
+<div class="grid">
+<div class="card"><h4>Problema del nodo oculto</h4>Una estación cree que el canal está <b>libre</b>, pero en realidad está ocupado por otro nodo al que ella no oye (los dos oyen al AP pero no se oyen entre sí). Resultado: colisión en el AP. RTS/CTS lo mitiga porque todos oyen el CTS del AP.</div>
+<div class="card"><h4>Problema del nodo expuesto</h4>Una estación cree que el canal está <b>ocupado</b>, pero en realidad está libre para ella, porque el nodo que oye no interferiría con su transmisión. Resultado: espera de más y se desaprovecha el canal.</div>
+</div>
+
+<h3>Cómo se conecta un dispositivo a un AP: escaneo → autenticación → asociación</h3>
+<ol>
+<li><b>Escaneo</b> (descubrir APs):
+<ul><li><b>Pasivo:</b> el AP anuncia su servicio enviando periódicamente tramas de señal (beacons) con el SSID, los estándares admitidos y la seguridad.</li>
+<li><b>Activo:</b> el cliente conoce el SSID y envía por difusión una solicitud de sondeo (probe request) en varios canales, con el SSID y los estándares que admite.</li></ul></li>
+<li><b>Autenticación</b> (confirmar identidad):
+<ul><li><b>Open System:</b> la estación pide autenticarse y el AP responde sí o no.</li>
+<li><b>Shared Key</b> (opcional, 4 pasos): 1) la estación pide autenticarse; 2) el AP le manda un texto; 3) la estación lo encripta con la clave WEP; 4) el AP lo desencripta y lo compara con el original.</li></ul></li>
+<li><b>Asociación:</b> tras autenticarse, se intercambian velocidades soportadas, SSID e <b>ID de asociación</b>. Recién ahí AP y estación pueden intercambiar tramas de datos.</li>
+</ol>
+<h4>Parámetros que se configuran para asociarse</h4>
+<ul>
+<li><b>SSID:</b> identificador único de la red, de 2 a 32 caracteres; es el nombre que aparece en la lista de redes. Varios APs pueden compartir el mismo SSID. <b>No es una medida de seguridad</b>: es una forma de crear grupos lógicos en la misma zona.</li>
+<li><b>Password</b> (clave de seguridad): para autenticarse con el AP.</li>
+<li><b>Network mode:</b> los estándares 802.11a/b/g/n/ac/ad; el modo <b>mixto</b> usa varios a la vez.</li>
+<li><b>Security mode:</b> WEP, WPA o WPA2. Siempre el nivel más alto que se admita.</li>
+<li><b>Channel settings:</b> la banda y canal de transmisión; automático, o manual si hay interferencia con otro AP.</li>
+</ul>
+
+<h3>Factores de diseño de una WLAN</h3>
+<div class="scroll"><table>
+<tr><th>Factor</th><th>Qué considerar</th></tr>
+<tr><td><b>Cobertura</b></td><td>Depende del diseño del producto y del camino de propagación. La mayoría usa RF porque atraviesa casi todos los obstáculos. Alcance típico de una WLAN: <b>30 a 100 m</b>. Se extiende con varios APs y <b>roaming</b> (moverse entre APs sin perder la conexión).</td></tr>
+<tr><td><b>Atenuaciones y bloqueos</b></td><td>Los materiales debilitan la señal (tabla abajo).</td></tr>
+<tr><td><b>Rendimiento</b></td><td>Depende de la configuración de los equipos, la cantidad de usuarios, la propagación, el tipo de sistema y los cuellos de botella de la parte cableada.</td></tr>
+<tr><td><b>Interoperatividad</b></td><td>Equipos de distintos fabricantes pueden no funcionar juntos: FHSS no habla con DSSS, distintas bandas no se comunican, y aun con igual tecnología puede haber diferencias de implementación.</td></tr>
+<tr><td><b>Escalabilidad</b></td><td>Se soportan más nodos y más área agregando APs.</td></tr>
+<tr><td><b>Seguridad</b></td><td>Ver abajo.</td></tr>
+</table></div>
+<table>
+<tr><th>Interferencia</th><th>Materiales</th></tr>
+<tr><td>Baja</td><td>Madera (tabiques), vidrio (ventanas), amianto (techos), yeso (paredes interiores)</td></tr>
+<tr><td>Media</td><td>Ladrillo, hojas de árboles y plantas</td></tr>
+<tr><td>Alta</td><td>Agua (lluvia, niebla), cerámica (tejas), papel (rollos), vidrio con mucho plomo</td></tr>
+<tr><td><b>Muy alta</b></td><td><b>Metales</b> (vigas, armarios)</td></tr>
+</table>
+
+<h3>Seguridad en Wi-Fi</h3>
+<ul>
+<li><b>Filtro de direcciones MAC:</b> solo acceden los dispositivos que están en la lista de control de acceso (<b>ACL</b>).</li>
+<li><b>WEP</b> (Wired Equivalent Privacy): pretendía dar una seguridad equivalente a la del cable. Clave simétrica de 64 bits. <b>En desuso por inseguro.</b></li>
+<li><b>WPA / WPA2</b> (Wi-Fi Protected Access): agregan seguridad mediante <b>claves dinámicas</b>. Se recomienda el cifrado <b>AES</b>, soportado por WPA2. Hoy existe además WPA3.</li>
+</ul>
+<div class="box warn"><b>Un dato del apunte de inalámbricas</b>
+El apunte dice que WEP "usa cifrado TKIP". En realidad WEP usa el cifrado <b>RC4</b>; <b>TKIP</b> es el mecanismo que introdujo <b>WPA</b> para reemplazar a WEP sin cambiar el hardware. Lo que sí es seguro para el examen: WEP es inseguro y obsoleto, y WPA2 con AES es lo recomendado.</div>
+
+<h3>Prácticas de la unidad</h3>
+<ol>
+<li>Crear una red <b>ad hoc</b>, conectar dispositivos, compartir recursos y accederlos (con usuarios y permisos, como en peer to peer).</li>
+<li>Crear una red en <b>infraestructura</b> con un AP y compartir recursos.</li>
+<li>Una sola red "WIFI REDES" con <b>dos APs</b>; unir dos redes separadas con los dos APs; extender cobertura con un AP en <b>modo repetidor</b>.</li>
+</ol>
+<p>En Windows posteriores a 7 se podía crear una red hospedada (la PC como AP) desde la consola:</p>
+<pre>netsh wlan set hostednetwork mode=allow ssid=Grupox key=123456
+netsh wlan start hostednetwork</pre>
+
+<h3>Ethernet vs Wi-Fi por capas</h3>
+<div class="scroll"><table>
+<tr><th>Aspecto</th><th>Ethernet (802.3)</th><th>Wi-Fi (802.11)</th></tr>
+<tr><td>Capa 1 — medio</td><td>Cable (cobre o fibra)</td><td>Aire (radio)</td></tr>
+<tr><td>Capa 1 — señal</td><td>Eléctrica u óptica (Manchester, MLT-3, PAM)</td><td>RF: OFDM, QAM, MIMO</td></tr>
+<tr><td>Capa 2 — acceso</td><td>CSMA/CD (hoy full duplex sin colisiones)</td><td>CSMA/CA (siempre)</td></tr>
+<tr><td>Capa 2 — trama</td><td>2 direcciones MAC</td><td>Hasta 3 o 4 direcciones MAC, encriptación</td></tr>
+<tr><td>Topología física</td><td>Estrella (switch)</td><td>Estrella inalámbrica (AP)</td></tr>
+<tr><td>Topología lógica</td><td>Bus (clásico) / punto a punto (switch full duplex)</td><td>Bus compartido: todos compiten por el mismo espectro</td></tr>
+<tr><td>Ventajas</td><td>Estable, rápido, sin interferencias</td><td>Movilidad, despliegue fácil</td></tr>
+<tr><td>Desventajas</td><td>Cableado, poca movilidad</td><td>Interferencias, seguridad</td></tr>
+</table></div>
+
+<h2 id="s11">11. Dirección física (MAC) y dirección lógica (IP)</h2>
+<div class="scroll"><table>
+<tr><th></th><th>MAC (física)</th><th>IP (lógica)</th></tr>
+<tr><td>Capa</td><td>2, enlace</td><td>3, red</td></tr>
+<tr><td>Tamaño</td><td>6 bytes = 48 bits = 12 dígitos hexadecimales</td><td>4 octetos = 32 bits (IPv4), en decimal</td></tr>
+<tr><td>Ejemplo</td><td><code>28-2E-89-CA-68-6E</code></td><td><code>192.168.1.43</code></td></tr>
+<tr><td>Estructura</td><td>3 primeros bytes: fabricante (OUI, lo asigna la IEEE). 3 últimos: número de placa (lo asigna el fabricante)</td><td>Parte de red + parte de host; la máscara marca el corte</td></tr>
+<tr><td>Quién la asigna</td><td>Viene grabada de fábrica en la NIC</td><td>El administrador a mano, o un servidor DHCP</td></tr>
+<tr><td>¿Cambia?</td><td>No</td><td>Sí, según la red donde estés</td></tr>
+<tr><td>Quién la usa</td><td>El <b>switch</b></td><td>El <b>router</b></td></tr>
+<tr><td>Analogía</td><td>El <b>nombre</b> de la persona</td><td>El <b>domicilio</b> de la persona</td></tr>
+<tr><td>Alcance</td><td>Local: vale dentro de la LAN. Las MAC de la trama se reescriben en cada salto de router</td><td>Extremo a extremo: se mantiene a través de los routers (salvo NAT)</td></tr>
+</table></div>
+<p>Hacen falta las dos, igual que nombre y domicilio para mandar una carta. Cada NIC tiene su propia MAC: una notebook con placa cableada y Wi-Fi tiene dos MAC y, si las dos están conectadas, dos IP.</p>
+<h4>Tipos de dirección MAC destino</h4>
+<ul>
+<li><b>Unidifusión (unicast):</b> identifica una placa en particular.</li>
+<li><b>Difusión (broadcast):</b> <code>FFFF.FFFF.FFFF</code>, para todos los que deben recibir y procesar la trama.</li>
+<li><b>Multidifusión (multicast):</b> para un grupo de placas.</li>
+</ul>
+<h4>La trama, simplificada (como se dibujó en clase)</h4>
+<pre>| MAC destino | MAC origen | ... IP origen | IP destino | Datos | Trailer |
+   └──── las mira el switch ────┘     └──── las mira el router ────┘</pre>
+<h3>Cómo se determinan en la PC y en el celular</h3>
+<p><b>PC con Windows:</b> abrir <code>cmd</code> y ejecutar <code>ipconfig /all</code>. En el adaptador en uso, "Dirección física" es la MAC y "Dirección IPv4" es la IP. También muestra máscara, puerta de enlace, servidor DHCP y DNS.</p>
+<p><b>Android:</b> Ajustes → Wi-Fi → tocar la red → Avanzado (o Ajustes → Acerca del teléfono → Estado). <b>iPhone:</b> Ajustes → Wi-Fi → (i) de la red; la MAC figura como "Dirección Wi-Fi".</p>
+<div class="box"><b>Dato fino sobre celulares</b>
+Los teléfonos actuales suelen mostrar una <b>MAC aleatoria (privada)</b> distinta para cada red Wi-Fi, por privacidad. Por eso la MAC que ves en el celular puede no coincidir con la de fábrica. La de fábrica sigue existiendo y no cambia.</div>
+<h3>De ipconfig a la topología lógica</h3>
+<p><code>ipconfig</code> no dice la topología lógica directamente; se <b>deduce</b> con esta cadena:</p>
+<pre>ipconfig /all → descripción del adaptador → norma → protocolo de acceso al medio → topología lógica</pre>
+<table>
+<tr><th>Descripción del adaptador</th><th>Norma</th><th>Acceso</th><th>Lógica</th><th>Física</th></tr>
+<tr><td>MediaTek Wi-Fi 6E</td><td>802.11ax</td><td>CSMA/CA</td><td>Bus / difusión</td><td>Estrella (al AP)</td></tr>
+<tr><td>Realtek GbE Family Controller</td><td>802.3ab (1000BASE-T)</td><td>CSMA/CD</td><td>Bus / difusión</td><td>Estrella (al switch)</td></tr>
+</table>
+<p>Si el adaptador dice "Medios desconectados" no hay cable: no aparece IP, pero la MAC sí, porque está grabada en la placa.</p>
+
+<h2 id="s12">12. Dispositivos de interconexión</h2>
+<div class="scroll"><table>
+<tr><th>Dispositivo</th><th>Capa</th><th>Qué mira</th><th>Qué hace</th><th>Dom. colisión</th><th>Dom. broadcast</th></tr>
+<tr><td><b>Repetidor</b></td><td>1</td><td>Nada (bits)</td><td>Regenera la señal para llegar más lejos</td><td>No separa</td><td>No separa</td></tr>
+<tr><td><b>Hub</b></td><td>1</td><td>Nada (bits)</td><td>Repetidor multipuerto: lo que entra por un puerto sale por todos los demás</td><td>No separa</td><td>No separa</td></tr>
+<tr><td><b>Puente</b></td><td>2</td><td>MAC</td><td>Une dos segmentos y filtra por MAC con su tabla</td><td>Separa</td><td>No separa</td></tr>
+<tr><td><b>Switch</b></td><td>2</td><td>MAC</td><td>Puente multipuerto: reenvía la trama solo al puerto del destino (tabla MAC, también llamada CAM)</td><td>Separa (uno por puerto)</td><td>No separa</td></tr>
+<tr><td><b>Router</b></td><td>3</td><td>IP</td><td>Interconecta redes distintas; decide por tabla de rutas</td><td>Separa</td><td>Separa (uno por interfaz)</td></tr>
+<tr><td><b>Gateway</b></td><td>3 en adelante</td><td>—</td><td>Puerta de salida hacia otra red; puede traducir entre protocolos distintos</td><td>Separa</td><td>Separa</td></tr>
+</table></div>
+<p>Regla mnemotécnica de la clase: <b>hub = repetidor multipuerto</b>, <b>switch = puente multipuerto</b>. En la notación de clase, Hub C1 y Switch C2.</p>
+<p>En la capa física hay además dispositivos destinados a la <b>comunicación</b> y no a la interconexión: el <b>módem</b> (modula y demodula entre señal digital y analógica) y el <b>multiplexor</b> (varias señales por un mismo medio). Y dentro de los hubs, los <b>pasivos</b> solo reparten la señal y los <b>activos</b> la regeneran.</p>
+<h3>Conmutación de capa 2 y de capa 3</h3>
+<p><b>Conmutar</b> es tomar lo que entra por una interfaz de un dispositivo y entregarlo por otra. La hacen dos dispositivos, en dos capas:</p>
+<table>
+<tr><th></th><th>Capa 2</th><th>Capa 3</th></tr>
+<tr><td>Quién</td><td>Switch (y puente)</td><td>Router</td></tr>
+<tr><td>Qué conmuta</td><td><b>Tramas</b></td><td><b>Paquetes</b></td></tr>
+<tr><td>Decide con</td><td>Dirección MAC</td><td>Dirección IP</td></tr>
+</table>
+<div class="box warn"><b>Gateway</b>
+En clase se lo ubicó en capa 3 junto al router ("traduce protocolos"). En sentido estricto un gateway puede trabajar en cualquier capa hasta la 7 cuando convierte entre arquitecturas distintas. En una red doméstica, la "puerta de enlace" es simplemente el router.</div>
+
+<h2 id="s13">13. Dominio de colisión y dominio de broadcast</h2>
+<p>Son dos cosas distintas, en capas distintas.</p>
+<div class="grid">
+<div class="card"><h4>Dominio de colisión</h4>Conjunto de nodos en el que una trama puede chocar con otra: los que comparten el mismo medio. La colisión es un <b>accidente físico</b> (capa 1): dos señales se superponen y las dos tramas se pierden.</div>
+<div class="card"><h4>Dominio de broadcast</h4>Conjunto de nodos que reciben una trama de difusión originada por cualquiera de ellos. El broadcast es un <b>mensaje legítimo</b> (capa 2, destino FFFF.FFFF.FFFF) que usan ARP y DHCP.</div>
+</div>
+<ul>
+<li><b>Hub:</b> es como un solo cable con muchas puntas. Todo lo que cuelga de él es <b>1 dominio de colisión y 1 de broadcast</b>.</li>
+<li><b>Switch:</b> recibe la trama entera, la guarda, lee la MAC destino y la saca solo por el puerto que corresponde. Cada puerto es un medio independiente → <b>1 dominio de colisión por puerto</b>. Al broadcast lo tiene que reenviar por todos los puertos (si no, ARP y DHCP no funcionarían) → <b>no separa broadcast</b>.</li>
+<li><b>Router:</b> cada interfaz es una red IP distinta y no reenvía broadcasts → <b>1 dominio de broadcast por interfaz</b>.</li>
+</ul>
+<div class="box ok"><b>Regla para contar en un ejercicio</b>
+<b>Colisión:</b> un dominio por cada puerto de switch (o router) en uso; todo lo que cuelga de un hub cuenta como uno solo. <b>Broadcast:</b> uno por cada interfaz de router en uso; si no hay router, es 1.</div>
+<h3>Ejercicio de la cátedra: reemplazar hubs por switches</h3>
+<p>La figura tiene 19 PCs repartidas en hubs encadenados, con CSMA/CD.</p>
+<table>
+<tr><th>Métrica</th><th>Con hubs</th><th>Con switches</th></tr>
+<tr><td>Dominios de colisión</td><td><b>1</b> (las 19 PCs compiten en el mismo medio)</td><td><b>22</b> (19 enlaces a PCs + 3 enlaces entre switches)</td></tr>
+<tr><td>Dominios de broadcast</td><td>1</td><td><b>1</b> (no cambia; para dividirlo hace falta router o VLAN)</td></tr>
+<tr><td>Ancho de banda</td><td>Compartido entre las 19</td><td>Dedicado por puerto</td></tr>
+<tr><td>Modo</td><td>Half-duplex, colisiones frecuentes</td><td>Full-duplex, sin colisiones</td></tr>
+<tr><td>CSMA/CD</td><td>Imprescindible</td><td>Deja de actuar</td></tr>
+<tr><td>Reenvío</td><td>Todo a todos</td><td>Unicast solo al destino: más orden y privacidad</td></tr>
+</table>
+<p>La justificación en una frase: el hub repite bits por todos los puertos y mantiene un único medio compartido; el switch microsegmenta, convierte cada enlace en un medio propio y por eso desaparece la contienda. El broadcast no cambia porque ambos lo propagan.</p>
+<p><b>Por qué importa:</b> un dominio de colisión grande significa choques, retransmisiones y red lenta (solución: switches). Un dominio de broadcast grande significa que todas las PCs procesan difusiones que no les interesan (solución: routers o VLAN, ver la sección de switching).</p>
+<div class="box"><b>Cómo lo dice el apunte de Fast Ethernet</b>
+Un <b>dominio de colisión</b> es una red CSMA/CD en la que habrá una colisión si dos nodos intentan transmitir al mismo tiempo. <b>Los segmentos unidos con repetidores pertenecen al mismo dominio de colisión</b>; <b>los unidos con un switch pertenecen a dominios distintos</b>. El ejemplo del apunte: 3 grupos de segmentos con repetidores, unidos por un switch → 4 dominios de colisión (uno por cada puerto del switch en uso).</div>
+<p><b>Segmentación</b> es justamente el proceso de dividir un único dominio de colisión en dos o más. La hacen los puentes y switches de capa 2, y así logran más ancho de banda para cada nodo.</p>
+
+<h2 id="s14">14. Cómo trabaja el switch</h2>
+<p>El switch mantiene una tabla <b>MAC → puerto</b> que arranca vacía y se llena sola. Es un "puente transparente": las PCs no configuran nada ni saben que hay un switch en el medio.</p>
+<div class="box ok"><b>La regla de oro</b>
+<b>Aprende</b> con la MAC <b>origen</b> (anota por qué puerto entró). <b>Decide</b> con la MAC <b>destino</b>.</div>
+<table>
+<tr><th>Decisión</th><th>Cuándo</th><th>Qué hace</th></tr>
+<tr><td><b>Inundar</b> (flooding)</td><td>La MAC destino no está en la tabla, o es broadcast</td><td>Copia la trama por todos los puertos menos el de entrada</td></tr>
+<tr><td><b>Reenviar</b> (forwarding)</td><td>La MAC destino está en la tabla, en otro puerto</td><td>La saca solo por ese puerto</td></tr>
+<tr><td><b>Filtrar</b> (filtering)</td><td>La MAC destino está asociada al mismo puerto por donde entró</td><td>La descarta (pasa cuando hay un hub colgado de ese puerto y origen y destino están los dos del lado del hub)</td></tr>
+</table>
+<h3>Ejercicio de la cátedra, paso a paso</h3>
+<p>Tabla inicial: Fa0/1 → <code>0000.00bb.bbbb</code> (B), Fa0/2 → <code>0000.00cc.cccc</code> (C). Entra por <b>Fa0/0</b> una trama con origen <code>0000.00aa.aaaa</code> (A) y destino <code>0000.00dd.dddd</code> (D).</p>
+<ol>
+<li><b>Aprende:</b> mira el origen y agrega Fa0/0 → aa.aaaa. La tabla pasa a tener A, B y C.</li>
+<li><b>Busca el destino:</b> dd.dddd no está en la tabla.</li>
+<li><b>Inunda:</b> saca copia por Fa0/1, Fa0/2 y Fa0/3. Nunca por Fa0/0, que es por donde entró.</li>
+<li><b>En las PCs:</b> B y C ven que la MAC destino no es la suya y descartan la trama en la placa. D la reconoce y la procesa.</li>
+<li><b>Cuando D responde:</b> entra por Fa0/3 con origen dd.dddd → el switch aprende Fa0/3 → D. El destino (A) ya está en la tabla, así que la respuesta sale <b>solo por Fa0/0</b>. Desde ahí, el tráfico entre A y D es unicast directo y B y C no se enteran.</li>
+</ol>
+<div class="box warn"><b>Flooding no es broadcast</b>
+En el flooding la trama sigue siendo <b>unicast</b>: su destino es la MAC de D, no FFFF.FFFF.FFFF. El switch la manda a todos porque no sabe dónde está D, y las placas que no son D la descartan. En un broadcast el destino es "todos" y todas las placas la procesan.</div>
+<h3>¿Qué pasa si desconecto el cable?</h3>
+<ul>
+<li>El puerto cae y el switch borra las entradas aprendidas en ese puerto.</li>
+<li>Aunque no cayera, las entradas vencen solas por tiempo sin tráfico (<b>aging</b>, 300 segundos por defecto en equipos Cisco). Eso permite mover equipos de puerto.</li>
+<li>Si enchufo la PC en otro puerto, el switch la reaprende cuando esa PC manda su primera trama.</li>
+<li>Del lado de la PC, <code>ipconfig</code> muestra "medios desconectados" y no hay IP.</li>
+</ul>
+<p><b>Si en lugar del switch hubiera un hub:</b> no hay tabla ni aprendizaje, toda trama sale siempre por todos los puertos, todo es un solo dominio de colisión y cualquier PC podría ver el tráfico de las demás.</p>
+
+<h2 id="s14b">15. Switching: ventajas, bucles, STP y VLAN</h2>
+<h3>Puente y switch</h3>
+<p>El <b>puente (bridge)</b> separa el tráfico entre <b>dos</b> segmentos. El <b>switch</b> es un <b>bridge multipuerto</b>: separa el tráfico entre tantos segmentos como puertos tenga habilitados, y <b>cada puerto es un dominio de colisión</b>.</p>
+<div class="grid">
+<div class="card"><h4>Ventajas</h4>
+<ul><li>Reduce el dominio de colisión: uno por puerto.</li>
+<li>Las tramas salen solo por el puerto que corresponde.</li>
+<li>Más ancho de banda disponible para cada estación.</li>
+<li>Menos carga de CPU en las estaciones (no procesan tramas ajenas).</li>
+<li>Seguridad: un usuario no puede ver el tráfico de otros.</li></ul></div>
+<div class="card"><h4>Limitaciones</h4>
+<ul><li><b>No limita el dominio de broadcast.</b></li>
+<li><b>Es susceptible a bucles (loops).</b> Se resuelve con Spanning Tree, que aumenta la complejidad y puede tardar en converger.</li></ul></div>
+</div>
+<h3>Las tres funciones básicas del switch</h3>
+<ol>
+<li><b>Aprendizaje de direcciones:</b> cada MAC origen nueva se agrega a la tabla con el puerto por donde entró.</li>
+<li><b>Reenvío (forwarding):</b> mira la MAC destino; si está en la tabla, la manda solo por ese puerto; si no, la manda por todos (inundación). Cuando el destino responde, su MAC se agrega a la tabla.</li>
+<li><b>Control de bucles.</b></li>
+</ol>
+<h3>Bucles y Spanning Tree (STP)</h3>
+<p>Un <b>bucle</b> aparece cuando hay más de un camino entre dos switches. Puede deberse a un <b>error humano</b> (confusión en el cableado) o a que se quiso dar <b>redundancia</b>. Sin un mecanismo de control produce:</p>
+<ul>
+<li><b>Tormentas de broadcast:</b> un broadcast da vueltas para siempre y se multiplica (las tramas Ethernet no tienen tiempo de vida), hasta saturar la red.</li>
+<li><b>Imposibilidad de aprender direcciones:</b> la misma MAC origen aparece por distintos puertos y la tabla se vuelve inestable.</li>
+</ul>
+<p><b>STP (Spanning Tree Protocol):</b> lo creó DEC y lo estandarizó la IEEE como <b>802.1D</b>. Su meta es <b>apagar (bloquear) los puertos redundantes</b> y dejar un <b>árbol jerárquico</b> sin bucles. Los switches intercambian información con tramas multicast (BPDU).</p>
+<ol>
+<li><b>Elige un switch raíz:</b> el de <b>menor ID</b>, donde ID = prioridad (configurable) + MAC del switch. Todos sus puertos son <b>designados</b>.</li>
+<li>En cada uno de los demás switches elige un <b>puerto raíz</b>: el de <b>menor costo</b> hacia la raíz (más velocidad = menor costo).</li>
+<li><b>Bloquea los puertos no designados.</b> Si un enlace activo se cae, STP reactiva uno bloqueado: así se tiene redundancia sin bucles.</li>
+</ol>
+<table>
+<tr><th>Estado del puerto</th><th>Qué hace</th></tr>
+<tr><td><b>Bloqueado</b> (blocked)</td><td>Al iniciar el switch; no reenvía tramas</td></tr>
+<tr><td><b>Escuchando</b> (listening)</td><td>Espera mensajes STP para asegurarse de que no hay bucles</td></tr>
+<tr><td><b>Aprendiendo</b> (learning)</td><td>Recibe tramas y guarda direcciones MAC en la tabla, pero todavía no reenvía</td></tr>
+<tr><td><b>Reenviando</b> (forwarding)</td><td>Funciona normalmente</td></tr>
+</table>
+
+<h3>VLAN (LAN virtuales)</h3>
+<p>Una VLAN divide un switch físico en <b>varios switches virtuales</b>.</p>
+<ul>
+<li><b>Cada VLAN es un dominio de broadcast</b> distinto, con su propia tabla de reenvío. Es la forma de partir el dominio de broadcast <b>sin agregar routers</b>.</li>
+<li><b>La comunicación entre VLANs requiere un router</b> (capa 3).</li>
+<li>Normalmente <b>cada VLAN corresponde a una subred IP</b>.</li>
+<li>Varias VLANs pueden extenderse entre switches mediante <b>VLAN trunking</b>.</li>
+<li><b>Ventajas:</b> seguridad, flexibilidad y ahorro.</li>
+</ul>
+<table>
+<tr><th>Tipo</th><th>Cómo se asigna</th><th>Conviene cuando</th></tr>
+<tr><td><b>Estática</b></td><td>El administrador asigna manualmente cada puerto a una VLAN</td><td>Hay pocos cambios. Ventaja: simplicidad</td></tr>
+<tr><td><b>Dinámica</b></td><td>Base de datos centralizada (por ejemplo, MAC → VLAN); al conectar una estación, el switch la asigna</td><td>Hay muchos cambios. Desventaja: complejidad</td></tr>
+</table>
+<table>
+<tr><th>Tipo de enlace</th><th>Qué transporta</th></tr>
+<tr><td><b>De acceso</b></td><td>Pertenece a <b>una sola VLAN</b>. La estación no sabe que existe la VLAN: el switch le quita a la trama toda información de VLAN antes de enviarla</td></tr>
+<tr><td><b>Troncal</b> (trunk)</td><td>Tramas de <b>dos o más VLANs</b>. Generalmente switch-switch o router-switch. Las tramas necesitan una identificación (etiqueta)</td></tr>
+</table>
+<p><b>Etiquetado de tramas:</b> se agrega a cada trama una marca de la VLAN a la que pertenece. Un switch que recibe una trama etiquetada la reenvía sin cambios por otro troncal, o le quita la etiqueta si sale por un enlace de acceso.</p>
+<p><b>IEEE 802.1Q</b> es el estándar de etiquetado: inserta una etiqueta de 4 bytes <b>después de la MAC origen</b>. Contiene el <b>TPID</b> (Tag Protocol ID, ocupa el lugar del EtherType; el valor <b>0x8100</b> indica etiqueta 802.1Q) y el <b>TCI</b> (Tag Control Information), que incluye <b>12 bits de VLAN-ID</b>: hasta 4096 valores, de los que se usan 4094 (el apunte dice 4095).</p>
+<p><b>GVRP</b> (GARP VLAN Registration Protocol) permite crear VLANs y registrar membresías <b>dinámicamente</b>, y recortar (pruning) el tráfico: una VLAN solo se agrega a un troncal si el switch recibe un "join" de los switches de más abajo.</p>
+<div class="box warn"><b>Un dato del apunte de switching</b>
+El apunte ubica a GVRP en "IEEE 802.1p". 802.1p es en realidad el mecanismo de <b>prioridades</b> (3 bits dentro de la misma etiqueta 802.1Q); GARP y GVRP se definieron en 802.1D/802.1Q.</div>
+
+<h2 id="s15">16. Tipos de LAN según el sistema operativo de red</h2>
+<p>Esta clasificación no depende del cableado ni de la norma: depende del <b>sistema operativo</b>. Sobre la misma red física, todos los nodos pueden tener Windows 10 (peer to peer) o puede haber uno con Windows Server y Active Directory (servidor dedicado).</p>
+<div class="scroll"><table>
+<tr><th></th><th>Peer to peer (grupo de trabajo)</th><th>Servidor dedicado (dominio)</th></tr>
+<tr><td>Roles</td><td>Todas las PCs son iguales: cada una es cliente y servidor a la vez</td><td>Un servidor cuyo rol principal es compartir recursos y servicios con administración centralizada</td></tr>
+<tr><td>Usuarios</td><td><b>Locales</b>: se crean en cada PC</td><td>Se crean <b>una vez</b> en el servidor y valen en cualquier PC del dominio</td></tr>
+<tr><td>Administración</td><td>Descentralizada: cada usuario decide qué comparte</td><td>Centralizada: usuarios, grupos, permisos y políticas</td></tr>
+<tr><td>Seguridad</td><td>Baja</td><td>Alta: base de datos de seguridad centralizada</td></tr>
+<tr><td>Backups</td><td>Dispersos, PC por PC</td><td>Simples: los datos están centralizados</td></tr>
+<tr><td>Tamaño</td><td>Pocos usuarios (workgroup). No escalable</td><td>Cientos de usuarios</td></tr>
+<tr><td>Costo</td><td>Barato: sin hardware ni licencias de servidor</td><td>Más caro: hardware de servidor y SO de servidor</td></tr>
+<tr><td>SO</td><td>Windows 10/11 y anteriores (8, 7, XP, 98…)</td><td>Windows Server 2016 / 2019 / 2022 (y anteriores), NetWare</td></tr>
+</table></div>
+<p><b>Cuándo conviene peer to peer:</b> menos de 10 usuarios, todos en la misma área, seguridad no prioritaria y sin crecimiento previsto.</p>
+<p><b>De qué depende la elección:</b> tamaño de la organización y tipo de negocio, nivel de seguridad requerido, soporte administrativo disponible y necesidades de los usuarios.</p>
+<div class="box"><b>Detalle del slide que suele preguntarse</b>
+En una red de servidor dedicado, los recursos compartidos pueden estar <b>en el servidor mismo o en cualquier otro nodo que pertenezca al dominio</b>. Lo centralizado es la administración y la validación, no necesariamente la ubicación física del recurso.</div>
+<h3>Active Directory</h3>
+<p>Es el servicio de directorio de Windows Server. Guarda usuarios, grupos, equipos y políticas del dominio, y valida los inicios de sesión. El servidor que lo corre es el <b>controlador de dominio</b>. Ejemplo: con 5 PCs, en grupo de trabajo creo mi usuario 5 veces; con Active Directory, una.</p>
+<h3>Configurar una red peer to peer (práctica)</h3>
+<ol>
+<li>En cada PC definir el mismo <b>grupo de trabajo</b> y un usuario.</li>
+<li>Asignar a cada puesto una <b>IP válida</b> de la misma red.</li>
+<li>Crear la carpeta y <b>compartirla</b>, dando permisos al usuario o grupo que corresponda.</li>
+<li>Usuarios y grupos se administran en <b>Administración de equipos → Usuarios y grupos locales</b>.</li>
+</ol>
+<ul>
+<li>Los <b>permisos de recurso compartido</b> se validan <b>solo cuando se accede por la red</b>. Si el usuario se sienta en esa PC y entra localmente, no aplican (ahí mandan los permisos locales / NTFS).</li>
+<li>Si un usuario pertenece a varios grupos con permisos distintos sobre el mismo recurso compartido, los permisos <b>se suman</b> (salvo que haya una denegación explícita, que gana).</li>
+<li>Cuando se combinan permisos de compartido y permisos locales NTFS, rige el <b>más restrictivo</b> de los dos.</li>
+</ul>
+
+<h2 id="s16">17. Cableado estructurado (EIA/TIA 568)</h2>
+<p><b>Objetivo general:</b> cubrir las necesidades de los usuarios durante toda la vida útil del edificio <b>sin tener que tender más cables</b>.</p>
+<p><b>Objetivos específicos:</b> una misma estructura para datos y telefonía; flexibilidad para mover personas y máquinas; compatibilidad con tecnologías actuales y futuras; diseño que facilite supervisión, mantenimiento y administración.</p>
+<p>La diferencia con un cableado "convencional": acá no se cablea cuando llega el equipo y por donde convenga, sino que se hace un <b>proyecto de ingeniería sobre el edificio</b> y se decide de antemano dónde va cada toma.</p>
+<h3>Normas</h3>
+<table>
+<tr><th>Norma</th><th>Tema</th></tr>
+<tr><td><b>TIA/EIA-568A</b> (1991)</td><td>Cableado de telecomunicaciones en edificios comerciales</td></tr>
+<tr><td><b>TIA/EIA-568B</b></td><td>Extiende a la 568A. B.1 requisitos generales · B.2 componentes de par trenzado de 100 Ω · B.3 componentes de fibra óptica</td></tr>
+<tr><td><b>TIA/EIA-569</b></td><td>Recorridos (canalizaciones) y espacios</td></tr>
+<tr><td><b>TIA/EIA-606</b></td><td>Administración, etiquetado y documentación</td></tr>
+<tr><td><b>TIA/EIA-607</b></td><td>Puesta a tierra</td></tr>
+<tr><td><b>TIA-942</b></td><td>Centros de datos</td></tr>
+</table>
+<div class="box warn"><b>Dos significados de "568A / 568B"</b>
+Como <b>normas</b>, 568A y 568B son versiones del estándar de cableado. Como <b>convenciones</b>, T568A y T568B son los dos órdenes de colores para armar un RJ-45. El contexto de la pregunta dice de cuál se habla.</div>
+<h3>Los cinco subsistemas</h3>
+<div class="scroll"><table>
+<tr><th>Subsistema</th><th>Qué abarca</th><th>Componentes</th></tr>
+<tr><td><b>Punto (área) de trabajo</b></td><td>La conexión de la PC del usuario a la red</td><td>Tomas de usuario (rosetas o periscopios) y patch cord derecho de la toma a la PC</td></tr>
+<tr><td><b>Horizontal</b></td><td>Desde el rack del piso (closet de telecomunicaciones) hasta la roseta</td><td>Cable UTP/STP o fibra, patch panel</td></tr>
+<tr><td><b>Administración</b></td><td>Los armarios donde se interconectan los subsistemas</td><td><b>MDF</b> (principal) e <b>IDF</b> (de planta), patcheras, switches</td></tr>
+<tr><td><b>Vertical (backbone)</b></td><td>Los cables que unen las distintas plantas entre los puntos de distribución</td><td>Troncal entre MDF e IDFs</td></tr>
+<tr><td><b>Campus</b></td><td>La interconexión entre edificios cercanos</td><td>Generalmente fibra óptica; también puede ser inalámbrica</td></tr>
+</table></div>
+<h3>Distancias del subsistema horizontal</h3>
+<div class="bar"><div style="background:#7a8aa0;flex:6">Patch cord en el rack</div><div style="background:#1f5fbf;flex:60">Cable horizontal fijo: <b>90 m máximo</b> (patchera → roseta)</div><div style="background:#7a8aa0;flex:6">Roseta → PC</div></div>
+<ul>
+<li><b>90 metros</b> es el máximo del cable horizontal, entre la patchera y la roseta, independiente del tipo de medio.</li>
+<li>El cable de la roseta a la NIC no puede superar <b>3 metros</b> (slide de la cátedra, que suma 3 + 90 + 6 = 99 m).</li>
+<li>La versión actual de la norma lo expresa como <b>90 m de enlace permanente + hasta 10 m de patch cords en total = canal de 100 m</b>. Las dos formas dicen lo mismo: 90 fijos y el resto, flexible, sin pasar de 100.</li>
+<li>Pasados los 100 m la atenuación y el ruido degradan la señal.</li>
+</ul>
+<p><b>Cables admitidos en el horizontal:</b> UTP de 4 pares de 100 Ω, STP de 2 pares de 150 Ω, fibra óptica multimodo 62,5/125 µm. <b>Salidas del área de trabajo:</b> mínimo dos conectores, uno de ellos RJ-45 con código T568A (recomendado) o T568B.</p>
+<h3>Subsistema de administración: MDF, IDF y POP</h3>
+<ul>
+<li><b>MDF</b> (Main Distribution Facility), también <b>MCC</b> (Main Cross-Connect): repartidor principal del edificio. Suele estar en sótano o planta baja; ahí llega el cable de la red pública y se instalan los equipos de interconexión principales y los servidores.</li>
+<li><b>IDF</b> (Intermediate Distribution Facility), también <b>HCC</b> (Horizontal Cross-Connect) o <b>ICC</b> (Intermediate Cross-Connect): repartidores más chicos distribuidos en las plantas.</li>
+<li><b>POP</b> (Point of Presence) o <b>demarc</b>, punto de demarcación: donde los cables del proveedor externo se conectan con los del cliente.</li>
+<li>MDF e IDFs forman una <b>estrella extendida</b>: IDFs conectados al MDF por el backbone, y cada IDF con su estrella de puestos.</li>
+</ul>
+<p>Según los términos del slide: <b>MCC</b> conecta el backbone de la LAN con Internet; <b>HCC</b> conecta el cableado horizontal con el patch panel.</p>
+<h3>Elementos y armado</h3>
+<div class="grid">
+<div class="card"><h4>Cable UTP</h4>4 pares trenzados (verde, azul, marrón, naranja; cada uno con su hilo blanco rayado) dentro de una vaina.</div>
+<div class="card"><h4>Plug RJ-45 (macho)</h4>8 contactos. Se arma con <b>pinza de crimpear</b>. Va en los patch cords.</div>
+<div class="card"><h4>Jack RJ-45 (hembra)</h4>8 contactos de cuchilla. Se arma con <b>pinza de impacto</b>, con el filo de corte hacia afuera. Va en rosetas y patcheras.</div>
+<div class="card"><h4>Rosetas y periscopios</h4>Cajas que alojan los jacks. El periscopio es más robusto, modular y puede alojar tomas eléctricas.</div>
+<div class="card"><h4>Rack</h4>Armario modular que resguarda los equipos del ambiente y de personas no autorizadas. Accesorios: ventiladores, termostato, llaves térmicas.</div>
+<div class="card"><h4>Patch panel (patchera)</h4>Panel de jacks en el rack. El cable que viene de cada roseta se conecta por <b>atrás</b>; por adelante se parchea al switch.</div>
+<div class="card"><h4>Alojamiento de cables</h4>Cable canal (canaleta plástica con tapa), bandejas pasacables (aéreas), piso canal (convexo, para no tropezar).</div>
+<div class="card"><h4>Patch cord</h4>Tramo de UTP con un plug en cada punta. Derecho o cruzado.</div>
+</div>
+<h3>Especificaciones del armario de cableado (según el apunte)</h3>
+<table>
+<tr><th>Elemento</th><th>Medidas</th></tr>
+<tr><td>Madera terciada (para montar equipos en la pared)</td><td>2 cm de espesor, al menos 2,4 m de alto, separada 4,5 cm de la pared</td></tr>
+<tr><td>Conductos de entrada</td><td>10,2 cm de diámetro, a 15,2 cm de la pared, al menos 2 conductos libres de reserva</td></tr>
+<tr><td>Bastidor en escalera</td><td>30,5 cm de ancho, para guiar los cables por arriba</td></tr>
+<tr><td>Bastidor de distribución (rack)</td><td>Separado 15,2 cm + (30,5 a 45,7 cm) de la pared, para poder trabajar por detrás</td></tr>
+</table>
+<h3>Armado práctico (hands on)</h3>
+<ul>
+<li><b>Patch cord:</b> cortar el cable, alinear los 8 hilos según la convención e insertar <b>unos 8 mm</b> en el plug (los hilos no se pelan: los contactos del conector perforan la aislación). Luego se mete en la ranura de la <b>pinza de crimpear</b> y al apretar los contactos quedan firmes contra cada hilo.</li>
+<li><b>Jack de patchera o roseta:</b> pelar la vaina unos <b>5 cm</b>, presentar los hilos en el jack siguiendo los colores de la convención y golpear con la <b>pinza de impacto</b>, con el filo hacia afuera para cortar el sobrante.</li>
+<li><b>Roseta:</b> se insertan los jacks a presión en la base, se pega con adhesivo o se atornilla a la pared, y se colocan en la tapa los íconos que identifican el servicio (datos, teléfono).</li>
+<li><b>Hubs:</b> si el hub tiene puerto <b>uplink</b>, se une con otro hub con un patch cord <b>derecho</b> desde el uplink a un puerto común (se pierde un solo puerto). Si no tiene uplink, hace falta un <b>cruzado</b>. El cruce de TX con RX puede hacerse en el cable o dentro del hub (eso es el puerto uplink).</li>
+</ul>
+<h3>Ejercicio práctico de la cátedra</h3>
+<ol>
+<li>Relevar una LAN y registrar: mapa del lugar, ubicación de los elementos de interconexión, ubicación del <b>MDF</b> y los <b>IDF</b>, tipos de canalización y ubicación del <b>backbone</b>.</li>
+<li>Establecer si cumple las normas básicas de cableado estructurado y hacer un análisis crítico.</li>
+<li>Proponer mejoras o cambios.</li>
+</ol>
+<p><b>Pasos del instalador:</b> 1) contar con el plano del lugar, 2) determinar el mapa del cableado, 3) determinar materiales, 4) realizar el cableado, 5) probarlo. Para presupuestar: relevamiento → cálculo de materiales → tiempo estimado → presupuesto final.</p>
+<h3>Convenciones T568A y T568B</h3>
+<div class="scroll"><table>
+<tr><th>Pin</th><th>T568A</th><th>T568B</th><th>Señal en 10/100 Mbps</th></tr>
+<tr><td>1</td><td><span class="pin bv">Blanco-verde</span></td><td><span class="pin bn">Blanco-naranja</span></td><td>TD+ (transmisión)</td></tr>
+<tr><td>2</td><td><span class="pin v">Verde</span></td><td><span class="pin n">Naranja</span></td><td>TD− (transmisión)</td></tr>
+<tr><td>3</td><td><span class="pin bn">Blanco-naranja</span></td><td><span class="pin bv">Blanco-verde</span></td><td>RD+ (recepción)</td></tr>
+<tr><td>4</td><td><span class="pin a">Azul</span></td><td><span class="pin a">Azul</span></td><td>No usado</td></tr>
+<tr><td>5</td><td><span class="pin ba">Blanco-azul</span></td><td><span class="pin ba">Blanco-azul</span></td><td>No usado</td></tr>
+<tr><td>6</td><td><span class="pin n">Naranja</span></td><td><span class="pin v">Verde</span></td><td>RD− (recepción)</td></tr>
+<tr><td>7</td><td><span class="pin bm">Blanco-marrón</span></td><td><span class="pin bm">Blanco-marrón</span></td><td>No usado</td></tr>
+<tr><td>8</td><td><span class="pin m">Marrón</span></td><td><span class="pin m">Marrón</span></td><td>No usado</td></tr>
+</table></div>
+<p>La única diferencia entre A y B es que <b>se intercambian el par verde y el par naranja</b>. En 10 y 100 Mbps se usan solo 4 hilos: pines <b>1 y 2 para transmitir</b>, <b>3 y 6 para recibir</b>. En Gigabit se usan los 8.</p>
+<ul>
+<li><b>Patch cord derecho:</b> la misma convención en las dos puntas (pin a pin). Une equipos distintos: PC ↔ roseta, patchera ↔ switch o hub, hub con puerto uplink ↔ puerto común de otro hub.</li>
+<li><b>Patch cord cruzado (crossover):</b> una punta en A y la otra en B. Cruza transmisión con recepción: <b>1↔3 y 2↔6</b>. Une equipos iguales: dos PCs directamente sin hub, o dos hubs sin puerto uplink.</li>
+<li>Si el plug se armó con una convención, el jack tiene que armarse con <b>la misma</b>.</li>
+</ul>
+<div class="box"><b>Hoy</b>
+Las placas y switches actuales detectan y cruzan solos (Auto-MDIX), así que un cable derecho funciona entre dos PCs. Para el parcial vale la regla clásica: iguales → cruzado, distintos → derecho.</div>
+
+<h2 id="s17">18. Normas TIA complementarias</h2>
+<h3>TIA-569 — Rutas y espacios</h3>
+<p>No habla del rendimiento del cable sino de la <b>infraestructura edilicia</b> que lo aloja. Parte de tres ideas: los edificios son dinámicos (hay que prever cambios), las canalizaciones deben servir para cualquier proveedor o equipo, y se integran todos los servicios (voz, datos, seguridad, video, automatización).</p>
+<table>
+<tr><th>Espacios</th><th>Rutas</th></tr>
+<tr><td><b>EF</b> instalación de entrada: por donde ingresan los servicios del proveedor<br><b>ER</b> sala de equipos: equipos principales y servidores<br><b>TR</b> sala de telecomunicaciones: una por piso, donde terminan las rutas horizontales<br><b>WA</b> área de trabajo: los usuarios</td><td><b>Backbone:</b> conductos verticales que unen EF, ER y las TR<br><b>Horizontales:</b> de la TR a las áreas de trabajo<br><b>Soporte:</b> escalerillas, bandejas, cañerías, pisos falsos</td></tr>
+</table>
+<p>Requisitos: climatización continua, puesta a tierra y UPS, acceso físico restringido, separación mínima respecto de cables eléctricos para evitar interferencia.</p>
+<h3>TIA-606 — Administración y etiquetado</h3>
+<p>Establece un sistema uniforme para identificar y documentar cables, racks, canalizaciones y espacios. Se apoya en <b>identificadores</b> (código único por componente), <b>registros</b> (la información de cada identificador) y <b>vínculos</b> entre ambos, más planos, reportes y órdenes de trabajo.</p>
+<table>
+<tr><th>Clase</th><th>Alcance</th></tr>
+<tr><td>1</td><td>Un edificio chico con una sola sala de equipos</td></tr>
+<tr><td>2</td><td>Un edificio con varias salas de telecomunicaciones</td></tr>
+<tr><td>3</td><td>Un campus con varios edificios</td></tr>
+<tr><td>4</td><td>Varios campus o sitios</td></tr>
+</table>
+<p>Se etiquetan cables (en <b>los dos extremos</b>, a no más de 300 mm de la terminación), racks, patch panels, puertos, tomas y puestas a tierra. Las etiquetas deben ser impresas, no manuscritas. Código de colores orientativo: <b>azul</b> cableado horizontal, <b>verde</b> conexiones del lado del cliente, <b>naranja</b> demarcación del proveedor, <b>blanco</b> troncal de primer nivel, <b>gris</b> troncal de segundo nivel, <b>marrón</b> troncal entre edificios, <b>púrpura</b> equipos principales, <b>amarillo</b> alarmas y seguridad, <b>rojo</b> telefonía.</p>
+<h3>TIA-607 — Puesta a tierra</h3>
+<p>Define cómo crear un camino seguro y de baja impedancia para derivar descargas y transitorios, protegiendo equipos y personas.</p>
+<ul>
+<li><b>TMGB</b> (barra principal): punto central del edificio, conectado a la tierra del sistema eléctrico.</li>
+<li><b>TGB</b> (barras secundarias): una en cada sala de telecomunicaciones; ahí se conectan racks y blindajes.</li>
+<li><b>TBB</b> (backbone de tierra): conductor de cobre que une la TMGB con las TGB a lo largo de los pisos.</li>
+<li><b>GE</b> (ecualizador): une barras TGB entre sí para igualar potenciales.</li>
+</ul>
+<p>Jerarquía: jabalina / sistema eléctrico → TMGB → TBB → TGB → racks y patch panels. Los conductores no deben doblarse en ángulos cerrados.</p>
+<h3>TIA-942 — Centros de datos</h3>
+<p>Cubre cuatro subsistemas: <b>telecomunicaciones</b>, <b>arquitectura</b>, <b>eléctrico</b> y <b>mecánico</b> (climatización e incendio). Clasifica la confiabilidad en cuatro niveles:</p>
+<table>
+<tr><th>Rating</th><th>Nombre</th><th>Redundancia</th><th>Qué soporta</th></tr>
+<tr><td>1</td><td>Básico</td><td>N (ninguna)</td><td>Se interrumpe ante fallas o mantenimiento</td></tr>
+<tr><td>2</td><td>Componentes redundantes</td><td>N+1, ruta única</td><td>Menos riesgo en mantenimientos planificados</td></tr>
+<tr><td>3</td><td>Mantenimiento concurrente</td><td>N+1, múltiples rutas (una activa)</td><td>Se puede reparar cualquier componente sin apagar</td></tr>
+<tr><td>4</td><td>Tolerante a fallos</td><td>2N o 2(N+1), rutas activas</td><td>Soporta una falla crítica imprevista sin cortar el servicio</td></tr>
+</table>
+<p>Estos "Ratings" son el equivalente de los "Tiers" del Uptime Institute.</p>
+
+<h2 id="s18">19. Modelo TCP/IP y sus protocolos</h2>
+<p><b>TCP/IP</b> es un <b>conjunto de protocolos</b> que sirven para comunicar dos computadoras. Es <b>abierto</b> e <b>independiente del fabricante</b> de hardware y software. Sus dos protocolos principales le dan el nombre: <b>TCP</b> (Transmission Control Protocol) e <b>IP</b> (Internet Protocol). Se usa en redes empresariales (campus, complejos con muchos routers y mainframes), en redes pequeñas y domésticas, en teléfonos móviles y domótica.</p>
+<h3>Las 4 capas</h3>
+<div class="scroll"><table>
+<tr><th>Capa TCP/IP</th><th>Otro nombre</th><th>Función</th><th>Protocolos</th><th>PDU</th><th>Equivale en OSI</th></tr>
+<tr><td><b>Aplicación</b></td><td>—</td><td>Brinda servicios a las aplicaciones de la PC (ej.: HTTP transfiere datos de la web)</td><td>HTTP, DNS, DHCP, FTP, TFTP, Telnet, SMTP, POP3, SNMP</td><td>Mensaje / datos</td><td>7, 6 y 5</td></tr>
+<tr><td><b>Transporte</b></td><td>Host to host</td><td>Prepara los datos de la aplicación para viajar por la red y, en destino, los procesa para entregarlos a la aplicación</td><td>TCP, UDP</td><td>Segmento</td><td>4</td></tr>
+<tr><td><b>Internet</b></td><td>Interred</td><td>Determina la mejor ruta a través de la red</td><td>IP, ICMP, IGMP, ARP</td><td>Paquete / datagrama</td><td>3</td></tr>
+<tr><td><b>Acceso a la red</b></td><td>Interfaz de red</td><td>Controla el hardware y los medios que forman la red</td><td>Ethernet, Wi-Fi, ATM</td><td>Trama (y bits)</td><td>2 y 1</td></tr>
+</table></div>
+<p>La forma que adopta un bloque de datos en cada capa se llama <b>PDU</b> (Protocol Data Unit). Cada capa <b>encapsula</b> lo que recibe de la capa de arriba agregándole su encabezado, y la PDU cambia de nombre en cada etapa (mensaje → segmento → paquete → trama). La trama lleva además el preámbulo adelante y el <b>CRC</b> al final.</p>
+
+<h3>Capa de aplicación</h3>
+<h4>DNS (Servicio de Nombres de Dominio)</h4>
+<p>Convierte <b>nombres</b> en <b>direcciones IP</b>: es más fácil recordar <code>www.cisco.com</code> que <code>198.133.219.25</code>, y si la IP cambia, el nombre sigue siendo el mismo. Usa el puerto <b>53</b>.</p>
+<h4>HTTP (Protocolo de Transferencia de Hipertexto)</h4>
+<p>El navegador es el <b>cliente</b> web: se conecta al servidor y pide recursos; el servidor responde y el navegador interpreta y muestra los datos. Ejemplo con <code>http://www.cisco.com/web-server.htm</code>:</p>
+<ol>
+<li>El navegador separa las tres partes: <b>http</b> (el protocolo), <b>www.cisco.com</b> (el servidor) y <b>web-server.htm</b> (el archivo). Le pregunta al DNS la IP del servidor y envía un <b>GET</b> pidiendo el archivo.</li>
+<li>El servidor envía el código HTML de la página.</li>
+<li>El navegador descifra el HTML y da formato a la página en la ventana.</li>
+</ol>
+<p>Mensajes más comunes: <b>GET</b> (el cliente pide datos), <b>POST</b> (carga datos al servidor), <b>PUT</b> (carga recursos o contenido al servidor). <b>HTTPS</b> es HTTP seguro, con autenticación y encriptación. Puerto <b>80</b> (HTTPS: 443).</p>
+<h4>Telnet, FTP y TFTP</h4>
+<table>
+<tr><th>Protocolo</th><th>Para qué</th><th>Transporte</th><th>Puerto</th></tr>
+<tr><td><b>Telnet</b></td><td>Emulador de terminal en modo texto: permite administrar un equipo remoto como si estuvieras en su consola</td><td>TCP</td><td>23</td></tr>
+<tr><td><b>FTP</b></td><td>Transferencia de archivos grandes de forma confiable. Es protocolo y aplicación a la vez; incluye login y validación</td><td>TCP</td><td>20 (datos) y 21 (control)</td></tr>
+<tr><td><b>TFTP</b></td><td>Versión reducida de FTP: no orientada a conexión, con menos funciones pero más rápida y simple. La más usada para bajar el IOS a routers y switches Cisco</td><td>UDP</td><td>69</td></tr>
+</table>
+
+<h3>Capa de transporte</h3>
+<p>Funciones:</p>
+<ol>
+<li><b>Seguimiento de conversaciones:</b> un host puede tener muchas aplicaciones comunicándose a la vez, cada una con una o más aplicaciones remotas; transporte mantiene separados esos flujos.</li>
+<li><b>Segmentación de los datos:</b> corta el flujo de la aplicación en partes manejables y le agrega a cada una un encabezado que indica a qué comunicación pertenece.</li>
+<li><b>Reensamble</b> de los segmentos en destino, para entregar un flujo completo a la aplicación.</li>
+<li><b>Identificación de las aplicaciones</b> mediante <b>números de puerto</b>.</li>
+</ol>
+<h4>Puertos y sockets</h4>
+<table>
+<tr><th>Servicio</th><th>Puerto</th><th>Transporte</th></tr>
+<tr><td>FTP</td><td>20, 21</td><td>TCP</td></tr>
+<tr><td>Telnet</td><td>23</td><td>TCP</td></tr>
+<tr><td>SMTP</td><td>25</td><td>TCP</td></tr>
+<tr><td>DNS</td><td>53</td><td>UDP (y TCP)</td></tr>
+<tr><td>TFTP</td><td>69</td><td>UDP</td></tr>
+<tr><td>HTTP</td><td>80</td><td>TCP</td></tr>
+<tr><td>POP3</td><td>110</td><td>TCP</td></tr>
+<tr><td>News (NNTP)</td><td>119</td><td>TCP</td></tr>
+<tr><td>HTTPS</td><td>443</td><td>TCP</td></tr>
+</table>
+<div class="box ok"><b>Socket = dirección IP + puerto</b>
+Identifica una aplicación concreta en un equipo concreto. Ejemplo: en el servidor 192.168.2.150, <code>192.168.2.150:80</code> es el servidor web y <code>192.168.2.150:21</code> el de FTP. La IP lleva al equipo; el puerto, a la aplicación.</div>
+
+<h4>TCP</h4>
+<ul>
+<li>Es <b>orientado a la conexión</b> y <b>confiable</b>: establece la comunicación entre los hosts antes de intercambiar datos.</li>
+<li>Recibe los datos de la aplicación, los corta en <b>segmentos</b> y los <b>numera</b> (número de secuencia) para que el receptor pueda reensamblarlos en orden.</li>
+<li>Espera un <b>acuse de recibo (ACK)</b> del otro extremo. <b>Todo segmento sin ACK se retransmite.</b></li>
+<li>Hace <b>control de flujo por ventana</b>: no envía más segmentos que el tamaño de la <b>ventana TCP</b> sin haber recibido los ACK. Así no satura los buffers del receptor ni de los routers, y evita congestión y pérdidas. La ventana es la cantidad de datos que puedo enviar sin haber recibido el ACK.</li>
+</ul>
+<p><b>Establecimiento de la sesión: saludo de tres vías (three-way handshake)</b></p>
+<pre>  Host A                                Host B
+    │ ── 1. SYN (sincronización) ──────────▶ │
+    │ ◀─ 2. SYN + ACK (negocia parámetros) ── │
+    │ ── 3. ACK (sesión establecida) ───────▶ │
+    │    ⇒ circuito virtual creado, ya se pueden intercambiar datos</pre>
+<p><b>Campos del encabezado TCP:</b> puerto origen · puerto destino · <b>número de secuencia</b> (para reordenar) · <b>número de ACK</b> (el próximo número de secuencia que se espera) · longitud del encabezado · reservado (en 0) · <b>code bits</b> o flags (abren y cierran la sesión: SYN, ACK, FIN…) · <b>ventana</b> (en octetos) · <b>checksum</b> (verifica errores) · urgente · opciones.</p>
+<h4>UDP</h4>
+<ul>
+<li>Versión simplificada de TCP: <b>no orientado a conexión</b>, más liviano y con menos uso de ancho de banda.</li>
+<li><b>No asegura</b> que los datagramas lleguen ni que lleguen en orden: solo lleva puertos origen y destino, longitud y checksum.</li>
+<li><b>No tiene control de flujo</b> (no tiene los campos necesarios).</li>
+<li><b>Ejemplos:</b> la radio por Internet (si se pierde un paquete se escucha un cortecito; con TCP la retransmisión haría una pausa más notoria), <b>SNMP</b> (no necesita una conexión abierta con cada host), DNS, TFTP, juegos y video en tiempo real.</li>
+</ul>
+<table>
+<tr><th></th><th>TCP</th><th>UDP</th></tr>
+<tr><td>Conexión</td><td>Orientado a conexión (handshake)</td><td>Sin conexión</td></tr>
+<tr><td>Confiabilidad</td><td>ACK y retransmisión</td><td>No garantiza entrega</td></tr>
+<tr><td>Orden</td><td>Números de secuencia</td><td>Pueden llegar desordenados</td></tr>
+<tr><td>Control de flujo</td><td>Sí, por ventana</td><td>No</td></tr>
+<tr><td>Encabezado</td><td>Grande</td><td>Chico</td></tr>
+<tr><td>Ejemplos</td><td>HTTP, FTP, Telnet, SMTP, POP3</td><td>DNS, TFTP, SNMP, DHCP, streaming</td></tr>
+</table>
+
+<h3>Capa de Internet</h3>
+<h4>IP</h4>
+<p>Función principal: <b>direccionar y rutear</b> paquetes (datagramas). Características:</p>
+<ul>
+<li><b>Sin conexión:</b> no se establece una conexión entre origen y destino antes de enviar.</li>
+<li><b>No confiable:</b> no detecta paquetes dañados ni perdidos, no detecta paquetes fuera de secuencia y no da acuse de recibo. (La confiabilidad, si hace falta, la pone TCP arriba.)</li>
+<li><b>Independiente de los medios:</b> funciona igual sobre cobre, fibra o aire.</li>
+</ul>
+<p>El encabezado IP lleva, entre otros, la IP origen, la IP destino y el <b>TTL</b> (tiempo de vida: cada router le resta 1 y, al llegar a 0, descarta el paquete).</p>
+<h4>ICMP (Protocolo de Mensajes de Control de Internet)</h4>
+<ul>
+<li>Permite a hosts y routers enviar <b>mensajes de error y de control</b>. Lo usan <code>ping</code> y <code>tracert</code>/<code>traceroute</code>.</li>
+<li><b>Reporta errores, no los corrige.</b></li>
+<li>Sus mensajes viajan <b>encapsulados en datagramas IP</b>, y es no confiable.</li>
+<li>Mensajes principales: <b>Echo Request</b> y <b>Echo Reply</b> (los de ping), <b>Destino inalcanzable</b>, <b>Tiempo excedido</b> (TTL agotado: lo que aprovecha tracert), <b>Redirección de ruta</b> y <b>Disminución de la velocidad del origen</b> (source quench).</li>
+</ul>
+<h4>ARP (Protocolo de Resolución de Direcciones)</h4>
+<p>Resuelve <b>IP → MAC</b>. La PC conoce la IP destino pero necesita la MAC para armar la trama.</p>
+<ol>
+<li>Se revisa la <b>caché ARP</b>.</li>
+<li>Si no está, se envía un <b>ARP request en broadcast local</b> ("¿quién tiene esta IP?").</li>
+<li>El destino agrega a su caché la IP y MAC de quien preguntó.</li>
+<li>El destino responde con un <b>ARP reply</b> (unicast) con su MAC.</li>
+<li>El origen agrega la entrada a su caché.</li>
+<li>Recién ahí se envía el paquete IP.</li>
+</ol>
+<p><b>Tabla caché ARP</b> (se ve con <code>arp -a</code>): guarda las correspondencias recientes IP ↔ MAC. Las entradas <b>dinámicas</b> salen de respuestas ARP, tienen tiempo de vida y se borran al vencer. Las <b>estáticas</b> se cargan a mano, no vencen y se borran a mano.</p>
+<p>Si el destino está en <b>otra red</b>, la PC no pregunta por la MAC del destino sino por la del <b>gateway</b>, porque el broadcast no cruza el router.</p>
+<h4>RARP (ARP inverso)</h4>
+<p>Resuelve <b>MAC → IP</b>: el equipo conoce su MAC pero no su IP, y se la pide por difusión a un <b>servidor RARP</b>. Fue reemplazado por BOOTP y luego por DHCP.</p>
+<h4>IGMP</h4>
+<p>Gestiona la pertenencia de los hosts a grupos <b>multicast</b>.</p>
+
+<h3>DHCP y NAT</h3>
+<p><b>DHCP</b> entrega automáticamente IP, máscara, puerta de enlace y DNS. Cuatro pasos (DORA): <b>Discover</b> (broadcast de la PC, que todavía no tiene IP) → <b>Offer</b> → <b>Request</b> → <b>Ack</b>. La IP se presta por un tiempo (concesión) y se renueva. Como arranca con broadcast, no cruza un router salvo que haya un agente de retransmisión (DHCP relay). Viaja sobre UDP.</p>
+<p><b>NAT:</b> las IP privadas no circulan por Internet. El router reemplaza la IP origen privada por su IP pública y anota en una tabla quién hizo el pedido, distinguiendo a cada equipo por número de puerto. Existe por la escasez de IPv4; con IPv6 no hace falta.</p>
+
+<h3>Utilidades TCP/IP</h3>
+<table>
+<tr><th>Tipo</th><th>Comandos</th></tr>
+<tr><td><b>De conectividad</b></td><td><code>ftp</code>, <code>telnet</code>, <code>tftp</code></td></tr>
+<tr><td><b>De diagnóstico</b></td><td><code>arp</code> (tabla ARP) · <code>hostname</code> (nombre del equipo) · <code>ipconfig</code> (configuración IP de las placas) · <code>nbtstat</code> (NetBIOS sobre TCP/IP) · <code>netstat</code> (conexiones y puertos activos) · <code>ping</code> (conectividad, usa ICMP echo) · <code>tracert</code> (routers del camino, usa ICMP tiempo excedido) · <code>route print</code> (tabla de ruteo)</td></tr>
+<tr><td><b>Software de servidor</b></td><td>Servicios de impresión TCP/IP, servicios de Internet</td></tr>
+</table>
+<h3>Cómo se junta todo</h3>
+<p>Prendo la PC y abro una página: 1) la placa usa CSMA/CA (Wi-Fi) o CSMA/CD (cable) para acceder al medio, 2) DHCP me da IP, máscara, gateway y DNS, 3) DNS traduce el nombre del sitio a una IP, 4) ARP me consigue la MAC del gateway, 5) TCP hace el saludo de tres vías con el servidor (puerto 80 o 443), 6) el switch lleva la trama por MAC hasta el router, 7) el router hace NAT y me saca a Internet con la IP pública.</p>
+
+<h2 id="s18b">20. Direccionamiento IPv4 y subneteo</h2>
+<h3>La dirección IP</h3>
+<ul>
+<li>Identificación <b>exclusiva</b> de cada dispositivo en la red.</li>
+<li><b>4 octetos = 32 bits</b>, escritos en decimal separados por puntos. Cada octeto va de 0 a 255.</li>
+<li>Dos partes: <b>red</b> (Net ID) y <b>host</b> (Host ID). La <b>máscara</b> (o longitud de prefijo, /n) marca dónde termina la red.</li>
+<li>Asignación <b>estática</b> (a mano) o <b>dinámica</b> (DHCP).</li>
+</ul>
+<table>
+<tr><th>Tipo de dirección</th><th>Cómo se reconoce</th><th>Ejemplo en 192.168.1.0/24</th></tr>
+<tr><td><b>De red</b></td><td>La más baja del rango: <b>todos los bits de host en 0</b>. No se asigna a ningún equipo</td><td>192.168.1.0</td></tr>
+<tr><td><b>De host</b></td><td>Las del medio; se asignan a los dispositivos</td><td>192.168.1.1 a 192.168.1.254 (254 hosts)</td></tr>
+<tr><td><b>De broadcast</b></td><td>La más alta del rango: <b>todos los bits de host en 1</b></td><td>192.168.1.255</td></tr>
+</table>
+<div class="box warn"><b>Corrección sobre el apunte de clase</b>
+En el apunte quedó "el último [octeto] al hub" y "el .0 es la host". Lo correcto: el último octeto identifica al <b>host</b>, y la .0 es la dirección de <b>red</b>.</div>
+
+<h3>Clases</h3>
+<div class="scroll"><table>
+<tr><th>Clase</th><th>Primer octeto</th><th>Bits iniciales</th><th>Formato</th><th>Máscara por defecto</th><th>Uso</th></tr>
+<tr><td><b>A</b></td><td>1 a 126</td><td>0…</td><td>R.H.H.H</td><td>255.0.0.0 (/8)</td><td>Redes de gran tamaño (ej.: 10.0.0.32)</td></tr>
+<tr><td><b>B</b></td><td>128 a 191</td><td>10…</td><td>R.R.H.H</td><td>255.255.0.0 (/16)</td><td>Redes de tamaño medio (ej.: 128.14.58.60)</td></tr>
+<tr><td><b>C</b></td><td>192 a 223</td><td>110…</td><td>R.R.R.H</td><td>255.255.255.0 (/24)</td><td>Redes chicas (ej.: 192.9.150.22)</td></tr>
+<tr><td><b>D</b></td><td>224 a 239</td><td>1110…</td><td>—</td><td>—</td><td>Multicast</td></tr>
+<tr><td><b>E</b></td><td>240 a 255</td><td>1111…</td><td>—</td><td>—</td><td>Experimentales / investigación</td></tr>
+</table></div>
+<p>Las direcciones de red de clase A <b>no arrancan en 0 ni incluyen el 127</b>: los dos están reservados (ver abajo).</p>
+<h3>Direcciones especiales</h3>
+<table>
+<tr><th>Dirección</th><th>Rango</th><th>Para qué</th></tr>
+<tr><td><b>0.0.0.0</b></td><td>—</td><td>La usa un equipo cuando está arrancando o todavía no tiene dirección. Prohibida como dirección de host</td></tr>
+<tr><td><b>Loopback</b></td><td>127.0.0.0 – 127.255.255.255 (típicamente 127.0.0.1)</td><td>Pruebas de retroalimentación: el tráfico vuelve al propio equipo. Sirve para probar la pila TCP/IP sin red</td></tr>
+<tr><td><b>Enlace local</b> (APIPA)</td><td>169.254.0.0 – 169.254.255.255</td><td>El SO se la asigna sola al equipo cuando no consigue configuración IP (por ejemplo, si no responde el DHCP). Si en un <code>ipconfig</code> ves 169.254.x.x, el DHCP falló</td></tr>
+<tr><td><b>Privadas</b></td><td>10.0.0.0/8 · 172.16.0.0 – 172.31.255.255 (/12) · 192.168.0.0/16</td><td>Para redes privadas; <b>no salen a Internet</b> sin NAT</td></tr>
+<tr><td><b>Públicas</b></td><td>El resto</td><td>Para que los dispositivos se conecten a Internet</td></tr>
+</table>
+
+<h3>Máscara de subred y la operación AND</h3>
+<p>La máscara tiene 32 bits: <b>1 en la porción de red</b> y <b>0 en la porción de host</b>. Haciendo un <b>AND bit a bit</b> entre la IP y la máscara se obtiene la <b>dirección de red</b>.</p>
+<pre>1 AND 1 = 1    1 AND 0 = 0    0 AND 1 = 0    0 AND 0 = 0
+
+IP       192.168.1.43   = 11000000.10101000.00000001.00101011
+Máscara  255.255.255.0  = 11111111.11111111.11111111.00000000
+AND      192.168.1.0    = 11000000.10101000.00000001.00000000  ← red</pre>
+<ul>
+<li>El <b>host</b> lo usa para decidir si el paquete va a la <b>red local</b> (misma red: entrega directa por el switch) o al <b>gateway</b> (red distinta).</li>
+<li>El <b>router</b> lo usa para determinar una ruta para cada paquete entrante.</li>
+</ul>
+<div class="box warn"><b>Errata del apunte de TCP/IP</b>
+La diapositiva de máscara dice dos veces "porción de bits que representa a la red se coloca un 1/0". Lo correcto: <b>1 para la red, 0 para el host</b>.</div>
+<p><b>Misma red o distinta:</b> dos PCs en el mismo switch con IPs de redes distintas y sin router <b>no</b> se comunican: el switch es de capa 2 y no rutea.</p>
+
+<h3>Subneteo</h3>
+<p>Consiste en dividir una red grande en redes más chicas <b>tomando prestados bits de la porción de host</b> para la red.</p>
+<div class="box ok"><b>Las tres fórmulas</b>
+<b>Cantidad de subredes = 2<sup>n</sup></b>, con n = bits prestados.<br>
+<b>Hosts utilizables por subred = 2<sup>h</sup> − 2</b>, con h = bits que quedan para host (se restan la dirección de red y la de broadcast).<br>
+<b>Salto entre subredes = 256 − valor del octeto "interesante" de la máscara</b>.</div>
+<h4>Ejemplo clase C: 192.168.1.0 con máscara 255.255.255.192 (/26)</h4>
+<p>Se prestan 2 bits del último octeto (11000000 = 192). Subredes: 2<sup>2</sup> = <b>4</b>. Bits de host: 6 → 2<sup>6</sup> − 2 = <b>62 hosts</b> por subred. Salto: 256 − 192 = <b>64</b>.</p>
+<table>
+<tr><th>Subred</th><th>Dirección de red</th><th>Rango de hosts</th><th>Broadcast</th></tr>
+<tr><td>1</td><td>192.168.1.0/26</td><td>192.168.1.1 – 192.168.1.62</td><td>192.168.1.63</td></tr>
+<tr><td>2</td><td>192.168.1.64/26</td><td>192.168.1.65 – 192.168.1.126</td><td>192.168.1.127</td></tr>
+<tr><td>3</td><td>192.168.1.128/26</td><td>192.168.1.129 – 192.168.1.190</td><td>192.168.1.191</td></tr>
+<tr><td>4</td><td>192.168.1.192/26</td><td>192.168.1.193 – 192.168.1.254</td><td>192.168.1.255</td></tr>
+</table>
+<div class="box warn"><b>Errata del apunte de subneteo</b>
+La diapositiva pone "2<sup>6</sup> − 2 = 64 hosts utilizables". La cuenta da <b>62</b> (64 direcciones por subred, menos red y broadcast). La propia tabla del apunte lo confirma: de .1 a .62 son 62 hosts. El 64 es el <b>salto</b>, no la cantidad de hosts.</div>
+<h4>Ejemplo clase B: 172.20.0.0 con máscara 255.255.224.0 (/19)</h4>
+<p>Se prestan 3 bits del tercer octeto (11100000 = 224). Subredes: 2<sup>3</sup> = <b>8</b>. Bits de host: 13 → 2<sup>13</sup> − 2 = <b>8190 hosts</b>. Salto: 256 − 224 = <b>32</b> en el tercer octeto.</p>
+<table>
+<tr><th>Subred</th><th>Red</th><th>Rango de hosts</th><th>Broadcast</th></tr>
+<tr><td>1</td><td>172.20.0.0</td><td>172.20.0.1 – 172.20.31.254</td><td>172.20.31.255</td></tr>
+<tr><td>2</td><td>172.20.32.0</td><td>172.20.32.1 – 172.20.63.254</td><td>172.20.63.255</td></tr>
+<tr><td>3</td><td>172.20.64.0</td><td>172.20.64.1 – 172.20.95.254</td><td>172.20.95.255</td></tr>
+<tr><td>…</td><td>…</td><td>…</td><td>…</td></tr>
+<tr><td>8</td><td>172.20.224.0</td><td>172.20.224.1 – 172.20.255.254</td><td>172.20.255.255</td></tr>
+</table>
+<h4>Ejemplo clase A: 18.0.0.0 con máscara 255.240.0.0 (/12)</h4>
+<p>Se prestan 4 bits del segundo octeto (11110000 = 240). Subredes: 2<sup>4</sup> = <b>16</b>. Bits de host: 20 → 2<sup>20</sup> − 2 = <b>1.048.574 hosts</b>. Salto: 256 − 240 = <b>16</b> en el segundo octeto: 18.0.0.0, 18.16.0.0, 18.32.0.0 … 18.240.0.0. La primera subred va de 18.0.0.1 a 18.15.255.254, con broadcast 18.15.255.255.</p>
+<div class="box"><b>Método rápido para cualquier ejercicio</b>
+1) Identificá la clase y la máscara por defecto. 2) Contá los bits prestados (n) y los de host (h). 3) Calculá 2<sup>n</sup> subredes y 2<sup>h</sup> − 2 hosts. 4) Calculá el salto con 256 − octeto interesante. 5) Cada subred arranca en un múltiplo del salto; su broadcast es la dirección anterior a la siguiente subred; los hosts son todo lo del medio.</div>
+<h4>Conversión binario ↔ decimal</h4>
+<p>Pesos de los 8 bits de un octeto: <b>128 · 64 · 32 · 16 · 8 · 4 · 2 · 1</b>. Ejemplo: 11000000 = 128 + 64 = 192; 11100000 = 224; 11110000 = 240; 11111000 = 248; 11111100 = 252. Para pasar de decimal a binario se van restando los pesos de mayor a menor (o dividiendo por 2 y leyendo los restos de abajo hacia arriba).</p>
+
+<h3>IPv4 vs IPv6 (introducción)</h3>
+<div class="scroll"><table>
+<tr><th></th><th>IPv4</th><th>IPv6</th></tr>
+<tr><td>Tamaño</td><td>32 bits (~4.300 millones)</td><td>128 bits (2<sup>128</sup>)</td></tr>
+<tr><td>Notación</td><td>Decimal, 4 octetos con puntos</td><td>Hexadecimal, 8 grupos con ":"</td></tr>
+<tr><td>Ejemplo</td><td>192.168.1.43</td><td>fe80::b929:4b08:f476:5027</td></tr>
+<tr><td>Máscara</td><td>255.255.255.0 o /24</td><td>Solo prefijo (típico /64)</td></tr>
+<tr><td>Broadcast</td><td>Sí</td><td>No (usa multicast)</td></tr>
+<tr><td>Configuración</td><td>Manual o DHCP</td><td>Manual, DHCPv6 o autoconfiguración</td></tr>
+<tr><td>NAT</td><td>Necesario</td><td>No hace falta</td></tr>
+<tr><td>IP → MAC</td><td>ARP</td><td>Neighbor Discovery</td></tr>
+</table></div>
+<p><b>Cómo acortar una IPv6:</b> se omiten los ceros a la izquierda de cada grupo (0db8 → db8) y, <b>una sola vez</b>, una tira de grupos en cero se reemplaza por "::". Ej.: 2001:0db8:0000:0000:0000:0000:0000:0001 → <b>2001:db8::1</b>. Las que empiezan con <b>fe80</b> son de enlace local: la PC se las genera sola y no salen del router. <b>Doble pila</b>: el equipo tiene IPv4 e IPv6 a la vez, que es como se hace la transición.</p>
+
+<h2 id="s19">21. Pares que se confunden</h2>
+<div class="scroll"><table>
+<tr><th>Esto…</th><th>…no es esto</th><th>La diferencia</th></tr>
+<tr><td>Topología física</td><td>Topología lógica</td><td>Cómo se cablea vs cómo circula la información. La lógica la da el protocolo de acceso al medio.</td></tr>
+<tr><td>Protocolo de acceso al medio</td><td>Protocolo de comunicación</td><td>CSMA/CD decide quién usa el medio y cuándo (capa 2, viene dentro de la norma, lo ejecuta la NIC). IP, TCP, HTTP definen cómo se direccionan, transportan e interpretan los datos (capas 3 a 7, los ejecuta el SO).</td></tr>
+<tr><td>Norma de comunicación</td><td>Protocolo de comunicación</td><td>Norma: estándar de hardware (capas 1-2) que fija medio, velocidad, señal, trama y acceso al medio; ej. 802.3, 802.11. Protocolo: reglas de diálogo en software (capas 3-7) con sintaxis, semántica y temporización; ej. IP, TCP, DNS. Cambiar de cable a Wi-Fi cambia la norma, no los protocolos.</td></tr>
+<tr><td>CSMA/CD</td><td>CSMA/CA</td><td>Detecta colisiones (cable, 802.3) vs las evita y confirma con ACK (aire, 802.11).</td></tr>
+<tr><td>Contención</td><td>Token passing</td><td>Probabilístico con colisiones vs determinístico sin colisiones.</td></tr>
+<tr><td>Polling</td><td>Token passing</td><td>Los dos son determinísticos, pero polling depende de un maestro central; en token passing el permiso circula entre pares.</td></tr>
+<tr><td>Dominio de colisión</td><td>Dominio de broadcast</td><td>Lo separa el switch vs lo separa el router.</td></tr>
+<tr><td>Flooding</td><td>Broadcast</td><td>Trama unicast con destino desconocido que el switch copia a todos vs trama cuyo destino es FFFF.FFFF.FFFF.</td></tr>
+<tr><td>Hub</td><td>Switch</td><td>Capa 1, repite a todos, sin tabla vs capa 2, reenvía por MAC, con tabla.</td></tr>
+<tr><td>MAC</td><td>IP</td><td>Física, fija, capa 2, switch vs lógica, cambia, capa 3, router.</td></tr>
+<tr><td>Servidor dedicado</td><td>Topología estrella</td><td>Uno es un rol de software; la otra es cableado. El centro de una estrella es un hub o switch.</td></tr>
+<tr><td>MDF</td><td>IDF</td><td>Repartidor principal del edificio vs repartidores de planta.</td></tr>
+<tr><td>Cableado horizontal</td><td>Cableado vertical</td><td>Del rack del piso a la roseta (máx. 90 m) vs entre plantas (backbone).</td></tr>
+<tr><td>Plug</td><td>Jack</td><td>Macho, pinza de crimpear vs hembra, pinza de impacto.</td></tr>
+<tr><td>Patch cord derecho</td><td>Cruzado</td><td>Misma convención en ambas puntas (equipos distintos) vs A en una y B en la otra (equipos iguales).</td></tr>
+<tr><td>Half-duplex</td><td>Full-duplex</td><td>Turnos, con CSMA/CD vs simultáneo, sin colisiones.</td></tr>
+<tr><td>Baseband</td><td>Broadband</td><td>Una señal digital ocupa todo el canal, multiplexa con TDM, LAN vs varias señales analógicas en frecuencias distintas, FDM, WAN.</td></tr>
+<tr><td>Subcapa MAC</td><td>Subcapa LLC</td><td>Acceso al medio y dirección física vs sincronización de tramas, control de flujo y chequeo de errores.</td></tr>
+<tr><td>Protocolo ruteable</td><td>Protocolo de enrutamiento</td><td>Viaja con los datos (IP) vs lo usan los routers para armar sus tablas (RIP, IGRP).</td></tr>
+<tr><td>TCP</td><td>UDP</td><td>Orientado a conexión, confiable, con ACK, secuencia y ventana vs sin conexión, sin garantía ni control de flujo, más liviano.</td></tr>
+<tr><td>ARP</td><td>RARP</td><td>Conozco la IP, busco la MAC vs conozco mi MAC, busco mi IP.</td></tr>
+<tr><td>Dirección de red</td><td>Dirección de broadcast</td><td>Bits de host todos en 0 (la más baja) vs bits de host todos en 1 (la más alta). Ninguna se asigna a un equipo.</td></tr>
+<tr><td>Loopback 127.x</td><td>Enlace local 169.254.x</td><td>Prueba hacia uno mismo vs dirección que se pone sola el SO cuando no consiguió IP.</td></tr>
+<tr><td>Nodo oculto</td><td>Nodo expuesto</td><td>Cree que el canal está libre y no lo está vs cree que está ocupado y está libre.</td></tr>
+<tr><td>Enlace de acceso</td><td>Enlace troncal</td><td>Una sola VLAN, sin etiqueta vs varias VLANs, con etiqueta 802.1Q.</td></tr>
+<tr><td>Segmento poblado</td><td>Segmento no poblado</td><td>Con PCs conectadas vs solo une repetidores (regla 5-4-3).</td></tr>
+</table></div>
+
+<h2 id="s20">22. Autoevaluación</h2>
+<p>Respondé antes de abrir cada una. Están en el formato del parcial.</p>
+<h3>Verdadero o falso</h3>
+<details><summary>1. La topología lógica de una red queda determinada por cómo están tendidos los cables.</summary><p><b>Falso.</b> La determina el protocolo de acceso al medio. El tendido es la topología física.</p></details>
+<details><summary>2. Una red Ethernet con switch tiene topología física estrella y lógica bus.</summary><p><b>Verdadero.</b> 802.3 usa CSMA/CD, que es de contención → lógica bus/difusión.</p></details>
+<details><summary>3. El switch separa dominios de broadcast.</summary><p><b>Falso.</b> Separa dominios de colisión. El broadcast lo separa el router (o las VLAN).</p></details>
+<details><summary>4. El switch aprende las direcciones mirando la MAC destino de las tramas.</summary><p><b>Falso.</b> Aprende con la MAC origen. La destino la usa para decidir el reenvío.</p></details>
+<details><summary>5. Wi-Fi usa CSMA/CD.</summary><p><b>Falso.</b> Usa CSMA/CA: una radio no puede escuchar mientras transmite, así que no puede detectar colisiones.</p></details>
+<details><summary>6. En token passing no hay colisiones.</summary><p><b>Verdadero.</b> Solo transmite quien tiene el token.</p></details>
+<details><summary>7. Token Ring con MSAU tiene topología física en anillo.</summary><p><b>Falso.</b> Física en estrella (todos a la MSAU), lógica en anillo.</p></details>
+<details><summary>8. La dirección MAC tiene 32 bits.</summary><p><b>Falso.</b> 48 bits (6 bytes). 32 bits tiene la IPv4.</p></details>
+<details><summary>9. En una red peer to peer cada PC es cliente y servidor a la vez.</summary><p><b>Verdadero.</b></p></details>
+<details><summary>10. En una red de servidor dedicado los recursos compartidos solo pueden estar en el servidor.</summary><p><b>Falso.</b> Pueden estar en el servidor o en cualquier nodo del dominio; lo centralizado es la administración.</p></details>
+<details><summary>11. La distancia máxima del cableado horizontal es de 100 metros entre patchera y roseta.</summary><p><b>Falso.</b> Son 90 m. Los 100 m son el canal completo contando los patch cords.</p></details>
+<details><summary>12. T568A y T568B se diferencian en la posición de los pares verde y naranja.</summary><p><b>Verdadero.</b> Azul y marrón quedan igual.</p></details>
+<details><summary>13. Para conectar dos PCs directamente, sin hub, se usa un patch cord cruzado.</summary><p><b>Verdadero.</b> Cruza 1↔3 y 2↔6.</p></details>
+<details><summary>14. 10GBASE-T puede trabajar en half-duplex con CSMA/CD.</summary><p><b>Falso.</b> Es solo full-duplex.</p></details>
+<details><summary>15. Polling es un método de contención.</summary><p><b>Falso.</b> Es determinístico, maestro-esclavo.</p></details>
+<details><summary>16. Al reemplazar hubs por switches aumenta la cantidad de dominios de colisión.</summary><p><b>Verdadero.</b> Pasa de uno grande a uno por puerto: hay más, pero más chicos y sin choques. El de broadcast sigue siendo uno.</p></details>
+<details><summary>17. Un hub trabaja en la capa 2 del modelo OSI.</summary><p><b>Falso.</b> Capa 1. Es un repetidor multipuerto.</p></details>
+<details><summary>18. Los permisos de recurso compartido se aplican también cuando el usuario accede localmente a la carpeta.</summary><p><b>Falso.</b> Solo se validan en el acceso remoto por la red.</p></details>
+<details><summary>19. La velocidad de una LAN está determinada por la norma de comunicación.</summary><p><b>Verdadero.</b> Y en la práctica la limita el componente más lento (placa, cable o puerto).</p></details>
+<details><summary>20. Cuando el switch hace flooding, la trama se convierte en broadcast.</summary><p><b>Falso.</b> Sigue siendo unicast; las placas que no son el destino la descartan.</p></details>
+
+<h3>Opción múltiple</h3>
+<details><summary>21. 100BASE-TX corresponde a: a) 802.3i · b) 802.3u · c) 802.3ab · d) 802.3an</summary><p><b>b)</b> 802.3u, Fast Ethernet. 802.3i = 10BASE-T, 802.3ab = Gigabit, 802.3an = 10 Gigabit.</p></details>
+<details><summary>22. En "10BASE2", el 2 indica: a) 2 pares · b) coaxil fino, ~200 m · c) 2 Mbps · d) capa 2</summary><p><b>b)</b> Coaxil fino; exactamente 185 m.</p></details>
+<details><summary>23. ¿Qué variante de CSMA usa Ethernet? a) no persistente · b) p-persistente · c) 1-persistente · d) Aloha ranurado</summary><p><b>c)</b> 1-persistente.</p></details>
+<details><summary>24. Dispositivo que separa dominios de broadcast: a) hub · b) repetidor · c) switch · d) router</summary><p><b>d)</b> Router.</p></details>
+<details><summary>25. Switch con 2 PCs directas y un hub en un tercer puerto con 3 PCs. Dominios de colisión y de broadcast: a) 5 y 1 · b) 3 y 1 · c) 1 y 1 · d) 3 y 3</summary><p><b>b)</b> 3 de colisión (dos puertos con PC + el puerto del hub, donde las 3 comparten uno) y 1 de broadcast (no hay router).</p></details>
+<details><summary>26. El MDF es: a) el repartidor de cada planta · b) el repartidor principal del edificio · c) el punto de demarcación del proveedor · d) el cableado entre edificios</summary><p><b>b)</b>. a) es el IDF, c) el POP, d) el subsistema de campus.</p></details>
+<details><summary>27. En 10/100 Mbps, los pines de transmisión y recepción del RJ-45 son: a) 1-2 y 3-6 · b) 1-2 y 3-4 · c) 4-5 y 7-8 · d) 1-3 y 2-6</summary><p><b>a)</b> 1 y 2 transmiten, 3 y 6 reciben. d) son los pares que se cruzan en un crossover.</p></details>
+<details><summary>28. Cable mínimo para 10GBASE-T a 100 m: a) Cat 5 · b) Cat 5e · c) Cat 6 · d) Cat 6A</summary><p><b>d)</b> Cat 6A. Cat 6 llega a 10G solo hasta unos 55 m.</p></details>
+<details><summary>29. ¿Qué servidor asigna automáticamente las direcciones IP? a) DNS · b) DHCP · c) Proxy · d) Dominio</summary><p><b>b)</b> DHCP. DNS resuelve nombres.</p></details>
+<details><summary>30. La norma que regula el etiquetado y la documentación del cableado es: a) 568 · b) 569 · c) 606 · d) 607</summary><p><b>c)</b> 606. 569 rutas y espacios, 607 puesta a tierra.</p></details>
+<details><summary>31. PC1 es 192.168.1.20/24 y PC2 es 192.168.2.20/24, en el mismo switch sin router. ¿Hay ping? a) Sí, están en el mismo switch · b) No, redes distintas y nada que rutee · c) Sí, por ARP · d) Solo con cable cruzado</summary><p><b>b)</b> El switch no rutea entre redes.</p></details>
+<details><summary>32. En Token Ring, el dispositivo que mantiene el anillo cerrado cuando una PC se apaga es: a) el Monitor Activo · b) la MSAU, con sus relés de bypass · c) el token · d) el router</summary><p><b>b)</b>. El Monitor Activo vigila el token, no el cableado.</p></details>
+
+<h3>Norma vs protocolo (agregadas en v1.1)</h3>
+<details><summary>33. V o F: TCP/IP es una norma de comunicación.</summary><p><b>Falso.</b> Es una suite de protocolos de comunicación.</p></details>
+<details><summary>34. V o F: IEEE 802.11 define la velocidad, la banda de frecuencia y el método de acceso al medio de una red inalámbrica.</summary><p><b>Verdadero.</b> Eso es exactamente lo que fija una norma.</p></details>
+<details><summary>35. V o F: Al pasar una PC de cable a Wi-Fi cambian la norma y el protocolo de acceso al medio, pero no los protocolos de comunicación.</summary><p><b>Verdadero.</b> 802.3 → 802.11 y CSMA/CD → CSMA/CA; IP, TCP, DHCP y DNS siguen iguales.</p></details>
+<details><summary>36. V o F: CSMA/CD es un protocolo de comunicación.</summary><p><b>Falso.</b> Es un protocolo de acceso al medio, definido dentro de la norma 802.3.</p></details>
+<details><summary>37. ¿Cuál es una norma de comunicación? a) HTTP · b) DHCP · c) IEEE 802.3u · d) UDP</summary><p><b>c)</b>. Las demás son protocolos.</p></details>
+<details><summary>38. ¿Cuál es un protocolo de comunicación? a) IEEE 802.5 · b) TIA/EIA-568 · c) IP · d) 1000BASE-T</summary><p><b>c)</b> IP. Las demás son normas (o una variante de norma, en el caso de 1000BASE-T).</p></details>
+<details><summary>39. Los tres elementos de un protocolo son: a) medio, velocidad y conector · b) sintaxis, semántica y temporización · c) origen, destino y datos · d) física, enlace y red</summary><p><b>b)</b>. La opción a) describe lo que fija una norma.</p></details>
+<details><summary>40. La norma de comunicación se implementa principalmente en: a) las aplicaciones · b) el sistema operativo · c) el hardware (placa de red, cables, switch) · d) el servidor DNS</summary><p><b>c)</b>. Los protocolos de comunicación son los que se implementan en software (SO y aplicaciones).</p></details>
+
+<h3>Material oficial (agregadas en v1.2)</h3>
+<details><summary>41. V o F: En el modelo OSI, la unidad de datos de la capa de sesión se llama segmento.</summary><p><b>Falso.</b> En sesión, presentación y aplicación es el <b>mensaje</b> (SPDU, PPDU, APDU). El segmento es de transporte.</p></details>
+<details><summary>42. Las capas de red y transporte del modelo OSI se agrupan en la función de: a) comunicación · b) networking · c) servicios · d) presentación</summary><p><b>b)</b> Networking. Física y enlace = comunicación; sesión, presentación y aplicación = servicios.</p></details>
+<details><summary>43. ¿Qué subcapa de enlace se encarga del control de flujo y del chequeo de errores? a) MAC · b) LLC · c) SAP · d) PHY</summary><p><b>b)</b> LLC. MAC se ocupa del acceso al medio y del direccionamiento físico.</p></details>
+<details><summary>44. V o F: La señalización broadband utiliza toda la capacidad del medio para una sola señal y se usa en LAN.</summary><p><b>Falso.</b> Eso es <b>baseband</b> (digital, TDM, LAN). Broadband comparte el ancho de banda entre varios canales analógicos con FDM y se usa en WAN.</p></details>
+<details><summary>45. ¿Cuál de estos es un protocolo de enrutamiento? a) IP · b) RIP · c) TCP · d) ARP</summary><p><b>b)</b> RIP (también IGRP). IP es un protocolo ruteable.</p></details>
+<details><summary>46. La capa OSI llamada "el traductor" y que define el código ASCII o EBCDIC es: a) aplicación · b) sesión · c) presentación · d) transporte</summary><p><b>c)</b> Presentación. También comprime y encripta.</p></details>
+<details><summary>47. El medio con peor comportamiento frente a la EMI es: a) fibra · b) coaxil · c) STP · d) UTP</summary><p><b>d)</b> UTP. La fibra no sufre interferencias eléctricas.</p></details>
+<details><summary>48. El tamaño mínimo de una trama Ethernet 802.3 es: a) 46 bytes · b) 64 bytes · c) 1500 bytes · d) 1518 bytes</summary><p><b>b)</b> 64 bytes. 46 es el mínimo del campo de datos (por eso el padding); 1500 el máximo de datos; 1518 el máximo de trama.</p></details>
+<details><summary>49. En una trama Ethernet II, el campo de 2 bytes después de la MAC origen indica: a) la longitud de los datos · b) el tipo de protocolo transportado · c) el CRC · d) la prioridad</summary><p><b>b)</b> El tipo de protocolo. En una trama 802.3 indica la longitud.</p></details>
+<details><summary>50. Según la regla 5-4-3, entre dos PCs no puede haber más de: a) 5 repetidores, 4 segmentos, 3 hubs · b) 5 segmentos, 4 repetidores, 3 segmentos poblados · c) 5 hubs, 4 switches, 3 routers · d) 5 PCs por segmento</summary><p><b>b)</b>.</p></details>
+<details><summary>51. 10BASE5 usa transceivers: a) incluidos en la NIC con conector BNC · b) externos, con llaves vampiro y conector DIX · c) RJ-45 · d) ópticos</summary><p><b>b)</b>. 10BASE2 usa BNC con el transceiver en la placa; 10BASE-T, RJ-45.</p></details>
+<details><summary>52. La longitud máxima total de una red 10BASE2 es: a) 185 m · b) 500 m · c) 925 m · d) 2500 m</summary><p><b>c)</b> 925 m (5 segmentos × 185 m). 2500 m es la de 10BASE5.</p></details>
+<details><summary>53. V o F: Fast Ethernet (802.3u) soporta cable coaxil.</summary><p><b>Falso.</b> Funciona sobre par trenzado y fibra óptica.</p></details>
+<details><summary>54. ¿Qué variante de Fast Ethernet usa 4 pares de UTP Cat 3 y solo funciona en half duplex? a) 100BASE-TX · b) 100BASE-T4 · c) 100BASE-FX · d) 100BASE-SX</summary><p><b>b)</b> 100BASE-T4.</p></details>
+<details><summary>55. En Fast Ethernet full duplex: a) se usa CSMA/CD igual que en half · b) se desactiva la detección de colisiones y lo ofrecen solo los switches · c) funciona con hubs · d) baja a 50 Mbps por sentido</summary><p><b>b)</b>. 100 Mbps por sentido, 200 Mbps en total.</p></details>
+<details><summary>56. V o F: En una red Wi-Fi ad hoc todo el tráfico pasa por el access point.</summary><p><b>Falso.</b> En ad hoc los nodos se comunican peer to peer, sin AP. Eso describe el modo infraestructura.</p></details>
+<details><summary>57. Una estación cree que el canal está libre pero está ocupado por un nodo que ella no oye. Es el problema del: a) nodo expuesto · b) nodo oculto · c) bucle · d) broadcast storm</summary><p><b>b)</b> Nodo oculto. Lo mitiga RTS/CTS.</p></details>
+<details><summary>58. El orden correcto para conectarse a un AP es: a) asociación, escaneo, autenticación · b) autenticación, escaneo, asociación · c) escaneo, autenticación, asociación · d) escaneo, asociación, autenticación</summary><p><b>c)</b>.</p></details>
+<details><summary>59. V o F: Ocultar o cambiar el SSID es una medida de seguridad suficiente.</summary><p><b>Falso.</b> El SSID solo identifica y agrupa lógicamente la red. La seguridad la dan WPA2/WPA3 (AES).</p></details>
+<details><summary>60. La antena que da cobertura de 360° con menor alcance es la: a) direccional · b) sectorial · c) omnidireccional · d) parabólica</summary><p><b>c)</b> Omnidireccional.</p></details>
+<details><summary>61. El material que más atenúa la señal Wi-Fi es: a) madera · b) yeso · c) ladrillo · d) metal</summary><p><b>d)</b> Metal (interferencia muy alta).</p></details>
+<details><summary>62. ¿Qué protocolo evita los bucles entre switches? a) VLAN · b) STP (802.1D) · c) 802.1Q · d) ARP</summary><p><b>b)</b> Spanning Tree. Bloquea los puertos redundantes.</p></details>
+<details><summary>63. En STP, el switch raíz es el que tiene: a) mayor velocidad · b) menor ID (prioridad + MAC) · c) más puertos · d) mayor MAC</summary><p><b>b)</b>.</p></details>
+<details><summary>64. V o F: Cada VLAN es un dominio de broadcast y para comunicar dos VLANs hace falta un router.</summary><p><b>Verdadero.</b></p></details>
+<details><summary>65. ¿Cuántos bits del encabezado 802.1Q identifican la VLAN? a) 8 · b) 12 · c) 16 · d) 32</summary><p><b>b)</b> 12 bits.</p></details>
+<details><summary>66. V o F: IP es un protocolo orientado a conexión y confiable.</summary><p><b>Falso.</b> IP es sin conexión y no confiable. TCP es el orientado a conexión y confiable.</p></details>
+<details><summary>67. Los pasos del three-way handshake de TCP son: a) ACK, SYN, FIN · b) SYN, SYN-ACK, ACK · c) GET, POST, PUT · d) Discover, Offer, Request, Ack</summary><p><b>b)</b>. d) es DHCP.</p></details>
+<details><summary>68. ¿Qué protocolo usa ping? a) TCP · b) UDP · c) ICMP · d) ARP</summary><p><b>c)</b> ICMP (Echo Request / Echo Reply).</p></details>
+<details><summary>69. Una PC muestra en ipconfig la dirección 169.254.12.5. Significa que: a) es una IP pública · b) es loopback · c) no consiguió configuración IP (por ejemplo, falló el DHCP) · d) es multicast</summary><p><b>c)</b> Es una dirección de enlace local (APIPA).</p></details>
+<details><summary>70. 192.168.1.0 con máscara 255.255.255.192. ¿Cuántas subredes, cuántos hosts por subred y cuál es el broadcast de la segunda subred?</summary><p>2 bits prestados → <b>4 subredes</b>. 6 bits de host → 2<sup>6</sup> − 2 = <b>62 hosts</b>. Salto de 64: la segunda subred es 192.168.1.64, con broadcast <b>192.168.1.127</b>.</p></details>
+
+<p class="sub" style="margin-top:40px">Fuentes: material oficial del aula virtual (Ing. Patricia Nazar): Modelo OSI partes 1 a 3, Norma IEEE 802.3 Ethernet, Norma IEEE 802.3u Fast Ethernet, Introducción a Switching Ethernet, Redes inalámbricas, Modelo TCP/IP partes 1 a 3, Teoría y Práctica de Cableado Estructurado, trama 802.3; slides Primeras Unidades 2026, planificación 2026, apuntes de clase 1 y 2, resumen de conceptos a afianzar, resumen de normas TIA y las presentaciones de actividades del grupo.</p>
+</main>
+</div>
+</body>
+</html>
