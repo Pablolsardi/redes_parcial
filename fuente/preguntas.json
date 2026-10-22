@@ -1,0 +1,965 @@
+{
+ "version": "1.3",
+ "temas": [
+  {
+   "id": "osi",
+   "nombre": "Modelo OSI y capa física"
+  },
+  {
+   "id": "topo",
+   "nombre": "Topologías y acceso al medio"
+  },
+  {
+   "id": "norma",
+   "nombre": "Norma vs protocolo de comunicación"
+  },
+  {
+   "id": "eth",
+   "nombre": "Ethernet 802.3 y sus variantes"
+  },
+  {
+   "id": "wifi",
+   "nombre": "Redes inalámbricas 802.11"
+  },
+  {
+   "id": "disp",
+   "nombre": "MAC, dispositivos y dominios"
+  },
+  {
+   "id": "sw",
+   "nombre": "Switching, STP y VLAN"
+  },
+  {
+   "id": "lan",
+   "nombre": "Tipos de LAN y servidores"
+  },
+  {
+   "id": "cab",
+   "nombre": "Cableado estructurado y normas TIA"
+  },
+  {
+   "id": "tcp",
+   "nombre": "TCP/IP y direccionamiento"
+  }
+ ],
+ "preguntas": [
+  {
+   "id": 1,
+   "tema": "osi",
+   "tipo": "vf",
+   "enunciado": "En el modelo OSI, la unidad de datos de la capa de sesión se llama segmento.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "En sesión, presentación y aplicación es el <b>mensaje</b> (SPDU, PPDU, APDU). El segmento es de transporte."
+  },
+  {
+   "id": 2,
+   "tema": "osi",
+   "tipo": "mc",
+   "enunciado": "Las capas de red y transporte del modelo OSI se agrupan en la función de:",
+   "opciones": [
+    "comunicación",
+    "networking",
+    "servicios",
+    "presentación"
+   ],
+   "correcta": 1,
+   "explicacion": "Física y enlace = comunicación; sesión, presentación y aplicación = servicios."
+  },
+  {
+   "id": 3,
+   "tema": "osi",
+   "tipo": "mc",
+   "enunciado": "¿Qué subcapa de enlace se encarga del control de flujo y del chequeo de errores?",
+   "opciones": [
+    "MAC",
+    "LLC",
+    "SAP",
+    "PHY"
+   ],
+   "correcta": 1,
+   "explicacion": "MAC se ocupa del acceso al medio y del direccionamiento físico."
+  },
+  {
+   "id": 4,
+   "tema": "osi",
+   "tipo": "vf",
+   "enunciado": "La señalización broadband utiliza toda la capacidad del medio para una sola señal y se usa en LAN.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "Eso es <b>baseband</b> (digital, TDM, LAN). Broadband comparte el ancho de banda entre varios canales analógicos con FDM y se usa en WAN."
+  },
+  {
+   "id": 5,
+   "tema": "osi",
+   "tipo": "mc",
+   "enunciado": "La capa OSI llamada \"el traductor\" y que define el código ASCII o EBCDIC es:",
+   "opciones": [
+    "aplicación",
+    "sesión",
+    "presentación",
+    "transporte"
+   ],
+   "correcta": 2,
+   "explicacion": "También comprime y encripta."
+  },
+  {
+   "id": 6,
+   "tema": "osi",
+   "tipo": "mc",
+   "enunciado": "El medio con peor comportamiento frente a la EMI es:",
+   "opciones": [
+    "fibra",
+    "coaxil",
+    "STP",
+    "UTP"
+   ],
+   "correcta": 3,
+   "explicacion": "La fibra no sufre interferencias eléctricas."
+  },
+  {
+   "id": 7,
+   "tema": "topo",
+   "tipo": "vf",
+   "enunciado": "La topología lógica de una red queda determinada por cómo están tendidos los cables.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "La determina el protocolo de acceso al medio. El tendido es la topología física."
+  },
+  {
+   "id": 8,
+   "tema": "topo",
+   "tipo": "vf",
+   "enunciado": "Una red Ethernet con switch tiene topología física estrella y lógica bus.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "802.3 usa CSMA/CD, que es de contención → lógica bus/difusión."
+  },
+  {
+   "id": 9,
+   "tema": "topo",
+   "tipo": "vf",
+   "enunciado": "Wi-Fi usa CSMA/CD.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "Usa CSMA/CA: una radio no puede escuchar mientras transmite, así que no puede detectar colisiones."
+  },
+  {
+   "id": 10,
+   "tema": "topo",
+   "tipo": "vf",
+   "enunciado": "En token passing no hay colisiones.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Solo transmite quien tiene el token."
+  },
+  {
+   "id": 11,
+   "tema": "topo",
+   "tipo": "vf",
+   "enunciado": "Token Ring con MSAU tiene topología física en anillo.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "Física en estrella (todos a la MSAU), lógica en anillo."
+  },
+  {
+   "id": 12,
+   "tema": "topo",
+   "tipo": "vf",
+   "enunciado": "Polling es un método de contención.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "Es determinístico, maestro-esclavo."
+  },
+  {
+   "id": 13,
+   "tema": "topo",
+   "tipo": "mc",
+   "enunciado": "¿Qué variante de CSMA usa Ethernet?",
+   "opciones": [
+    "no persistente",
+    "p-persistente",
+    "1-persistente",
+    "Aloha ranurado"
+   ],
+   "correcta": 2,
+   "explicacion": "Si el canal está ocupado, se queda escuchando y transmite apenas se libera (con probabilidad 1)."
+  },
+  {
+   "id": 14,
+   "tema": "norma",
+   "tipo": "vf",
+   "enunciado": "La velocidad de una LAN está determinada por la norma de comunicación.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Y en la práctica la limita el componente más lento (placa, cable o puerto)."
+  },
+  {
+   "id": 15,
+   "tema": "norma",
+   "tipo": "vf",
+   "enunciado": "TCP/IP es una norma de comunicación.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "Es una suite de protocolos de comunicación."
+  },
+  {
+   "id": 16,
+   "tema": "norma",
+   "tipo": "vf",
+   "enunciado": "IEEE 802.11 define la velocidad, la banda de frecuencia y el método de acceso al medio de una red inalámbrica.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Eso es exactamente lo que fija una norma."
+  },
+  {
+   "id": 17,
+   "tema": "norma",
+   "tipo": "vf",
+   "enunciado": "Al pasar una PC de cable a Wi-Fi cambian la norma y el protocolo de acceso al medio, pero no los protocolos de comunicación.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "802.3 → 802.11 y CSMA/CD → CSMA/CA; IP, TCP, DHCP y DNS siguen iguales."
+  },
+  {
+   "id": 18,
+   "tema": "norma",
+   "tipo": "vf",
+   "enunciado": "CSMA/CD es un protocolo de comunicación.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "Es un protocolo de acceso al medio, definido dentro de la norma 802.3."
+  },
+  {
+   "id": 19,
+   "tema": "norma",
+   "tipo": "mc",
+   "enunciado": "¿Cuál es una norma de comunicación?",
+   "opciones": [
+    "HTTP",
+    "DHCP",
+    "IEEE 802.3u",
+    "UDP"
+   ],
+   "correcta": 2,
+   "explicacion": "Las demás son protocolos."
+  },
+  {
+   "id": 20,
+   "tema": "norma",
+   "tipo": "mc",
+   "enunciado": "¿Cuál es un protocolo de comunicación?",
+   "opciones": [
+    "IEEE 802.5",
+    "TIA/EIA-568",
+    "IP",
+    "1000BASE-T"
+   ],
+   "correcta": 2,
+   "explicacion": "Las demás son normas (o una variante de norma, en el caso de 1000BASE-T)."
+  },
+  {
+   "id": 21,
+   "tema": "norma",
+   "tipo": "mc",
+   "enunciado": "Los tres elementos de un protocolo son:",
+   "opciones": [
+    "medio, velocidad y conector",
+    "sintaxis, semántica y temporización",
+    "origen, destino y datos",
+    "física, enlace y red"
+   ],
+   "correcta": 1,
+   "explicacion": "La opción a) describe lo que fija una norma."
+  },
+  {
+   "id": 22,
+   "tema": "norma",
+   "tipo": "mc",
+   "enunciado": "La norma de comunicación se implementa principalmente en:",
+   "opciones": [
+    "las aplicaciones",
+    "el sistema operativo",
+    "el hardware (placa de red, cables, switch)",
+    "el servidor DNS"
+   ],
+   "correcta": 2,
+   "explicacion": "Los protocolos de comunicación son los que se implementan en software (SO y aplicaciones)."
+  },
+  {
+   "id": 23,
+   "tema": "eth",
+   "tipo": "vf",
+   "enunciado": "10GBASE-T puede trabajar en half-duplex con CSMA/CD.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "Es solo full-duplex."
+  },
+  {
+   "id": 24,
+   "tema": "eth",
+   "tipo": "mc",
+   "enunciado": "100BASE-TX corresponde a:",
+   "opciones": [
+    "802.3i",
+    "802.3u",
+    "802.3ab",
+    "802.3an"
+   ],
+   "correcta": 1,
+   "explicacion": "Fast Ethernet. 802.3i = 10BASE-T, 802.3ab = Gigabit, 802.3an = 10 Gigabit."
+  },
+  {
+   "id": 25,
+   "tema": "eth",
+   "tipo": "mc",
+   "enunciado": "En \"10BASE2\", el 2 indica:",
+   "opciones": [
+    "2 pares",
+    "coaxil fino, ~200 m",
+    "2 Mbps",
+    "capa 2"
+   ],
+   "correcta": 1,
+   "explicacion": "El valor exacto de la norma es 185 m; el \"2\" sale de redondear a 200."
+  },
+  {
+   "id": 26,
+   "tema": "eth",
+   "tipo": "mc",
+   "enunciado": "Cable mínimo para 10GBASE-T a 100 m:",
+   "opciones": [
+    "Cat 5",
+    "Cat 5e",
+    "Cat 6",
+    "Cat 6A"
+   ],
+   "correcta": 3,
+   "explicacion": "Cat 6 llega a 10G solo hasta unos 55 m."
+  },
+  {
+   "id": 27,
+   "tema": "eth",
+   "tipo": "mc",
+   "enunciado": "El tamaño mínimo de una trama Ethernet 802.3 es:",
+   "opciones": [
+    "46 bytes",
+    "64 bytes",
+    "1500 bytes",
+    "1518 bytes"
+   ],
+   "correcta": 1,
+   "explicacion": "46 es el mínimo del campo de datos (por eso el padding); 1500 el máximo de datos; 1518 el máximo de trama."
+  },
+  {
+   "id": 28,
+   "tema": "eth",
+   "tipo": "mc",
+   "enunciado": "En una trama Ethernet II, el campo de 2 bytes después de la MAC origen indica:",
+   "opciones": [
+    "la longitud de los datos",
+    "el tipo de protocolo transportado",
+    "el CRC",
+    "la prioridad"
+   ],
+   "correcta": 1,
+   "explicacion": "En una trama 802.3 ese campo indica la longitud de los datos."
+  },
+  {
+   "id": 29,
+   "tema": "eth",
+   "tipo": "mc",
+   "enunciado": "Según la regla 5-4-3, entre dos PCs no puede haber más de:",
+   "opciones": [
+    "5 repetidores, 4 segmentos, 3 hubs",
+    "5 segmentos, 4 repetidores, 3 segmentos poblados",
+    "5 hubs, 4 switches, 3 routers",
+    "5 PCs por segmento"
+   ],
+   "correcta": 1,
+   "explicacion": "Son 5 segmentos en serie, 4 repetidores y 3 segmentos poblados (con PCs). Acota el retardo de propagación dentro de un mismo dominio de colisión para que CSMA/CD pueda detectar las colisiones."
+  },
+  {
+   "id": 30,
+   "tema": "eth",
+   "tipo": "mc",
+   "enunciado": "10BASE5 usa transceivers:",
+   "opciones": [
+    "incluidos en la NIC con conector BNC",
+    "externos, con llaves vampiro y conector DIX",
+    "RJ-45",
+    "ópticos"
+   ],
+   "correcta": 1,
+   "explicacion": "10BASE2 usa BNC con el transceiver en la placa; 10BASE-T, RJ-45."
+  },
+  {
+   "id": 31,
+   "tema": "eth",
+   "tipo": "mc",
+   "enunciado": "La longitud máxima total de una red 10BASE2 es:",
+   "opciones": [
+    "185 m",
+    "500 m",
+    "925 m",
+    "2500 m"
+   ],
+   "correcta": 2,
+   "explicacion": "5 segmentos × 185 m. Los 2500 m son de 10BASE5 (5 × 500 m)."
+  },
+  {
+   "id": 32,
+   "tema": "eth",
+   "tipo": "vf",
+   "enunciado": "Fast Ethernet (802.3u) soporta cable coaxil.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "Funciona sobre par trenzado y fibra óptica."
+  },
+  {
+   "id": 33,
+   "tema": "eth",
+   "tipo": "mc",
+   "enunciado": "¿Qué variante de Fast Ethernet usa 4 pares de UTP Cat 3 y solo funciona en half duplex?",
+   "opciones": [
+    "100BASE-TX",
+    "100BASE-T4",
+    "100BASE-FX",
+    "100BASE-SX"
+   ],
+   "correcta": 1,
+   "explicacion": "Usa cable telefónico de baja calidad para aprovechar instalaciones existentes. Un par transmite siempre hacia el hub, otro en sentido contrario y los otros dos conmutan."
+  },
+  {
+   "id": 34,
+   "tema": "eth",
+   "tipo": "mc",
+   "enunciado": "En Fast Ethernet full duplex:",
+   "opciones": [
+    "se usa CSMA/CD igual que en half",
+    "se desactiva la detección de colisiones y lo ofrecen solo los switches",
+    "funciona con hubs",
+    "baja a 50 Mbps por sentido"
+   ],
+   "correcta": 1,
+   "explicacion": "100 Mbps por sentido, 200 Mbps en total."
+  },
+  {
+   "id": 35,
+   "tema": "wifi",
+   "tipo": "vf",
+   "enunciado": "En una red Wi-Fi ad hoc todo el tráfico pasa por el access point.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "En ad hoc los nodos se comunican peer to peer, sin AP. Eso describe el modo infraestructura."
+  },
+  {
+   "id": 36,
+   "tema": "wifi",
+   "tipo": "mc",
+   "enunciado": "Una estación cree que el canal está libre pero está ocupado por un nodo que ella no oye. Es el problema del:",
+   "opciones": [
+    "nodo expuesto",
+    "nodo oculto",
+    "bucle",
+    "broadcast storm"
+   ],
+   "correcta": 1,
+   "explicacion": "Lo mitiga RTS/CTS."
+  },
+  {
+   "id": 37,
+   "tema": "wifi",
+   "tipo": "mc",
+   "enunciado": "El orden correcto para conectarse a un AP es:",
+   "opciones": [
+    "asociación, escaneo, autenticación",
+    "autenticación, escaneo, asociación",
+    "escaneo, autenticación, asociación",
+    "escaneo, asociación, autenticación"
+   ],
+   "correcta": 2,
+   "explicacion": "Primero se descubre el AP (escaneo pasivo con beacons o activo con probe request), después se confirma la identidad (autenticación Open System o Shared Key) y por último se asocia (velocidades, SSID, ID de asociación)."
+  },
+  {
+   "id": 38,
+   "tema": "wifi",
+   "tipo": "vf",
+   "enunciado": "Ocultar o cambiar el SSID es una medida de seguridad suficiente.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "El SSID solo identifica y agrupa lógicamente la red. La seguridad la dan WPA2/WPA3 (AES)."
+  },
+  {
+   "id": 39,
+   "tema": "wifi",
+   "tipo": "mc",
+   "enunciado": "La antena que da cobertura de 360° con menor alcance es la:",
+   "opciones": [
+    "direccional",
+    "sectorial",
+    "omnidireccional",
+    "parabólica"
+   ],
+   "correcta": 2,
+   "explicacion": "Cubre 360°, por eso tiene menos alcance. La direccional concentra la señal en un sentido y llega más lejos."
+  },
+  {
+   "id": 40,
+   "tema": "wifi",
+   "tipo": "mc",
+   "enunciado": "El material que más atenúa la señal Wi-Fi es:",
+   "opciones": [
+    "madera",
+    "yeso",
+    "ladrillo",
+    "metal"
+   ],
+   "correcta": 3,
+   "explicacion": "Los metales (vigas, armarios) tienen interferencia muy alta. Madera, vidrio y yeso, baja; ladrillo, media."
+  },
+  {
+   "id": 41,
+   "tema": "disp",
+   "tipo": "vf",
+   "enunciado": "El switch separa dominios de broadcast.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "Separa dominios de colisión. El broadcast lo separa el router (o las VLAN)."
+  },
+  {
+   "id": 42,
+   "tema": "disp",
+   "tipo": "vf",
+   "enunciado": "El switch aprende las direcciones mirando la MAC destino de las tramas.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "Aprende con la MAC origen. La destino la usa para decidir el reenvío."
+  },
+  {
+   "id": 43,
+   "tema": "disp",
+   "tipo": "vf",
+   "enunciado": "La dirección MAC tiene 32 bits.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "48 bits (6 bytes). 32 bits tiene la IPv4."
+  },
+  {
+   "id": 44,
+   "tema": "disp",
+   "tipo": "vf",
+   "enunciado": "Al reemplazar hubs por switches aumenta la cantidad de dominios de colisión.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Pasa de uno grande a uno por puerto: hay más, pero más chicos y sin choques. El de broadcast sigue siendo uno."
+  },
+  {
+   "id": 45,
+   "tema": "disp",
+   "tipo": "vf",
+   "enunciado": "Un hub trabaja en la capa 2 del modelo OSI.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "Capa 1. Es un repetidor multipuerto."
+  },
+  {
+   "id": 46,
+   "tema": "disp",
+   "tipo": "vf",
+   "enunciado": "Cuando el switch hace flooding, la trama se convierte en broadcast.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "Sigue siendo unicast; las placas que no son el destino la descartan."
+  },
+  {
+   "id": 47,
+   "tema": "disp",
+   "tipo": "mc",
+   "enunciado": "Dispositivo que separa dominios de broadcast:",
+   "opciones": [
+    "hub",
+    "repetidor",
+    "switch",
+    "router"
+   ],
+   "correcta": 3,
+   "explicacion": "Cada interfaz del router es una red distinta y no reenvía broadcasts. Hub y repetidor (capa 1) no separan nada; el switch separa solo colisión."
+  },
+  {
+   "id": 48,
+   "tema": "disp",
+   "tipo": "mc",
+   "enunciado": "Switch con 2 PCs directas y un hub en un tercer puerto con 3 PCs. Dominios de colisión y de broadcast:",
+   "opciones": [
+    "5 y 1",
+    "3 y 1",
+    "1 y 1",
+    "3 y 3"
+   ],
+   "correcta": 1,
+   "explicacion": "3 de colisión (dos puertos con PC + el puerto del hub, donde las 3 comparten uno) y 1 de broadcast (no hay router)."
+  },
+  {
+   "id": 49,
+   "tema": "disp",
+   "tipo": "mc",
+   "enunciado": "En Token Ring, el dispositivo que mantiene el anillo cerrado cuando una PC se apaga es:",
+   "opciones": [
+    "el Monitor Activo",
+    "la MSAU, con sus relés de bypass",
+    "el token",
+    "el router"
+   ],
+   "correcta": 1,
+   "explicacion": "El Monitor Activo vigila el token, no el cableado."
+  },
+  {
+   "id": 50,
+   "tema": "sw",
+   "tipo": "mc",
+   "enunciado": "¿Qué protocolo evita los bucles entre switches?",
+   "opciones": [
+    "VLAN",
+    "STP (802.1D)",
+    "802.1Q",
+    "ARP"
+   ],
+   "correcta": 1,
+   "explicacion": "Bloquea los puertos redundantes y deja un árbol sin bucles."
+  },
+  {
+   "id": 51,
+   "tema": "sw",
+   "tipo": "mc",
+   "enunciado": "En STP, el switch raíz es el que tiene:",
+   "opciones": [
+    "mayor velocidad",
+    "menor ID (prioridad + MAC)",
+    "más puertos",
+    "mayor MAC"
+   ],
+   "correcta": 1,
+   "explicacion": "El ID del switch es la prioridad (configurable) más su MAC; gana el menor. Después cada switch elige su puerto raíz por menor costo y se bloquean los puertos no designados."
+  },
+  {
+   "id": 52,
+   "tema": "sw",
+   "tipo": "vf",
+   "enunciado": "Cada VLAN es un dominio de broadcast y para comunicar dos VLANs hace falta un router.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Una VLAN divide el switch en switches virtuales: cada una es un dominio de broadcast distinto y, como el switch es de capa 2, pasar de una VLAN a otra requiere un router (capa 3)."
+  },
+  {
+   "id": 53,
+   "tema": "sw",
+   "tipo": "mc",
+   "enunciado": "¿Cuántos bits del encabezado 802.1Q identifican la VLAN?",
+   "opciones": [
+    "8",
+    "12",
+    "16",
+    "32"
+   ],
+   "correcta": 1,
+   "explicacion": "Son 12 bits de VLAN-ID dentro de la etiqueta de 4 bytes que va después de la MAC origen."
+  },
+  {
+   "id": 54,
+   "tema": "lan",
+   "tipo": "vf",
+   "enunciado": "En una red peer to peer cada PC es cliente y servidor a la vez.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Todas las PCs son iguales: cada una ofrece y pide recursos. Por eso los usuarios son locales y la administración se hace PC por PC."
+  },
+  {
+   "id": 55,
+   "tema": "lan",
+   "tipo": "vf",
+   "enunciado": "En una red de servidor dedicado los recursos compartidos solo pueden estar en el servidor.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "Pueden estar en el servidor o en cualquier nodo del dominio; lo centralizado es la administración."
+  },
+  {
+   "id": 56,
+   "tema": "lan",
+   "tipo": "vf",
+   "enunciado": "Los permisos de recurso compartido se aplican también cuando el usuario accede localmente a la carpeta.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "Solo se validan en el acceso remoto por la red."
+  },
+  {
+   "id": 57,
+   "tema": "lan",
+   "tipo": "mc",
+   "enunciado": "¿Qué servidor asigna automáticamente las direcciones IP?",
+   "opciones": [
+    "DNS",
+    "DHCP",
+    "Proxy",
+    "Dominio"
+   ],
+   "correcta": 1,
+   "explicacion": "DNS resuelve nombres."
+  },
+  {
+   "id": 58,
+   "tema": "cab",
+   "tipo": "vf",
+   "enunciado": "La distancia máxima del cableado horizontal es de 100 metros entre patchera y roseta.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "Son 90 m. Los 100 m son el canal completo contando los patch cords."
+  },
+  {
+   "id": 59,
+   "tema": "cab",
+   "tipo": "vf",
+   "enunciado": "T568A y T568B se diferencian en la posición de los pares verde y naranja.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Azul y marrón quedan igual."
+  },
+  {
+   "id": 60,
+   "tema": "cab",
+   "tipo": "vf",
+   "enunciado": "Para conectar dos PCs directamente, sin hub, se usa un patch cord cruzado.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Cruza 1↔3 y 2↔6."
+  },
+  {
+   "id": 61,
+   "tema": "cab",
+   "tipo": "mc",
+   "enunciado": "El MDF es:",
+   "opciones": [
+    "el repartidor de cada planta",
+    "el repartidor principal del edificio",
+    "el punto de demarcación del proveedor",
+    "el cableado entre edificios"
+   ],
+   "correcta": 1,
+   "explicacion": "a) es el IDF, c) es el POP (punto de demarcación) y d) es el subsistema de campus."
+  },
+  {
+   "id": 62,
+   "tema": "cab",
+   "tipo": "mc",
+   "enunciado": "En 10/100 Mbps, los pines de transmisión y recepción del RJ-45 son:",
+   "opciones": [
+    "1-2 y 3-6",
+    "1-2 y 3-4",
+    "4-5 y 7-8",
+    "1-3 y 2-6"
+   ],
+   "correcta": 0,
+   "explicacion": "1 y 2 transmiten, 3 y 6 reciben. d) son los pares que se cruzan en un crossover."
+  },
+  {
+   "id": 63,
+   "tema": "cab",
+   "tipo": "mc",
+   "enunciado": "La norma que regula el etiquetado y la documentación del cableado es:",
+   "opciones": [
+    "568",
+    "569",
+    "606",
+    "607"
+   ],
+   "correcta": 2,
+   "explicacion": "569 rutas y espacios, 607 puesta a tierra."
+  },
+  {
+   "id": 64,
+   "tema": "tcp",
+   "tipo": "mc",
+   "enunciado": "PC1 es 192.168.1.20/24 y PC2 es 192.168.2.20/24, en el mismo switch sin router. ¿Hay ping?",
+   "opciones": [
+    "Sí, están en el mismo switch",
+    "No, redes distintas y nada que rutee",
+    "Sí, por ARP",
+    "Solo con cable cruzado"
+   ],
+   "correcta": 1,
+   "explicacion": "El switch no rutea entre redes."
+  },
+  {
+   "id": 65,
+   "tema": "tcp",
+   "tipo": "mc",
+   "enunciado": "¿Cuál de estos es un protocolo de enrutamiento?",
+   "opciones": [
+    "IP",
+    "RIP",
+    "TCP",
+    "ARP"
+   ],
+   "correcta": 1,
+   "explicacion": "También IGRP. IP es un protocolo ruteable: viaja con los datos."
+  },
+  {
+   "id": 66,
+   "tema": "tcp",
+   "tipo": "vf",
+   "enunciado": "IP es un protocolo orientado a conexión y confiable.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "IP es sin conexión y no confiable. TCP es el orientado a conexión y confiable."
+  },
+  {
+   "id": 67,
+   "tema": "tcp",
+   "tipo": "mc",
+   "enunciado": "Los pasos del three-way handshake de TCP son:",
+   "opciones": [
+    "ACK, SYN, FIN",
+    "SYN, SYN-ACK, ACK",
+    "GET, POST, PUT",
+    "Discover, Offer, Request, Ack"
+   ],
+   "correcta": 1,
+   "explicacion": "Primero SYN, después SYN-ACK y por último ACK. La opción d) es el proceso DORA de DHCP."
+  },
+  {
+   "id": 68,
+   "tema": "tcp",
+   "tipo": "mc",
+   "enunciado": "¿Qué protocolo usa ping?",
+   "opciones": [
+    "TCP",
+    "UDP",
+    "ICMP",
+    "ARP"
+   ],
+   "correcta": 2,
+   "explicacion": "Ping envía un Echo Request y espera un Echo Reply, los dos mensajes ICMP."
+  },
+  {
+   "id": 69,
+   "tema": "tcp",
+   "tipo": "mc",
+   "enunciado": "Una PC muestra en ipconfig la dirección 169.254.12.5. Significa que:",
+   "opciones": [
+    "es una IP pública",
+    "es loopback",
+    "no consiguió configuración IP (por ejemplo, falló el DHCP)",
+    "es multicast"
+   ],
+   "correcta": 2,
+   "explicacion": "Es una dirección de enlace local (APIPA)."
+  },
+  {
+   "id": 70,
+   "tema": "tcp",
+   "tipo": "mc",
+   "enunciado": "Red 192.168.1.0 con máscara 255.255.255.192 (/26). ¿Cuántas subredes se obtienen y cuántos hosts utilizables tiene cada una?",
+   "opciones": [
+    "4 subredes de 64 hosts",
+    "4 subredes de 62 hosts",
+    "2 subredes de 126 hosts",
+    "6 subredes de 30 hosts"
+   ],
+   "correcta": 1,
+   "explicacion": "Se prestan 2 bits → 2<sup>2</sup> = 4 subredes. Quedan 6 bits de host → 2<sup>6</sup> − 2 = 62 hosts. El salto es 256 − 192 = 64: la segunda subred es 192.168.1.64 y su broadcast es 192.168.1.127. Ojo: 64 es el salto, no la cantidad de hosts."
+  }
+ ]
+}

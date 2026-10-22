@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Autoevaluación · Examen de práctica</title>
+<meta name="description" content="Examen interactivo de Redes de Datos con resultado final y corrección.">
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#1c2430;--mut:#5b6675;--line:#dfe3ea;--acc:#1f5fbf;--acc2:#0e8a6a;--warn:#b45309;--warnbg:#fff6e5;--okbg:#e9f7f1;--infobg:#eaf1fc;--code:#f0f2f6;--bad:#c0392b;--badbg:#fdecea;--sel:#1f5fbf;--selbg:#e3edfc}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12161c;--card:#1a2029;--ink:#e6eaf0;--mut:#9aa6b6;--line:#2c3542;--acc:#6ea8ff;--acc2:#4fd1a5;--warn:#f0b35a;--warnbg:#33290f;--okbg:#12302a;--infobg:#16263f;--code:#232b37;--bad:#ff7b6b;--badbg:#3a1b18;--sel:#6ea8ff;--selbg:#1b2c48}}
+:root[data-theme="dark"]{--bg:#12161c;--card:#1a2029;--ink:#e6eaf0;--mut:#9aa6b6;--line:#2c3542;--acc:#6ea8ff;--acc2:#4fd1a5;--warn:#f0b35a;--warnbg:#33290f;--okbg:#12302a;--infobg:#16263f;--code:#232b37;--bad:#ff7b6b;--badbg:#3a1b18;--sel:#6ea8ff;--selbg:#1b2c48}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:var(--acc)}
+.top{position:sticky;top:0;z-index:40;background:var(--bg);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:10px 70px 10px 16px;display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center;font-size:14px}
+.top-in a{text-decoration:none;color:var(--mut);padding:4px 8px;border-radius:6px}
+.top-in a:hover{background:var(--card);color:var(--acc)}
+.top-in a.on{color:var(--acc);font-weight:700}
+main{max-width:900px;margin:0 auto;padding:24px 16px 120px}
+h1{font-size:28px;margin:8px 0 4px;line-height:1.25}
+h2{font-size:21px;margin:40px 0 10px;padding-top:10px;border-top:3px solid var(--acc)}
+.sub{color:var(--mut);margin-bottom:16px}
+.box{border-left:4px solid var(--acc);background:var(--infobg);padding:10px 14px;border-radius:0 8px 8px 0;margin:12px 0}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}
+.chips a,.chips button{font:inherit;font-size:13px;padding:4px 10px;border-radius:99px;border:1px solid var(--line);background:var(--card);color:var(--ink);text-decoration:none;cursor:pointer}
+.chips a:hover,.chips button:hover{border-color:var(--acc);color:var(--acc)}
+.chips button.on{background:var(--acc);border-color:var(--acc);color:#fff}
+.q{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:12px 0}
+.qh{display:flex;gap:8px;align-items:center;margin-bottom:6px;flex-wrap:wrap}
+.num{font-weight:700;color:var(--acc)}
+.tipo{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:2px 8px;border-radius:99px;background:var(--infobg);color:var(--acc)}
+.tipo.vf{background:var(--okbg);color:var(--acc2)}
+.enun{margin:0 0 10px;font-weight:500}
+ol.ops{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+ol.ops li{padding:7px 12px;border:1px solid var(--line);border-radius:8px;display:flex;gap:10px}
+.let{font-weight:700;color:var(--mut);min-width:18px}
+details{margin-top:10px;border-top:1px dashed var(--line);padding-top:8px}
+summary{cursor:pointer;font-weight:600;color:var(--acc)}
+.resp{margin:8px 0 0;padding:10px 12px;border-radius:8px;background:var(--okbg)}
+.resp b:first-child{color:var(--acc2)}
+.resp.f{background:var(--badbg)}
+.resp.f b:first-child{color:var(--bad)}
+.opt{font:inherit;text-align:left;width:100%;padding:9px 12px;border:1.5px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);display:flex;gap:10px;align-items:flex-start;cursor:pointer;transition:border-color .12s,background .12s}
+.opt:hover{border-color:var(--sel)}
+.opt[aria-pressed="true"]{border-color:var(--sel);background:var(--selbg);font-weight:600}
+.opt[aria-pressed="true"] .let{color:var(--sel)}
+.opt:disabled{cursor:default}
+.opt.ok{border-color:var(--acc2);background:var(--okbg)}
+.opt.bad{border-color:var(--bad);background:var(--badbg)}
+.mark{margin-left:auto;font-size:12px;font-weight:700;white-space:nowrap}
+.opt.ok .mark{color:var(--acc2)}.opt.bad .mark{color:var(--bad)}
+.hint{font-size:13px;color:var(--mut);margin-top:6px}
+.q.res-ok{border-left:5px solid var(--acc2)}.q.res-bad{border-left:5px solid var(--bad)}.q.res-none{border-left:5px solid var(--warn)}
+.estado{font-size:12px;font-weight:700;margin-left:auto}
+.res-ok .estado{color:var(--acc2)}.res-bad .estado{color:var(--bad)}.res-none .estado{color:var(--warn)}
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:45;background:var(--card);border-top:1px solid var(--line);box-shadow:0 -4px 16px rgba(0,0,0,.08)}
+.bar-in{max-width:900px;margin:0 auto;padding:10px 16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.prog{flex:1;min-width:160px}
+.prog-txt{font-size:13px;color:var(--mut)}
+.track{height:8px;border-radius:99px;background:var(--line);overflow:hidden;margin-top:4px}
+.fill{height:100%;width:0;background:var(--acc);transition:width .2s}
+.btn{font:inherit;font-weight:700;padding:9px 16px;border-radius:8px;border:1.5px solid var(--acc);background:var(--acc);color:#fff;cursor:pointer}
+.btn.sec{background:transparent;color:var(--acc)}
+.btn:hover{filter:brightness(1.08)}
+.aviso{display:none;width:100%;background:var(--warnbg);border:1px solid var(--warn);border-radius:8px;padding:8px 12px;font-size:14px}
+.aviso.on{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.score{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:16px 0}
+.score div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;text-align:center}
+.score b{display:block;font-size:28px;line-height:1.2}
+.score .k-ok b{color:var(--acc2)}.score .k-bad b{color:var(--bad)}.score .k-none b{color:var(--warn)}.score .k-nota b{color:var(--acc)}
+.hidden{display:none!important}
+::view-transition-old(root),::view-transition-new(root){animation-duration:.3s;animation-timing-function:ease}
+[id]{scroll-margin-top:calc(var(--anch,0px) + 14px)}
+
+.top ~ main .sbar{top:var(--toph,49px);padding-right:0;margin:0 -16px 6px;padding-left:16px;padding-right:16px}
+.theme-btn{position:fixed;top:8px;right:14px;z-index:50;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--ink);display:grid;place-items:center;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.theme-btn:hover{color:var(--acc)}
+.theme-btn svg{width:20px;height:20px}
+.theme-btn .moon{display:none}
+:root[data-theme="dark"] .theme-btn .sun{display:none}
+:root[data-theme="dark"] .theme-btn .moon{display:block}
+@media (max-width:600px){h1{font-size:23px}.bar-in{gap:8px}.btn{padding:8px 12px}}
+
+.sbar{position:sticky;top:0;z-index:30;background:var(--bg);padding:10px 60px 10px 0;margin:0 0 6px;display:flex;gap:8px;align-items:center;border-bottom:1px solid var(--line)}
+.sbox{flex:1;display:flex;align-items:center;gap:8px;background:var(--card);border:1.5px solid var(--line);border-radius:10px;padding:0 10px;min-width:0}
+.sbox:focus-within{border-color:var(--acc)}
+.sbox svg{width:18px;height:18px;color:var(--mut);flex:none}
+.sbox input{flex:1;min-width:0;border:0;background:transparent;color:var(--ink);font:inherit;padding:9px 0;outline:none}
+.sbox kbd{font:12px ui-monospace,monospace;color:var(--mut);border:1px solid var(--line);border-radius:4px;padding:0 5px}
+.sbar.has .sbox kbd{display:none}
+.scount{font-size:13px;color:var(--mut);white-space:nowrap;min-width:0}
+.sbtn{font:inherit;width:34px;height:34px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;display:none;place-items:center;flex:none}
+.sbar.has .sbtn{display:grid}
+.sbtn:hover{border-color:var(--acc);color:var(--acc)}
+mark.sr{background:#fde68a;color:inherit;border-radius:2px;padding:0 1px}
+mark.sr.cur{background:#f59e0b;color:#111;outline:2px solid #f59e0b}
+:root[data-theme="dark"] mark.sr{background:#6b5300;color:#fff}
+:root[data-theme="dark"] mark.sr.cur{background:#f59e0b;color:#111}
+@media (max-width:600px){.sbar{padding-right:52px;flex-wrap:wrap}.sbox kbd{display:none}}
+</style>
+</head>
+<body>
+<button class="theme-btn" id="themeBtn" type="button" aria-label="Cambiar a modo oscuro" title="Cambiar modo claro / oscuro"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+<header class="top"><div class="top-in"><a href="index.html">← Guía de estudio</a><a href="autoevaluacion.html">Repaso con respuestas</a><a href="examen.html" class="on">Examen de práctica</a></div></header>
+<main>
+<h1>Autoevaluación: examen de práctica</h1>
+<div class="sub">Redes de Datos · UTN FRT · 70 preguntas de verdadero o falso y opción múltiple · versión 1.3</div>
+<div id="intro" class="box">Elegí una opción en cada pregunta. Podés <b>cambiarla</b> tocando otra o <b>deseleccionarla</b> tocando la misma. Cuando termines, tocá <b>Enviar respuestas</b> y vas a ver tu resultado con la corrección de cada pregunta. Si querés practicar un solo tema, elegilo abajo. Tus respuestas se guardan en este navegador por si cerrás la página.</div>
+<div class="chips" id="chips"></div>
+<section id="resultado" class="hidden">
+<h2 style="margin-top:16px">Resultado · <span id="rTema"></span></h2>
+<div class="score"><div class="k-nota"><b id="rNota">0%</b>Nota</div><div class="k-ok"><b id="rOk">0</b>Correctas</div><div class="k-bad"><b id="rBad">0</b>Incorrectas</div><div class="k-none"><b id="rNone">0</b>Sin responder</div></div>
+<div class="chips" id="filtros"><button type="button" data-f="todas" class="on">Ver todas</button><button type="button" data-f="bad">Solo incorrectas</button><button type="button" data-f="none">Solo sin responder</button><button type="button" data-f="ok">Solo correctas</button></div>
+<div style="display:flex;gap:10px;flex-wrap:wrap;margin:8px 0 4px"><button type="button" class="btn" id="reintentar">Volver a intentar</button><button type="button" class="btn sec" id="volverTema">Elegir otro tema</button></div>
+</section>
+<div id="lista"></div>
+</main>
+<div class="bar" id="bar"><div class="bar-in">
+<div class="prog"><div class="prog-txt" id="progTxt">Respondidas 0 de 70</div><div class="track"><div class="fill" id="progFill"></div></div></div>
+<button type="button" class="btn" id="enviar">Enviar respuestas</button>
+<div class="aviso" id="aviso"><span id="avisoTxt"></span><button type="button" class="btn" id="enviarIgual">Enviar igual</button><button type="button" class="btn sec" id="seguir">Seguir respondiendo</button></div>
+</div></div>
+<script>window.__DATA__={"version": "1.3", "temas": [{"id": "osi", "nombre": "Modelo OSI y capa física"}, {"id": "topo", "nombre": "Topologías y acceso al medio"}, {"id": "norma", "nombre": "Norma vs protocolo de comunicación"}, {"id": "eth", "nombre": "Ethernet 802.3 y sus variantes"}, {"id": "wifi", "nombre": "Redes inalámbricas 802.11"}, {"id": "disp", "nombre": "MAC, dispositivos y dominios"}, {"id": "sw", "nombre": "Switching, STP y VLAN"}, {"id": "lan", "nombre": "Tipos de LAN y servidores"}, {"id": "cab", "nombre": "Cableado estructurado y normas TIA"}, {"id": "tcp", "nombre": "TCP/IP y direccionamiento"}], "preguntas": [{"id": 1, "tema": "osi", "tipo": "vf", "enunciado": "En el modelo OSI, la unidad de datos de la capa de sesión se llama segmento.", "opciones": ["Verdadero", "Falso"], "correcta": 1, "explicacion": "En sesión, presentación y aplicación es el <b>mensaje</b> (SPDU, PPDU, APDU). El segmento es de transporte."}, {"id": 2, "tema": "osi", "tipo": "mc", "enunciado": "Las capas de red y transporte del modelo OSI se agrupan en la función de:", "opciones": ["comunicación", "networking", "servicios", "presentación"], "correcta": 1, "explicacion": "Física y enlace = comunicación; sesión, presentación y aplicación = servicios."}, {"id": 3, "tema": "osi", "tipo": "mc", "enunciado": "¿Qué subcapa de enlace se encarga del control de flujo y del chequeo de errores?", "opciones": ["MAC", "LLC", "SAP", "PHY"], "correcta": 1, "explicacion": "MAC se ocupa del acceso al medio y del direccionamiento físico."}, {"id": 4, "tema": "osi", "tipo": "vf", "enunciado": "La señalización broadband utiliza toda la capacidad del medio para una sola señal y se usa en LAN.", "opciones": ["Verdadero", "Falso"], "correcta": 1, "explicacion": "Eso es <b>baseband</b> (digital, TDM, LAN). Broadband comparte el ancho de banda entre varios canales analógicos con FDM y se usa en WAN."}, {"id": 5, "tema": "osi", "tipo": "mc", "enunciado": "La capa OSI llamada \"el traductor\" y que define el código ASCII o EBCDIC es:", "opciones": ["aplicación", "sesión", "presentación", "transporte"], "correcta": 2, "explicacion": "También comprime y encripta."}, {"id": 6, "tema": "osi", "tipo": "mc", "enunciado": "El medio con peor comportamiento frente a la EMI es:", "opciones": ["fibra", "coaxil", "STP", "UTP"], "correcta": 3, "explicacion": "La fibra no sufre interferencias eléctricas."}, {"id": 7, "tema": "topo", "tipo": "vf", "enunciado": "La topología lógica de una red queda determinada por cómo están tendidos los cables.", "opciones": ["Verdadero", "Falso"], "correcta": 1, "explicacion": "La determina el protocolo de acceso al medio. El tendido es la topología física."}, {"id": 8, "tema": "topo", "tipo": "vf", "enunciado": "Una red Ethernet con switch tiene topología física estrella y lógica bus.", "opciones": ["Verdadero", "Falso"], "correcta": 0, "explicacion": "802.3 usa CSMA/CD, que es de contención → lógica bus/difusión."}, {"id": 9, "tema": "topo", "tipo": "vf", "enunciado": "Wi-Fi usa CSMA/CD.", "opciones": ["Verdadero", "Falso"], "correcta": 1, "explicacion": "Usa CSMA/CA: una radio no puede escuchar mientras transmite, así que no puede detectar colisiones."}, {"id": 10, "tema": "topo", "tipo": "vf", "enunciado": "En token passing no hay colisiones.", "opciones": ["Verdadero", "Falso"], "correcta": 0, "explicacion": "Solo transmite quien tiene el token."}, {"id": 11, "tema": "topo", "tipo": "vf", "enunciado": "Token Ring con MSAU tiene topología física en anillo.", "opciones": ["Verdadero", "Falso"], "correcta": 1, "explicacion": "Física en estrella (todos a la MSAU), lógica en anillo."}, {"id": 12, "tema": "topo", "tipo": "vf", "enunciado": "Polling es un método de contención.", "opciones": ["Verdadero", "Falso"], "correcta": 1, "explicacion": "Es determinístico, maestro-esclavo."}, {"id": 13, "tema": "topo", "tipo": "mc", "enunciado": "¿Qué variante de CSMA usa Ethernet?", "opciones": ["no persistente", "p-persistente", "1-persistente", "Aloha ranurado"], "correcta": 2, "explicacion": "Si el canal está ocupado, se queda escuchando y transmite apenas se libera (con probabilidad 1)."}, {"id": 14, "tema": "norma", "tipo": "vf", "enunciado": "La velocidad de una LAN está determinada por la norma de comunicación.", "opciones": ["Verdadero", "Falso"], "correcta": 0, "explicacion": "Y en la práctica la limita el componente más lento (placa, cable o puerto)."}, {"id": 15, "tema": "norma", "tipo": "vf", "enunciado": "TCP/IP es una norma de comunicación.", "opciones": ["Verdadero", "Falso"], "correcta": 1, "explicacion": "Es una suite de protocolos de comunicación."}, {"id": 16, "tema": "norma", "tipo": "vf", "enunciado": "IEEE 802.11 define la velocidad, la banda de frecuencia y el método de acceso al medio de una red inalámbrica.", "opciones": ["Verdadero", "Falso"], "correcta": 0, "explicacion": "Eso es exactamente lo que fija una norma."}, {"id": 17, "tema": "norma", "tipo": "vf", "enunciado": "Al pasar una PC de cable a Wi-Fi cambian la norma y el protocolo de acceso al medio, pero no los protocolos de comunicación.", "opciones": ["Verdadero", "Falso"], "correcta": 0, "explicacion": "802.3 → 802.11 y CSMA/CD → CSMA/CA; IP, TCP, DHCP y DNS siguen iguales."}, {"id": 18, "tema": "norma", "tipo": "vf", "enunciado": "CSMA/CD es un protocolo de comunicación.", "opciones": ["Verdadero", "Falso"], "correcta": 1, "explicacion": "Es un protocolo de acceso al medio, definido dentro de la norma 802.3."}, {"id": 19, "tema": "norma", "tipo": "mc", "enunciado": "¿Cuál es una norma de comunicación?", "opciones": ["HTTP", "DHCP", "IEEE 802.3u", "UDP"], "correcta": 2, "explicacion": "Las demás son protocolos."}, {"id": 20, "tema": "norma", "tipo": "mc", "enunciado": "¿Cuál es un protocolo de comunicación?", "opciones": ["IEEE 802.5", "TIA/EIA-568", "IP", "1000BASE-T"], "correcta": 2, "explicacion": "Las demás son normas (o una variante de norma, en el caso de 1000BASE-T)."}, {"id": 21, "tema": "norma", "tipo": "mc", "enunciado": "Los tres elementos de un protocolo son:", "opciones": ["medio, velocidad y conector", "sintaxis, semántica y temporización", "origen, destino y datos", "física, enlace y red"], "correcta": 1, "explicacion": "La opción a) describe lo que fija una norma."}, {"id": 22, "tema": "norma", "tipo": "mc", "enunciado": "La norma de comunicación se implementa principalmente en:", "opciones": ["las aplicaciones", "el sistema operativo", "el hardware (placa de red, cables, switch)", "el servidor DNS"], "correcta": 2, "explicacion": "Los protocolos de comunicación son los que se implementan en software (SO y aplicaciones)."}, {"id": 23, "tema": "eth", "tipo": "vf", "enunciado": "10GBASE-T puede trabajar en half-duplex con CSMA/CD.", "opciones": ["Verdadero", "Falso"], "correcta": 1, "explicacion": "Es solo full-duplex."}, {"id": 24, "tema": "eth", "tipo": "mc", "enunciado": "100BASE-TX corresponde a:", "opciones": ["802.3i", "802.3u", "802.3ab", "802.3an"], "correcta": 1, "explicacion": "Fast Ethernet. 802.3i = 10BASE-T, 802.3ab = Gigabit, 802.3an = 10 Gigabit."}, {"id": 25, "tema": "eth", "tipo": "mc", "enunciado": "En \"10BASE2\", el 2 indica:", "opciones": ["2 pares", "coaxil fino, ~200 m", "2 Mbps", "capa 2"], "correcta": 1, "explicacion": "El valor exacto de la norma es 185 m; el \"2\" sale de redondear a 200."}, {"id": 26, "tema": "eth", "tipo": "mc", "enunciado": "Cable mínimo para 10GBASE-T a 100 m:", "opciones": ["Cat 5", "Cat 5e", "Cat 6", "Cat 6A"], "correcta": 3, "explicacion": "Cat 6 llega a 10G solo hasta unos 55 m."}, {"id": 27, "tema": "eth", "tipo": "mc", "enunciado": "El tamaño mínimo de una trama Ethernet 802.3 es:", "opciones": ["46 bytes", "64 bytes", "1500 bytes", "1518 bytes"], "correcta": 1, "explicacion": "46 es el mínimo del campo de datos (por eso el padding); 1500 el máximo de datos; 1518 el máximo de trama."}, {"id": 28, "tema": "eth", "tipo": "mc", "enunciado": "En una trama Ethernet II, el campo de 2 bytes después de la MAC origen indica:", "opciones": ["la longitud de los datos", "el tipo de protocolo transportado", "el CRC", "la prioridad"], "correcta": 1, "explicacion": "En una trama 802.3 ese campo indica la longitud de los datos."}, {"id": 29, "tema": "eth", "tipo": "mc", "enunciado": "Según la regla 5-4-3, entre dos PCs no puede haber más de:", "opciones": ["5 repetidores, 4 segmentos, 3 hubs", "5 segmentos, 4 repetidores, 3 segmentos poblados", "5 hubs, 4 switches, 3 routers", "5 PCs por segmento"], "correcta": 1, "explicacion": "Son 5 segmentos en serie, 4 repetidores y 3 segmentos poblados (con PCs). Acota el retardo de propagación dentro de un mismo dominio de colisión para que CSMA/CD pueda detectar las colisiones."}, {"id": 30, "tema": "eth", "tipo": "mc", "enunciado": "10BASE5 usa transceivers:", "opciones": ["incluidos en la NIC con conector BNC", "externos, con llaves vampiro y conector DIX", "RJ-45", "ópticos"], "correcta": 1, "explicacion": "10BASE2 usa BNC con el transceiver en la placa; 10BASE-T, RJ-45."}, {"id": 31, "tema": "eth", "tipo": "mc", "enunciado": "La longitud máxima total de una red 10BASE2 es:", "opciones": ["185 m", "500 m", "925 m", "2500 m"], "correcta": 2, "explicacion": "5 segmentos × 185 m. Los 2500 m son de 10BASE5 (5 × 500 m)."}, {"id": 32, "tema": "eth", "tipo": "vf", "enunciado": "Fast Ethernet (802.3u) soporta cable coaxil.", "opciones": ["Verdadero", "Falso"], "correcta": 1, "explicacion": "Funciona sobre par trenzado y fibra óptica."}, {"id": 33, "tema": "eth", "tipo": "mc", "enunciado": "¿Qué variante de Fast Ethernet usa 4 pares de UTP Cat 3 y solo funciona en half duplex?", "opciones": ["100BASE-TX", "100BASE-T4", "100BASE-FX", "100BASE-SX"], "correcta": 1, "explicacion": "Usa cable telefónico de baja calidad para aprovechar instalaciones existentes. Un par transmite siempre hacia el hub, otro en sentido contrario y los otros dos conmutan."}, {"id": 34, "tema": "eth", "tipo": "mc", "enunciado": "En Fast Ethernet full duplex:", "opciones": ["se usa CSMA/CD igual que en half", "se desactiva la detección de colisiones y lo ofrecen solo los switches", "funciona con hubs", "baja a 50 Mbps por sentido"], "correcta": 1, "explicacion": "100 Mbps por sentido, 200 Mbps en total."}, {"id": 35, "tema": "wifi", "tipo": "vf", "enunciado": "En una red Wi-Fi ad hoc todo el tráfico pasa por el access point.", "opciones": ["Verdadero", "Falso"], "correcta": 1, "explicacion": "En ad hoc los nodos se comunican peer to peer, sin AP. Eso describe el modo infraestructura."}, {"id": 36, "tema": "wifi", "tipo": "mc", "enunciado": "Una estación cree que el canal está libre pero está ocupado por un nodo que ella no oye. Es el problema del:", "opciones": ["nodo expuesto", "nodo oculto", "bucle", "broadcast storm"], "correcta": 1, "explicacion": "Lo mitiga RTS/CTS."}, {"id": 37, "tema": "wifi", "tipo": "mc", "enunciado": "El orden correcto para conectarse a un AP es:", "opciones": ["asociación, escaneo, autenticación", "autenticación, escaneo, asociación", "escaneo, autenticación, asociación", "escaneo, asociación, autenticación"], "correcta": 2, "explicacion": "Primero se descubre el AP (escaneo pasivo con beacons o activo con probe request), después se confirma la identidad (autenticación Open System o Shared Key) y por último se asocia (velocidades, SSID, ID de asociación)."}, {"id": 38, "tema": "wifi", "tipo": "vf", "enunciado": "Ocultar o cambiar el SSID es una medida de seguridad suficiente.", "opciones": ["Verdadero", "Falso"], "correcta": 1, "explicacion": "El SSID solo identifica y agrupa lógicamente la red. La seguridad la dan WPA2/WPA3 (AES)."}, {"id": 39, "tema": "wifi", "tipo": "mc", "enunciado": "La antena que da cobertura de 360° con menor alcance es la:", "opciones": ["direccional", "sectorial", "omnidireccional", "parabólica"], "correcta": 2, "explicacion": "Cubre 360°, por eso tiene menos alcance. La direccional concentra la señal en un sentido y llega más lejos."}, {"id": 40, "tema": "wifi", "tipo": "mc", "enunciado": "El material que más atenúa la señal Wi-Fi es:", "opciones": ["madera", "yeso", "ladrillo", "metal"], "correcta": 3, "explicacion": "Los metales (vigas, armarios) tienen interferencia muy alta. Madera, vidrio y yeso, baja; ladrillo, media."}, {"id": 41, "tema": "disp", "tipo": "vf", "enunciado": "El switch separa dominios de broadcast.", "opciones": ["Verdadero", "Falso"], "correcta": 1, "explicacion": "Separa dominios de colisión. El broadcast lo separa el router (o las VLAN)."}, {"id": 42, "tema": "disp", "tipo": "vf", "enunciado": "El switch aprende las direcciones mirando la MAC destino de las tramas.", "opciones": ["Verdadero", "Falso"], "correcta": 1, "explicacion": "Aprende con la MAC origen. La destino la usa para decidir el reenvío."}, {"id": 43, "tema": "disp", "tipo": "vf", "enunciado": "La dirección MAC tiene 32 bits.", "opciones": ["Verdadero", "Falso"], "correcta": 1, "explicacion": "48 bits (6 bytes). 32 bits tiene la IPv4."}, {"id": 44, "tema": "disp", "tipo": "vf", "enunciado": "Al reemplazar hubs por switches aumenta la cantidad de dominios de colisión.", "opciones": ["Verdadero", "Falso"], "correcta": 0, "explicacion": "Pasa de uno grande a uno por puerto: hay más, pero más chicos y sin choques. El de broadcast sigue siendo uno."}, {"id": 45, "tema": "disp", "tipo": "vf", "enunciado": "Un hub trabaja en la capa 2 del modelo OSI.", "opciones": ["Verdadero", "Falso"], "correcta": 1, "explicacion": "Capa 1. Es un repetidor multipuerto."}, {"id": 46, "tema": "disp", "tipo": "vf", "enunciado": "Cuando el switch hace flooding, la trama se convierte en broadcast.", "opciones": ["Verdadero", "Falso"], "correcta": 1, "explicacion": "Sigue siendo unicast; las placas que no son el destino la descartan."}, {"id": 47, "tema": "disp", "tipo": "mc", "enunciado": "Dispositivo que separa dominios de broadcast:", "opciones": ["hub", "repetidor", "switch", "router"], "correcta": 3, "explicacion": "Cada interfaz del router es una red distinta y no reenvía broadcasts. Hub y repetidor (capa 1) no separan nada; el switch separa solo colisión."}, {"id": 48, "tema": "disp", "tipo": "mc", "enunciado": "Switch con 2 PCs directas y un hub en un tercer puerto con 3 PCs. Dominios de colisión y de broadcast:", "opciones": ["5 y 1", "3 y 1", "1 y 1", "3 y 3"], "correcta": 1, "explicacion": "3 de colisión (dos puertos con PC + el puerto del hub, donde las 3 comparten uno) y 1 de broadcast (no hay router)."}, {"id": 49, "tema": "disp", "tipo": "mc", "enunciado": "En Token Ring, el dispositivo que mantiene el anillo cerrado cuando una PC se apaga es:", "opciones": ["el Monitor Activo", "la MSAU, con sus relés de bypass", "el token", "el router"], "correcta": 1, "explicacion": "El Monitor Activo vigila el token, no el cableado."}, {"id": 50, "tema": "sw", "tipo": "mc", "enunciado": "¿Qué protocolo evita los bucles entre switches?", "opciones": ["VLAN", "STP (802.1D)", "802.1Q", "ARP"], "correcta": 1, "explicacion": "Bloquea los puertos redundantes y deja un árbol sin bucles."}, {"id": 51, "tema": "sw", "tipo": "mc", "enunciado": "En STP, el switch raíz es el que tiene:", "opciones": ["mayor velocidad", "menor ID (prioridad + MAC)", "más puertos", "mayor MAC"], "correcta": 1, "explicacion": "El ID del switch es la prioridad (configurable) más su MAC; gana el menor. Después cada switch elige su puerto raíz por menor costo y se bloquean los puertos no designados."}, {"id": 52, "tema": "sw", "tipo": "vf", "enunciado": "Cada VLAN es un dominio de broadcast y para comunicar dos VLANs hace falta un router.", "opciones": ["Verdadero", "Falso"], "correcta": 0, "explicacion": "Una VLAN divide el switch en switches virtuales: cada una es un dominio de broadcast distinto y, como el switch es de capa 2, pasar de una VLAN a otra requiere un router (capa 3)."}, {"id": 53, "tema": "sw", "tipo": "mc", "enunciado": "¿Cuántos bits del encabezado 802.1Q identifican la VLAN?", "opciones": ["8", "12", "16", "32"], "correcta": 1, "explicacion": "Son 12 bits de VLAN-ID dentro de la etiqueta de 4 bytes que va después de la MAC origen."}, {"id": 54, "tema": "lan", "tipo": "vf", "enunciado": "En una red peer to peer cada PC es cliente y servidor a la vez.", "opciones": ["Verdadero", "Falso"], "correcta": 0, "explicacion": "Todas las PCs son iguales: cada una ofrece y pide recursos. Por eso los usuarios son locales y la administración se hace PC por PC."}, {"id": 55, "tema": "lan", "tipo": "vf", "enunciado": "En una red de servidor dedicado los recursos compartidos solo pueden estar en el servidor.", "opciones": ["Verdadero", "Falso"], "correcta": 1, "explicacion": "Pueden estar en el servidor o en cualquier nodo del dominio; lo centralizado es la administración."}, {"id": 56, "tema": "lan", "tipo": "vf", "enunciado": "Los permisos de recurso compartido se aplican también cuando el usuario accede localmente a la carpeta.", "opciones": ["Verdadero", "Falso"], "correcta": 1, "explicacion": "Solo se validan en el acceso remoto por la red."}, {"id": 57, "tema": "lan", "tipo": "mc", "enunciado": "¿Qué servidor asigna automáticamente las direcciones IP?", "opciones": ["DNS", "DHCP", "Proxy", "Dominio"], "correcta": 1, "explicacion": "DNS resuelve nombres."}, {"id": 58, "tema": "cab", "tipo": "vf", "enunciado": "La distancia máxima del cableado horizontal es de 100 metros entre patchera y roseta.", "opciones": ["Verdadero", "Falso"], "correcta": 1, "explicacion": "Son 90 m. Los 100 m son el canal completo contando los patch cords."}, {"id": 59, "tema": "cab", "tipo": "vf", "enunciado": "T568A y T568B se diferencian en la posición de los pares verde y naranja.", "opciones": ["Verdadero", "Falso"], "correcta": 0, "explicacion": "Azul y marrón quedan igual."}, {"id": 60, "tema": "cab", "tipo": "vf", "enunciado": "Para conectar dos PCs directamente, sin hub, se usa un patch cord cruzado.", "opciones": ["Verdadero", "Falso"], "correcta": 0, "explicacion": "Cruza 1↔3 y 2↔6."}, {"id": 61, "tema": "cab", "tipo": "mc", "enunciado": "El MDF es:", "opciones": ["el repartidor de cada planta", "el repartidor principal del edificio", "el punto de demarcación del proveedor", "el cableado entre edificios"], "correcta": 1, "explicacion": "a) es el IDF, c) es el POP (punto de demarcación) y d) es el subsistema de campus."}, {"id": 62, "tema": "cab", "tipo": "mc", "enunciado": "En 10/100 Mbps, los pines de transmisión y recepción del RJ-45 son:", "opciones": ["1-2 y 3-6", "1-2 y 3-4", "4-5 y 7-8", "1-3 y 2-6"], "correcta": 0, "explicacion": "1 y 2 transmiten, 3 y 6 reciben. d) son los pares que se cruzan en un crossover."}, {"id": 63, "tema": "cab", "tipo": "mc", "enunciado": "La norma que regula el etiquetado y la documentación del cableado es:", "opciones": ["568", "569", "606", "607"], "correcta": 2, "explicacion": "569 rutas y espacios, 607 puesta a tierra."}, {"id": 64, "tema": "tcp", "tipo": "mc", "enunciado": "PC1 es 192.168.1.20/24 y PC2 es 192.168.2.20/24, en el mismo switch sin router. ¿Hay ping?", "opciones": ["Sí, están en el mismo switch", "No, redes distintas y nada que rutee", "Sí, por ARP", "Solo con cable cruzado"], "correcta": 1, "explicacion": "El switch no rutea entre redes."}, {"id": 65, "tema": "tcp", "tipo": "mc", "enunciado": "¿Cuál de estos es un protocolo de enrutamiento?", "opciones": ["IP", "RIP", "TCP", "ARP"], "correcta": 1, "explicacion": "También IGRP. IP es un protocolo ruteable: viaja con los datos."}, {"id": 66, "tema": "tcp", "tipo": "vf", "enunciado": "IP es un protocolo orientado a conexión y confiable.", "opciones": ["Verdadero", "Falso"], "correcta": 1, "explicacion": "IP es sin conexión y no confiable. TCP es el orientado a conexión y confiable."}, {"id": 67, "tema": "tcp", "tipo": "mc", "enunciado": "Los pasos del three-way handshake de TCP son:", "opciones": ["ACK, SYN, FIN", "SYN, SYN-ACK, ACK", "GET, POST, PUT", "Discover, Offer, Request, Ack"], "correcta": 1, "explicacion": "Primero SYN, después SYN-ACK y por último ACK. La opción d) es el proceso DORA de DHCP."}, {"id": 68, "tema": "tcp", "tipo": "mc", "enunciado": "¿Qué protocolo usa ping?", "opciones": ["TCP", "UDP", "ICMP", "ARP"], "correcta": 2, "explicacion": "Ping envía un Echo Request y espera un Echo Reply, los dos mensajes ICMP."}, {"id": 69, "tema": "tcp", "tipo": "mc", "enunciado": "Una PC muestra en ipconfig la dirección 169.254.12.5. Significa que:", "opciones": ["es una IP pública", "es loopback", "no consiguió configuración IP (por ejemplo, falló el DHCP)", "es multicast"], "correcta": 2, "explicacion": "Es una dirección de enlace local (APIPA)."}, {"id": 70, "tema": "tcp", "tipo": "mc", "enunciado": "Red 192.168.1.0 con máscara 255.255.255.192 (/26). ¿Cuántas subredes se obtienen y cuántos hosts utilizables tiene cada una?", "opciones": ["4 subredes de 64 hosts", "4 subredes de 62 hosts", "2 subredes de 126 hosts", "6 subredes de 30 hosts"], "correcta": 1, "explicacion": "Se prestan 2 bits → 2<sup>2</sup> = 4 subredes. Quedan 6 bits de host → 2<sup>6</sup> − 2 = 62 hosts. El salto es 256 − 192 = 64: la segunda subred es 192.168.1.64 y su broadcast es 192.168.1.127. Ojo: 64 es el salto, no la cantidad de hosts."}]};</script>
+<script>
+(function(){
+  var D=window.__DATA__, KEY='redes-examen-'+D.version, L='abcd';
+  var answers={}, tema='todos', submitted=false;
+  try{var s=JSON.parse(localStorage.getItem(KEY)||'{}');if(s&&typeof s==='object'){answers=s.a||{};tema=s.t||'todos';}}catch(e){}
+  var temaNombre={};D.temas.forEach(function(t){temaNombre[t.id]=t.nombre;});
+  var list=document.getElementById('lista'), chips=document.getElementById('chips'),
+      txt=document.getElementById('progTxt'), fill=document.getElementById('progFill'),
+      aviso=document.getElementById('aviso'), avisoTxt=document.getElementById('avisoTxt'),
+      res=document.getElementById('resultado'), bar=document.getElementById('bar'), filtros=document.getElementById('filtros');
+  function save(){try{localStorage.setItem(KEY,JSON.stringify({a:answers,t:tema}));}catch(e){}}
+  function visibles(){return D.preguntas.filter(function(q){return tema==='todos'||q.tema===tema;});}
+  function let(q,i){return q.tipo==='vf'?(i===0?'V':'F'):L[i]+')';}
+  function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML;}
+  function renderChips(){
+    var h='<button type="button" data-t="todos"'+(tema==='todos'?' class="on"':'')+'>Todos los temas ('+D.preguntas.length+')</button>';
+    D.temas.forEach(function(t){var n=D.preguntas.filter(function(q){return q.tema===t.id;}).length;
+      h+='<button type="button" data-t="'+t.id+'"'+(tema===t.id?' class="on"':'')+'>'+esc(t.nombre)+' ('+n+')</button>';});
+    chips.innerHTML=h;
+  }
+  function render(){
+    var qs=visibles(), h='', ultimo=null;
+    qs.forEach(function(q,idx){
+      if(tema==='todos'&&q.tema!==ultimo){h+='<h2>'+esc(temaNombre[q.tema])+'</h2>';ultimo=q.tema;}
+      var a=answers[q.id], estado='', cls='q';
+      if(submitted){
+        if(a===undefined){cls+=' res-none';estado='Sin responder';}
+        else if(a===q.correcta){cls+=' res-ok';estado='Correcta';}
+        else{cls+=' res-bad';estado='Incorrecta';}
+      }
+      h+='<div class="'+cls+'" id="p'+q.id+'" data-estado="'+(submitted?(a===undefined?'none':(a===q.correcta?'ok':'bad')):'')+'">';
+      h+='<div class="qh"><span class="num">'+(idx+1)+'.</span><span class="tipo'+(q.tipo==='vf'?' vf':'')+'">'+(q.tipo==='vf'?'Verdadero o falso':'Opción múltiple')+'</span>'+(estado?'<span class="estado">'+estado+'</span>':'')+'</div>';
+      h+='<p class="enun">'+q.enunciado+'</p><div class="ops" style="display:grid;gap:6px">';
+      q.opciones.forEach(function(o,i){
+        var pressed=a===i, extra='', mark='';
+        if(submitted){
+          if(i===q.correcta){extra=' ok';mark='<span class="mark">'+(pressed?'✓ Tu respuesta':'✓ Correcta')+'</span>';}
+          else if(pressed){extra=' bad';mark='<span class="mark">✗ Tu respuesta</span>';}
+        }
+        h+='<button type="button" class="opt'+extra+'" data-q="'+q.id+'" data-i="'+i+'" aria-pressed="'+pressed+'"'+(submitted?' disabled':'')+'><span class="let">'+let(q,i)+'</span><span>'+o+'</span>'+mark+'</button>';
+      });
+      h+='</div>';
+      if(submitted){
+        var c=q.correcta, r=(q.tipo==='mc'?let(q,c)+' ':'')+q.opciones[c]+'.';
+        h+='<p class="resp'+(q.tipo==='vf'&&c===1?' f':'')+'"><b>'+r+'</b> '+(q.explicacion||'')+'</p>';
+      }else if(a!==undefined){h+='<div class="hint">Tocá otra opción para cambiarla o la misma para deseleccionarla.</div>';}
+      h+='</div>';
+    });
+    list.innerHTML=h; progreso();
+  }
+  function progreso(){
+    var qs=visibles(), n=qs.filter(function(q){return answers[q.id]!==undefined;}).length;
+    txt.textContent='Respondidas '+n+' de '+qs.length; fill.style.width=(qs.length?100*n/qs.length:0)+'%';
+  }
+  list.addEventListener('click',function(e){
+    var b=e.target.closest('.opt'); if(!b||submitted) return;
+    var id=b.getAttribute('data-q'), i=+b.getAttribute('data-i');
+    if(answers[id]===i) delete answers[id]; else answers[id]=i;
+    save(); aviso.classList.remove('on');
+    var card=document.getElementById('p'+id);
+    card.querySelectorAll('.opt').forEach(function(x){x.setAttribute('aria-pressed',String(answers[id]===+x.getAttribute('data-i')));});
+    var hint=card.querySelector('.hint');
+    if(answers[id]!==undefined&&!hint){var d=document.createElement('div');d.className='hint';d.textContent='Tocá otra opción para cambiarla o la misma para deseleccionarla.';card.appendChild(d);}
+    if(answers[id]===undefined&&hint) hint.remove();
+    progreso();
+  });
+  chips.addEventListener('click',function(e){
+    var b=e.target.closest('button'); if(!b||submitted) return;
+    tema=b.getAttribute('data-t'); save(); renderChips(); render(); aviso.classList.remove('on'); window.scrollTo({top:0,behavior:'instant'});
+  });
+  function enviar(){
+    submitted=true; var qs=visibles(), ok=0, bad=0, none=0;
+    qs.forEach(function(q){var a=answers[q.id];if(a===undefined)none++;else if(a===q.correcta)ok++;else bad++;});
+    var nota=qs.length?Math.round(100*ok/qs.length):0;
+    document.getElementById('rOk').textContent=ok;document.getElementById('rBad').textContent=bad;
+    document.getElementById('rNone').textContent=none;document.getElementById('rNota').textContent=nota+'%';
+    document.getElementById('rTema').textContent=tema==='todos'?'Todos los temas':temaNombre[tema];
+    res.classList.remove('hidden'); bar.classList.add('hidden'); chips.classList.add('hidden');
+    document.getElementById('intro').classList.add('hidden'); aviso.classList.remove('on');
+    render(); filtrar('todas'); window.scrollTo({top:0,behavior:'instant'});
+  }
+  document.getElementById('enviar').addEventListener('click',function(){
+    var qs=visibles(), faltan=qs.filter(function(q){return answers[q.id]===undefined;}).length;
+    if(faltan>0){avisoTxt.textContent='Te '+(faltan===1?'falta 1 pregunta':'faltan '+faltan+' preguntas')+' sin responder. Las sin responder cuentan como no acertadas.';aviso.classList.add('on');}
+    else enviar();
+  });
+  document.getElementById('enviarIgual').addEventListener('click',enviar);
+  document.getElementById('seguir').addEventListener('click',function(){
+    aviso.classList.remove('on');
+    var q=visibles().find(function(q){return answers[q.id]===undefined;});
+    if(q){var el=document.getElementById('p'+q.id);if(el)el.scrollIntoView({behavior:'smooth',block:'center'});}
+  });
+  function filtrar(f){
+    filtros.querySelectorAll('button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-f')===f);});
+    list.querySelectorAll('.q').forEach(function(c){var e=c.getAttribute('data-estado');c.classList.toggle('hidden',f!=='todas'&&e!==f);});
+    list.querySelectorAll('h2').forEach(function(h){var n=h.nextElementSibling,vis=false;
+      while(n&&n.tagName!=='H2'){if(!n.classList.contains('hidden'))vis=true;n=n.nextElementSibling;}h.classList.toggle('hidden',!vis);});
+  }
+  filtros.addEventListener('click',function(e){var b=e.target.closest('button');if(b)filtrar(b.getAttribute('data-f'));});
+  document.getElementById('reintentar').addEventListener('click',function(){
+    answers={}; submitted=false; save();
+    res.classList.add('hidden'); bar.classList.remove('hidden'); chips.classList.remove('hidden');
+    document.getElementById('intro').classList.remove('hidden'); render(); window.scrollTo(0,0);
+  });
+  document.getElementById('volverTema').addEventListener('click',function(){
+    submitted=false; res.classList.add('hidden'); bar.classList.remove('hidden'); chips.classList.remove('hidden');
+    document.getElementById('intro').classList.remove('hidden'); answers={}; tema='todos'; save(); renderChips(); render(); window.scrollTo(0,0);
+  });
+  renderChips(); render();
+})();
+</script>
+<script>
+(function(){function f(){var h=0;var t=document.querySelector('.top'),s=document.getElementById('sbar');if(t)h+=t.offsetHeight;if(s)h+=s.offsetHeight;document.documentElement.style.setProperty('--anch',h+'px');}f();window.addEventListener('resize',f);window.addEventListener('load',f);})();
+(function(){var t=document.querySelector('.top');if(!t)return;function f(){document.documentElement.style.setProperty('--toph',t.offsetHeight+'px');}f();window.addEventListener('resize',f);})();
+(function(){
+  var root=document.documentElement, btn=document.getElementById('themeBtn');
+  function current(){var t=root.getAttribute('data-theme');if(t)return t;
+    return window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}
+  function apply(t){root.setAttribute('data-theme',t);btn.setAttribute('aria-label',t==='dark'?'Cambiar a modo claro':'Cambiar a modo oscuro');}
+  var saved=null;try{saved=localStorage.getItem('redes-theme');}catch(e){}
+  apply(saved==='dark'||saved==='light'?saved:current());
+  btn.addEventListener('click',function(){var n=current()==='dark'?'light':'dark';if(document.startViewTransition&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.startViewTransition(function(){apply(n);});}else{apply(n);}try{localStorage.setItem('redes-theme',n);}catch(e){}});
+})();
+</script>
+</body>
+</html>

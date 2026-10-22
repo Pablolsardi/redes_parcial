@@ -49,6 +49,48 @@ details p{margin:8px 0 2px}
 .bar{display:flex;border-radius:8px;overflow:hidden;font-size:13px;text-align:center;color:#fff;margin:10px 0}
 .bar div{padding:8px 4px}
 .tag{display:inline-block;font-size:12px;padding:1px 8px;border-radius:99px;background:var(--infobg);color:var(--acc);font-weight:600}
+.theme-btn{position:fixed;top:14px;right:16px;z-index:50;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--ink);display:grid;place-items:center;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.12);transition:transform .15s}
+.theme-btn:hover{transform:scale(1.08);color:var(--acc)}
+.theme-btn svg{width:20px;height:20px}
+.theme-btn .moon{display:none}
+:root[data-theme="dark"] .theme-btn .sun{display:none}
+:root[data-theme="dark"] .theme-btn .moon{display:block}
+.vlog{list-style:none;padding:0;margin:10px 0 2px}
+.vlog>li{display:grid;grid-template-columns:136px 1fr;gap:4px 12px;align-items:start;padding:10px 0;border-top:1px solid var(--line)}
+.vlog>li:first-child{border-top:0}
+.vtag{display:inline-block;font-weight:700;font-size:13px;padding:2px 10px;border-radius:99px;color:#fff;white-space:nowrap}
+.vtag small{font-weight:500;opacity:.85;margin-left:4px}
+.v13{background:#7c3aed}.v12{background:#0e8a6a}.v11{background:#c2410c}.v10{background:#1f5fbf}
+.cardlink{text-decoration:none;color:var(--ink);transition:border-color .15s,transform .15s}.cardlink:hover{border-color:var(--acc);transform:translateY(-2px)}
+.vlog .now{font-size:11px;font-weight:700;color:var(--acc2);text-transform:uppercase;letter-spacing:.04em}
+@media (max-width:820px){.vlog>li{grid-template-columns:1fr}.theme-btn{top:10px;right:10px}}
+.cta{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:16px 0 8px}
+.cta a{display:flex;gap:12px;align-items:center;padding:14px 16px;border-radius:12px;text-decoration:none;font-weight:700;border:1.5px solid var(--acc);transition:transform .15s,filter .15s}
+.cta a:hover{transform:translateY(-2px);filter:brightness(1.06)}
+.cta a.p{background:var(--acc);color:#fff}
+.cta a.s{background:var(--card);color:var(--acc)}
+.cta svg{width:26px;height:26px;flex:none}
+.cta small{display:block;font-weight:500;font-size:13px;opacity:.85}
+::view-transition-old(root),::view-transition-new(root){animation-duration:.3s;animation-timing-function:ease}
+[id]{scroll-margin-top:calc(var(--anch,0px) + 14px)}
+/*buscador-css*/
+.sbar{position:sticky;top:0;z-index:30;background:var(--bg);padding:10px 60px 10px 0;margin:0 0 6px;display:flex;gap:8px;align-items:center;border-bottom:1px solid var(--line)}
+.sbox{flex:1;display:flex;align-items:center;gap:8px;background:var(--card);border:1.5px solid var(--line);border-radius:10px;padding:0 10px;min-width:0}
+.sbox:focus-within{border-color:var(--acc)}
+.sbox svg{width:18px;height:18px;color:var(--mut);flex:none}
+.sbox input{flex:1;min-width:0;border:0;background:transparent;color:var(--ink);font:inherit;padding:9px 0;outline:none}
+.sbox kbd{font:12px ui-monospace,monospace;color:var(--mut);border:1px solid var(--line);border-radius:4px;padding:0 5px}
+.sbar.has .sbox kbd{display:none}
+.scount{font-size:13px;color:var(--mut);white-space:nowrap;min-width:0}
+.sbtn{font:inherit;width:34px;height:34px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;display:none;place-items:center;flex:none}
+.sbar.has .sbtn{display:grid}
+.sbtn:hover{border-color:var(--acc);color:var(--acc)}
+mark.sr{background:#fde68a;color:inherit;border-radius:2px;padding:0 1px}
+mark.sr.cur{background:#f59e0b;color:#111;outline:2px solid #f59e0b}
+:root[data-theme="dark"] mark.sr{background:#6b5300;color:#fff}
+:root[data-theme="dark"] mark.sr.cur{background:#f59e0b;color:#111}
+@media (max-width:600px){.sbar{padding-right:52px;flex-wrap:wrap}.sbox kbd{display:none}}
+/*fin-buscador-css*/
 @media (max-width:820px){table{display:block;overflow-x:auto}.bar{font-size:11px}.wrap{display:block}nav{position:static;height:auto;border-right:0;border-bottom:1px solid var(--line);columns:2}main{padding:18px 16px 60px}}
 @media print{nav{display:none}.wrap{display:block}details{break-inside:avoid}}
 </style>
@@ -80,19 +122,39 @@ details p{margin:8px 0 2px}
 <a href="#s18">19. Modelo TCP/IP</a>
 <a href="#s18b">20. IPv4 y subneteo</a>
 <a href="#s19">21. Pares que se confunden</a>
-<a href="#s20">22. Autoevaluación</a>
+<a href="autoevaluacion.html">22. Autoevaluación: repaso ↗</a>
+<a href="examen.html">23. Autoevaluación: examen ↗</a>
 </nav>
 <main>
+<div class="sbar" id="sbar" data-root="main" data-excluir="#historial"><label class="sbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="sq" type="search" placeholder="Buscar en la guía… (ej.: CSMA, 802.3u, subneteo)" aria-label="Buscar en la guía" autocomplete="off"><kbd>/</kbd></label><span class="scount" id="scount" aria-live="polite"></span><button type="button" class="sbtn" id="sprev" aria-label="Resultado anterior">↑</button><button type="button" class="sbtn" id="snext" aria-label="Resultado siguiente">↓</button><button type="button" class="sbtn" id="sclear" aria-label="Borrar búsqueda">✕</button></div>
+<button class="theme-btn" id="themeBtn" type="button" aria-label="Cambiar a modo oscuro" title="Cambiar modo claro / oscuro"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
 <h1>Redes de Datos — Guía de estudio, Parcial 1</h1>
-<div class="sub">UTN FRT · Ciclo 2026 · Cátedra Mag. Ing. Patricia Nazar · Unidades 1, 2 y 3 + actividades expuestas<br>Versión 1.2 · 14 de octubre de 2026</div>
-<details><summary>Historial de versiones</summary>
-<p><b>1.2 · 14/10/2026</b> — Revisión completa contra el material oficial del aula virtual (apuntes de la Ing. Nazar). Se reescribe el modelo OSI capa por capa (PDU, medios físicos, señalización, subcapas MAC/LLC, red, transporte, sesión, presentación). Se suman: trama Ethernet campo por campo, variantes 10BASE5/10BASE2/10BASE-T con sus límites, regla 5-4-3, variantes de Fast Ethernet, redes inalámbricas completas (modos de AP, antenas, diseño, seguridad, RTS/CTS, escaneo-autenticación-asociación), conmutación con STP y VLAN, y el modelo TCP/IP completo (TCP, UDP, puertos, IP, ICMP, ARP, RARP, clases, direcciones especiales y subneteo con ejemplos). Se corrigen las unidades de datos de las capas superiores, la nomenclatura de normas y varios datos menores. Autoevaluación ampliada (41 a 70).</p>
-<p><b>1.1 · 14/10/2026</b> — Nueva sección destacada "Norma vs protocolo de comunicación" con definiciones, diferencias, ejemplos y trampas de examen. Se amplía la tabla de pares que se confunden y se suman 8 preguntas a la autoevaluación (33 a 40).</p>
-<p><b>1.0 · 07/10/2026</b> — Versión inicial: unidades 1 y 2, actividades expuestas, cableado estructurado, normas TIA y autoevaluación.</p>
+<div class="sub">UTN FRT · Ciclo 2026 · Cátedra Mag. Ing. Patricia Nazar · Unidades 1, 2 y 3 + actividades expuestas<br>Versión 1.3 · 21 de octubre de 2026</div>
+<details id="historial"><summary>Historial de versiones</summary>
+<ul class="vlog">
+<li><span class="vtag v13">v1.3<small>21/10/2026</small></span><div><span class="now">Actual</span><br>Cambios de diseño y funcionamiento, sin contenido nuevo de la materia:
+<ul style="margin:4px 0 0">
+<li>Botón arriba a la derecha para cambiar entre modo claro y oscuro, con transición suave de 0,3 s. Recuerda la elección.</li>
+<li>Autoevaluación en dos páginas nuevas: <b>repaso con respuestas</b> (desplegables) y <b>examen de práctica</b> interactivo con nota final y corrección. Las 70 preguntas pasan a verdadero o falso u opción múltiple, agrupadas por tema.</li>
+<li>Botones destacados arriba de la guía para ir al examen y al repaso.</li>
+<li>Barra de búsqueda en la guía y en el repaso: ignora tildes, marca las coincidencias y salta entre ellas (atajo: tecla <b>/</b>). No busca en el historial de versiones.</li>
+<li>En las respuestas, "Falso" ya no se marca en verde.</li>
+<li>Los saltos a secciones y temas dejan el título visible debajo de las barras fijas.</li>
+<li>Historial de versiones con un color por versión. Publicación en GitHub Pages.</li>
+</ul></div></li>
+<li><span class="vtag v12">v1.2<small>14/10/2026</small></span><div>Revisión completa contra el material oficial del aula virtual (apuntes de la Ing. Nazar). Se reescribe el modelo OSI capa por capa (PDU, medios físicos, señalización, subcapas MAC/LLC, red, transporte, sesión, presentación). Se suman: trama Ethernet campo por campo, variantes 10BASE5/10BASE2/10BASE-T con sus límites, regla 5-4-3, variantes de Fast Ethernet, redes inalámbricas completas (modos de AP, antenas, diseño, seguridad, RTS/CTS, escaneo-autenticación-asociación), conmutación con STP y VLAN, y el modelo TCP/IP completo (TCP, UDP, puertos, IP, ICMP, ARP, RARP, clases, direcciones especiales y subneteo con ejemplos). Se corrigen las unidades de datos de las capas superiores, la nomenclatura de normas y varios datos menores. Autoevaluación ampliada (41 a 70).</div></li>
+<li><span class="vtag v11">v1.1<small>14/10/2026</small></span><div>Nueva sección destacada "Norma vs protocolo de comunicación" con definiciones, diferencias, ejemplos y trampas de examen. Se amplía la tabla de pares que se confunden y se suman 8 preguntas a la autoevaluación (33 a 40).</div></li>
+<li><span class="vtag v10">v1.0<small>07/10/2026</small></span><div>Versión inicial: unidades 1 y 2, actividades expuestas, cableado estructurado, normas TIA y autoevaluación.</div></li>
+</ul>
 </details>
 
+<div class="cta">
+<a class="p" href="examen.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/></svg><span>Examen de práctica<small>Respondé, enviá y mirá tu nota</small></span></a>
+<a class="s" href="autoevaluacion.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M8 7h8M8 11h6"/></svg><span>Repaso con respuestas<small>Preguntas con la respuesta en un desplegable</small></span></a>
+</div>
+
 <h2 id="s0">0. Cómo estudiar con esto</h2>
-<p>El parcial es <b>multiple choice / verdadero-falso</b>. Ese formato no premia saber recitar: premia distinguir cosas parecidas (física vs lógica, CD vs CA, colisión vs broadcast, flooding vs broadcast). Por eso cada sección cierra la idea con el "por qué", y al final tenés una sección de pares que se confunden y una autoevaluación con respuestas ocultas.</p>
+<p>El parcial es <b>multiple choice / verdadero-falso</b>. Ese formato no premia saber recitar: premia distinguir cosas parecidas (física vs lógica, CD vs CA, colisión vs broadcast, flooding vs broadcast). Por eso cada sección cierra la idea con el "por qué", y al final tenés una sección de pares que se confunden. La autoevaluación está en dos páginas aparte: un <a href="autoevaluacion.html">repaso con respuestas</a> y un <a href="examen.html">examen de práctica</a> que te corrige.</p>
 <div class="box"><b>Las cinco distinciones que la profesora marcó en clase</b>
 Protocolo de acceso al medio ≠ protocolo de comunicación · Protocolo de comunicación ≠ norma de comunicación · Dirección física ≠ dirección lógica · Contención ≠ token passing · Los sistemas operativos son independientes de las normas.<br>Las dos primeras están desarrolladas a fondo en la sección <a href="#snp">★ Norma vs protocolo</a>.</div>
 <p>Las cajas <span class="tag">ámbar</span> marcan puntos donde el material de clase simplifica o donde un apunte tenía un error: conviene saber las dos versiones (la de clase y la exacta).</p>
@@ -1420,87 +1482,108 @@ La diapositiva pone "2<sup>6</sup> − 2 = 64 hosts utilizables". La cuenta da <
 </table></div>
 
 <h2 id="s20">22. Autoevaluación</h2>
-<p>Respondé antes de abrir cada una. Están en el formato del parcial.</p>
-<h3>Verdadero o falso</h3>
-<details><summary>1. La topología lógica de una red queda determinada por cómo están tendidos los cables.</summary><p><b>Falso.</b> La determina el protocolo de acceso al medio. El tendido es la topología física.</p></details>
-<details><summary>2. Una red Ethernet con switch tiene topología física estrella y lógica bus.</summary><p><b>Verdadero.</b> 802.3 usa CSMA/CD, que es de contención → lógica bus/difusión.</p></details>
-<details><summary>3. El switch separa dominios de broadcast.</summary><p><b>Falso.</b> Separa dominios de colisión. El broadcast lo separa el router (o las VLAN).</p></details>
-<details><summary>4. El switch aprende las direcciones mirando la MAC destino de las tramas.</summary><p><b>Falso.</b> Aprende con la MAC origen. La destino la usa para decidir el reenvío.</p></details>
-<details><summary>5. Wi-Fi usa CSMA/CD.</summary><p><b>Falso.</b> Usa CSMA/CA: una radio no puede escuchar mientras transmite, así que no puede detectar colisiones.</p></details>
-<details><summary>6. En token passing no hay colisiones.</summary><p><b>Verdadero.</b> Solo transmite quien tiene el token.</p></details>
-<details><summary>7. Token Ring con MSAU tiene topología física en anillo.</summary><p><b>Falso.</b> Física en estrella (todos a la MSAU), lógica en anillo.</p></details>
-<details><summary>8. La dirección MAC tiene 32 bits.</summary><p><b>Falso.</b> 48 bits (6 bytes). 32 bits tiene la IPv4.</p></details>
-<details><summary>9. En una red peer to peer cada PC es cliente y servidor a la vez.</summary><p><b>Verdadero.</b></p></details>
-<details><summary>10. En una red de servidor dedicado los recursos compartidos solo pueden estar en el servidor.</summary><p><b>Falso.</b> Pueden estar en el servidor o en cualquier nodo del dominio; lo centralizado es la administración.</p></details>
-<details><summary>11. La distancia máxima del cableado horizontal es de 100 metros entre patchera y roseta.</summary><p><b>Falso.</b> Son 90 m. Los 100 m son el canal completo contando los patch cords.</p></details>
-<details><summary>12. T568A y T568B se diferencian en la posición de los pares verde y naranja.</summary><p><b>Verdadero.</b> Azul y marrón quedan igual.</p></details>
-<details><summary>13. Para conectar dos PCs directamente, sin hub, se usa un patch cord cruzado.</summary><p><b>Verdadero.</b> Cruza 1↔3 y 2↔6.</p></details>
-<details><summary>14. 10GBASE-T puede trabajar en half-duplex con CSMA/CD.</summary><p><b>Falso.</b> Es solo full-duplex.</p></details>
-<details><summary>15. Polling es un método de contención.</summary><p><b>Falso.</b> Es determinístico, maestro-esclavo.</p></details>
-<details><summary>16. Al reemplazar hubs por switches aumenta la cantidad de dominios de colisión.</summary><p><b>Verdadero.</b> Pasa de uno grande a uno por puerto: hay más, pero más chicos y sin choques. El de broadcast sigue siendo uno.</p></details>
-<details><summary>17. Un hub trabaja en la capa 2 del modelo OSI.</summary><p><b>Falso.</b> Capa 1. Es un repetidor multipuerto.</p></details>
-<details><summary>18. Los permisos de recurso compartido se aplican también cuando el usuario accede localmente a la carpeta.</summary><p><b>Falso.</b> Solo se validan en el acceso remoto por la red.</p></details>
-<details><summary>19. La velocidad de una LAN está determinada por la norma de comunicación.</summary><p><b>Verdadero.</b> Y en la práctica la limita el componente más lento (placa, cable o puerto).</p></details>
-<details><summary>20. Cuando el switch hace flooding, la trama se convierte en broadcast.</summary><p><b>Falso.</b> Sigue siendo unicast; las placas que no son el destino la descartan.</p></details>
-
-<h3>Opción múltiple</h3>
-<details><summary>21. 100BASE-TX corresponde a: a) 802.3i · b) 802.3u · c) 802.3ab · d) 802.3an</summary><p><b>b)</b> 802.3u, Fast Ethernet. 802.3i = 10BASE-T, 802.3ab = Gigabit, 802.3an = 10 Gigabit.</p></details>
-<details><summary>22. En "10BASE2", el 2 indica: a) 2 pares · b) coaxil fino, ~200 m · c) 2 Mbps · d) capa 2</summary><p><b>b)</b> Coaxil fino; exactamente 185 m.</p></details>
-<details><summary>23. ¿Qué variante de CSMA usa Ethernet? a) no persistente · b) p-persistente · c) 1-persistente · d) Aloha ranurado</summary><p><b>c)</b> 1-persistente.</p></details>
-<details><summary>24. Dispositivo que separa dominios de broadcast: a) hub · b) repetidor · c) switch · d) router</summary><p><b>d)</b> Router.</p></details>
-<details><summary>25. Switch con 2 PCs directas y un hub en un tercer puerto con 3 PCs. Dominios de colisión y de broadcast: a) 5 y 1 · b) 3 y 1 · c) 1 y 1 · d) 3 y 3</summary><p><b>b)</b> 3 de colisión (dos puertos con PC + el puerto del hub, donde las 3 comparten uno) y 1 de broadcast (no hay router).</p></details>
-<details><summary>26. El MDF es: a) el repartidor de cada planta · b) el repartidor principal del edificio · c) el punto de demarcación del proveedor · d) el cableado entre edificios</summary><p><b>b)</b>. a) es el IDF, c) el POP, d) el subsistema de campus.</p></details>
-<details><summary>27. En 10/100 Mbps, los pines de transmisión y recepción del RJ-45 son: a) 1-2 y 3-6 · b) 1-2 y 3-4 · c) 4-5 y 7-8 · d) 1-3 y 2-6</summary><p><b>a)</b> 1 y 2 transmiten, 3 y 6 reciben. d) son los pares que se cruzan en un crossover.</p></details>
-<details><summary>28. Cable mínimo para 10GBASE-T a 100 m: a) Cat 5 · b) Cat 5e · c) Cat 6 · d) Cat 6A</summary><p><b>d)</b> Cat 6A. Cat 6 llega a 10G solo hasta unos 55 m.</p></details>
-<details><summary>29. ¿Qué servidor asigna automáticamente las direcciones IP? a) DNS · b) DHCP · c) Proxy · d) Dominio</summary><p><b>b)</b> DHCP. DNS resuelve nombres.</p></details>
-<details><summary>30. La norma que regula el etiquetado y la documentación del cableado es: a) 568 · b) 569 · c) 606 · d) 607</summary><p><b>c)</b> 606. 569 rutas y espacios, 607 puesta a tierra.</p></details>
-<details><summary>31. PC1 es 192.168.1.20/24 y PC2 es 192.168.2.20/24, en el mismo switch sin router. ¿Hay ping? a) Sí, están en el mismo switch · b) No, redes distintas y nada que rutee · c) Sí, por ARP · d) Solo con cable cruzado</summary><p><b>b)</b> El switch no rutea entre redes.</p></details>
-<details><summary>32. En Token Ring, el dispositivo que mantiene el anillo cerrado cuando una PC se apaga es: a) el Monitor Activo · b) la MSAU, con sus relés de bypass · c) el token · d) el router</summary><p><b>b)</b>. El Monitor Activo vigila el token, no el cableado.</p></details>
-
-<h3>Norma vs protocolo (agregadas en v1.1)</h3>
-<details><summary>33. V o F: TCP/IP es una norma de comunicación.</summary><p><b>Falso.</b> Es una suite de protocolos de comunicación.</p></details>
-<details><summary>34. V o F: IEEE 802.11 define la velocidad, la banda de frecuencia y el método de acceso al medio de una red inalámbrica.</summary><p><b>Verdadero.</b> Eso es exactamente lo que fija una norma.</p></details>
-<details><summary>35. V o F: Al pasar una PC de cable a Wi-Fi cambian la norma y el protocolo de acceso al medio, pero no los protocolos de comunicación.</summary><p><b>Verdadero.</b> 802.3 → 802.11 y CSMA/CD → CSMA/CA; IP, TCP, DHCP y DNS siguen iguales.</p></details>
-<details><summary>36. V o F: CSMA/CD es un protocolo de comunicación.</summary><p><b>Falso.</b> Es un protocolo de acceso al medio, definido dentro de la norma 802.3.</p></details>
-<details><summary>37. ¿Cuál es una norma de comunicación? a) HTTP · b) DHCP · c) IEEE 802.3u · d) UDP</summary><p><b>c)</b>. Las demás son protocolos.</p></details>
-<details><summary>38. ¿Cuál es un protocolo de comunicación? a) IEEE 802.5 · b) TIA/EIA-568 · c) IP · d) 1000BASE-T</summary><p><b>c)</b> IP. Las demás son normas (o una variante de norma, en el caso de 1000BASE-T).</p></details>
-<details><summary>39. Los tres elementos de un protocolo son: a) medio, velocidad y conector · b) sintaxis, semántica y temporización · c) origen, destino y datos · d) física, enlace y red</summary><p><b>b)</b>. La opción a) describe lo que fija una norma.</p></details>
-<details><summary>40. La norma de comunicación se implementa principalmente en: a) las aplicaciones · b) el sistema operativo · c) el hardware (placa de red, cables, switch) · d) el servidor DNS</summary><p><b>c)</b>. Los protocolos de comunicación son los que se implementan en software (SO y aplicaciones).</p></details>
-
-<h3>Material oficial (agregadas en v1.2)</h3>
-<details><summary>41. V o F: En el modelo OSI, la unidad de datos de la capa de sesión se llama segmento.</summary><p><b>Falso.</b> En sesión, presentación y aplicación es el <b>mensaje</b> (SPDU, PPDU, APDU). El segmento es de transporte.</p></details>
-<details><summary>42. Las capas de red y transporte del modelo OSI se agrupan en la función de: a) comunicación · b) networking · c) servicios · d) presentación</summary><p><b>b)</b> Networking. Física y enlace = comunicación; sesión, presentación y aplicación = servicios.</p></details>
-<details><summary>43. ¿Qué subcapa de enlace se encarga del control de flujo y del chequeo de errores? a) MAC · b) LLC · c) SAP · d) PHY</summary><p><b>b)</b> LLC. MAC se ocupa del acceso al medio y del direccionamiento físico.</p></details>
-<details><summary>44. V o F: La señalización broadband utiliza toda la capacidad del medio para una sola señal y se usa en LAN.</summary><p><b>Falso.</b> Eso es <b>baseband</b> (digital, TDM, LAN). Broadband comparte el ancho de banda entre varios canales analógicos con FDM y se usa en WAN.</p></details>
-<details><summary>45. ¿Cuál de estos es un protocolo de enrutamiento? a) IP · b) RIP · c) TCP · d) ARP</summary><p><b>b)</b> RIP (también IGRP). IP es un protocolo ruteable.</p></details>
-<details><summary>46. La capa OSI llamada "el traductor" y que define el código ASCII o EBCDIC es: a) aplicación · b) sesión · c) presentación · d) transporte</summary><p><b>c)</b> Presentación. También comprime y encripta.</p></details>
-<details><summary>47. El medio con peor comportamiento frente a la EMI es: a) fibra · b) coaxil · c) STP · d) UTP</summary><p><b>d)</b> UTP. La fibra no sufre interferencias eléctricas.</p></details>
-<details><summary>48. El tamaño mínimo de una trama Ethernet 802.3 es: a) 46 bytes · b) 64 bytes · c) 1500 bytes · d) 1518 bytes</summary><p><b>b)</b> 64 bytes. 46 es el mínimo del campo de datos (por eso el padding); 1500 el máximo de datos; 1518 el máximo de trama.</p></details>
-<details><summary>49. En una trama Ethernet II, el campo de 2 bytes después de la MAC origen indica: a) la longitud de los datos · b) el tipo de protocolo transportado · c) el CRC · d) la prioridad</summary><p><b>b)</b> El tipo de protocolo. En una trama 802.3 indica la longitud.</p></details>
-<details><summary>50. Según la regla 5-4-3, entre dos PCs no puede haber más de: a) 5 repetidores, 4 segmentos, 3 hubs · b) 5 segmentos, 4 repetidores, 3 segmentos poblados · c) 5 hubs, 4 switches, 3 routers · d) 5 PCs por segmento</summary><p><b>b)</b>.</p></details>
-<details><summary>51. 10BASE5 usa transceivers: a) incluidos en la NIC con conector BNC · b) externos, con llaves vampiro y conector DIX · c) RJ-45 · d) ópticos</summary><p><b>b)</b>. 10BASE2 usa BNC con el transceiver en la placa; 10BASE-T, RJ-45.</p></details>
-<details><summary>52. La longitud máxima total de una red 10BASE2 es: a) 185 m · b) 500 m · c) 925 m · d) 2500 m</summary><p><b>c)</b> 925 m (5 segmentos × 185 m). 2500 m es la de 10BASE5.</p></details>
-<details><summary>53. V o F: Fast Ethernet (802.3u) soporta cable coaxil.</summary><p><b>Falso.</b> Funciona sobre par trenzado y fibra óptica.</p></details>
-<details><summary>54. ¿Qué variante de Fast Ethernet usa 4 pares de UTP Cat 3 y solo funciona en half duplex? a) 100BASE-TX · b) 100BASE-T4 · c) 100BASE-FX · d) 100BASE-SX</summary><p><b>b)</b> 100BASE-T4.</p></details>
-<details><summary>55. En Fast Ethernet full duplex: a) se usa CSMA/CD igual que en half · b) se desactiva la detección de colisiones y lo ofrecen solo los switches · c) funciona con hubs · d) baja a 50 Mbps por sentido</summary><p><b>b)</b>. 100 Mbps por sentido, 200 Mbps en total.</p></details>
-<details><summary>56. V o F: En una red Wi-Fi ad hoc todo el tráfico pasa por el access point.</summary><p><b>Falso.</b> En ad hoc los nodos se comunican peer to peer, sin AP. Eso describe el modo infraestructura.</p></details>
-<details><summary>57. Una estación cree que el canal está libre pero está ocupado por un nodo que ella no oye. Es el problema del: a) nodo expuesto · b) nodo oculto · c) bucle · d) broadcast storm</summary><p><b>b)</b> Nodo oculto. Lo mitiga RTS/CTS.</p></details>
-<details><summary>58. El orden correcto para conectarse a un AP es: a) asociación, escaneo, autenticación · b) autenticación, escaneo, asociación · c) escaneo, autenticación, asociación · d) escaneo, asociación, autenticación</summary><p><b>c)</b>.</p></details>
-<details><summary>59. V o F: Ocultar o cambiar el SSID es una medida de seguridad suficiente.</summary><p><b>Falso.</b> El SSID solo identifica y agrupa lógicamente la red. La seguridad la dan WPA2/WPA3 (AES).</p></details>
-<details><summary>60. La antena que da cobertura de 360° con menor alcance es la: a) direccional · b) sectorial · c) omnidireccional · d) parabólica</summary><p><b>c)</b> Omnidireccional.</p></details>
-<details><summary>61. El material que más atenúa la señal Wi-Fi es: a) madera · b) yeso · c) ladrillo · d) metal</summary><p><b>d)</b> Metal (interferencia muy alta).</p></details>
-<details><summary>62. ¿Qué protocolo evita los bucles entre switches? a) VLAN · b) STP (802.1D) · c) 802.1Q · d) ARP</summary><p><b>b)</b> Spanning Tree. Bloquea los puertos redundantes.</p></details>
-<details><summary>63. En STP, el switch raíz es el que tiene: a) mayor velocidad · b) menor ID (prioridad + MAC) · c) más puertos · d) mayor MAC</summary><p><b>b)</b>.</p></details>
-<details><summary>64. V o F: Cada VLAN es un dominio de broadcast y para comunicar dos VLANs hace falta un router.</summary><p><b>Verdadero.</b></p></details>
-<details><summary>65. ¿Cuántos bits del encabezado 802.1Q identifican la VLAN? a) 8 · b) 12 · c) 16 · d) 32</summary><p><b>b)</b> 12 bits.</p></details>
-<details><summary>66. V o F: IP es un protocolo orientado a conexión y confiable.</summary><p><b>Falso.</b> IP es sin conexión y no confiable. TCP es el orientado a conexión y confiable.</p></details>
-<details><summary>67. Los pasos del three-way handshake de TCP son: a) ACK, SYN, FIN · b) SYN, SYN-ACK, ACK · c) GET, POST, PUT · d) Discover, Offer, Request, Ack</summary><p><b>b)</b>. d) es DHCP.</p></details>
-<details><summary>68. ¿Qué protocolo usa ping? a) TCP · b) UDP · c) ICMP · d) ARP</summary><p><b>c)</b> ICMP (Echo Request / Echo Reply).</p></details>
-<details><summary>69. Una PC muestra en ipconfig la dirección 169.254.12.5. Significa que: a) es una IP pública · b) es loopback · c) no consiguió configuración IP (por ejemplo, falló el DHCP) · d) es multicast</summary><p><b>c)</b> Es una dirección de enlace local (APIPA).</p></details>
-<details><summary>70. 192.168.1.0 con máscara 255.255.255.192. ¿Cuántas subredes, cuántos hosts por subred y cuál es el broadcast de la segunda subred?</summary><p>2 bits prestados → <b>4 subredes</b>. 6 bits de host → 2<sup>6</sup> − 2 = <b>62 hosts</b>. Salto de 64: la segunda subred es 192.168.1.64, con broadcast <b>192.168.1.127</b>.</p></details>
-
+<p>Las <b>70 preguntas</b> (verdadero o falso y opción múltiple, agrupadas por tema) están en dos páginas aparte, con las mismas preguntas en las dos:</p>
+<div class="grid">
+<a class="card cardlink" href="autoevaluacion.html"><h4>Repaso con respuestas →</h4>Cada pregunta con sus opciones y un desplegable <b>Ver respuesta</b> con la explicación. Sin puntaje: ideal para repasar leyendo.</a>
+<a class="card cardlink" href="examen.html"><h4>Examen de práctica →</h4>Elegís, cambiás o deseleccionás cada respuesta, la enviás al final y te devuelve la <b>nota</b> con la corrección de cada pregunta. Se puede hacer completo o por tema.</a>
+</div>
 <p class="sub" style="margin-top:40px">Fuentes: material oficial del aula virtual (Ing. Patricia Nazar): Modelo OSI partes 1 a 3, Norma IEEE 802.3 Ethernet, Norma IEEE 802.3u Fast Ethernet, Introducción a Switching Ethernet, Redes inalámbricas, Modelo TCP/IP partes 1 a 3, Teoría y Práctica de Cableado Estructurado, trama 802.3; slides Primeras Unidades 2026, planificación 2026, apuntes de clase 1 y 2, resumen de conceptos a afianzar, resumen de normas TIA y las presentaciones de actividades del grupo.</p>
 </main>
 </div>
+<script>
+(function(){
+  var root=document.documentElement, btn=document.getElementById('themeBtn');
+  function current(){
+    var t=root.getAttribute('data-theme');
+    if(t) return t;
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  function apply(t){
+    root.setAttribute('data-theme',t);
+    btn.setAttribute('aria-label', t==='dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro');
+  }
+  var saved=null;
+  try{ saved=localStorage.getItem('redes-theme'); }catch(e){}
+  apply(saved==='dark'||saved==='light' ? saved : current());
+  btn.addEventListener('click',function(){
+    var next=current()==='dark'?'light':'dark';
+    if(document.startViewTransition&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.startViewTransition(function(){apply(next);});}else{apply(next);}
+    try{ localStorage.setItem('redes-theme',next); }catch(e){}
+  });
+})();
+</script>
+<script>(function(){function f(){var h=0;var t=document.querySelector('.top'),s=document.getElementById('sbar');if(t)h+=t.offsetHeight;if(s)h+=s.offsetHeight;document.documentElement.style.setProperty('--anch',h+'px');}f();window.addEventListener('resize',f);window.addEventListener('load',f);})();
+</script>
+<script>/*buscador-js*/
+(function(){
+  var bar=document.getElementById('sbar'); if(!bar) return;
+  var input=document.getElementById('sq'), cnt=document.getElementById('scount'),
+      prev=document.getElementById('sprev'), next=document.getElementById('snext'), clr=document.getElementById('sclear');
+  var root=document.querySelector(bar.getAttribute('data-root')||'main');
+  var excl=bar.getAttribute('data-excluir')||'';
+  var marks=[], cur=-1, timer=null;
+  function nrm(s){return s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();}
+  function limpiar(){
+    marks.forEach(function(m){var p=m.parentNode;if(!p)return;p.replaceChild(document.createTextNode(m.textContent),m);p.normalize();});
+    marks=[];cur=-1;
+  }
+  function excluido(n){
+    var el=n.parentElement;
+    if(!el||el.closest('script,style,#sbar,.theme-btn'))return true;
+    return excl?!!el.closest(excl):false;
+  }
+  function buscar(q){
+    limpiar();
+    var nq=nrm(q.trim());
+    if(nq.length<2){cnt.textContent='';bar.classList.remove('has');return;}
+    bar.classList.add('has');
+    var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,null),nodos=[],n;
+    while((n=w.nextNode())){if(n.nodeValue.trim()&&!excluido(n))nodos.push(n);}
+    nodos.forEach(function(node){
+      if(marks.length>=600)return;
+      var t=node.nodeValue,s='',map=[];
+      for(var i=0;i<t.length;i++){var c=nrm(t[i]);for(var j=0;j<c.length;j++){s+=c[j];map.push(i);}}
+      var rs=[],k=s.indexOf(nq);
+      while(k!==-1){rs.push([map[k],map[k+nq.length-1]+1]);k=s.indexOf(nq,k+nq.length);}
+      if(!rs.length)return;
+      var locales=[];
+      for(var r=rs.length-1;r>=0;r--){
+        var a=rs[r][0],b=rs[r][1];
+        var tail=node.splitText(a);tail.splitText(b-a);
+        var m=document.createElement('mark');m.className='sr';
+        tail.parentNode.replaceChild(m,tail);m.appendChild(tail);
+        locales.unshift(m);
+      }
+      marks=marks.concat(locales);
+    });
+    if(!marks.length){cnt.textContent='Sin resultados';return;}
+    ir(0);
+  }
+  function ir(i){
+    if(!marks.length)return;
+    if(cur>=0&&marks[cur])marks[cur].classList.remove('cur');
+    cur=(i+marks.length)%marks.length;
+    var m=marks[cur];m.classList.add('cur');
+    var d=m.closest('details');while(d){d.open=true;d=d.parentElement&&d.parentElement.closest('details');}
+    m.scrollIntoView({block:'center',behavior:'instant'});
+    cnt.textContent=(cur+1)+' de '+marks.length+(marks.length>=600?'+':'');
+  }
+  input.addEventListener('input',function(){clearTimeout(timer);timer=setTimeout(function(){buscar(input.value);},220);});
+  input.addEventListener('keydown',function(e){
+    if(e.key==='Enter'){e.preventDefault();clearTimeout(timer);
+      if(!marks.length||nrm(input.value.trim())!==input.dataset.last)buscar(input.value);else ir(cur+(e.shiftKey?-1:1));
+      input.dataset.last=nrm(input.value.trim());}
+    if(e.key==='Escape'){input.value='';limpiar();cnt.textContent='';bar.classList.remove('has');}
+  });
+  input.addEventListener('input',function(){input.dataset.last=nrm(input.value.trim());});
+  prev.addEventListener('click',function(){ir(cur-1);});
+  next.addEventListener('click',function(){ir(cur+1);});
+  clr.addEventListener('click',function(){input.value='';limpiar();cnt.textContent='';bar.classList.remove('has');input.focus();});
+  document.addEventListener('keydown',function(e){
+    var t=e.target.tagName;if(t==='INPUT'||t==='TEXTAREA')return;
+    if(e.key==='/'||((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k')){e.preventDefault();input.focus();input.select();}
+  });
+})();
+</script>
 </body>
 </html>

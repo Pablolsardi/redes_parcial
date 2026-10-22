@@ -1,0 +1,16 @@
+.sbar{position:sticky;top:0;z-index:30;background:var(--bg);padding:10px 60px 10px 0;margin:0 0 6px;display:flex;gap:8px;align-items:center;border-bottom:1px solid var(--line)}
+.sbox{flex:1;display:flex;align-items:center;gap:8px;background:var(--card);border:1.5px solid var(--line);border-radius:10px;padding:0 10px;min-width:0}
+.sbox:focus-within{border-color:var(--acc)}
+.sbox svg{width:18px;height:18px;color:var(--mut);flex:none}
+.sbox input{flex:1;min-width:0;border:0;background:transparent;color:var(--ink);font:inherit;padding:9px 0;outline:none}
+.sbox kbd{font:12px ui-monospace,monospace;color:var(--mut);border:1px solid var(--line);border-radius:4px;padding:0 5px}
+.sbar.has .sbox kbd{display:none}
+.scount{font-size:13px;color:var(--mut);white-space:nowrap;min-width:0}
+.sbtn{font:inherit;width:34px;height:34px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;display:none;place-items:center;flex:none}
+.sbar.has .sbtn{display:grid}
+.sbtn:hover{border-color:var(--acc);color:var(--acc)}
+mark.sr{background:#fde68a;color:inherit;border-radius:2px;padding:0 1px}
+mark.sr.cur{background:#f59e0b;color:#111;outline:2px solid #f59e0b}
+:root[data-theme="dark"] mark.sr{background:#6b5300;color:#fff}
+:root[data-theme="dark"] mark.sr.cur{background:#f59e0b;color:#111}
+@media (max-width:600px){.sbar{padding-right:52px;flex-wrap:wrap}.sbox kbd{display:none}}

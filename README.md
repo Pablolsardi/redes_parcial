@@ -4,4 +4,11 @@ Guía de estudio de Redes de Datos (UTN FRT, ciclo 2026), elaborada a partir del
 
 Versión publicada: https://pablolsardi.github.io/redes_parcial/
 
-Versión actual: 1.2 (14/10/2026)
+Versión actual: 1.3 (21/10/2026)
+
+Páginas:
+- Guía: index.html
+- Autoevaluación (repaso con respuestas): autoevaluacion.html
+- Autoevaluación (examen de práctica): examen.html
+
+Las preguntas de la autoevaluación están en `fuente/preguntas.json`. El buscador está en `fuente/buscador.js` y `fuente/buscador.css`. Para regenerar las páginas (y sincronizar el buscador en index.html): `python3 fuente/build_autoevaluacion.py`.
