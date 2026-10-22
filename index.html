@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Redes de Datos · Guía Parcial 1</title>
 <style>
-:root{--bg:#f6f7f9;--card:#fff;--ink:#1c2430;--mut:#5b6675;--line:#dfe3ea;--acc:#1f5fbf;--acc2:#0e8a6a;--warn:#b45309;--warnbg:#fff6e5;--okbg:#e9f7f1;--infobg:#eaf1fc;--code:#f0f2f6}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12161c;--card:#1a2029;--ink:#e6eaf0;--mut:#9aa6b6;--line:#2c3542;--acc:#6ea8ff;--acc2:#4fd1a5;--warn:#f0b35a;--warnbg:#33290f;--okbg:#12302a;--infobg:#16263f;--code:#232b37}}
-:root[data-theme="dark"]{--bg:#12161c;--card:#1a2029;--ink:#e6eaf0;--mut:#9aa6b6;--line:#2c3542;--acc:#6ea8ff;--acc2:#4fd1a5;--warn:#f0b35a;--warnbg:#33290f;--okbg:#12302a;--infobg:#16263f;--code:#232b37}
+:root{--bg:#f6f7f9;--card:#fff;--ink:#1c2430;--mut:#5b6675;--line:#dfe3ea;--acc:#1f5fbf;--acc2:#0e8a6a;--warn:#b45309;--warnbg:#fff6e5;--okbg:#e9f7f1;--infobg:#eaf1fc;--code:#f0f2f6;--on-acc:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12161c;--card:#1a2029;--ink:#e6eaf0;--mut:#9aa6b6;--line:#2c3542;--acc:#6ea8ff;--acc2:#4fd1a5;--warn:#f0b35a;--warnbg:#33290f;--okbg:#12302a;--infobg:#16263f;--code:#232b37;--on-acc:#0b1220}}
+:root[data-theme="dark"]{--bg:#12161c;--card:#1a2029;--ink:#e6eaf0;--mut:#9aa6b6;--line:#2c3542;--acc:#6ea8ff;--acc2:#4fd1a5;--warn:#f0b35a;--warnbg:#33290f;--okbg:#12302a;--infobg:#16263f;--code:#232b37;--on-acc:#0b1220}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
@@ -67,12 +67,18 @@ details p{margin:8px 0 2px}
 .cta{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:16px 0 8px}
 .cta a{display:flex;gap:12px;align-items:center;padding:14px 16px;border-radius:12px;text-decoration:none;font-weight:700;border:1.5px solid var(--acc);transition:transform .15s,filter .15s}
 .cta a:hover{transform:translateY(-2px);filter:brightness(1.06)}
-.cta a.p{background:var(--acc);color:#fff}
+.cta a.p{background:var(--acc);color:var(--on-acc)}
 .cta a.s{background:var(--card);color:var(--acc)}
 .cta svg{width:26px;height:26px;flex:none}
 .cta small{display:block;font-weight:500;font-size:13px;opacity:.85}
 ::view-transition-old(root),::view-transition-new(root){animation-duration:.3s;animation-timing-function:ease}
 [id]{scroll-margin-top:calc(var(--anch,0px) + 14px)}
+html,body,nav,.scroll,table,pre,*{scrollbar-width:none;-ms-overflow-style:none}
+*::-webkit-scrollbar{display:none;width:0;height:0}
+main a,main a:visited{color:var(--acc)}
+.cta a.p,.cta a.p:visited{color:var(--on-acc)}
+.cta a.s,.cta a.s:visited{color:var(--acc)}
+.cardlink,.cardlink:visited{color:var(--ink)}
 /*buscador-css*/
 .sbar{position:sticky;top:0;z-index:30;background:var(--bg);padding:10px 60px 10px 0;margin:0 0 6px;display:flex;gap:8px;align-items:center;border-bottom:1px solid var(--line)}
 .sbox{flex:1;display:flex;align-items:center;gap:8px;background:var(--card);border:1.5px solid var(--line);border-radius:10px;padding:0 10px;min-width:0}
@@ -140,6 +146,8 @@ mark.sr.cur{background:#f59e0b;color:#111;outline:2px solid #f59e0b}
 <li>Barra de búsqueda en la guía y en el repaso: ignora tildes, marca las coincidencias y salta entre ellas (atajo: tecla <b>/</b>). No busca en el historial de versiones.</li>
 <li>En las respuestas, "Falso" ya no se marca en verde.</li>
 <li>Los saltos a secciones y temas dejan el título visible debajo de las barras fijas.</li>
+<li>En modo oscuro, los links del texto y los botones principales se leen bien.</li>
+<li>Barras de scroll ocultas (el desplazamiento funciona igual con rueda, touchpad, dedo o teclado).</li>
 <li>Historial de versiones con un color por versión. Publicación en GitHub Pages.</li>
 </ul></div></li>
 <li><span class="vtag v12">v1.2<small>14/10/2026</small></span><div>Revisión completa contra el material oficial del aula virtual (apuntes de la Ing. Nazar). Se reescribe el modelo OSI capa por capa (PDU, medios físicos, señalización, subcapas MAC/LLC, red, transporte, sesión, presentación). Se suman: trama Ethernet campo por campo, variantes 10BASE5/10BASE2/10BASE-T con sus límites, regla 5-4-3, variantes de Fast Ethernet, redes inalámbricas completas (modos de AP, antenas, diseño, seguridad, RTS/CTS, escaneo-autenticación-asociación), conmutación con STP y VLAN, y el modelo TCP/IP completo (TCP, UDP, puertos, IP, ICMP, ARP, RARP, clases, direcciones especiales y subneteo con ejemplos). Se corrigen las unidades de datos de las capas superiores, la nomenclatura de normas y varios datos menores. Autoevaluación ampliada (41 a 70).</div></li>
