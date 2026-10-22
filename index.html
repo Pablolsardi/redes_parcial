@@ -73,8 +73,8 @@ details p{margin:8px 0 2px}
 .cta small{display:block;font-weight:500;font-size:13px;opacity:.85}
 ::view-transition-old(root),::view-transition-new(root){animation-duration:.3s;animation-timing-function:ease}
 [id]{scroll-margin-top:calc(var(--anch,0px) + 14px)}
-html,body,nav,.scroll,table,pre,*{scrollbar-width:none;-ms-overflow-style:none}
-*::-webkit-scrollbar{display:none;width:0;height:0}
+nav{scrollbar-width:none;-ms-overflow-style:none}
+nav::-webkit-scrollbar{display:none;width:0;height:0}
 main a,main a:visited{color:var(--acc)}
 .cta a.p,.cta a.p:visited{color:var(--on-acc)}
 .cta a.s,.cta a.s:visited{color:var(--acc)}
@@ -147,7 +147,7 @@ mark.sr.cur{background:#f59e0b;color:#111;outline:2px solid #f59e0b}
 <li>En las respuestas, "Falso" ya no se marca en verde.</li>
 <li>Los saltos a secciones y temas dejan el título visible debajo de las barras fijas.</li>
 <li>En modo oscuro, los links del texto y los botones principales se leen bien.</li>
-<li>Barras de scroll ocultas (el desplazamiento funciona igual con rueda, touchpad, dedo o teclado).</li>
+<li>Sin barra de scroll en el menú lateral (se sigue desplazando igual con rueda, touchpad o dedo).</li>
 <li>Historial de versiones con un color por versión. Publicación en GitHub Pages.</li>
 </ul></div></li>
 <li><span class="vtag v12">v1.2<small>14/10/2026</small></span><div>Revisión completa contra el material oficial del aula virtual (apuntes de la Ing. Nazar). Se reescribe el modelo OSI capa por capa (PDU, medios físicos, señalización, subcapas MAC/LLC, red, transporte, sesión, presentación). Se suman: trama Ethernet campo por campo, variantes 10BASE5/10BASE2/10BASE-T con sus límites, regla 5-4-3, variantes de Fast Ethernet, redes inalámbricas completas (modos de AP, antenas, diseño, seguridad, RTS/CTS, escaneo-autenticación-asociación), conmutación con STP y VLAN, y el modelo TCP/IP completo (TCP, UDP, puertos, IP, ICMP, ARP, RARP, clases, direcciones especiales y subneteo con ejemplos). Se corrigen las unidades de datos de las capas superiores, la nomenclatura de normas y varios datos menores. Autoevaluación ampliada (41 a 70).</div></li>
