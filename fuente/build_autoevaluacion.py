@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Genera autoevaluacion.html (repaso con desplegables) y examen.html (interactivo)
+"""Genera autoevaluacion.html (repaso), practica.html (corrección inmediata) y examen.html (definitivo)
 a partir de fuente/preguntas.json. Uso: python3 fuente/build_autoevaluacion.py"""
 import json, html, pathlib
 
@@ -137,7 +137,7 @@ def head(title, desc):
 
 
 def topbar(actual):
-    links = [("index.html", "← Guía de estudio"), ("autoevaluacion.html", "Repaso con respuestas"), ("examen.html", "Examen de práctica")]
+    links = [("index.html", "← Guía de estudio"), ("autoevaluacion.html", "Repaso con respuestas"), ("practica.html", "Examen de práctica"), ("examen.html", "Examen definitivo")]
     a = "".join(f'<a href="{h}"{" class=\"on\"" if h == actual else ""}>{t}</a>' for h, t in links)
     return f'<header class="top"><div class="top-in">{a}</div></header>\n'
 
@@ -155,7 +155,7 @@ def pagina_repaso():
     out = [head("Autoevaluación · Repaso", "Preguntas de Redes de Datos con la respuesta en un desplegable."), topbar("autoevaluacion.html")]
     out.append('<main>\n' + sbar("Buscar en las preguntas (sin mostrar respuestas)…", "main", "details"))
     out.append(f'<h1>Autoevaluación: repaso con respuestas</h1>\n<div class="sub">Redes de Datos · UTN FRT · {n} preguntas de verdadero o falso y opción múltiple · versión {DATA["version"]}</div>\n')
-    out.append('<div class="box">Leé la pregunta, elegí mentalmente tu respuesta y recién después abrí <b>Ver respuesta</b>. Si querés que te corrija y te dé un puntaje, usá el <a href="examen.html">examen de práctica</a>.</div>\n')
+    out.append('<div class="box">Leé la pregunta, elegí mentalmente tu respuesta y recién después abrí <b>Ver respuesta</b>. Si querés que te corrija, usá el <a href="practica.html">examen de práctica</a> (corrección inmediata) o el <a href="examen.html">examen definitivo</a> (con tiempo y nota al final).</div>\n')
     out.append('<div class="chips">' + "".join(f'<a href="#t-{t["id"]}">{html.escape(t["nombre"])}</a>' for t in DATA["temas"]) + "</div>\n")
     for t in DATA["temas"]:
         qs = [q for q in DATA["preguntas"] if q["tema"] == t["id"]]
@@ -173,146 +173,92 @@ def pagina_repaso():
     return "".join(out)
 
 
-EXAM_JS = r"""
-(function(){
-  var D=window.__DATA__, KEY='redes-examen-'+D.version, L='abcd';
-  var answers={}, tema='todos', submitted=false;
-  try{var s=JSON.parse(localStorage.getItem(KEY)||'{}');if(s&&typeof s==='object'){answers=s.a||{};tema=s.t||'todos';}}catch(e){}
-  var temaNombre={};D.temas.forEach(function(t){temaNombre[t.id]=t.nombre;});
-  var list=document.getElementById('lista'), chips=document.getElementById('chips'),
-      txt=document.getElementById('progTxt'), fill=document.getElementById('progFill'),
-      aviso=document.getElementById('aviso'), avisoTxt=document.getElementById('avisoTxt'),
-      res=document.getElementById('resultado'), bar=document.getElementById('bar'), filtros=document.getElementById('filtros');
-  function save(){try{localStorage.setItem(KEY,JSON.stringify({a:answers,t:tema}));}catch(e){}}
-  function visibles(){return D.preguntas.filter(function(q){return tema==='todos'||q.tema===tema;});}
-  function let(q,i){return q.tipo==='vf'?(i===0?'V':'F'):L[i]+')';}
-  function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML;}
-  function renderChips(){
-    var h='<button type="button" data-t="todos"'+(tema==='todos'?' class="on"':'')+'>Todos los temas ('+D.preguntas.length+')</button>';
-    D.temas.forEach(function(t){var n=D.preguntas.filter(function(q){return q.tema===t.id;}).length;
-      h+='<button type="button" data-t="'+t.id+'"'+(tema===t.id?' class="on"':'')+'>'+esc(t.nombre)+' ('+n+')</button>';});
-    chips.innerHTML=h;
-  }
-  function render(){
-    var qs=visibles(), h='', ultimo=null;
-    qs.forEach(function(q,idx){
-      if(tema==='todos'&&q.tema!==ultimo){h+='<h2>'+esc(temaNombre[q.tema])+'</h2>';ultimo=q.tema;}
-      var a=answers[q.id], estado='', cls='q';
-      if(submitted){
-        if(a===undefined){cls+=' res-none';estado='Sin responder';}
-        else if(a===q.correcta){cls+=' res-ok';estado='Correcta';}
-        else{cls+=' res-bad';estado='Incorrecta';}
-      }
-      h+='<div class="'+cls+'" id="p'+q.id+'" data-estado="'+(submitted?(a===undefined?'none':(a===q.correcta?'ok':'bad')):'')+'">';
-      h+='<div class="qh"><span class="num">'+(idx+1)+'.</span><span class="tipo'+(q.tipo==='vf'?' vf':'')+'">'+(q.tipo==='vf'?'Verdadero o falso':'Opción múltiple')+'</span>'+(estado?'<span class="estado">'+estado+'</span>':'')+'</div>';
-      h+='<p class="enun">'+q.enunciado+'</p><div class="ops" style="display:grid;gap:6px">';
-      q.opciones.forEach(function(o,i){
-        var pressed=a===i, extra='', mark='';
-        if(submitted){
-          if(i===q.correcta){extra=' ok';mark='<span class="mark">'+(pressed?'✓ Tu respuesta':'✓ Correcta')+'</span>';}
-          else if(pressed){extra=' bad';mark='<span class="mark">✗ Tu respuesta</span>';}
-        }
-        h+='<button type="button" class="opt'+extra+'" data-q="'+q.id+'" data-i="'+i+'" aria-pressed="'+pressed+'"'+(submitted?' disabled':'')+'><span class="let">'+let(q,i)+'</span><span>'+o+'</span>'+mark+'</button>';
-      });
-      h+='</div>';
-      if(submitted){
-        var c=q.correcta, r=(q.tipo==='mc'?let(q,c)+' ':'')+q.opciones[c]+'.';
-        h+='<p class="resp'+(q.tipo==='vf'&&c===1?' f':'')+'"><b>'+r+'</b> '+(q.explicacion||'')+'</p>';
-      }else if(a!==undefined){h+='<div class="hint">Tocá otra opción para cambiarla o la misma para deseleccionarla.</div>';}
-      h+='</div>';
-    });
-    list.innerHTML=h; progreso();
-  }
-  function progreso(){
-    var qs=visibles(), n=qs.filter(function(q){return answers[q.id]!==undefined;}).length;
-    txt.textContent='Respondidas '+n+' de '+qs.length; fill.style.width=(qs.length?100*n/qs.length:0)+'%';
-  }
-  list.addEventListener('click',function(e){
-    var b=e.target.closest('.opt'); if(!b||submitted) return;
-    var id=b.getAttribute('data-q'), i=+b.getAttribute('data-i');
-    if(answers[id]===i) delete answers[id]; else answers[id]=i;
-    save(); aviso.classList.remove('on');
-    var card=document.getElementById('p'+id);
-    card.querySelectorAll('.opt').forEach(function(x){x.setAttribute('aria-pressed',String(answers[id]===+x.getAttribute('data-i')));});
-    var hint=card.querySelector('.hint');
-    if(answers[id]!==undefined&&!hint){var d=document.createElement('div');d.className='hint';d.textContent='Tocá otra opción para cambiarla o la misma para deseleccionarla.';card.appendChild(d);}
-    if(answers[id]===undefined&&hint) hint.remove();
-    progreso();
-  });
-  chips.addEventListener('click',function(e){
-    var b=e.target.closest('button'); if(!b||submitted) return;
-    tema=b.getAttribute('data-t'); save(); renderChips(); render(); aviso.classList.remove('on'); window.scrollTo({top:0,behavior:'instant'});
-  });
-  function enviar(){
-    submitted=true; var qs=visibles(), ok=0, bad=0, none=0;
-    qs.forEach(function(q){var a=answers[q.id];if(a===undefined)none++;else if(a===q.correcta)ok++;else bad++;});
-    var nota=qs.length?Math.round(100*ok/qs.length):0;
-    document.getElementById('rOk').textContent=ok;document.getElementById('rBad').textContent=bad;
-    document.getElementById('rNone').textContent=none;document.getElementById('rNota').textContent=nota+'%';
-    document.getElementById('rTema').textContent=tema==='todos'?'Todos los temas':temaNombre[tema];
-    res.classList.remove('hidden'); bar.classList.add('hidden'); chips.classList.add('hidden');
-    document.getElementById('intro').classList.add('hidden'); aviso.classList.remove('on');
-    render(); filtrar('todas'); window.scrollTo({top:0,behavior:'instant'});
-  }
-  document.getElementById('enviar').addEventListener('click',function(){
-    var qs=visibles(), faltan=qs.filter(function(q){return answers[q.id]===undefined;}).length;
-    if(faltan>0){avisoTxt.textContent='Te '+(faltan===1?'falta 1 pregunta':'faltan '+faltan+' preguntas')+' sin responder. Las sin responder cuentan como no acertadas.';aviso.classList.add('on');}
-    else enviar();
-  });
-  document.getElementById('enviarIgual').addEventListener('click',enviar);
-  document.getElementById('seguir').addEventListener('click',function(){
-    aviso.classList.remove('on');
-    var q=visibles().find(function(q){return answers[q.id]===undefined;});
-    if(q){var el=document.getElementById('p'+q.id);if(el)el.scrollIntoView({behavior:'smooth',block:'center'});}
-  });
-  function filtrar(f){
-    filtros.querySelectorAll('button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-f')===f);});
-    list.querySelectorAll('.q').forEach(function(c){var e=c.getAttribute('data-estado');c.classList.toggle('hidden',f!=='todas'&&e!==f);});
-    list.querySelectorAll('h2').forEach(function(h){var n=h.nextElementSibling,vis=false;
-      while(n&&n.tagName!=='H2'){if(!n.classList.contains('hidden'))vis=true;n=n.nextElementSibling;}h.classList.toggle('hidden',!vis);});
-  }
-  filtros.addEventListener('click',function(e){var b=e.target.closest('button');if(b)filtrar(b.getAttribute('data-f'));});
-  document.getElementById('reintentar').addEventListener('click',function(){
-    answers={}; submitted=false; save();
-    res.classList.add('hidden'); bar.classList.remove('hidden'); chips.classList.remove('hidden');
-    document.getElementById('intro').classList.remove('hidden'); render(); window.scrollTo(0,0);
-  });
-  document.getElementById('volverTema').addEventListener('click',function(){
-    submitted=false; res.classList.add('hidden'); bar.classList.remove('hidden'); chips.classList.remove('hidden');
-    document.getElementById('intro').classList.remove('hidden'); answers={}; tema='todos'; save(); renderChips(); render(); window.scrollTo(0,0);
-  });
-  renderChips(); render();
-})();
+EXAM_JS = (RAIZ / "fuente" / "examen_motor.js").read_text(encoding="utf-8")
+
+EXAM_CSS = r"""
+.ops{display:grid;gap:6px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:16px 0}
+.panel h3{margin:0 0 4px;font-size:16px}
+.panel .sub{margin:0 0 8px;font-size:14px}
+.lnk{font:inherit;background:none;border:0;color:var(--acc);text-decoration:underline;cursor:pointer;padding:0}
+.big{font-size:17px;padding:12px 22px;margin-top:6px}
+.otro{display:inline-flex;align-items:center;gap:6px;font-size:13px;margin-left:4px}
+.otro input{width:64px;font:inherit;padding:4px 8px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink)}
+.fb{margin:10px 0 0;padding:10px 12px;border-radius:8px;line-height:1.55}
+.fb.ok{background:var(--okbg)}.fb.ok>b:first-child{color:var(--acc2)}
+.fb.bad{background:var(--badbg)}.fb.bad>b:first-child{color:var(--bad)}
+.fb .por{font-weight:700}
+.fb .corr{color:var(--acc2)}
+.repasar{font-size:13px;color:var(--mut);margin-top:8px}
+.stats{display:flex;gap:6px 16px;flex-wrap:wrap;align-items:center;font-size:14px;flex:1;min-width:200px}
+.stats .st{display:inline-flex;gap:5px;align-items:baseline;white-space:nowrap}
+.stats .st b{font-size:16px}
+.stats .st.ok b{color:var(--acc2)}.stats .st.bad b{color:var(--bad)}
+.stats .st.tm.alerta b{color:var(--bad)}
+.stats .track{width:100%;margin-top:2px}
+.btn.pulso{animation:pulso 1.4s ease-in-out infinite}
+@keyframes pulso{0%,100%{box-shadow:0 0 0 0 rgba(31,95,191,.45)}50%{box-shadow:0 0 0 7px rgba(31,95,191,0)}}
+.score .k-tm b{color:var(--ink)}
+ul.rep{list-style:none;padding:0;margin:0;display:grid;gap:6px}
+ul.rep li{display:flex;flex-wrap:wrap;gap:4px 12px;justify-content:space-between;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 12px}
+ul.rep li span{color:var(--mut);font-size:14px}
+.todo-ok{font-weight:600;color:var(--acc2)}
+.porTiempo{background:var(--warnbg);border:1px solid var(--warn);border-radius:8px;padding:8px 12px;margin:10px 0;font-weight:600}
+@media (prefers-reduced-motion:reduce){.btn.pulso{animation:none}}
 """
 
 
-def pagina_examen():
+def pagina_examen(modo):
+    prac = modo == "practica"
     n = len(DATA["preguntas"])
-    out = [head("Autoevaluación · Examen de práctica", "Examen interactivo de Redes de Datos con resultado final y corrección."), topbar("examen.html")]
-    out.append(f'''<main>
-<h1>Autoevaluación: examen de práctica</h1>
+    archivo = "practica.html" if prac else "examen.html"
+    titulo = "Examen de práctica" if prac else "Examen definitivo"
+    desc = ("Examen de Redes de Datos con corrección inmediata en cada pregunta." if prac
+            else "Examen de Redes de Datos con tiempo, nota final y corrección.")
+    intro = ("Cada respuesta se <b>corrige al instante</b>: cuando elegís una opción queda fija y ves si acertaste, con la explicación y la sección de la guía donde repasarla. Abajo vas viendo contestadas, correctas, incorrectas y el tiempo."
+             if prac else
+             "Como en el parcial: elegís, podés <b>cambiar</b> o <b>deseleccionar</b> cada respuesta, y la corrección aparece recién cuando enviás. Podés ponerle un tiempo límite; si se termina, el examen se envía solo.")
+    tiempo_html = "" if prac else """<div class="panel"><h3>Tiempo</h3><div class="sub">Si se termina el tiempo, el examen se envía automáticamente. Sin límite, el reloj solo cuenta lo que tardás.</div>
+<div class="chips" id="tiempos" style="margin-bottom:0"><button type="button" data-m="0" class="on">Sin límite</button><button type="button" data-m="10">10 min</button><button type="button" data-m="20">20 min</button><button type="button" data-m="30">30 min</button><button type="button" data-m="45">45 min</button><button type="button" data-m="60">60 min</button>
+<label class="otro">Otro: <input id="tOtro" type="number" min="1" max="300" inputmode="numeric" placeholder="min"> min</label></div></div>"""
+    stats_html = ("""<div class="stats"><span class="st"><span>Contestadas</span><b id="sResp">0 / 0</b></span><span class="st ok"><span>✓ Correctas</span><b id="sOk">0</b></span><span class="st bad"><span>✗ Incorrectas</span><b id="sBad">0</b></span><span class="st tm"><span>⏱</span><b id="sTiempo">00:00</b></span><div class="track"><div class="fill" id="progFill"></div></div></div>
+<button type="button" class="btn" id="enviar">Terminar</button>"""
+                  if prac else
+                  """<div class="stats"><span class="st"><span>Respondidas</span><b id="sResp">0 / 0</b></span><span class="st tm"><span>⏱</span><b id="sTiempo">00:00</b></span><div class="track"><div class="fill" id="progFill"></div></div></div>
+<button type="button" class="btn" id="enviar">Enviar respuestas</button>""")
+    aviso_btn = "Terminar igual" if prac else "Enviar igual"
+    out = [head(f"Autoevaluación · {titulo}", desc).replace("</style>", EXAM_CSS + "</style>"), topbar(archivo)]
+    out.append(f"""<main>
+<h1>Autoevaluación: {titulo.lower()}</h1>
 <div class="sub">Redes de Datos · UTN FRT · {n} preguntas de verdadero o falso y opción múltiple · versión {DATA["version"]}</div>
-<div id="intro" class="box">Elegí una opción en cada pregunta. Podés <b>cambiarla</b> tocando otra o <b>deseleccionarla</b> tocando la misma. Cuando termines, tocá <b>Enviar respuestas</b> y vas a ver tu resultado con la corrección de cada pregunta. Si querés practicar un solo tema, elegilo abajo. Tus respuestas se guardan en este navegador por si cerrás la página.</div>
-<div class="chips" id="chips"></div>
+<section id="setup">
+<div class="box">{intro}</div>
+<div class="panel" id="temasBox"><h3>Tema</h3><div class="sub">Hacelo completo o elegí un tema.</div><div class="chips" id="chips" style="margin-bottom:0"></div></div>
+{tiempo_html}
+<div class="panel"><div id="setupInfo"></div><button type="button" class="btn big" id="comenzar">Comenzar examen</button></div>
+</section>
 <section id="resultado" class="hidden">
 <h2 style="margin-top:16px">Resultado · <span id="rTema"></span></h2>
-<div class="score"><div class="k-nota"><b id="rNota">0%</b>Nota</div><div class="k-ok"><b id="rOk">0</b>Correctas</div><div class="k-bad"><b id="rBad">0</b>Incorrectas</div><div class="k-none"><b id="rNone">0</b>Sin responder</div></div>
+<div class="porTiempo hidden" id="rPorTiempo">⏱ Se terminó el tiempo: el examen se envió automáticamente.</div>
+<div class="score"><div class="k-nota"><b id="rNota">0%</b>Nota</div><div class="k-ok"><b id="rOk">0</b>Correctas</div><div class="k-bad"><b id="rBad">0</b>Incorrectas</div><div class="k-none"><b id="rNone">0</b>Sin responder</div><div class="k-tm"><b id="rTiempo">00:00</b>Tiempo</div></div>
+<div style="display:flex;gap:10px;flex-wrap:wrap;margin:8px 0 4px"><button type="button" class="btn" id="reintentarInc">Reintentar solo las incorrectas</button><button type="button" class="btn sec" id="repetir">Repetir este examen</button><button type="button" class="btn sec" id="otroTema">Elegir otro tema{"" if prac else " o tiempo"}</button></div>
+<h2>Qué repasar</h2>
+<div id="rRepaso"></div>
+<h2>Corrección</h2>
 <div class="chips" id="filtros"><button type="button" data-f="todas" class="on">Ver todas</button><button type="button" data-f="bad">Solo incorrectas</button><button type="button" data-f="none">Solo sin responder</button><button type="button" data-f="ok">Solo correctas</button></div>
-<div style="display:flex;gap:10px;flex-wrap:wrap;margin:8px 0 4px"><button type="button" class="btn" id="reintentar">Volver a intentar</button><button type="button" class="btn sec" id="volverTema">Elegir otro tema</button></div>
 </section>
-<div id="lista"></div>
+<section id="run" class="hidden"><h2 id="runTitulo" style="margin-top:8px"></h2><div id="lista"></div></section>
 </main>
-<div class="bar" id="bar"><div class="bar-in">
-<div class="prog"><div class="prog-txt" id="progTxt">Respondidas 0 de {n}</div><div class="track"><div class="fill" id="progFill"></div></div></div>
-<button type="button" class="btn" id="enviar">Enviar respuestas</button>
-<div class="aviso" id="aviso"><span id="avisoTxt"></span><button type="button" class="btn" id="enviarIgual">Enviar igual</button><button type="button" class="btn sec" id="seguir">Seguir respondiendo</button></div>
+<div class="bar hidden" id="bar"><div class="bar-in">
+{stats_html}
+<div class="aviso" id="aviso"><span id="avisoTxt"></span><button type="button" class="btn" id="enviarIgual">{aviso_btn}</button><button type="button" class="btn sec" id="seguir">Seguir respondiendo</button></div>
 </div></div>
-<script>window.__DATA__={json.dumps(DATA, ensure_ascii=False)};</script>
+<script>window.__DATA__={json.dumps(DATA, ensure_ascii=False)};window.__MODO__="{modo}";</script>
 <script>{EXAM_JS}</script>
 <script>{THEME_JS}</script>
 </body>
 </html>
-''')
+""")
     return "".join(out)
 
 
@@ -322,6 +268,11 @@ import re as _re
 txt = _re.sub(r"/\*buscador-css\*/.*?/\*fin-buscador-css\*/", lambda m: "/*buscador-css*/\n" + BUSCADOR_CSS + "/*fin-buscador-css*/", txt, flags=_re.S)
 txt = _re.sub(r"<script>/\*buscador-js\*/.*?</script>", lambda m: "<script>/*buscador-js*/\n" + BUSCADOR_JS + "</script>", txt, flags=_re.S)
 idx.write_text(txt, encoding="utf-8")
+_nav = _re.search(r"<nav>(.*?)</nav>", txt, flags=_re.S).group(1)
+DATA["secciones"] = {m.group(1): _re.sub(r"<[^>]+>", "", m.group(2)).strip() for m in _re.finditer(r'<a href="#([^"]+)"[^>]*>(.*?)</a>', _nav)}
+_faltan = {q["seccion"] for q in DATA["preguntas"]} - set(DATA["secciones"])
+assert not _faltan, _faltan
 (RAIZ / "autoevaluacion.html").write_text(pagina_repaso(), encoding="utf-8")
-(RAIZ / "examen.html").write_text(pagina_examen(), encoding="utf-8")
+(RAIZ / "examen.html").write_text(pagina_examen("definitivo"), encoding="utf-8")
+(RAIZ / "practica.html").write_text(pagina_examen("practica"), encoding="utf-8")
 print("ok", len(DATA["preguntas"]), "preguntas")
