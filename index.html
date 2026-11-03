@@ -35,6 +35,13 @@ pre{background:var(--code);padding:12px;border-radius:8px;overflow:auto;font-siz
 .box.ok{border-color:var(--acc2);background:var(--okbg)}
 .box.warn{border-color:var(--warn);background:var(--warnbg)}
 .box b:first-child{display:block}
+.tp{border:1.5px dashed var(--acc2);background:var(--card);border-radius:10px;padding:10px 16px;margin:18px 0}
+.tp h4{margin:0 0 6px;color:var(--acc2)}
+.gancho{border:1px solid var(--line);border-left:4px solid var(--acc);background:var(--infobg);border-radius:0 10px 10px 0;padding:10px 14px;margin:20px 0}
+.gancho h4{margin:0 0 6px}
+.gancho details{margin:6px 0}
+.gancho summary{font-weight:500}
+.gancho .ans{color:var(--ink)}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:12px 0}
 .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
 .card h4{margin-top:0;color:var(--acc)}
@@ -62,7 +69,7 @@ details p{margin:8px 0 2px}
 .vlog>li:first-child{border-top:0}
 .vtag{display:inline-block;font-weight:700;font-size:13px;padding:2px 10px;border-radius:99px;color:#fff;white-space:nowrap}
 .vtag small{font-weight:500;opacity:.85;margin-left:4px}
-.v14{background:#be185d}.v13{background:#7c3aed}.v12{background:#0e8a6a}.v11{background:#c2410c}.v10{background:#1f5fbf}
+.v15{background:#0f766e}.v14{background:#be185d}.v13{background:#7c3aed}.v12{background:#0e8a6a}.v11{background:#c2410c}.v10{background:#1f5fbf}
 .cardlink{text-decoration:none;color:var(--ink);transition:border-color .15s,transform .15s}.cardlink:hover{border-color:var(--acc);transform:translateY(-2px)}
 .vlog .now{font-size:11px;font-weight:700;color:var(--acc2);text-transform:uppercase;letter-spacing:.04em}
 @media (max-width:820px){.vlog>li{grid-template-columns:1fr}.theme-btn{top:10px;right:10px}}
@@ -127,21 +134,33 @@ mark.sr.cur{background:#f59e0b;color:#111;outline:2px solid #f59e0b}
 <a href="#s15">16. P2P vs servidor dedicado</a>
 <a href="#s16">17. Cableado estructurado</a>
 <a href="#s17">18. Normas TIA 569/606/607/942</a>
-<a href="#s18">19. Modelo TCP/IP</a>
-<a href="#s18b">20. IPv4 y subneteo</a>
-<a href="#s19">21. Pares que se confunden</a>
-<a href="autoevaluacion.html">22. Autoevaluación: repaso ↗</a>
-<a href="practica.html">23. Examen de práctica ↗</a>
-<a href="examen.html">24. Examen definitivo ↗</a>
+<a href="#s18">19. TCP/IP: modelo y capas</a>
+<a href="#s18a">20. TCP/IP: aplicación</a>
+<a href="#s18t">21. TCP/IP: transporte</a>
+<a href="#s18i">22. TCP/IP: Internet y diagnóstico</a>
+<a href="#s18b">23. IPv4 y subneteo</a>
+<a href="#stp">24. Trabajos prácticos</a>
+<a href="#s19">25. Pares que se confunden</a>
+<a href="autoevaluacion.html">26. Autoevaluación: repaso ↗</a>
+<a href="practica.html">27. Examen de práctica ↗</a>
+<a href="examen.html">28. Examen definitivo ↗</a>
 </nav>
 <main>
-<div class="sbar" id="sbar" data-root="main" data-excluir="#historial"><label class="sbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="sq" type="search" placeholder="Buscar en la guía… (ej.: CSMA, 802.3u, subneteo)" aria-label="Buscar en la guía" autocomplete="off"><kbd>/</kbd></label><span class="scount" id="scount" aria-live="polite"></span><button type="button" class="sbtn" id="sprev" aria-label="Resultado anterior">↑</button><button type="button" class="sbtn" id="snext" aria-label="Resultado siguiente">↓</button><button type="button" class="sbtn" id="sclear" aria-label="Borrar búsqueda">✕</button></div>
+<div class="sbar" id="sbar" data-root="main" data-excluir="#historial,.ans"><label class="sbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="sq" type="search" placeholder="Buscar en la guía… (ej.: CSMA, 802.3u, subneteo)" aria-label="Buscar en la guía" autocomplete="off"><kbd>/</kbd></label><span class="scount" id="scount" aria-live="polite"></span><button type="button" class="sbtn" id="sprev" aria-label="Resultado anterior">↑</button><button type="button" class="sbtn" id="snext" aria-label="Resultado siguiente">↓</button><button type="button" class="sbtn" id="sclear" aria-label="Borrar búsqueda">✕</button></div>
 <button class="theme-btn" id="themeBtn" type="button" aria-label="Cambiar a modo oscuro" title="Cambiar modo claro / oscuro"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
 <h1>Redes de Datos — Guía de estudio, Parcial 1</h1>
-<div class="sub">UTN FRT · Ciclo 2026 · Cátedra Mag. Ing. Patricia Nazar · Unidades 1, 2 y 3 + actividades expuestas<br>Versión 1.4 · 30 de octubre de 2026</div>
+<div class="sub">UTN FRT · Ciclo 2026 · Cátedra Mag. Ing. Patricia Nazar · Unidades 1, 2 y 3 + actividades expuestas<br>Versión 1.5 · 3 de noviembre de 2026 - Pablo López Sardi</div>
 <details id="historial"><summary>Historial de versiones</summary>
 <ul class="vlog">
-<li><span class="vtag v14">v1.4<small>30/10/2026</small></span><div><span class="now">Actual</span><br>
+<li><span class="vtag v15">v1.5<small>03/11/2026</small></span><div><span class="now">Actual</span><br>
+<ul style="margin:4px 0 0">
+<li><b>TCP/IP desarrollado en cuatro secciones</b> (19 a 22): el modelo y el encapsulamiento, con el recorrido completo de "escribo una URL y aprieto Enter"; aplicación (DNS, DHCP y DORA, HTTP con métodos y códigos, correo, puertos); transporte (puertos y sockets, saludo de tres vías con números de secuencia y ACK, cierre, TCP vs UDP); Internet (encabezado IP, TTL, ICMP, ARP, gateway y NAT) y comandos de diagnóstico. Suma lo de la clase-taller de TCP/IP.</li>
+<li><b>Subneteo ampliado</b> con el apunte de la cátedra: con clase y sin clase (CIDR), cómo pasar de los requisitos a la máscara, los tres ejemplos resueltos (clases C, B y A), cómo ubicar una IP en su subred y las erratas del apunte.</li>
+<li><b>Los trabajos prácticos entran a la guía:</b> cajas "🧪 En el práctico" en cada tema (TP1 a TP7, y pistas de método para el TP8, que está pendiente) y una sección nueva (24) con el mapa de todos los TPs.</li>
+<li><b>Preguntas gancho "¿Lo entendiste?"</b> al final de cada tema, con la respuesta escondida en un desplegable. El buscador no busca dentro de esas respuestas.</li>
+<li><b>Bancos de preguntas:</b> pasan de 70 a 110 preguntas, con temas nuevos de TCP/IP, subneteo y lo aplicado en los TPs. Los exámenes separan "Modelo TCP/IP y protocolos" de "IPv4 y subneteo".</li>
+</ul></div></li>
+<li><span class="vtag v14">v1.4<small>30/10/2026</small></span><div>
 <ul style="margin:4px 0 0">
 <li>Nuevo <b>examen de práctica</b>: cada respuesta se corrige al instante y queda fija, con el porqué y la sección de la guía para repasar. Estadísticas en vivo (contestadas, correctas, incorrectas y tiempo) y, al final, la lista de secciones a repasar.</li>
 <li>El examen anterior pasa a llamarse <b>examen definitivo</b>: suma tiempo límite opcional (se envía solo al terminarse), reloj, tiempo empleado y la lista de qué repasar.</li>
@@ -174,7 +193,7 @@ mark.sr.cur{background:#f59e0b;color:#111;outline:2px solid #f59e0b}
 </div>
 
 <h2 id="s0">0. Cómo estudiar con esto</h2>
-<p>El parcial es <b>multiple choice / verdadero-falso</b>. Ese formato no premia saber recitar: premia distinguir cosas parecidas (física vs lógica, CD vs CA, colisión vs broadcast, flooding vs broadcast). Por eso cada sección cierra la idea con el "por qué", y al final tenés una sección de pares que se confunden. La autoevaluación está en páginas aparte: un <a href="practica.html">examen de práctica</a> que corrige al instante, un <a href="examen.html">examen definitivo</a> con tiempo y un <a href="autoevaluacion.html">repaso con respuestas</a>.</p>
+<p>El parcial es <b>multiple choice / verdadero-falso</b>. Ese formato no premia saber recitar: premia distinguir cosas parecidas (física vs lógica, CD vs CA, colisión vs broadcast, flooding vs broadcast). Por eso cada sección cierra la idea con el "por qué", cada tema termina con preguntas gancho <b>¿Lo entendiste?</b> para chequearte, las cajas <b>🧪 En el práctico</b> conectan la teoría con los TPs, y al final tenés una sección de pares que se confunden. La autoevaluación está en páginas aparte: un <a href="practica.html">examen de práctica</a> que corrige al instante, un <a href="examen.html">examen definitivo</a> con tiempo y un <a href="autoevaluacion.html">repaso con respuestas</a>.</p>
 <div class="box"><b>Las cinco distinciones que la profesora marcó en clase</b>
 Protocolo de acceso al medio ≠ protocolo de comunicación · Protocolo de comunicación ≠ norma de comunicación · Dirección física ≠ dirección lógica · Contención ≠ token passing · Los sistemas operativos son independientes de las normas.<br>Las dos primeras están desarrolladas a fondo en la sección <a href="#snp">★ Norma vs protocolo</a>.</div>
 <p>Las cajas <span class="tag">ámbar</span> marcan puntos donde el material de clase simplifica o donde un apunte tenía un error: conviene saber las dos versiones (la de clase y la exacta).</p>
@@ -342,6 +361,11 @@ En la versión anterior figuraba "Datos" para las capas 5 a 7. Según la cátedr
 </table></div>
 <p>TCP/IP agrupa las 7 capas en 4 (se desarrolla en la sección del modelo TCP/IP). La idea potente de trabajar por capas: <b>cada capa se reemplaza sin tocar las demás</b>. Por eso pasar de cable a Wi-Fi cambia solo la capa de acceso a la red (802.3 por 802.11), mientras IP, TCP y las aplicaciones siguen igual.</p>
 
+<div class="gancho"><h4>❓ ¿Lo entendiste?</h4>
+<details><summary>¿Cómo se llama la PDU de la capa de enlace y la de la capa de red?</summary><p class="ans">Trama en enlace y paquete en red. En transporte, segmento, y en física, bits.</p></details>
+<details><summary>¿En qué capa de OSI trabaja el switch y en cuál el router?</summary><p class="ans">Switch en capa 2 (enlace, direcciones MAC). Router en capa 3 (red, direcciones IP).</p></details>
+<details><summary>¿Qué capa se encarga del cifrado y de la compresión?</summary><p class="ans">La capa 6, presentación.</p></details>
+</div>
 <h2 id="s3">3. Elementos de una LAN</h2>
 <div class="grid">
 <div class="card"><h4>Servidores</h4>PC con características físicas especiales que ejecuta software especial para <b>ofrecer</b> recursos o servicios al resto de la red.</div>
@@ -381,6 +405,19 @@ El slide pide "definir IRQ (3), I/O port (278-27F) y memoria base". Eran los rec
 </table></div>
 <p>En el servidor de juego aparecen dos conceptos propios: el <b>tick rate</b> (cuántas veces por segundo el servidor actualiza el estado del juego) y la <b>autoridad del servidor</b> (el servidor decide qué pasó de verdad, no el cliente, y por eso puede detectar trampas).</p>
 
+<div class="tp"><h4>🧪 En el práctico · TP1 (equipamiento informático)</h4>
+<ul>
+<li><b>Discos:</b> HDD mecánico (100 a 150 MB/s, barato y con mucha capacidad), SSD SATA (500 a 600 MB/s, sin partes móviles) y SSD M.2 NVMe sobre PCIe (3500 a 7500 MB/s o más; los más rápidos pueden necesitar disipador).</li>
+<li><b>Memoria de servidor:</b> <b>RDIMM</b> (Registered DIMM) tiene un registro que estabiliza las señales y permite instalar mucha más memoria sin perder estabilidad. Es el estándar en servidores. <b>ECC</b> corrige errores.</li>
+<li><b>Microprocesador:</b> frecuencia (GHz), núcleos (unidades físicas), hilos (2 por núcleo con Hyper-Threading o SMT), caché L1/L2/L3 (SRAM), TDP (calor máximo en W, para dimensionar la refrigeración) e ISA (x86, x64, ARM).</li>
+<li><b>Placa de red:</b> importan la velocidad (1 o 10 Gbps), el conector y la norma (RJ45, SFP+, 802.11ax) y la MAC grabada de fábrica, que permite filtrar por MAC en capa 2. Una placa on-board, si falla, puede obligar a cambiar la placa madre; una PCIe dedicada es más estable para servidores.</li>
+<li><b>Hipervisor:</b> software que corre varias máquinas virtuales aisladas sobre un mismo hardware. <b>Tipo 1 (bare metal)</b> se instala directo sobre el hardware: VMware ESXi, Hyper-V, Proxmox. <b>Tipo 2 (hosted)</b> corre como programa sobre un SO: VirtualBox, VMware Workstation, que es el que se usó en el TP5.</li>
+</ul></div>
+<div class="gancho"><h4>❓ ¿Lo entendiste?</h4>
+<details><summary>¿Qué distingue a un servidor de una PC común, además del software?</summary><p class="ans">Disponibilidad 24/7 y tolerancia a fallos: fuentes redundantes, discos en RAID, memoria ECC/RDIMM. Además, siempre está a la escucha y es el cliente el que inicia la comunicación.</p></details>
+<details><summary>¿Qué servidor elegirías para traducir nombres a IP y cuál para repartir IPs automáticamente?</summary><p class="ans">DNS para los nombres y DHCP para las direcciones. Los dos piden pocos recursos de hardware.</p></details>
+<details><summary>VirtualBox, ¿es un hipervisor tipo 1 o tipo 2?</summary><p class="ans">Tipo 2: corre como una aplicación sobre un sistema operativo anfitrión. Los tipo 1 (ESXi, Hyper-V) van directo sobre el hardware.</p></details>
+</div>
 <h2 id="s5">5. Topologías</h2>
 <p>Hay que separar siempre dos cosas:</p>
 <ul>
@@ -412,6 +449,10 @@ El slide pide "definir IRQ (3), I/O port (278-27F) y memoria base". Eran los rec
 <div class="box warn"><b>La figura de "servidor dedicado" no es una estrella</b>
 El dibujo con el servidor en el centro y las PCs alrededor muestra una relación de dependencia (las PCs validan su ingreso contra el servidor). El slide aclara que <b>no representa una topología física estrella</b>: el centro de una estrella es un hub o switch, nunca un servidor.</div>
 
+<div class="gancho"><h4>❓ ¿Lo entendiste?</h4>
+<details><summary>¿Qué diferencia hay entre topología física y lógica?</summary><p class="ans">La física es cómo está cableada la red. La lógica es cómo circula la información, y la define el protocolo de acceso al medio.</p></details>
+<details><summary>En un bus, ¿qué pasa si se corta el cable principal?</summary><p class="ans">Cae toda la red (o queda dividida), porque todos dependen del mismo medio.</p></details>
+</div>
 <h2 id="s6">6. Protocolos de acceso al medio</h2>
 <p>Resuelven una sola pregunta: en un medio compartido, <b>quién puede transmitir y cuándo</b>. Viven en la capa 2 (subcapa MAC), los define la norma y los ejecuta la NIC. Hay tres familias.</p>
 <h3>Polling (sondeo)</h3>
@@ -439,6 +480,10 @@ En cable la placa puede transmitir y escuchar a la vez, así que <b>detecta</b> 
 <div class="box"><b>Contención vs token passing (era el objetivo de la clase 2)</b>
 Con poca carga la contención es más ágil: transmito apenas quiero. Con mucha carga las colisiones crecen y el rendimiento cae, mientras que el token mantiene un rendimiento estable y predecible. Ethernet ganó igual porque es simple y barato, y porque el switch full-duplex eliminó las colisiones.</div>
 
+<div class="gancho"><h4>❓ ¿Lo entendiste?</h4>
+<details><summary>¿Por qué CSMA/CD se llama probabilístico y token passing determinístico?</summary><p class="ans">En CSMA/CD no se sabe cuándo se va a poder transmitir: puede haber colisiones y esperas aleatorias. Con token, cada estación sabe que va a transmitir cuando le llegue el token.</p></details>
+<details><summary>¿Por qué Wi-Fi usa CSMA/CA y no CSMA/CD?</summary><p class="ans">En el aire una estación no puede escuchar mientras transmite, así que no puede detectar colisiones: las evita y confirma cada trama con ACK.</p></details>
+</div>
 <h2 id="s7">7. Token Ring, Token Bus y la MSAU</h2>
 <h3>IEEE 802.5 — Token Ring</h3>
 <ul>
@@ -575,6 +620,10 @@ Pensá en una llamada telefónica. La <b>norma</b> es todo lo que hace que la ll
 <li>"La norma de comunicación es independiente del sistema operativo" → <b>verdadero</b>.</li>
 </ul></div>
 
+<div class="gancho"><h4>❓ ¿Lo entendiste?</h4>
+<details><summary>¿802.11 es una norma o un protocolo?</summary><p class="ans">Una norma: es un estándar de capas 1 y 2 (medio, señal, trama y acceso al medio). Los protocolos como IP o TCP van por encima y no cambian al pasar de cable a Wi-Fi.</p></details>
+<details><summary>¿Qué tres elementos tiene un protocolo de comunicación?</summary><p class="ans">Sintaxis (formato), semántica (significado) y temporización (cuándo y a qué velocidad).</p></details>
+</div>
 <h2 id="s8">8. IEEE 802.3 Ethernet: la norma, la trama y las variantes clásicas</h2>
 <table>
 <tr><th>Norma</th><th>Qué es</th><th>Acceso al medio</th></tr>
@@ -669,6 +718,10 @@ En clase se anota 10BASE2 = 200 m. El valor exacto (también en el apunte oficia
 </table>
 <p>Compará con Token Ring (sección 7): justamente lo que a Ethernet le falta (prioridades, reserva, determinismo) es lo que el token passing tiene.</p>
 
+<div class="gancho"><h4>❓ ¿Lo entendiste?</h4>
+<details><summary>¿Qué indica la regla 5-4-3?</summary><p class="ans">En Ethernet 10 Mbps con repetidores: como máximo 5 segmentos, 4 repetidores, y solo 3 segmentos poblados con equipos.</p></details>
+<details><summary>¿Para qué sirve el FCS de la trama Ethernet?</summary><p class="ans">Para detectar errores: el receptor recalcula el CRC y, si no coincide, descarta la trama.</p></details>
+</div>
 <h2 id="s9">9. Evolución de Ethernet sobre par trenzado</h2>
 <p>Ethernet nació de Xerox, DEC e Intel (DIX) y sirvió de base para IEEE 802.3. Opera en <b>capa 1</b> (señales eléctricas o de luz) y <b>capa 2</b> (tramas con MAC origen y destino). Es la norma más adoptada por costo, facilidad de instalación y mantenimiento.</p>
 <div class="scroll"><table>
@@ -885,6 +938,10 @@ netsh wlan start hostednetwork</pre>
 <tr><td>Desventajas</td><td>Cableado, poca movilidad</td><td>Interferencias, seguridad</td></tr>
 </table></div>
 
+<div class="gancho"><h4>❓ ¿Lo entendiste?</h4>
+<details><summary>¿Qué es el problema del nodo oculto?</summary><p class="ans">Dos estaciones no se escuchan entre sí pero sí llegan al AP: creen que el canal está libre, transmiten a la vez y colisionan en el AP. Se mitiga con RTS/CTS.</p></details>
+<details><summary>¿Qué diferencia hay entre modo infraestructura y ad hoc?</summary><p class="ans">En infraestructura todo pasa por un punto de acceso (AP). En ad hoc los equipos se comunican directamente entre sí.</p></details>
+</div>
 <h2 id="s11">11. Dirección física (MAC) y dirección lógica (IP)</h2>
 <div class="scroll"><table>
 <tr><th></th><th>MAC (física)</th><th>IP (lógica)</th></tr>
@@ -923,6 +980,9 @@ Los teléfonos actuales suelen mostrar una <b>MAC aleatoria (privada)</b> distin
 </table>
 <p>Si el adaptador dice "Medios desconectados" no hay cable: no aparece IP, pero la MAC sí, porque está grabada en la placa.</p>
 
+<div class="gancho"><h4>❓ ¿Lo entendiste?</h4>
+<details><summary>¿Cuál de las dos direcciones cambia si llevo mi notebook a otra red: la MAC o la IP?</summary><p class="ans">La IP, que es lógica y depende de la red. La MAC es física y viene grabada en la placa.</p></details>
+</div>
 <h2 id="s12">12. Dispositivos de interconexión</h2>
 <div class="scroll"><table>
 <tr><th>Dispositivo</th><th>Capa</th><th>Qué mira</th><th>Qué hace</th><th>Dom. colisión</th><th>Dom. broadcast</th></tr>
@@ -976,6 +1036,10 @@ En clase se lo ubicó en capa 3 junto al router ("traduce protocolos"). En senti
 Un <b>dominio de colisión</b> es una red CSMA/CD en la que habrá una colisión si dos nodos intentan transmitir al mismo tiempo. <b>Los segmentos unidos con repetidores pertenecen al mismo dominio de colisión</b>; <b>los unidos con un switch pertenecen a dominios distintos</b>. El ejemplo del apunte: 3 grupos de segmentos con repetidores, unidos por un switch → 4 dominios de colisión (uno por cada puerto del switch en uso).</div>
 <p><b>Segmentación</b> es justamente el proceso de dividir un único dominio de colisión en dos o más. La hacen los puentes y switches de capa 2, y así logran más ancho de banda para cada nodo.</p>
 
+<div class="gancho"><h4>❓ ¿Lo entendiste?</h4>
+<details><summary>Un switch de 24 puertos sin VLAN, ¿cuántos dominios de colisión y de broadcast tiene?</summary><p class="ans">24 dominios de colisión (uno por puerto) y 1 de broadcast.</p></details>
+<details><summary>¿Qué equipo divide los dominios de broadcast?</summary><p class="ans">El router (y también las VLAN en un switch administrable).</p></details>
+</div>
 <h2 id="s14">14. Cómo trabaja el switch</h2>
 <p>El switch mantiene una tabla <b>MAC → puerto</b> que arranca vacía y se llena sola. Es un "puente transparente": las PCs no configuran nada ni saben que hay un switch en el medio.</p>
 <div class="box ok"><b>La regla de oro</b>
@@ -1071,6 +1135,10 @@ En el flooding la trama sigue siendo <b>unicast</b>: su destino es la MAC de D, 
 <div class="box warn"><b>Un dato del apunte de switching</b>
 El apunte ubica a GVRP en "IEEE 802.1p". 802.1p es en realidad el mecanismo de <b>prioridades</b> (3 bits dentro de la misma etiqueta 802.1Q); GARP y GVRP se definieron en 802.1D/802.1Q.</div>
 
+<div class="gancho"><h4>❓ ¿Lo entendiste?</h4>
+<details><summary>¿Para qué sirve STP?</summary><p class="ans">Para evitar bucles de capa 2 cuando hay enlaces redundantes: bloquea los puertos necesarios y deja un solo camino activo. Si un enlace cae, reactiva otro.</p></details>
+<details><summary>¿Qué diferencia hay entre un puerto de acceso y uno troncal?</summary><p class="ans">El de acceso pertenece a una sola VLAN y no etiqueta. El troncal lleva varias VLAN y etiqueta las tramas con 802.1Q.</p></details>
+</div>
 <h2 id="s15">16. Tipos de LAN según el sistema operativo de red</h2>
 <p>Esta clasificación no depende del cableado ni de la norma: depende del <b>sistema operativo</b>. Sobre la misma red física, todos los nodos pueden tener Windows 10 (peer to peer) o puede haber uno con Windows Server y Active Directory (servidor dedicado).</p>
 <div class="scroll"><table>
@@ -1103,6 +1171,39 @@ En una red de servidor dedicado, los recursos compartidos pueden estar <b>en el 
 <li>Cuando se combinan permisos de compartido y permisos locales NTFS, rige el <b>más restrictivo</b> de los dos.</li>
 </ul>
 
+<div class="tp"><h4>🧪 En el práctico · TP4 (peer to peer) y TP5 (servidor dedicado)</h4>
+<p><b>TP4:</b> PC01 y PC02 unidas por el cable cruzado del TP2, en el grupo de trabajo REDES2026, con IP 192.168.10.1 y .2 /24, sin gateway ni DNS porque la red no sale a otra. Se crearon usuarios locales y los grupos Jefes y Analistas, y se compartió C:\Compartido2026: Jefes con Control total, Analistas con Cambiar y Leer, y sin la entrada Todos.</p>
+<p><b>Las tres reglas para calcular un permiso efectivo:</b></p>
+<ol>
+<li><b>Los permisos se acumulan:</b> el usuario suma los suyos y los de todos sus grupos.</li>
+<li><b>Una denegación explícita gana</b> sobre cualquier permiso, aunque el permiso venga de un grupo y la denegación sea individual. En el TP, torresd quedó sin acceso por un Denegar a su nombre, mientras diazp, del mismo grupo, siguió entrando. Sirve para hacer una excepción sin sacar a nadie del grupo.</li>
+<li><b>Entre recurso compartido y NTFS rige el más restrictivo.</b> Los Jefes tenían Control total en el compartido, pero NTFS daba Modificar: el efectivo fue Modificar.</li>
+</ol>
+<div class="scroll"><table>
+<tr><th></th><th>Permisos de recurso compartido</th><th>Permisos NTFS</th></tr>
+<tr><td>Cuándo se aplican</td><td><b>Solo en el acceso por red</b></td><td><b>Siempre</b>, local y por red</td></tr>
+<tr><td>Dónde se configuran</td><td>Pestaña Compartir</td><td>Pestaña Seguridad, en cualquier carpeta o archivo</td></tr>
+<tr><td>Niveles</td><td>Tres: Control total, Cambiar, Leer</td><td>Varios, básicos y avanzados</td></tr>
+<tr><td>Herencia</td><td>El mismo permiso para todo el recurso</td><td>Se heredan, y la herencia se puede cortar en cada subcarpeta</td></tr>
+</table></div>
+<p>Por eso lo habitual es dejar el compartido como filtro general y hacer el control fino con NTFS. <b>Cortar la herencia</b> (convirtiendo los heredados en explícitos) permitió que Subcarpeta1 le negara todo a Analistas mientras Subcarpeta2 seguía abierta.</p>
+<p><b>TP5:</b> Windows Server 2025 como controlador de dominio de <b>Redes1.com</b> (AD DS + DNS + servidor de archivos) y dos clientes Windows 11, en VMware con un segmento LAN aislado.</p>
+<ul>
+<li><b>Sin DNS no hay dominio:</b> los clientes encuentran al controlador consultando registros <b>SRV</b> en el DNS (por ejemplo <code>_ldap._tcp.dc._msdcs.Redes1.com</code>), no por broadcast. Si apuntan a otro DNS, no pueden unirse ni iniciar sesión.</li>
+<li><b>Unidades organizativas (OU):</b> ordenan los objetos del dominio y permiten delegar y aplicar directivas distintas (OU_Pcs, OU_Usuarios, OU_Grupos). Los grupos de seguridad fueron de ámbito <b>global</b>.</li>
+<li><b>Admins. del dominio</b> (Domain Admins) puede administrar cualquier objeto y unir equipos al dominio.</li>
+<li><b>Orden de evaluación NTFS:</b> denegación explícita, permiso explícito, denegación heredada y permiso heredado. A Marcos Tapia, de G_RRHH (Control total), un Denegar Escritura a su nombre lo dejó solo con lectura en Confidencial.</li>
+<li><b>Eva Montes:</b> al sacarla de G_Ventas se le dio lectura en forma individual. El cambio de grupos rige desde su próximo inicio de sesión, porque los grupos se cargan en el token de acceso al iniciar sesión.</li>
+<li><b>Revocar todo a un usuario:</b> lo más eficiente es <b>deshabilitar la cuenta</b>. Sin autenticación no se evalúa ningún permiso, y se revierte habilitándola.</li>
+<li><b>Si los administradores quedan afuera de una carpeta</b>, igual pueden <b>tomar posesión</b> (Propiedades, Seguridad, Opciones avanzadas, Propietario) o por consola con <code>takeown</code> e <code>icacls</code>, y volver a darse permisos.</li>
+<li><b>Para comprobar el permiso real</b> de alguien: Opciones avanzadas, pestaña <b>Acceso efectivo</b>.</li>
+<li><b>nslookup mostraba "Servidor: UnKnown"</b> y no era un error: intenta la búsqueda inversa del propio DNS y no había zona inversa. La búsqueda directa funcionaba.</li>
+</ul></div>
+<div class="gancho"><h4>❓ ¿Lo entendiste?</h4>
+<details><summary>Un usuario tiene Leer por el grupo A y Cambiar por el grupo B en un recurso compartido. ¿Qué permiso tiene?</summary><p class="ans">Cambiar: los permisos de recurso compartido se acumulan, salvo que haya una denegación explícita.</p></details>
+<details><summary>Compartido: Control total. NTFS: Leer. ¿Qué puede hacer el usuario desde la red? ¿Y sentado en esa PC?</summary><p class="ans">Desde la red, solo leer (rige el más restrictivo de las dos capas). Localmente, también leer, porque ahí solo se evalúa NTFS.</p></details>
+<details><summary>¿Por qué un cliente que usa el DNS del router no puede unirse al dominio?</summary><p class="ans">Porque ese DNS no tiene los registros SRV que publica el controlador de dominio, y el cliente no tiene forma de encontrarlo.</p></details>
+</div>
 <h2 id="s16">17. Cableado estructurado (EIA/TIA 568)</h2>
 <p><b>Objetivo general:</b> cubrir las necesidades de los usuarios durante toda la vida útil del edificio <b>sin tener que tender más cables</b>.</p>
 <p><b>Objetivos específicos:</b> una misma estructura para datos y telefonía; flexibilidad para mover personas y máquinas; compatibilidad con tecnologías actuales y futuras; diseño que facilite supervisión, mantenimiento y administración.</p>
@@ -1199,6 +1300,23 @@ Como <b>normas</b>, 568A y 568B son versiones del estándar de cableado. Como <b
 <div class="box"><b>Hoy</b>
 Las placas y switches actuales detectan y cruzan solos (Auto-MDIX), así que un cable derecho funciona entre dos PCs. Para el parcial vale la regla clásica: iguales → cruzado, distintos → derecho.</div>
 
+<div class="tp"><h4>🧪 En el práctico · TP2 (cableado estructurado) y TP3 (diseño en Packet Tracer)</h4>
+<p><b>TP2:</b> edificio de dos plantas con 39 puestos. Cómo se aplicó cada norma:</p>
+<ul>
+<li><b>TIA-568:</b> estrella jerárquica. El MDF de planta alta hace de cross-connect principal y de horizontal de su piso (cross-connect colapsado), y el IDF de planta baja es solo horizontal. <b>Dos bocas por puesto</b>, el mínimo de la norma (91 bocas en total, porque APs e impresoras llevan una sola). Enlace permanente jack a jack, con patch cords armados de fábrica.</li>
+<li><b>Canal de 100 m:</b> el tramo más largo fue de 45 m. Con 1,5 m de patch cord en el puesto y 0,5 m en el rack, el canal quedó en 47 m, lejos de los 90 + 10.</li>
+<li><b>Medios:</b> horizontal en UTP <b>Cat 6</b> de cobre sólido, descartando cables CCA (aluminio cobreado). Backbone vertical en <b>fibra multimodo OM3</b>, que da 10 Gbps hasta 300 m. Todo el canal en Cat 6, porque <b>la categoría la fija el componente más débil</b>. Terminación <b>T568B</b> en toda la obra.</li>
+<li><b>TIA-569:</b> un TR por piso, alineados verticalmente junto a la escalera. Canalizaciones con <b>llenado máximo del 40%</b> y separación de la energía eléctrica.</li>
+<li><b>TIA-606:</b> rotulado <b>PISO-SECTOR-PUESTO-BOCA</b> (PB-VNT-3-A) en ambos extremos, y código de colores en patch cords y etiquetas.</li>
+<li><b>TIA-607:</b> una barra <b>TGB</b> por rack, vinculada a la tierra del edificio. La fibra es <b>dieléctrica</b>, así que el backbone no lleva continuidad eléctrica entre pisos y se evita el lazo de tierra que tendría uno de cobre.</li>
+<li><b>TIA-942:</b> rack separado de las paredes; ruteo arriba, conmutación en el medio, patcheras abajo y la UPS en la base por su peso; ventilación con termostato y más del 30% de reserva.</li>
+</ul>
+<p><b>TP3:</b> la misma empresa, pasada a Packet Tracer por planta. Los equipos se nombraron <b>PLANTA-ÁREA-N</b> (PB-FAC-1, PA-SYS-3), con IMP para impresoras y AP para puntos de acceso, para identificar en la red lógica cada puesto del plano.</p></div>
+<div class="gancho"><h4>❓ ¿Lo entendiste?</h4>
+<details><summary>¿Cuánto mide como máximo un canal horizontal completo y cómo se reparte?</summary><p class="ans">100 m: hasta 90 m de cableado horizontal fijo más 10 m entre los patch cords de los dos extremos.</p></details>
+<details><summary>Usás cable Cat 6 pero jacks Cat 5e. ¿De qué categoría es el canal?</summary><p class="ans">Cat 5e: la categoría del canal la determina el componente de menor prestación.</p></details>
+<details><summary>¿Qué ventaja eléctrica tiene un backbone de fibra entre pisos?</summary><p class="ans">La fibra es dieléctrica: no conduce electricidad, así que no forma lazos de tierra entre las dos salas ni lleva diferencias de potencial.</p></details>
+</div>
 <h2 id="s17">18. Normas TIA complementarias</h2>
 <h3>TIA-569 — Rutas y espacios</h3>
 <p>No habla del rendimiento del cable sino de la <b>infraestructura edilicia</b> que lo aloja. Parte de tres ideas: los edificios son dinámicos (hay que prever cambios), las canalizaciones deben servir para cualquier proveedor o equipo, y se integran todos los servicios (voz, datos, seguridad, video, automatización).</p>
@@ -1237,140 +1355,322 @@ Las placas y switches actuales detectan y cruzan solos (Auto-MDIX), así que un 
 </table>
 <p>Estos "Ratings" son el equivalente de los "Tiers" del Uptime Institute.</p>
 
-<h2 id="s18">19. Modelo TCP/IP y sus protocolos</h2>
-<p><b>TCP/IP</b> es un <b>conjunto de protocolos</b> que sirven para comunicar dos computadoras. Es <b>abierto</b> e <b>independiente del fabricante</b> de hardware y software. Sus dos protocolos principales le dan el nombre: <b>TCP</b> (Transmission Control Protocol) e <b>IP</b> (Internet Protocol). Se usa en redes empresariales (campus, complejos con muchos routers y mainframes), en redes pequeñas y domésticas, en teléfonos móviles y domótica.</p>
+<div class="gancho"><h4>❓ ¿Lo entendiste?</h4>
+<details><summary>¿Qué norma rige el rotulado de cada boca y cuál la puesta a tierra?</summary><p class="ans">TIA-606 la administración e identificación, y TIA-607 la puesta a tierra (TMGB, TBB, TGB).</p></details>
+<details><summary>¿Qué diferencia un data center Rating 3 de uno Rating 4?</summary><p class="ans">El 3 tiene mantenimiento concurrente: se puede reparar cualquier componente sin apagar, pero con una sola ruta activa. El 4 es tolerante a fallos: rutas activas redundantes que soportan una falla imprevista.</p></details>
+</div>
+<h2 id="s18">19. TCP/IP: el modelo, las capas y el encapsulamiento</h2>
+<p><b>TCP/IP</b> es un <b>conjunto (suite o familia) de protocolos</b> para comunicar computadoras. Es <b>abierto</b> e <b>independiente del fabricante</b> de hardware y software. El nombre sale de sus dos protocolos principales: <b>TCP</b> (Transmission Control Protocol, transporte) e <b>IP</b> (Internet Protocol, red). Hoy muchos autores directamente lo llaman "protocolo de Internet".</p>
+<ul>
+<li><b>Es el protocolo de facto:</b> viene instalado en todo lo que se conecta a una red, sea PC, servidor, celular o dispositivo IoT. Antes cada fabricante tenía el suyo (IBM, Apple, Novell con IPX/SPX) y convivieron hasta que TCP/IP se impuso.</li>
+<li><b>OSI es el modelo de referencia, TCP/IP es el que se usa.</b> OSI es teórico: ningún protocolo implementó sus 7 capas tal cual. Sirvió para que los fabricantes compartieran parámetros comunes. TCP/IP es un modelo concreto que agrupa esas funciones en 4 capas.</li>
+<li><b>Los documentos de TCP/IP son las RFC</b> (Request for Comments): documentos públicos y gratuitos del <b>IETF</b>, uno por protocolo. Por ejemplo, la RFC 791 define IP.</li>
+</ul>
+<div class="box"><b>¿Por qué en capas? (la idea del barrilete)</b>
+<b>Protocolizar</b> es ponerse de acuerdo antes de hacer algo: en redes, fijar reglas y formatos antes de transmitir. Si todo se resolviera en un solo bloque, cada paquete cargaría con todo y sería inmanejable ("como querer hacer volar un barrilete de 4 kilos"). Por eso se divide en capas: <b>cada capa resuelve un solo problema, le da un servicio a la de arriba y confía en que las demás hicieron su trabajo</b>. Así, cambiar una capa (por ejemplo, de cable a Wi-Fi) no obliga a tocar las otras.</div>
+
 <h3>Las 4 capas</h3>
 <div class="scroll"><table>
-<tr><th>Capa TCP/IP</th><th>Otro nombre</th><th>Función</th><th>Protocolos</th><th>PDU</th><th>Equivale en OSI</th></tr>
-<tr><td><b>Aplicación</b></td><td>—</td><td>Brinda servicios a las aplicaciones de la PC (ej.: HTTP transfiere datos de la web)</td><td>HTTP, DNS, DHCP, FTP, TFTP, Telnet, SMTP, POP3, SNMP</td><td>Mensaje / datos</td><td>7, 6 y 5</td></tr>
-<tr><td><b>Transporte</b></td><td>Host to host</td><td>Prepara los datos de la aplicación para viajar por la red y, en destino, los procesa para entregarlos a la aplicación</td><td>TCP, UDP</td><td>Segmento</td><td>4</td></tr>
-<tr><td><b>Internet</b></td><td>Interred</td><td>Determina la mejor ruta a través de la red</td><td>IP, ICMP, IGMP, ARP</td><td>Paquete / datagrama</td><td>3</td></tr>
-<tr><td><b>Acceso a la red</b></td><td>Interfaz de red</td><td>Controla el hardware y los medios que forman la red</td><td>Ethernet, Wi-Fi, ATM</td><td>Trama (y bits)</td><td>2 y 1</td></tr>
+<tr><th>Capa TCP/IP</th><th>Equivale en OSI</th><th>Pregunta que responde</th><th>Protocolos</th><th>PDU</th><th>Dirección que usa</th></tr>
+<tr><td><b>4. Aplicación</b></td><td>7, 6 y 5 (aplicación, presentación, sesión)</td><td>¿Qué servicio se usa y qué se dice?</td><td>HTTP/HTTPS, DNS, DHCP, FTP, SMTP, POP3, IMAP, Telnet, SSH</td><td>Datos (mensaje)</td><td>Nombres de dominio (URL)</td></tr>
+<tr><td><b>3. Transporte</b> (host to host)</td><td>4</td><td>¿A qué aplicación va y cómo llega completo?</td><td>TCP, UDP</td><td>Segmento (TCP) / datagrama (UDP)</td><td><b>Puerto</b></td></tr>
+<tr><td><b>2. Internet</b> (interred)</td><td>3</td><td>¿A qué equipo va y por qué camino?</td><td>IP, ICMP, ARP, IGMP</td><td>Paquete</td><td><b>Dirección IP</b> (lógica)</td></tr>
+<tr><td><b>1. Acceso a la red</b> (interfaz de red)</td><td>2 y 1 (enlace y física)</td><td>¿Cómo viaja por este cable o enlace?</td><td>Ethernet 802.3, Wi-Fi 802.11</td><td>Trama → bits</td><td><b>Dirección MAC</b> (física)</td></tr>
 </table></div>
-<p>La forma que adopta un bloque de datos en cada capa se llama <b>PDU</b> (Protocol Data Unit). Cada capa <b>encapsula</b> lo que recibe de la capa de arriba agregándole su encabezado, y la PDU cambia de nombre en cada etapa (mensaje → segmento → paquete → trama). La trama lleva además el preámbulo adelante y el <b>CRC</b> al final.</p>
+<p>Una frase para fijarlo: <b>la aplicación decide qué se dice, el transporte se asegura de que llegue, Internet decide por dónde va y el acceso a la red lo pone en el cable.</b></p>
+<p>En clase también se habló, en broma, de una "capa 8": el usuario. Muchos problemas de red son errores de configuración o de uso, no fallas de protocolo.</p>
 
-<h3>Capa de aplicación</h3>
-<h4>DNS (Servicio de Nombres de Dominio)</h4>
-<p>Convierte <b>nombres</b> en <b>direcciones IP</b>: es más fácil recordar <code>www.cisco.com</code> que <code>198.133.219.25</code>, y si la IP cambia, el nombre sigue siendo el mismo. Usa el puerto <b>53</b>.</p>
-<h4>HTTP (Protocolo de Transferencia de Hipertexto)</h4>
-<p>El navegador es el <b>cliente</b> web: se conecta al servidor y pide recursos; el servidor responde y el navegador interpreta y muestra los datos. Ejemplo con <code>http://www.cisco.com/web-server.htm</code>:</p>
+<h3>La pregunta que guía todo: ¿qué pasa cuando escribo www.utn.edu.ar y aprieto Enter?</h3>
 <ol>
-<li>El navegador separa las tres partes: <b>http</b> (el protocolo), <b>www.cisco.com</b> (el servidor) y <b>web-server.htm</b> (el archivo). Le pregunta al DNS la IP del servidor y envía un <b>GET</b> pidiendo el archivo.</li>
-<li>El servidor envía el código HTML de la página.</li>
-<li>El navegador descifra el HTML y da formato a la página en la ventana.</li>
+<li><b>Acceso a la red:</b> si la PC no tiene IP todavía, la pide por <b>DHCP</b> y recibe IP, máscara, puerta de enlace y DNS.</li>
+<li><b>DNS (aplicación, UDP 53):</b> la PC le pregunta al servidor DNS qué IP corresponde a <code>www.utn.edu.ar</code>. Antes de mandar la consulta necesita la MAC del destino en la red local (el DNS o el gateway), y la consigue con <b>ARP</b>.</li>
+<li><b>TCP (transporte):</b> con la IP del servidor, abre una conexión con el <b>saludo de tres vías</b> (SYN, SYN-ACK, ACK) hacia el puerto <b>443</b> (HTTPS) o <b>80</b> (HTTP). El navegador usa como origen un puerto dinámico.</li>
+<li><b>HTTP (aplicación):</b> el navegador envía un <b>GET</b> pidiendo la página y el servidor responde con el HTML (código <b>200 OK</b>).</li>
+<li><b>IP (Internet):</b> cada segmento va en un paquete con IP de origen (la PC) y de destino (el servidor). Como el servidor está en otra red, el paquete sale por el <b>gateway</b> y los routers lo encaminan salto a salto. Si la PC usa IP privada, el router hace <b>NAT</b>.</li>
+<li><b>Acceso a la red:</b> cada paquete se arma como trama Ethernet o Wi-Fi con la MAC de la PC y la del gateway, y sale como bits por el medio.</li>
+<li><b>En el servidor</b> todo se recorre al revés (desencapsulamiento) hasta que el pedido llega al servidor web. La respuesta hace el mismo camino de vuelta.</li>
 </ol>
-<p>Mensajes más comunes: <b>GET</b> (el cliente pide datos), <b>POST</b> (carga datos al servidor), <b>PUT</b> (carga recursos o contenido al servidor). <b>HTTPS</b> es HTTP seguro, con autenticación y encriptación. Puerto <b>80</b> (HTTPS: 443).</p>
-<h4>Telnet, FTP y TFTP</h4>
+
+<h3>Encapsulamiento y desencapsulamiento</h3>
+<p>Al bajar por las capas del emisor, cada capa le agrega su <b>encabezado</b> a lo que recibe de arriba, y la PDU cambia de nombre. El receptor hace el camino inverso: cada capa lee y retira su encabezado y pasa el resto hacia arriba.</p>
+<pre>Aplicación   [ Datos HTTP ]
+Transporte   [ TCP: puertos 1032→80, secuencia, ACK | Datos ]              → segmento
+Internet     [ IP: 192.168.1.10→192.168.1.100, TTL, protocolo=6 | TCP | Datos ]  → paquete
+Acceso red   [ Ethernet: MAC destino | MAC origen | tipo=IPv4 | IP | TCP | Datos | FCS ]  → trama
+Física       0110100101…                                                    → bits</pre>
+<div class="box ok"><b>Cómo sabe cada capa a quién entregarle los datos</b>
+Cada encabezado indica el protocolo de la capa de arriba. El campo <b>tipo</b> de la trama Ethernet dice si lleva IPv4 o ARP. El campo <b>protocolo</b> del paquete IP dice si lleva <b>TCP (6)</b>, <b>UDP (17)</b> o <b>ICMP (1)</b>. El <b>puerto de destino</b> dice a qué aplicación va (80 = servidor web).</div>
+<div class="box"><b>Qué cambia y qué no en el viaje</b>
+Las <b>IP de origen y destino</b> se mantienen de punta a punta (salvo que un router haga NAT). Las <b>MAC</b> se reescriben en cada salto: cada router arma una trama nueva con su propia MAC como origen y la del siguiente equipo como destino.</div>
+
+<div class="tp"><h4>🧪 En el práctico · TP6 (TCP/IP)</h4>
+<p><b>Qué se pidió:</b> explicar las capas con un ejemplo (una sesión de Zoom), y analizar el encapsulamiento en Cisco Packet Tracer (In Layers / Out Layers) y una captura DNS en Wireshark.</p>
+<p><b>Lo que se vio en la simulación</b> (PC 192.168.1.10, switch y servidor 192.168.1.100 con HTTP y DNS, pidiendo <code>http://www.tp6.com</code>):</p>
+<ol>
+<li><b>ARP fue lo primero que apareció:</b> la PC tenía lista la consulta DNS pero no conocía la MAC del servidor, así que mandó un ARP request a FFFF.FFFF.FFFF. Recién con la respuesta salió la consulta.</li>
+<li><b>La consulta DNS se resolvió con solo 2 mensajes</b>, pregunta y respuesta, sin conexión previa: UDP, puerto de origen 1033 y destino 53.</li>
+<li><b>Antes del HTTP hubo saludo de tres vías TCP</b> (SYN, SYN-ACK, ACK), después el GET con TCP de 1032 a 80, y al final un cierre ordenado con FIN y ACK.</li>
+<li><b>No hubo un segundo ARP:</b> la MAC del servidor ya estaba en la caché.</li>
+<li><b>El switch solo tenía activas las capas 1 y 2</b>: conmuta por MAC y no mira la IP.</li>
+<li><b>En el servidor, las capas 5 y 6 aparecían inactivas</b>, porque en TCP/IP están dentro de Aplicación.</li>
+</ol>
+<p><b>Zoom en capas:</b> DNS y HTTPS (TLS) para entrar y para la señalización, que van sobre TCP. El audio y el video van sobre UDP, por la baja latencia; si la red bloquea UDP, Zoom pasa a TCP. Todo sobre IP, y en el enlace local, Ethernet o Wi-Fi más ARP para conocer la MAC del gateway.</p></div>
+
+<div class="gancho"><h4>❓ ¿Lo entendiste?</h4>
+<details><summary>¿Qué capas de OSI agrupa la capa de aplicación de TCP/IP? ¿Y la de acceso a la red?</summary><p class="ans">Aplicación agrupa sesión, presentación y aplicación (5, 6 y 7). Acceso a la red agrupa física y enlace (1 y 2). Transporte e Internet se corresponden con la 4 y la 3.</p></details>
+<details><summary>¿Cómo se llama la PDU en la capa de Internet y qué dirección usa?</summary><p class="ans">Paquete, con dirección IP (lógica). En transporte es el segmento con puertos, y en acceso a la red, la trama con MAC.</p></details>
+<details><summary>Un paquete cruza tres routers. ¿Cambian las IP? ¿Y las MAC?</summary><p class="ans">Las IP de origen y destino se mantienen (salvo NAT). Las MAC cambian en cada salto, porque cada router arma una trama nueva para el siguiente tramo.</p></details>
+</div>
+
+<h2 id="s18a">20. TCP/IP: capa de aplicación</h2>
+<p>Es la <b>interfaz entre los programas y la red</b>: ahí se definen los servicios que da la red (web, correo, nombres, direcciones, archivos).</p>
+<div class="box warn"><b>Programa ≠ protocolo</b>
+<b>Chrome no es la capa de aplicación</b>: es un programa. Lo que está en la capa de aplicación es el <b>protocolo</b> que usa Chrome, es decir HTTP o HTTPS. Lo mismo con Outlook (usa SMTP/IMAP) o FileZilla (usa FTP).</div>
+
+<h3>DNS — Sistema de Nombres de Dominio</h3>
+<p>Traduce <b>nombres de dominio</b> en <b>direcciones IP</b>. Sin DNS habría que recordar la IP de cada sitio, y si la IP de un servidor cambia, el nombre sigue siendo el mismo.</p>
+<ul>
+<li><b>Es jerárquico, un árbol invertido</b> que se lee de derecha a izquierda. En <code>Servidor1.Redes1.com.</code>: el punto final es la <b>raíz</b> (casi siempre se omite), <b>com</b> es el dominio de primer nivel (TLD genérico; los de país son como <code>.ar</code>), <b>Redes1</b> es el de segundo nivel y <b>Servidor1</b> es el host. El nombre completo hasta la raíz se llama <b>FQDN</b>. Cada etiqueta admite hasta 63 caracteres (letras, números y guiones), y el nombre completo hasta 255.</li>
+<li><b>Cómo resuelve:</b> si el servidor DNS no conoce la respuesta, va consultando la jerarquía desde la raíz (raíz → TLD → servidor del dominio) y guarda la respuesta en caché.</li>
+<li><b>La información se guarda en registros.</b> <b>A</b> asocia un nombre a una IPv4 y <b>AAAA</b> a una IPv6. <b>CNAME</b> es un alias, <b>MX</b> el servidor de correo del dominio, <b>NS</b> el servidor DNS del dominio, <b>PTR</b> la búsqueda inversa (de IP a nombre) y <b>SRV</b> ubica servicios, como el controlador de dominio en Active Directory.</li>
+<li><b>Puerto 53</b>, normalmente sobre <b>UDP</b> porque las consultas son cortas. Usa TCP para respuestas grandes y transferencias entre servidores.</li>
+<li><b>Síntoma de falla:</b> "No se encontró la dirección del servidor". El nombre no se pudo traducir a una IP.</li>
+</ul>
+
+<h3>DHCP — Protocolo de Configuración Dinámica de Host</h3>
+<p>Entrega automáticamente a cada equipo su <b>IP, máscara, puerta de enlace y DNS</b>. Sin DHCP habría que cargar esos cuatro datos a mano en cada equipo. En una casa lo hace el router; en una empresa, un servidor (por ejemplo, Windows Server).</p>
+<p><b>Proceso DORA</b> (4 mensajes):</p>
+<ol>
+<li><b>Discover:</b> el cliente, que todavía no tiene IP, manda un <b>broadcast</b> buscando un servidor DHCP.</li>
+<li><b>Offer:</b> el servidor le ofrece una IP.</li>
+<li><b>Request:</b> el cliente pide formalmente esa IP.</li>
+<li><b>Acknowledge:</b> el servidor confirma y se la presta por un tiempo, la <b>concesión</b> (lease), que el cliente renueva antes de que venza.</li>
+</ol>
+<ul>
+<li><b>Puertos:</b> servidor <b>UDP 67</b>, cliente <b>UDP 68</b>. Usa UDP porque es un intercambio interno, corto y liviano.</li>
+<li><b>Ámbito (pool o scope):</b> el rango de IPs que reparte. Los equipos con IP fija (servidores, impresoras, router) van <b>fuera del rango</b> o <b>excluidos</b>, para que el DHCP no se las dé a otro y haya conflicto.</li>
+<li><b>Opciones del ámbito</b> (en Windows Server): <b>003</b> enrutador (gateway), <b>006</b> servidor DNS, <b>015</b> nombre de dominio.</li>
+<li><b>En un dominio de Windows</b> el servidor DHCP tiene que estar <b>autorizado en Active Directory</b>; si no, no entrega direcciones.</li>
+<li><b>Como el Discover es un broadcast, no cruza routers.</b> Hace falta un servidor DHCP en cada red o un <b>agente de retransmisión</b> (DHCP relay).</li>
+<li><b>Síntoma de falla:</b> la PC queda con una IP <b>169.254.x.x</b> (APIPA o enlace local), sin gateway ni DNS. No respondió ningún servidor DHCP.</li>
+</ul>
+
+<h3>HTTP y HTTPS</h3>
+<p>El navegador (cliente) pide recursos y el servidor web responde. Ejemplo con <code>http://www.cisco.com/web-server.htm</code>: el navegador separa el <b>protocolo</b> (http), el <b>servidor</b> (www.cisco.com) y el <b>recurso</b> (web-server.htm), resuelve la IP por DNS, envía un <b>GET</b>, recibe el HTML y lo muestra.</p>
+<table>
+<tr><th>Método</th><th>Para qué</th></tr>
+<tr><td><b>GET</b></td><td>Pedir un recurso (abrir una página)</td></tr>
+<tr><td><b>POST</b></td><td>Enviar datos al servidor (un formulario, un login)</td></tr>
+<tr><td><b>PUT</b></td><td>Cargar o reemplazar un recurso en el servidor</td></tr>
+<tr><td><b>DELETE</b></td><td>Borrar un recurso</td></tr>
+</table>
+<table>
+<tr><th>Código</th><th>Familia</th><th>Ejemplo</th></tr>
+<tr><td>2xx</td><td>Éxito</td><td><b>200 OK</b></td></tr>
+<tr><td>3xx</td><td>Redirección</td><td>301 movido permanentemente</td></tr>
+<tr><td>4xx</td><td>Error del cliente</td><td><b>404 Not Found</b>: el recurso no existe</td></tr>
+<tr><td>5xx</td><td>Error del servidor</td><td><b>500</b>: el servidor falló internamente (por ejemplo, saturado)</td></tr>
+</table>
+<ul>
+<li><b>HTTP no guarda estado:</b> cada pedido es independiente. Para mantener una sesión iniciada se usan <b>cookies</b>.</li>
+<li><b>HTTPS</b> = HTTP + cifrado <b>TLS</b> (antes SSL). Lo que viaja no lo puede leer un tercero; el navegador lo muestra con el candado.</li>
+<li><b>Puertos:</b> HTTP <b>80</b>, HTTPS <b>443</b>. Un administrador puede cambiarlos.</li>
+<li>HTTP/1.1 y HTTP/2 van sobre TCP. HTTP/3 usa QUIC, que va sobre UDP.</li>
+</ul>
+
+<h3>Correo electrónico</h3>
+<table>
+<tr><th>Protocolo</th><th>Para qué</th><th>Puerto</th></tr>
+<tr><td><b>SMTP</b></td><td><b>Enviar</b> correo (y pasarlo entre servidores)</td><td>25</td></tr>
+<tr><td><b>POP3</b></td><td>Descargar el correo a <b>un</b> dispositivo; por defecto lo borra del servidor</td><td>110</td></tr>
+<tr><td><b>IMAP</b></td><td>Leer el correo <b>sincronizado en varios dispositivos</b>; queda en el servidor</td><td>143</td></tr>
+</table>
+
+<h3>Otros protocolos de aplicación</h3>
 <table>
 <tr><th>Protocolo</th><th>Para qué</th><th>Transporte</th><th>Puerto</th></tr>
-<tr><td><b>Telnet</b></td><td>Emulador de terminal en modo texto: permite administrar un equipo remoto como si estuvieras en su consola</td><td>TCP</td><td>23</td></tr>
-<tr><td><b>FTP</b></td><td>Transferencia de archivos grandes de forma confiable. Es protocolo y aplicación a la vez; incluye login y validación</td><td>TCP</td><td>20 (datos) y 21 (control)</td></tr>
-<tr><td><b>TFTP</b></td><td>Versión reducida de FTP: no orientada a conexión, con menos funciones pero más rápida y simple. La más usada para bajar el IOS a routers y switches Cisco</td><td>UDP</td><td>69</td></tr>
+<tr><td><b>FTP</b></td><td>Transferencia de archivos confiable, con login</td><td>TCP</td><td>20 (datos) y 21 (control)</td></tr>
+<tr><td><b>TFTP</b></td><td>FTP reducido, sin conexión; se usa para bajar el IOS a routers y switches Cisco</td><td>UDP</td><td>69</td></tr>
+<tr><td><b>Telnet</b></td><td>Terminal remota en modo texto, <b>sin cifrar</b></td><td>TCP</td><td>23</td></tr>
+<tr><td><b>SSH</b></td><td>Terminal remota <b>cifrada</b> (reemplazo seguro de Telnet)</td><td>TCP</td><td>22</td></tr>
+<tr><td><b>SNMP</b></td><td>Monitoreo y gestión de equipos de red (unidad 5)</td><td>UDP</td><td>161</td></tr>
 </table>
+<div class="box ok"><b>Resumen de puertos para el parcial</b>
+FTP 20/21 · SSH 22 · Telnet 23 · SMTP 25 · DNS 53 · DHCP 67/68 · TFTP 69 · HTTP 80 · POP3 110 · IMAP 143 · SNMP 161 · HTTPS 443</div>
 
-<h3>Capa de transporte</h3>
-<p>Funciones:</p>
+<div class="tp"><h4>🧪 En el práctico · TP7 (red TCP/IP con DHCP y DNS)</h4>
+<p><b>Qué se pidió:</b> configurar DHCP en el Windows Server del TP5 (ámbito 192.168.0.100 a .200) y armar en Packet Tracer una red 192.168.0.0/24. Un router inalámbrico en .1 con SSID <i>wireless0</i> y DHCP de .100 a .199, un switch, un servidor <i>server01.com</i> en .250, dos PC por DHCP, dos PC estáticas (.151 y .152) y dos notebooks por Wi-Fi.</p>
+<ul>
+<li><b>Windows Server:</b> hubo que instalar el rol DHCP, <b>autorizarlo en AD</b> y crear el ámbito con <b>exclusiones</b> (.151 y .152), concesión de 8 días y opciones 003, 006 y 015. PC1 recibió .100, la primera del ámbito.</li>
+<li><b>El router de Packet Tracer no permite exclusiones</b>: solo configura una IP inicial y una cantidad de usuarios. Las IP estáticas .151 y .152 quedaron dentro del pool, y no chocaron porque había pocos clientes. En una red real hay que excluirlas, achicar el pool o poner las fijas fuera del rango.</li>
+<li><b>Para resolver nombres</b> se cargó en el router el DNS 192.168.0.250 (Static DNS 1) y en el servidor un registro <b>A</b> <code>server01.com → 192.168.0.250</code>. Se verificó con <code>nslookup server01.com</code> y <code>ping server01.com</code>.</li>
+<li><b>Error que enseñó mucho:</b> la LAN del router tenía máscara /25, y el DHCP la repartió a todos los clientes. Con /25 la red llega solo hasta .127, así que el servidor (.250) y las PC .151 y .152 quedaban "en otra red". Corrigiendo la máscara y renovando la IP se arregló.</li>
+<li><b>Hubo un solo servidor DHCP</b>: al servidor se le desactivó el suyo, para no tener dos ofreciendo direcciones.</li>
+</ul></div>
+
+<div class="gancho"><h4>❓ ¿Lo entendiste?</h4>
+<details><summary>Una PC tiene IP 169.254.20.7 y no tiene gateway. ¿Qué falló y por qué?</summary><p class="ans">DHCP: el Discover no tuvo respuesta (no hay servidor, está caído o hay un router en el medio sin relay), y el sistema se autoasignó una dirección de enlace local (APIPA).</p></details>
+<details><summary>¿Qué diferencia hay entre un 404 y un 500?</summary><p class="ans">404: el servidor respondió, pero el recurso pedido no existe (error del lado del pedido). 500: el servidor falló internamente al procesar el pedido.</p></details>
+<details><summary>¿Por qué el servidor DNS usa UDP para las consultas comunes?</summary><p class="ans">Son mensajes cortos de pregunta y respuesta: armar una conexión TCP costaría más que la consulta. Si no llega respuesta, el cliente simplemente vuelve a preguntar.</p></details>
+</div>
+
+<h2 id="s18t">21. TCP/IP: capa de transporte</h2>
+<p>Lleva los datos <b>de una aplicación a otra</b>, de extremo a extremo. IP no garantiza nada: la que da garantías a las aplicaciones (cuando hacen falta) es la capa de transporte. Es la capa que más trabajo hace.</p>
+<h3>Funciones</h3>
 <ol>
-<li><b>Seguimiento de conversaciones:</b> un host puede tener muchas aplicaciones comunicándose a la vez, cada una con una o más aplicaciones remotas; transporte mantiene separados esos flujos.</li>
-<li><b>Segmentación de los datos:</b> corta el flujo de la aplicación en partes manejables y le agrega a cada una un encabezado que indica a qué comunicación pertenece.</li>
-<li><b>Reensamble</b> de los segmentos en destino, para entregar un flujo completo a la aplicación.</li>
-<li><b>Identificación de las aplicaciones</b> mediante <b>números de puerto</b>.</li>
+<li><b>Segmentación y reensamblado:</b> corta los datos de la aplicación en segmentos (por ejemplo, una foto de 3 MB en muchas partes) y los vuelve a unir en destino.</li>
+<li><b>Identificación de aplicaciones con puertos</b> (multiplexación): varias aplicaciones usan la red a la vez, y cada segmento lleva el puerto que indica a cuál pertenece.</li>
+<li><b>Seguimiento de conversaciones:</b> mantiene separados los flujos de cada aplicación con cada destino.</li>
+<li><b>Confiabilidad</b> (solo TCP): confirma lo recibido, reenvía lo perdido, ordena y controla el flujo.</li>
 </ol>
-<h4>Puertos y sockets</h4>
+<h3>Puertos y sockets</h3>
+<ul>
+<li><b>La IP identifica al equipo; el puerto identifica a la aplicación</b> dentro de ese equipo. Un mismo servidor (una IP) puede atender web en el 80, FTP en el 21 y DNS en el 53.</li>
+<li><b>Socket = IP + puerto</b>, por ejemplo <code>192.168.2.150:80</code>. Una conexión queda identificada por el par de sockets, origen y destino.</li>
+<li>Hay <b>65.536</b> puertos (0 a 65535) por protocolo de transporte.</li>
+</ul>
 <table>
-<tr><th>Servicio</th><th>Puerto</th><th>Transporte</th></tr>
-<tr><td>FTP</td><td>20, 21</td><td>TCP</td></tr>
-<tr><td>Telnet</td><td>23</td><td>TCP</td></tr>
-<tr><td>SMTP</td><td>25</td><td>TCP</td></tr>
-<tr><td>DNS</td><td>53</td><td>UDP (y TCP)</td></tr>
-<tr><td>TFTP</td><td>69</td><td>UDP</td></tr>
-<tr><td>HTTP</td><td>80</td><td>TCP</td></tr>
-<tr><td>POP3</td><td>110</td><td>TCP</td></tr>
-<tr><td>News (NNTP)</td><td>119</td><td>TCP</td></tr>
-<tr><td>HTTPS</td><td>443</td><td>TCP</td></tr>
+<tr><th>Rango</th><th>Nombre</th><th>Uso</th></tr>
+<tr><td><b>0 – 1023</b></td><td>Bien conocidos (well-known)</td><td>Servicios estándar asignados por la IANA: 80, 443, 53, 25…</td></tr>
+<tr><td><b>1024 – 49151</b></td><td>Registrados</td><td>Aplicaciones y fabricantes: MySQL 3306, PostgreSQL 5432, SQL Server 1433</td></tr>
+<tr><td><b>49152 – 65535</b></td><td>Dinámicos o privados</td><td>Los usa el <b>cliente</b> como puerto de origen temporal de cada conexión</td></tr>
 </table>
-<div class="box ok"><b>Socket = dirección IP + puerto</b>
-Identifica una aplicación concreta en un equipo concreto. Ejemplo: en el servidor 192.168.2.150, <code>192.168.2.150:80</code> es el servidor web y <code>192.168.2.150:21</code> el de FTP. La IP lleva al equipo; el puerto, a la aplicación.</div>
+<p>Ejemplo: el navegador abre una conexión desde <code>192.168.1.10:52344</code> (puerto dinámico) hacia <code>142.250.0.1:443</code>. La respuesta vuelve a ese 52344, y así el sistema sabe que es para esa pestaña.</p>
 
-<h4>TCP</h4>
+<h3>TCP — orientado a conexión y confiable</h3>
 <ul>
-<li>Es <b>orientado a la conexión</b> y <b>confiable</b>: establece la comunicación entre los hosts antes de intercambiar datos.</li>
-<li>Recibe los datos de la aplicación, los corta en <b>segmentos</b> y los <b>numera</b> (número de secuencia) para que el receptor pueda reensamblarlos en orden.</li>
-<li>Espera un <b>acuse de recibo (ACK)</b> del otro extremo. <b>Todo segmento sin ACK se retransmite.</b></li>
-<li>Hace <b>control de flujo por ventana</b>: no envía más segmentos que el tamaño de la <b>ventana TCP</b> sin haber recibido los ACK. Así no satura los buffers del receptor ni de los routers, y evita congestión y pérdidas. La ventana es la cantidad de datos que puedo enviar sin haber recibido el ACK.</li>
+<li><b>Abre la conexión antes de mandar datos</b>, con el saludo de tres vías.</li>
+<li><b>Numera los segmentos</b> (número de secuencia) para reordenarlos en destino.</li>
+<li><b>Espera un acuse de recibo (ACK).</b> Todo segmento sin ACK se <b>retransmite</b>.</li>
+<li><b>Control de flujo con ventana:</b> no manda más datos que el tamaño de la ventana sin recibir confirmación, para no saturar al receptor ni a los routers.</li>
+<li><b>Encabezado de 20 bytes como mínimo</b>: puerto origen y destino, número de secuencia, número de ACK, longitud del encabezado, <b>flags</b> (SYN, ACK, FIN, RST…), ventana, checksum, puntero urgente y opciones.</li>
 </ul>
-<p><b>Establecimiento de la sesión: saludo de tres vías (three-way handshake)</b></p>
-<pre>  Host A                                Host B
-    │ ── 1. SYN (sincronización) ──────────▶ │
-    │ ◀─ 2. SYN + ACK (negocia parámetros) ── │
-    │ ── 3. ACK (sesión establecida) ───────▶ │
-    │    ⇒ circuito virtual creado, ya se pueden intercambiar datos</pre>
-<p><b>Campos del encabezado TCP:</b> puerto origen · puerto destino · <b>número de secuencia</b> (para reordenar) · <b>número de ACK</b> (el próximo número de secuencia que se espera) · longitud del encabezado · reservado (en 0) · <b>code bits</b> o flags (abren y cierran la sesión: SYN, ACK, FIN…) · <b>ventana</b> (en octetos) · <b>checksum</b> (verifica errores) · urgente · opciones.</p>
-<h4>UDP</h4>
+<h4>Saludo de tres vías (three-way handshake)</h4>
+<pre>  Cliente                                         Servidor
+    │ ── 1. SYN, seq = X ──────────────────────────▶ │
+    │ ◀─ 2. SYN-ACK, seq = Y, ack = X+1 ──────────── │
+    │ ── 3. ACK, ack = Y+1 ────────────────────────▶ │
+    │      ⇒ conexión establecida: recién ahora viajan datos</pre>
+<div class="box ok"><b>Cómo se calcula el ACK</b>
+El número de ACK es <b>el próximo byte que se espera recibir</b>. Si A envía un segmento con secuencia 1 y 500 bytes de datos (bytes 1 a 500), B responde con <b>ACK = 501</b>. Si un segmento se pierde, el ACK no avanza y el emisor sabe qué reenviar.</div>
+<p><b>Cierre:</b> se hace en <b>cuatro pasos</b> con FIN y ACK, porque cada sentido se cierra por separado: A manda FIN, B responde ACK, B manda su FIN y A responde ACK.</p>
+
+<h3>UDP — sin conexión y liviano</h3>
 <ul>
-<li>Versión simplificada de TCP: <b>no orientado a conexión</b>, más liviano y con menos uso de ancho de banda.</li>
-<li><b>No asegura</b> que los datagramas lleguen ni que lleguen en orden: solo lleva puertos origen y destino, longitud y checksum.</li>
-<li><b>No tiene control de flujo</b> (no tiene los campos necesarios).</li>
-<li><b>Ejemplos:</b> la radio por Internet (si se pierde un paquete se escucha un cortecito; con TCP la retransmisión haría una pausa más notoria), <b>SNMP</b> (no necesita una conexión abierta con cada host), DNS, TFTP, juegos y video en tiempo real.</li>
+<li><b>No abre conexión</b>, no confirma, no reordena y no retransmite: manda y listo ("mejor esfuerzo").</li>
+<li><b>No tiene control de flujo.</b></li>
+<li><b>Encabezado de solo 8 bytes:</b> puerto origen, puerto destino, longitud y checksum.</li>
+<li><b>Se usa cuando importa más la velocidad que la garantía:</b> consultas cortas (DNS, DHCP, SNMP, TFTP) y tiempo real (streaming, voz sobre IP, videollamadas, juegos). En tiempo real, un dato que llega tarde ya no sirve, y retransmitirlo generaría pausas y desfasaje.</li>
 </ul>
-<table>
+<div class="scroll"><table>
 <tr><th></th><th>TCP</th><th>UDP</th></tr>
-<tr><td>Conexión</td><td>Orientado a conexión (handshake)</td><td>Sin conexión</td></tr>
-<tr><td>Confiabilidad</td><td>ACK y retransmisión</td><td>No garantiza entrega</td></tr>
+<tr><td>Conexión</td><td>Orientado a conexión (saludo de 3 vías)</td><td>Sin conexión</td></tr>
+<tr><td>Confiabilidad</td><td>ACK y retransmisión</td><td>No garantiza la entrega</td></tr>
 <tr><td>Orden</td><td>Números de secuencia</td><td>Pueden llegar desordenados</td></tr>
 <tr><td>Control de flujo</td><td>Sí, por ventana</td><td>No</td></tr>
-<tr><td>Encabezado</td><td>Grande</td><td>Chico</td></tr>
-<tr><td>Ejemplos</td><td>HTTP, FTP, Telnet, SMTP, POP3</td><td>DNS, TFTP, SNMP, DHCP, streaming</td></tr>
-</table>
+<tr><td>Encabezado</td><td>20 bytes mínimo</td><td>8 bytes</td></tr>
+<tr><td>Velocidad</td><td>Más lento (más controles)</td><td>Más rápido</td></tr>
+<tr><td>Ejemplos</td><td>HTTP/HTTPS, FTP, SMTP, POP3, IMAP, SSH, Telnet</td><td>DNS, DHCP, TFTP, SNMP, streaming, VoIP, juegos</td></tr>
+</table></div>
+<div class="box"><b>Chequeo rápido de la clase: ¿TCP o UDP?</b>
+Descargar un .zip: <b>TCP</b> (si falta un bit, el archivo se corrompe). Videollamada: <b>UDP</b> (tiempo real). Consulta DNS: <b>UDP</b> (mensaje corto). Abrir utn.edu.ar: <b>TCP</b> (HTTPS en el 443).</div>
 
-<h3>Capa de Internet</h3>
-<h4>IP</h4>
-<p>Función principal: <b>direccionar y rutear</b> paquetes (datagramas). Características:</p>
+<div class="gancho"><h4>❓ ¿Lo entendiste?</h4>
+<details><summary>El servidor web tiene la IP 10.0.0.5. ¿Cuál es el socket del servicio HTTPS?</summary><p class="ans">10.0.0.5:443. El socket combina la IP (el equipo) y el puerto (la aplicación).</p></details>
+<details><summary>B recibe un segmento con seq = 1001 y 200 bytes. ¿Qué ACK manda?</summary><p class="ans">1201: el próximo byte que espera es 1001 + 200.</p></details>
+<details><summary>¿Por qué una llamada por VoIP no usa TCP?</summary><p class="ans">Si se pierde un pedacito de audio, TCP lo retransmitiría, y llegaría tarde, generando pausas y desfasaje. En tiempo real es mejor perder ese fragmento y seguir.</p></details>
+</div>
+
+<h2 id="s18i">22. TCP/IP: capa de Internet y comandos de diagnóstico</h2>
+<p>Es la capa del <b>direccionamiento lógico</b> y del <b>enrutamiento salto a salto</b> (hop by hop): le da a cada equipo una IP y lleva los paquetes de router en router hasta el destino. Una misma transmisión puede tomar caminos distintos según lo que calculen los routers (distancia, congestión).</p>
+<h3>IP</h3>
 <ul>
-<li><b>Sin conexión:</b> no se establece una conexión entre origen y destino antes de enviar.</li>
-<li><b>No confiable:</b> no detecta paquetes dañados ni perdidos, no detecta paquetes fuera de secuencia y no da acuse de recibo. (La confiabilidad, si hace falta, la pone TCP arriba.)</li>
-<li><b>Independiente de los medios:</b> funciona igual sobre cobre, fibra o aire.</li>
+<li><b>Sin conexión:</b> no establece nada antes de enviar.</li>
+<li><b>No confiable ("best effort", mejor esfuerzo):</b> no detecta paquetes perdidos, dañados ni desordenados, y no confirma la entrega.</li>
+<li><b>Independiente del medio:</b> el mismo paquete viaja por cobre, fibra, Wi-Fi o radioenlace.</li>
 </ul>
-<p>El encabezado IP lleva, entre otros, la IP origen, la IP destino y el <b>TTL</b> (tiempo de vida: cada router le resta 1 y, al llegar a 0, descarta el paquete).</p>
-<h4>ICMP (Protocolo de Mensajes de Control de Internet)</h4>
-<ul>
-<li>Permite a hosts y routers enviar <b>mensajes de error y de control</b>. Lo usan <code>ping</code> y <code>tracert</code>/<code>traceroute</code>.</li>
-<li><b>Reporta errores, no los corrige.</b></li>
-<li>Sus mensajes viajan <b>encapsulados en datagramas IP</b>, y es no confiable.</li>
-<li>Mensajes principales: <b>Echo Request</b> y <b>Echo Reply</b> (los de ping), <b>Destino inalcanzable</b>, <b>Tiempo excedido</b> (TTL agotado: lo que aprovecha tracert), <b>Redirección de ruta</b> y <b>Disminución de la velocidad del origen</b> (source quench).</li>
-</ul>
-<h4>ARP (Protocolo de Resolución de Direcciones)</h4>
-<p>Resuelve <b>IP → MAC</b>. La PC conoce la IP destino pero necesita la MAC para armar la trama.</p>
-<ol>
-<li>Se revisa la <b>caché ARP</b>.</li>
-<li>Si no está, se envía un <b>ARP request en broadcast local</b> ("¿quién tiene esta IP?").</li>
-<li>El destino agrega a su caché la IP y MAC de quien preguntó.</li>
-<li>El destino responde con un <b>ARP reply</b> (unicast) con su MAC.</li>
-<li>El origen agrega la entrada a su caché.</li>
-<li>Recién ahí se envía el paquete IP.</li>
-</ol>
-<p><b>Tabla caché ARP</b> (se ve con <code>arp -a</code>): guarda las correspondencias recientes IP ↔ MAC. Las entradas <b>dinámicas</b> salen de respuestas ARP, tienen tiempo de vida y se borran al vencer. Las <b>estáticas</b> se cargan a mano, no vencen y se borran a mano.</p>
-<p>Si el destino está en <b>otra red</b>, la PC no pregunta por la MAC del destino sino por la del <b>gateway</b>, porque el broadcast no cruza el router.</p>
-<h4>RARP (ARP inverso)</h4>
-<p>Resuelve <b>MAC → IP</b>: el equipo conoce su MAC pero no su IP, y se la pide por difusión a un <b>servidor RARP</b>. Fue reemplazado por BOOTP y luego por DHCP.</p>
-<h4>IGMP</h4>
-<p>Gestiona la pertenencia de los hosts a grupos <b>multicast</b>.</p>
-
-<h3>DHCP y NAT</h3>
-<p><b>DHCP</b> entrega automáticamente IP, máscara, puerta de enlace y DNS. Cuatro pasos (DORA): <b>Discover</b> (broadcast de la PC, que todavía no tiene IP) → <b>Offer</b> → <b>Request</b> → <b>Ack</b>. La IP se presta por un tiempo (concesión) y se renueva. Como arranca con broadcast, no cruza un router salvo que haya un agente de retransmisión (DHCP relay). Viaja sobre UDP.</p>
-<p><b>NAT:</b> las IP privadas no circulan por Internet. El router reemplaza la IP origen privada por su IP pública y anota en una tabla quién hizo el pedido, distinguiendo a cada equipo por número de puerto. Existe por la escasez de IPv4; con IPv6 no hace falta.</p>
-
-<h3>Utilidades TCP/IP</h3>
+<h4>Campos principales del encabezado IPv4</h4>
 <table>
-<tr><th>Tipo</th><th>Comandos</th></tr>
-<tr><td><b>De conectividad</b></td><td><code>ftp</code>, <code>telnet</code>, <code>tftp</code></td></tr>
-<tr><td><b>De diagnóstico</b></td><td><code>arp</code> (tabla ARP) · <code>hostname</code> (nombre del equipo) · <code>ipconfig</code> (configuración IP de las placas) · <code>nbtstat</code> (NetBIOS sobre TCP/IP) · <code>netstat</code> (conexiones y puertos activos) · <code>ping</code> (conectividad, usa ICMP echo) · <code>tracert</code> (routers del camino, usa ICMP tiempo excedido) · <code>route print</code> (tabla de ruteo)</td></tr>
-<tr><td><b>Software de servidor</b></td><td>Servicios de impresión TCP/IP, servicios de Internet</td></tr>
+<tr><th>Campo</th><th>Para qué</th></tr>
+<tr><td>Versión</td><td>4 para IPv4</td></tr>
+<tr><td>Longitud total</td><td>Tamaño del paquete</td></tr>
+<tr><td>Identificación, flags, desplazamiento</td><td><b>Fragmentación:</b> si el paquete es más grande que lo que admite un enlace (MTU de Ethernet: 1500 bytes), se parte y el destino lo rearma</td></tr>
+<tr><td><b>TTL</b> (Time To Live)</td><td>Cada router le resta 1; si llega a 0, el paquete se descarta</td></tr>
+<tr><td><b>Protocolo</b></td><td>Qué lleva adentro: <b>1 = ICMP, 6 = TCP, 17 = UDP</b></td></tr>
+<tr><td>Checksum del encabezado</td><td>Verifica que el encabezado no se dañó</td></tr>
+<tr><td><b>IP origen</b> e <b>IP destino</b></td><td>No cambian en todo el viaje (salvo NAT)</td></tr>
 </table>
-<h3>Cómo se junta todo</h3>
-<p>Prendo la PC y abro una página: 1) la placa usa CSMA/CA (Wi-Fi) o CSMA/CD (cable) para acceder al medio, 2) DHCP me da IP, máscara, gateway y DNS, 3) DNS traduce el nombre del sitio a una IP, 4) ARP me consigue la MAC del gateway, 5) TCP hace el saludo de tres vías con el servidor (puerto 80 o 443), 6) el switch lleva la trama por MAC hasta el router, 7) el router hace NAT y me saca a Internet con la IP pública.</p>
+<div class="box"><b>El TTL evita los paquetes zombi</b>
+Si hay un bucle de enrutamiento, un paquete podría dar vueltas para siempre. Como cada router le resta 1 al TTL, en algún momento llega a 0: el router lo <b>descarta</b> y le avisa al origen con un ICMP <b>Tiempo excedido</b> (Time Exceeded). Valores iniciales típicos: <b>Windows 128</b>, <b>Linux 64</b>, <b>equipos Cisco 255</b>. Por eso, si un ping devuelve TTL=128, probablemente respondió un Windows sin routers en el medio; si devuelve 125, hubo 3 saltos.</div>
 
-<h2 id="s18b">20. Direccionamiento IPv4 y subneteo</h2>
+<h3>ICMP — mensajes de control</h3>
+<ul>
+<li>Permite a hosts y routers <b>reportar errores y estado</b>. <b>Avisa, no corrige</b> ni reenvía nada.</li>
+<li>Viaja <b>encapsulado en IP</b> (protocolo = 1).</li>
+</ul>
+<table>
+<tr><th>Mensaje</th><th>Tipo</th><th>Lo usa</th></tr>
+<tr><td>Echo Request / Echo Reply</td><td>8 / 0</td><td><code>ping</code></td></tr>
+<tr><td>Destino inalcanzable</td><td>3</td><td>Red, host o puerto no alcanzable</td></tr>
+<tr><td>Redirección</td><td>5</td><td>Un router indica una ruta mejor</td></tr>
+<tr><td>Tiempo excedido</td><td>11</td><td>TTL agotado; lo usa <code>tracert</code></td></tr>
+</table>
+<p>También existía el mensaje de "disminuir la velocidad del origen" (source quench).</p>
+
+<h3>ARP y RARP</h3>
+<p><b>ARP</b> traduce <b>IP → MAC</b> dentro de la red local. Para armar la trama hace falta la MAC del siguiente equipo, y IP solo da la dirección lógica.</p>
+<ol>
+<li>El equipo revisa su <b>caché ARP</b>.</li>
+<li>Si no está, manda un <b>ARP request por broadcast</b> (FFFF.FFFF.FFFF): "¿quién tiene 192.168.1.1?".</li>
+<li>Solo el dueño de esa IP responde, en <b>unicast</b>, con su MAC. De paso, anota la IP y MAC de quien preguntó.</li>
+<li>El emisor guarda la respuesta en su caché y arma la trama.</li>
+</ol>
+<ul>
+<li><b>Si el destino está en otra red</b>, no se pregunta por la MAC del destino sino por la del <b>gateway</b>, porque el broadcast no cruza el router.</li>
+<li><b>Entradas de la caché:</b> las <b>dinámicas</b> vencen solas; las <b>estáticas</b> se cargan y se borran a mano. Se ve con <code>arp -a</code> y se borra con <code>arp -d</code>.</li>
+<li><b>RARP</b> hacía lo inverso (MAC → IP, con un servidor RARP). Lo reemplazaron BOOTP y luego DHCP.</li>
+<li><b>IGMP</b> administra la pertenencia de los hosts a grupos <b>multicast</b>.</li>
+</ul>
+
+<h3>Puerta de enlace, enrutamiento y NAT</h3>
+<ul>
+<li><b>Cómo decide el host</b> (con la operación AND de la sección siguiente): si el destino es de su misma red, lo entrega directo; si no, lo manda a la <b>puerta de enlace predeterminada</b> (default gateway), que es el router.</li>
+<li><b>Cada router</b> mira la IP destino, la compara con su <b>tabla de ruteo</b> y reenvía al siguiente salto.</li>
+<li><b>NAT:</b> las IP privadas no circulan por Internet. El router reemplaza la IP privada de origen por su IP pública y anota en una tabla qué conexión es de quién, distinguiéndolas por puerto. Existe por la escasez de IPv4.</li>
+</ul>
+
+<h3>Comandos de diagnóstico (vienen con TCP/IP)</h3>
+<div class="scroll"><table>
+<tr><th>Comando</th><th>Qué muestra o hace</th><th>Cuándo usarlo</th></tr>
+<tr><td><code>ipconfig</code> / <code>ipconfig /all</code></td><td>IP, máscara, gateway; con /all, también MAC, servidor DHCP, concesión y DNS</td><td>Primer paso siempre: ¿tengo IP? ¿Es 169.254.x.x?</td></tr>
+<tr><td><code>ipconfig /release</code> y <code>/renew</code></td><td>Libera y vuelve a pedir la IP por DHCP</td><td>Después de cambiar algo en el servidor DHCP</td></tr>
+<tr><td><code>ping</code></td><td>Envía ICMP Echo Request y espera Echo Reply; muestra tiempo y TTL</td><td>¿Hay conectividad con tal IP o nombre?</td></tr>
+<tr><td><code>tracert</code> (Linux: <code>traceroute</code>)</td><td>Los routers del camino, salto por salto</td><td>¿Dónde se corta el camino?</td></tr>
+<tr><td><code>nslookup</code></td><td>Consulta al DNS qué IP corresponde a un nombre</td><td>¿Está fallando la resolución de nombres?</td></tr>
+<tr><td><code>arp -a</code></td><td>La caché ARP (IP ↔ MAC)</td><td>Ver qué equipos de la red local conoce la PC</td></tr>
+<tr><td><code>netstat</code></td><td>Conexiones activas y puertos en uso</td><td>¿Qué puertos están abiertos? ¿Con quién estoy conectado?</td></tr>
+<tr><td><code>route print</code></td><td>La tabla de ruteo del equipo</td><td>Ver el gateway y las rutas</td></tr>
+<tr><td><code>hostname</code></td><td>El nombre del equipo</td><td>Identificar la PC</td></tr>
+</table></div>
+<div class="box ok"><b>Cómo funciona tracert</b>
+Manda paquetes con <b>TTL = 1</b>: el primer router lo descarta y responde Tiempo excedido, así que ya sé quién es el salto 1. Después manda con <b>TTL = 2</b>, y responde el segundo router, y así hasta llegar al destino. El primer salto es siempre <b>tu puerta de enlace</b> (por ejemplo, el router de casa 192.168.1.1).</div>
+<div class="box warn"><b>Un ping que no responde no siempre es falta de conectividad</b>
+En el TP4, el ping entre PC01 y PC02 fallaba con las IP bien puestas, porque el <b>firewall de Windows bloquea por defecto el ICMP entrante</b>. Se resolvió poniendo la red como privada y habilitando el uso compartido de archivos e impresoras.</div>
+
+<div class="tp"><h4>🧪 En los prácticos · ping y TTL (TP4 y TP7)</h4>
+<ul>
+<li><b>Ping en Windows</b> manda por defecto 4 Echo Request de 32 bytes y muestra, por cada respuesta, bytes, tiempo de ida y vuelta y TTL; al final, enviados, recibidos, perdidos y tiempos mínimo, máximo y promedio. Antes del primer envío, si no conoce la MAC del destino, hace un ARP.</li>
+<li><b>TP7:</b> el router respondió con <b>TTL 255</b> (Cisco) y los hosts con <b>TTL 128</b> (Windows). No hubo routers en el medio, así que el TTL llegó sin descontar.</li>
+<li><b>TP7, latencia:</b> menos de 1 ms entre equipos cableados, y 12 a 36 ms con un tramo Wi-Fi (medio compartido, CSMA/CA). Entre las dos notebooks el promedio fue el más alto, porque en modo infraestructura cada trama pasa por el AP: son <b>dos tramos inalámbricos</b>.</li>
+</ul></div>
+
+<div class="gancho"><h4>❓ ¿Lo entendiste?</h4>
+<details><summary>¿Qué hace un router cuando recibe un paquete con TTL = 1?</summary><p class="ans">Le resta 1, llega a 0, lo descarta y le manda al origen un ICMP Tiempo excedido. Es lo que aprovecha tracert.</p></details>
+<details><summary>La PC 192.168.1.10/24 quiere enviar algo a 8.8.8.8. ¿Por la MAC de quién pregunta con ARP?</summary><p class="ans">Por la del gateway (por ejemplo 192.168.1.1), porque 8.8.8.8 está en otra red y el ARP broadcast no cruza el router.</p></details>
+<details><summary>¿Qué comando usarías para saber si el problema es el DNS?</summary><p class="ans">nslookup con el nombre. También podés comparar ping al nombre contra ping a la IP: si la IP responde y el nombre no, el problema es la resolución de nombres.</p></details>
+</div>
+
+<h2 id="s18b">23. Direccionamiento IPv4 y subneteo</h2>
 <h3>La dirección IP</h3>
 <ul>
 <li>Identificación <b>exclusiva</b> de cada dispositivo en la red.</li>
@@ -1424,6 +1724,14 @@ La diapositiva de máscara dice dos veces "porción de bits que representa a la 
 
 <h3>Subneteo</h3>
 <p>Consiste en dividir una red grande en redes más chicas <b>tomando prestados bits de la porción de host</b> para la red.</p>
+<p><b>Para qué sirve:</b> cada subred trabaja como una red individual, aunque todas compartan la misma red física y el mismo dominio. Así se ordena la red <b>por función</b> (un área, un piso, una sucursal), lo que mejora la administración, el control del tráfico y la seguridad, y se <b>achica el dominio de broadcast</b>, lo que mejora el rendimiento. <b>Desventaja:</b> se desperdician direcciones, porque cada subred pierde dos (la de red y la de broadcast). Se nota sobre todo en los enlaces seriales entre routers, que solo necesitan 2 hosts.</p>
+<h4>Con clase y sin clase (CIDR)</h4>
+<ul>
+<li><b>La clase la define la máscara, no la IP.</b> Una dirección con su máscara por defecto (/8, /16 o /24) es de clase A, B o C. Si la máscara está adaptada (subneteada), la dirección es <b>sin clase</b> (classless), aunque por su primer octeto "parezca" de una clase. Ejemplo: 132.18.0.0/22 no es clase B, porque ya fue subneteada.</li>
+<li><b>Siempre se subnetea a partir de una red con clase</b> (A, B o C) y se adapta su máscara a lo que se pide. No se subnetea una dirección que ya es sin clase como si fuera la original: es un error muy común.</li>
+<li><b>Notación CIDR</b> (Classless Inter-Domain Routing): la IP seguida de una barra y la cantidad de bits en 1 de la máscara. 255.255.252.0 = <b>/22</b> (8 + 8 + 6).</li>
+<li><b>Cómo se lee una máscara adaptada:</b> los octetos con todos los bits en 1 son la parte de red común a todas las subredes. Los bits en 1 "sobrantes" del octeto partido son los que cambian de subred en subred, y los bits en 0 son los de host. En 132.18.0.0/22, el tercer octeto queda partido: 6 bits de subred (11111100) y 2 de host, más todo el cuarto octeto.</li>
+</ul>
 <div class="box ok"><b>Las tres fórmulas</b>
 <b>Cantidad de subredes = 2<sup>n</sup></b>, con n = bits prestados.<br>
 <b>Hosts utilizables por subred = 2<sup>h</sup> − 2</b>, con h = bits que quedan para host (se restan la dirección de red y la de broadcast).<br>
@@ -1456,6 +1764,89 @@ La diapositiva pone "2<sup>6</sup> − 2 = 64 hosts utilizables". La cuenta da <
 <h4>Conversión binario ↔ decimal</h4>
 <p>Pesos de los 8 bits de un octeto: <b>128 · 64 · 32 · 16 · 8 · 4 · 2 · 1</b>. Ejemplo: 11000000 = 128 + 64 = 192; 11100000 = 224; 11110000 = 240; 11111000 = 248; 11111100 = 252. Para pasar de decimal a binario se van restando los pesos de mayor a menor (o dividiendo por 2 y leyendo los restos de abajo hacia arriba).</p>
 
+<h3>Subneteo a partir de requisitos (apunte de subneteo)</h3>
+<p>En los ejercicios no te dan la máscara: te piden <b>cierta cantidad de subredes</b> o <b>cierta cantidad de hosts</b> y tenés que encontrar la máscara. Hay que tener en cuenta que <b>cuantos más hosts por red, menos redes, y cuantas más redes, menos hosts</b>, porque los bits que se prestan para subred se le sacan al host.</p>
+<div class="box ok"><b>Las fórmulas del apunte</b>
+<b>Subredes = 2<sup>N</sup></b>, con N = bits que se toman prestados de la porción de host.<br>
+<b>Hosts por subred = 2<sup>M</sup> − 2</b>, con M = bits que quedan en la porción de host.<br>
+<b>Salto (rango entre subredes) = 256 − valor del octeto adaptado de la máscara.</b><br>
+Se busca el menor N con 2<sup>N</sup> ≥ subredes pedidas, y se verifica que 2<sup>M</sup> − 2 ≥ hosts pedidos.</div>
+
+<h4>Ejemplo 1 · clase C: 197.15.22.0, 6 subredes con al menos 25 hosts</h4>
+<ol>
+<li>Máscara por defecto: 255.255.255.0 (/24).</li>
+<li>2<sup>N</sup> ≥ 6 → <b>N = 3</b> (8 subredes). Máscara: 11111111.11111111.11111111.<b>111</b>00000 = <b>255.255.255.224 = /27</b>.</li>
+<li>Quedan M = 5 bits de host: 2<sup>5</sup> − 2 = <b>30 hosts</b> ≥ 25 ✔.</li>
+<li>Salto: 256 − 224 = <b>32</b>.</li>
+</ol>
+<table>
+<tr><th>Subred</th><th>Dirección de subred</th><th>Rango de hosts</th><th>Broadcast</th></tr>
+<tr><td>0</td><td>197.15.22.0</td><td>.1 – .30</td><td>197.15.22.31</td></tr>
+<tr><td>1</td><td>197.15.22.32</td><td>.33 – .62</td><td>197.15.22.63</td></tr>
+<tr><td>2</td><td>197.15.22.64</td><td>.65 – .94</td><td>197.15.22.95</td></tr>
+<tr><td>3</td><td>197.15.22.96</td><td>.97 – .126</td><td>197.15.22.127</td></tr>
+<tr><td>4</td><td>197.15.22.128</td><td>.129 – .158</td><td>197.15.22.159</td></tr>
+<tr><td>5</td><td>197.15.22.160</td><td>.161 – .190</td><td>197.15.22.191</td></tr>
+<tr><td>6</td><td>197.15.22.192</td><td>.193 – .222</td><td>197.15.22.223</td></tr>
+<tr><td>7</td><td>197.15.22.224</td><td>.225 – .254</td><td>197.15.22.255</td></tr>
+</table>
+<p>Se usan 6 y quedan 2 para crecer.</p>
+
+<h4>Ejemplo 2 · clase B: 132.18.0.0/16, al menos 50 subredes y 1000 hosts</h4>
+<ol>
+<li>2<sup>N</sup> ≥ 50 → <b>N = 6</b> (64 subredes; quedan 14 para uso futuro).</li>
+<li>Máscara: 255.255.<b>252</b>.0 = <b>/22</b> (8 + 8 + 6).</li>
+<li>Quedan M = 10 bits de host: 2<sup>10</sup> − 2 = <b>1022 hosts</b> ≥ 1000 ✔.</li>
+<li>Salto: 256 − 252 = <b>4</b>, en el <b>tercer</b> octeto.</li>
+</ol>
+<table>
+<tr><th>Subred</th><th>Dirección de subred</th><th>Rango de hosts</th><th>Broadcast</th></tr>
+<tr><td>0</td><td>132.18.0.0</td><td>132.18.0.1 – 132.18.3.254</td><td>132.18.3.255</td></tr>
+<tr><td>1</td><td>132.18.4.0</td><td>132.18.4.1 – 132.18.7.254</td><td>132.18.7.255</td></tr>
+<tr><td>2</td><td>132.18.8.0</td><td>132.18.8.1 – 132.18.11.254</td><td>132.18.11.255</td></tr>
+<tr><td>…</td><td>…</td><td>…</td><td>…</td></tr>
+<tr><td>63</td><td>132.18.252.0</td><td>132.18.252.1 – 132.18.255.254</td><td>132.18.255.255</td></tr>
+</table>
+<p>Fijate que cuando el salto cae en el tercer octeto, el rango de hosts <b>cruza varios valores</b> del tercer octeto (de .0.1 a .3.254). El broadcast es la dirección anterior a la próxima subred.</p>
+
+<h4>Ejemplo 3 · clase A: 10.0.0.0/8, 7 subredes</h4>
+<ol>
+<li>2<sup>N</sup> ≥ 7 → <b>N = 3</b> (8 subredes; queda 1 para uso futuro).</li>
+<li>Máscara: 255.<b>224</b>.0.0 = <b>/11</b>.</li>
+<li>Quedan M = 21 bits de host: 2<sup>21</sup> − 2 = <b>2.097.150 hosts</b>.</li>
+<li>Salto: 256 − 224 = <b>32</b>, en el <b>segundo</b> octeto: 10.0.0.0, 10.32.0.0, 10.64.0.0 … 10.224.0.0.</li>
+</ol>
+<p>La primera subred va de 10.0.0.1 a 10.31.255.254 (broadcast 10.31.255.255), la tercera de 10.64.0.1 a 10.95.255.254, y la última de 10.224.0.1 a 10.255.255.254.</p>
+
+<div class="box warn"><b>Erratas del apunte de subneteo</b>
+En el ejemplo 2 dice "2<sup>10</sup> − 2 = 1022 − 2 = 1020 host": la cuenta correcta es 2<sup>10</sup> = 1024, y 1024 − 2 = <b>1022</b>. En la tabla de ese ejemplo, la última subred aparece numerada <b>64</b>: como se empieza en 0, es la <b>63</b>. En el ejemplo 3, el rango de la subred 2 empieza en "10.65.0.1": es <b>10.64.0.1</b>. En esa misma tabla, el broadcast de la subred 5 figura como "10.191.25.255": es <b>10.191.255.255</b>.</div>
+
+<h3>¿A qué subred pertenece una IP? (con la operación AND)</h3>
+<p>Ejemplo del apunte: <b>172.16.132.70/20</b>.</p>
+<pre>IP       172.16.132.70  = 10101100.00010000.10000100.01000110
+Máscara  255.255.240.0  = 11111111.11111111.11110000.00000000
+AND      172.16.128.0   = 10101100.00010000.10000000.00000000  ← red</pre>
+<p><b>Atajo sin binario:</b> el octeto interesante de la máscara es 240, así que el salto es 256 − 240 = 16. Las subredes del tercer octeto van de 16 en 16: 0, 16, 32 … 112, <b>128</b>, 144. El 132 cae entre 128 y 143, así que la red es <b>172.16.128.0</b>, el primer host 172.16.128.1, el broadcast <b>172.16.143.255</b> y el último host 172.16.143.254.</p>
+<div class="box"><b>Para qué sirve hacer esto a mano</b>
+Los equipos hacen el AND solos, pero al diagnosticar una red hay que poder predecirlo: por una configuración incorrecta, un host puede quedar en una red distinta de la planificada y "funcionar raro". Es exactamente lo que pasó en el TP7 con la máscara /25.</div>
+
+<div class="tp"><h4>🧪 En el práctico · TP8 (subneteo) · pendiente</h4>
+<p>El TP8 todavía no está hecho, así que acá van <b>pistas de método</b>, sin resultados:</p>
+<ul>
+<li><b>Ejercicios con una IP y una máscara</b> (red, broadcast, primer host): usá el atajo del salto. Ubicá entre qué múltiplos del salto cae el octeto interesante de la IP. El múltiplo de abajo es la red, y el de arriba menos 1 es el broadcast.</li>
+<li><b>"La tercera subred":</b> contá desde la subred 0. La tercera es la que empieza en 2 × salto.</li>
+<li><b>¿Cuántas subredes con un /n?</b> Restale al prefijo la máscara por defecto de la clase: esos son los bits prestados (N). Los que faltan hasta 32 son los de host (M).</li>
+<li><b>"4 subredes con 12 hosts":</b> cumplí las dos condiciones. 2<sup>N</sup> ≥ 4 y 2<sup>M</sup> − 2 ≥ 12, con N + M = bits de host de la clase.</li>
+<li><b>Problema de la casa central y las sucursales:</b> es un <b>subneteo jerárquico</b>. Primero elegí, dentro de la red que te asignan, una máscara para la casa central que alcance los nodos pedidos. Después volvé a subnetear <b>esa</b> subred para las sucursales, controlando los equipos de cada una. Verificá siempre que la condición de hosts se siga cumpliendo después de prestar bits.</li>
+<li><b>La tabla de direcciones con prefijo:</b> bits de host = 32 − prefijo; hosts = 2<sup>bits</sup> − 2. Ojo con el /30, que es el típico de los enlaces entre routers.</li>
+</ul></div>
+
+<div class="gancho"><h4>❓ ¿Lo entendiste?</h4>
+<details><summary>¿La dirección 172.16.10.0/24 es de clase B?</summary><p class="ans">No. Según el apunte, la clase la define la máscara: con /24 sobre una red que empieza en 172 ya hay bits prestados, así que es una dirección sin clase (classless). Clase B sería con su máscara por defecto, /16.</p></details>
+<details><summary>Necesitás 10 subredes a partir de una clase C. ¿Cuántos bits prestás y cuántos hosts quedan por subred?</summary><p class="ans">2<sup>4</sup> = 16 ≥ 10, así que prestás 4 bits (máscara /28, 255.255.255.240). Quedan 4 bits de host: 2<sup>4</sup> − 2 = 14 hosts.</p></details>
+<details><summary>¿Por qué se restan 2 en la fórmula de hosts?</summary><p class="ans">Porque cada subred necesita su propia dirección de red (bits de host en 0) y su dirección de broadcast (bits de host en 1), y ninguna se puede asignar a un equipo.</p></details>
+</div>
+
 <h3>IPv4 vs IPv6 (introducción)</h3>
 <div class="scroll"><table>
 <tr><th></th><th>IPv4</th><th>IPv6</th></tr>
@@ -1470,7 +1861,26 @@ La diapositiva pone "2<sup>6</sup> − 2 = 64 hosts utilizables". La cuenta da <
 </table></div>
 <p><b>Cómo acortar una IPv6:</b> se omiten los ceros a la izquierda de cada grupo (0db8 → db8) y, <b>una sola vez</b>, una tira de grupos en cero se reemplaza por "::". Ej.: 2001:0db8:0000:0000:0000:0000:0000:0001 → <b>2001:db8::1</b>. Las que empiezan con <b>fe80</b> son de enlace local: la PC se las genera sola y no salen del router. <b>Doble pila</b>: el equipo tiene IPv4 e IPv6 a la vez, que es como se hace la transición.</p>
 
-<h2 id="s19">21. Pares que se confunden</h2>
+<h2 id="stp">24. Trabajos prácticos: qué se llevó cada uno</h2>
+<p>Cada TP aplica temas de la teoría. En las secciones correspondientes hay una caja <b>🧪 En el práctico</b> con lo que se hizo y, sobre todo, lo que enseñó. Esta tabla sirve de mapa:</p>
+<div class="scroll"><table>
+<tr><th>TP</th><th>Tema</th><th>Idea clave para el parcial</th><th>Dónde está</th></tr>
+<tr><td><b>TP1</b></td><td>Equipamiento informático</td><td>Hardware de servidor (RAID, RDIMM, ECC), placa de red y MAC, hipervisores tipo 1 y tipo 2</td><td><a href="#s4">4. Servidores</a></td></tr>
+<tr><td><b>TP2</b></td><td>Cableado estructurado</td><td>Estrella jerárquica, 2 bocas por puesto, canal de 100 m, categoría del componente más débil, rotulado TIA-606, TGB y fibra dieléctrica</td><td><a href="#s16">17. Cableado estructurado</a></td></tr>
+<tr><td><b>TP3</b></td><td>Diseño en Packet Tracer</td><td>Llevar el plano del TP2 a una red lógica por planta con nombres normalizados</td><td><a href="#s16">17. Cableado estructurado</a></td></tr>
+<tr><td><b>TP4</b></td><td>Peer to peer</td><td>Permisos de recurso compartido vs NTFS, la denegación gana, rige el más restrictivo, herencia NTFS. El firewall bloquea el ping</td><td><a href="#s15">16. P2P vs servidor dedicado</a></td></tr>
+<tr><td><b>TP5</b></td><td>Servidor dedicado</td><td>Active Directory necesita DNS (registros SRV), OUs, Domain Admins, deshabilitar una cuenta, tomar posesión, acceso efectivo</td><td><a href="#s15">16. P2P vs servidor dedicado</a></td></tr>
+<tr><td><b>TP6</b></td><td>Protocolos TCP/IP</td><td>Secuencia ARP → DNS (UDP) → saludo TCP → HTTP → FIN; el switch solo usa capas 1 y 2</td><td><a href="#s18">19. Modelo TCP/IP</a></td></tr>
+<tr><td><b>TP7</b></td><td>Red TCP/IP con DHCP y DNS</td><td>Ámbito y exclusiones, opciones 003/006/015, autorizar el DHCP en AD, registro A, una máscara mal puesta que el DHCP propaga, TTL y latencia</td><td><a href="#s18a">20. Aplicación</a> y <a href="#s18i">22. Internet</a></td></tr>
+<tr><td><b>TP8</b></td><td>Subneteo</td><td>Pendiente: pistas de método, sin resultados</td><td><a href="#s18b">23. IPv4 y subneteo</a></td></tr>
+</table></div>
+<div class="box ok"><b>Una red de punta a punta, juntando los TPs</b>
+El <b>TP2</b> dejó el cableado (capa 1) y el <b>TP3</b> la red lógica. El <b>TP4</b> mostró que con solo IP y grupo de trabajo dos PC comparten recursos, pero cada una administra sus usuarios. El <b>TP5</b> centralizó todo en un dominio, y ahí apareció que <b>sin DNS no hay Active Directory</b>. El <b>TP7</b> sumó DHCP para no configurar cada equipo a mano. El <b>TP6</b> abrió la caja para ver qué protocolos viajan cuando se pide una página. El <b>TP8</b> agrega cómo dividir el espacio de direcciones cuando una sola red no alcanza.</div>
+<div class="gancho"><h4>❓ ¿Lo entendiste?</h4>
+<details><summary>En Packet Tracer, al pedir una página por nombre por primera vez, ¿cuál es el primer protocolo que aparece y por qué?</summary><p class="ans">ARP: antes de mandar la consulta DNS, la PC necesita la MAC del servidor DNS (o del gateway) para armar la trama.</p></details>
+<details><summary>El DHCP de un router reparte la máscara 255.255.255.128 en una red donde el servidor es la .250. ¿Qué pasa?</summary><p class="ans">Con /25, la red de los clientes va de .0 a .127, así que el servidor (.250) queda "en otra red". Los clientes intentarían llegar a él por el gateway en vez de directo, y la comunicación falla. Hay que corregir la máscara y renovar las IP.</p></details>
+</div>
+<h2 id="s19">25. Pares que se confunden</h2>
 <div class="scroll"><table>
 <tr><th>Esto…</th><th>…no es esto</th><th>La diferencia</th></tr>
 <tr><td>Topología física</td><td>Topología lógica</td><td>Cómo se cablea vs cómo circula la información. La lógica la da el protocolo de acceso al medio.</td></tr>
@@ -1493,6 +1903,11 @@ La diapositiva pone "2<sup>6</sup> − 2 = 64 hosts utilizables". La cuenta da <
 <tr><td>Subcapa MAC</td><td>Subcapa LLC</td><td>Acceso al medio y dirección física vs sincronización de tramas, control de flujo y chequeo de errores.</td></tr>
 <tr><td>Protocolo ruteable</td><td>Protocolo de enrutamiento</td><td>Viaja con los datos (IP) vs lo usan los routers para armar sus tablas (RIP, IGRP).</td></tr>
 <tr><td>TCP</td><td>UDP</td><td>Orientado a conexión, confiable, con ACK, secuencia y ventana vs sin conexión, sin garantía ni control de flujo, más liviano.</td></tr>
+<tr><td>Puerto</td><td>Dirección IP</td><td>Identifica la aplicación dentro del equipo (capa 4) vs identifica al equipo en la red (capa 3). Socket = IP + puerto.</td></tr>
+<tr><td>Programa (Chrome, Outlook)</td><td>Protocolo de aplicación (HTTP, SMTP)</td><td>El programa usa el protocolo; en la capa de aplicación está el protocolo, no el programa.</td></tr>
+<tr><td>POP3</td><td>IMAP</td><td>Descarga el correo a un dispositivo vs lo mantiene sincronizado en el servidor para varios dispositivos.</td></tr>
+<tr><td>Permisos de recurso compartido</td><td>Permisos NTFS</td><td>Solo en el acceso por red, tres niveles vs siempre (local y red), herencia por carpeta. Combinados, rige el más restrictivo.</td></tr>
+<tr><td>Con clase</td><td>Sin clase (classless)</td><td>Máscara por defecto de A, B o C vs máscara adaptada por subneteo. La clase la define la máscara.</td></tr>
 <tr><td>ARP</td><td>RARP</td><td>Conozco la IP, busco la MAC vs conozco mi MAC, busco mi IP.</td></tr>
 <tr><td>Dirección de red</td><td>Dirección de broadcast</td><td>Bits de host todos en 0 (la más baja) vs bits de host todos en 1 (la más alta). Ninguna se asigna a un equipo.</td></tr>
 <tr><td>Loopback 127.x</td><td>Enlace local 169.254.x</td><td>Prueba hacia uno mismo vs dirección que se pone sola el SO cuando no consiguió IP.</td></tr>
@@ -1501,14 +1916,14 @@ La diapositiva pone "2<sup>6</sup> − 2 = 64 hosts utilizables". La cuenta da <
 <tr><td>Segmento poblado</td><td>Segmento no poblado</td><td>Con PCs conectadas vs solo une repetidores (regla 5-4-3).</td></tr>
 </table></div>
 
-<h2 id="s20">22. Autoevaluación</h2>
-<p>Las <b>70 preguntas</b> (verdadero o falso y opción múltiple, agrupadas por tema) están en tres páginas aparte, con las mismas preguntas en todas:</p>
+<h2 id="s20">26. Autoevaluación</h2>
+<p>Las <b>110 preguntas</b> (verdadero o falso y opción múltiple, agrupadas por tema) están en tres páginas aparte, con las mismas preguntas en todas:</p>
 <div class="grid">
 <a class="card cardlink" href="practica.html"><h4>Examen de práctica →</h4>Cada respuesta se <b>corrige al instante</b> y queda fija: ves si acertaste, por qué, y en qué sección de la guía repasarlo. Al final te dice qué secciones repasar y podés reintentar solo las incorrectas.</a>
 <a class="card cardlink" href="examen.html"><h4>Examen definitivo →</h4>Como el parcial: con <b>tiempo límite</b> opcional, podés cambiar las respuestas y la corrección llega al enviar, con nota, tiempo, qué repasar y reintento de las incorrectas.</a>
 <a class="card cardlink" href="autoevaluacion.html"><h4>Repaso con respuestas →</h4>Cada pregunta con sus opciones y un desplegable <b>Ver respuesta</b> con la explicación. Sin puntaje: ideal para repasar leyendo.</a>
 </div>
-<p class="sub" style="margin-top:40px">Fuentes: material oficial del aula virtual (Ing. Patricia Nazar): Modelo OSI partes 1 a 3, Norma IEEE 802.3 Ethernet, Norma IEEE 802.3u Fast Ethernet, Introducción a Switching Ethernet, Redes inalámbricas, Modelo TCP/IP partes 1 a 3, Teoría y Práctica de Cableado Estructurado, trama 802.3; slides Primeras Unidades 2026, planificación 2026, apuntes de clase 1 y 2, resumen de conceptos a afianzar, resumen de normas TIA y las presentaciones de actividades del grupo.</p>
+<p class="sub" style="margin-top:40px">Fuentes: material oficial del aula virtual (Ing. Patricia Nazar): Modelo OSI partes 1 a 3, Norma IEEE 802.3 Ethernet, Norma IEEE 802.3u Fast Ethernet, Introducción a Switching Ethernet, Redes inalámbricas, Modelo TCP/IP partes 1 a 3, apunte de Subneteo 2026, clase-taller de TCP/IP, Teoría y Práctica de Cableado Estructurado, trama 802.3; slides Primeras Unidades 2026, planificación 2026, apuntes de clase 1 y 2, resumen de conceptos a afianzar, resumen de normas TIA las presentaciones de actividades del grupo y los trabajos prácticos 1 a 7.</p>
 </main>
 </div>
 <script>

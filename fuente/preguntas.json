@@ -1,5 +1,5 @@
 {
- "version": "1.4",
+ "version": "1.5",
  "temas": [
   {
    "id": "osi",
@@ -39,7 +39,11 @@
   },
   {
    "id": "tcp",
-   "nombre": "TCP/IP y direccionamiento"
+   "nombre": "Modelo TCP/IP y protocolos"
+  },
+  {
+   "id": "ip",
+   "nombre": "IPv4 y subneteo"
   }
  ],
  "preguntas": [
@@ -930,7 +934,7 @@
   },
   {
    "id": 64,
-   "tema": "tcp",
+   "tema": "ip",
    "tipo": "mc",
    "enunciado": "PC1 es 192.168.1.20/24 y PC2 es 192.168.2.20/24, en el mismo switch sin router. ¿Hay ping?",
    "opciones": [
@@ -969,7 +973,7 @@
    ],
    "correcta": 1,
    "explicacion": "IP es <b>sin conexión</b> (no establece nada antes de enviar) y <b>no confiable</b>: no detecta paquetes perdidos, dañados ni desordenados, ni da acuse de recibo. La confiabilidad la agrega <b>TCP</b> en la capa de transporte, que sí es orientado a conexión.",
-   "seccion": "s18"
+   "seccion": "s18i"
   },
   {
    "id": 67,
@@ -984,7 +988,7 @@
    ],
    "correcta": 1,
    "explicacion": "TCP abre la sesión con el <b>saludo de tres vías</b>: el cliente manda <b>SYN</b>, el servidor responde <b>SYN-ACK</b> (y negocia parámetros) y el cliente confirma con <b>ACK</b>. Recién ahí se crea el circuito virtual. Discover-Offer-Request-Ack es DHCP, y GET/POST/PUT son mensajes HTTP.",
-   "seccion": "s18"
+   "seccion": "s18t"
   },
   {
    "id": 68,
@@ -999,11 +1003,11 @@
    ],
    "correcta": 2,
    "explicacion": "<b>Ping</b> usa <b>ICMP</b>: envía un mensaje <b>Echo Request</b> y espera un <b>Echo Reply</b>. ICMP viaja encapsulado en IP y reporta errores y estado de la red, pero no los corrige. Tracert también usa ICMP (el mensaje de tiempo excedido).",
-   "seccion": "s18"
+   "seccion": "s18i"
   },
   {
    "id": 69,
-   "tema": "tcp",
+   "tema": "ip",
    "tipo": "mc",
    "enunciado": "Una PC muestra en ipconfig la dirección 169.254.12.5. Significa que:",
    "opciones": [
@@ -1018,7 +1022,7 @@
   },
   {
    "id": 70,
-   "tema": "tcp",
+   "tema": "ip",
    "tipo": "mc",
    "enunciado": "Red 192.168.1.0 con máscara 255.255.255.192 (/26). ¿Cuántas subredes se obtienen y cuántos hosts utilizables tiene cada una?",
    "opciones": [
@@ -1030,6 +1034,588 @@
    "correcta": 1,
    "explicacion": "Una /26 presta <b>2 bits</b> del último octeto: 2<sup>2</sup> = <b>4 subredes</b>. Quedan 6 bits de host: 2<sup>6</sup> − 2 = <b>62 hosts</b> por subred (se restan la dirección de red y la de broadcast). El salto es 256 − 192 = 64: las subredes son .0, .64, .128 y .192. Ojo: 64 es el salto, no la cantidad de hosts.",
    "seccion": "s18b"
+  },
+  {
+   "id": 71,
+   "tema": "tcp",
+   "tipo": "vf",
+   "enunciado": "Chrome es un protocolo de la capa de aplicación de TCP/IP.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "Chrome es un <b>programa</b> (navegador). Lo que está en la capa de aplicación es el <b>protocolo</b> que usa: <b>HTTP o HTTPS</b>. Lo mismo vale para Outlook, que usa SMTP e IMAP, o FileZilla, que usa FTP.",
+   "seccion": "s18a"
+  },
+  {
+   "id": 72,
+   "tema": "tcp",
+   "tipo": "mc",
+   "enunciado": "¿Qué protocolo de transporte y qué puerto usa normalmente una consulta DNS?",
+   "opciones": [
+    "TCP, puerto 53",
+    "UDP, puerto 53",
+    "UDP, puerto 67",
+    "TCP, puerto 80"
+   ],
+   "correcta": 1,
+   "explicacion": "Las consultas DNS son mensajes cortos de pregunta y respuesta, así que van sobre <b>UDP</b> al puerto <b>53</b>: armar una conexión TCP costaría más que la consulta. DNS usa TCP 53 solo para respuestas grandes y transferencias de zona. El 67 es DHCP y el 80, HTTP.",
+   "seccion": "s18a"
+  },
+  {
+   "id": 73,
+   "tema": "tcp",
+   "tipo": "mc",
+   "enunciado": "En el proceso DORA de DHCP, ¿cuál es el primer mensaje y cómo se envía?",
+   "opciones": [
+    "Offer, en unicast desde el servidor",
+    "Discover, en broadcast desde el cliente",
+    "Request, en unicast desde el cliente",
+    "Acknowledge, en broadcast desde el servidor"
+   ],
+   "correcta": 1,
+   "explicacion": "El cliente todavía no tiene IP ni sabe dónde está el servidor, así que arranca con un <b>Discover por broadcast</b>. Siguen <b>Offer</b> (el servidor ofrece una IP), <b>Request</b> (el cliente la pide) y <b>Acknowledge</b> (el servidor confirma y presta la IP por un tiempo). Como el Discover es broadcast, no cruza routers sin un agente de retransmisión.",
+   "seccion": "s18a"
+  },
+  {
+   "id": 74,
+   "tema": "tcp",
+   "tipo": "mc",
+   "enunciado": "DHCP usa los puertos:",
+   "opciones": [
+    "TCP 20 y 21",
+    "UDP 67 (servidor) y 68 (cliente)",
+    "UDP 53",
+    "TCP 67 y 68"
+   ],
+   "correcta": 1,
+   "explicacion": "DHCP trabaja sobre <b>UDP</b>: el servidor escucha en el <b>67</b> y el cliente en el <b>68</b>. Es un intercambio corto dentro de la red local, por eso no necesita la confiabilidad de TCP. Los puertos 20 y 21 son de FTP y el 53, de DNS.",
+   "seccion": "s18a"
+  },
+  {
+   "id": 75,
+   "tema": "tcp",
+   "tipo": "mc",
+   "enunciado": "El navegador muestra \"No se encontró la dirección del servidor\", pero el ping a la IP del sitio responde. ¿Qué está fallando?",
+   "opciones": [
+    "El cableado",
+    "La resolución de nombres (DNS)",
+    "El servidor web devolvió un error 500",
+    "El TTL"
+   ],
+   "correcta": 1,
+   "explicacion": "Si la IP responde, hay conectividad de capas 1 a 3. Lo que no funciona es la traducción del nombre a la IP: el <b>DNS</b>. Se puede confirmar con <code>nslookup</code>. Un error 500 implicaría que el servidor web sí respondió.",
+   "seccion": "s18a"
+  },
+  {
+   "id": 76,
+   "tema": "tcp",
+   "tipo": "mc",
+   "enunciado": "Un servidor web responde con el código 404. Significa que:",
+   "opciones": [
+    "el servidor falló internamente",
+    "el recurso pedido no existe",
+    "la página se cargó bien",
+    "la página se movió de forma permanente"
+   ],
+   "correcta": 1,
+   "explicacion": "Los códigos <b>4xx</b> son errores del lado del pedido: <b>404 Not Found</b> indica que el recurso no existe en el servidor. El servidor sí respondió. Un fallo interno sería <b>500</b> (5xx), una carga correcta <b>200 OK</b> y un movimiento permanente <b>301</b>.",
+   "seccion": "s18a"
+  },
+  {
+   "id": 77,
+   "tema": "tcp",
+   "tipo": "mc",
+   "enunciado": "Querés leer tu correo desde el celular y la notebook y que ambos queden sincronizados. ¿Qué protocolo corresponde?",
+   "opciones": [
+    "SMTP",
+    "POP3",
+    "IMAP",
+    "FTP"
+   ],
+   "correcta": 2,
+   "explicacion": "<b>IMAP</b> (puerto 143) deja los mensajes en el servidor y sincroniza el estado en todos los dispositivos. <b>POP3</b> (110) los descarga a un solo dispositivo y, por defecto, los borra del servidor. <b>SMTP</b> (25) sirve para enviar, no para leer.",
+   "seccion": "s18a"
+  },
+  {
+   "id": 78,
+   "tema": "tcp",
+   "tipo": "vf",
+   "enunciado": "HTTPS es HTTP con cifrado TLS y usa por defecto el puerto 443.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. <b>HTTPS</b> agrega a HTTP una capa de cifrado <b>TLS</b> (antes SSL), de modo que un tercero no pueda leer lo que viaja, y su puerto por defecto es el <b>443</b>. HTTP sin cifrar usa el <b>80</b>.",
+   "seccion": "s18a"
+  },
+  {
+   "id": 79,
+   "tema": "tcp",
+   "tipo": "mc",
+   "enunciado": "¿Qué es un socket?",
+   "opciones": [
+    "La combinación de dirección IP y número de puerto",
+    "El conector RJ-45 de la placa de red",
+    "La dirección MAC de la interfaz",
+    "El encabezado del segmento TCP"
+   ],
+   "correcta": 0,
+   "explicacion": "Un <b>socket</b> es <b>IP + puerto</b>, por ejemplo 192.168.2.150:80. La IP identifica al equipo y el puerto a la aplicación dentro de él. Una conexión queda identificada por el par de sockets de origen y destino.",
+   "seccion": "s18t"
+  },
+  {
+   "id": 80,
+   "tema": "tcp",
+   "tipo": "mc",
+   "enunciado": "¿Cuál es el rango de los puertos bien conocidos (well-known)?",
+   "opciones": [
+    "0 a 1023",
+    "1024 a 49151",
+    "49152 a 65535",
+    "0 a 65535"
+   ],
+   "correcta": 0,
+   "explicacion": "Los <b>bien conocidos</b> van de <b>0 a 1023</b> y los asigna la IANA a servicios estándar (80, 443, 53, 25…). De 1024 a 49151 son <b>registrados</b> (aplicaciones y fabricantes, como MySQL 3306) y de 49152 a 65535, <b>dinámicos</b>: los usa el cliente como puerto de origen temporal.",
+   "seccion": "s18t"
+  },
+  {
+   "id": 81,
+   "tema": "tcp",
+   "tipo": "mc",
+   "enunciado": "¿Cuántos bytes tiene el encabezado UDP?",
+   "opciones": [
+    "8",
+    "20",
+    "32",
+    "64"
+   ],
+   "correcta": 0,
+   "explicacion": "El encabezado <b>UDP</b> tiene <b>8 bytes</b>: puerto de origen, puerto de destino, longitud y checksum. El de <b>TCP</b> tiene como mínimo <b>20 bytes</b>, porque suma número de secuencia, ACK, flags y ventana, entre otros campos. Por eso UDP es más liviano.",
+   "seccion": "s18t"
+  },
+  {
+   "id": 82,
+   "tema": "tcp",
+   "tipo": "mc",
+   "enunciado": "El host A envía un segmento con número de secuencia 1 y 500 bytes de datos. Si llega bien, ¿qué número de ACK devuelve B?",
+   "opciones": [
+    "1",
+    "500",
+    "501",
+    "1000"
+   ],
+   "correcta": 2,
+   "explicacion": "El ACK indica <b>el próximo byte que el receptor espera</b>. A envió los bytes 1 a 500, así que B responde <b>ACK = 501</b>. Si el segmento se perdiera, el ACK no avanzaría y A sabría qué retransmitir.",
+   "seccion": "s18t"
+  },
+  {
+   "id": 83,
+   "tema": "tcp",
+   "tipo": "mc",
+   "enunciado": "Para una videollamada en tiempo real, ¿qué protocolo de transporte conviene y por qué?",
+   "opciones": [
+    "TCP, porque garantiza que llegue todo",
+    "UDP, porque un dato retransmitido llegaría tarde y generaría pausas",
+    "TCP, porque tiene encabezado más chico",
+    "UDP, porque cifra los datos"
+   ],
+   "correcta": 1,
+   "explicacion": "En tiempo real importa más la <b>latencia</b> que la entrega perfecta. Si TCP retransmitiera un fragmento de audio perdido, llegaría tarde y causaría pausas y desfasaje. Con <b>UDP</b> se pierde ese pedacito y se sigue. UDP no cifra nada, y su encabezado (8 bytes) es el más chico, no el de TCP.",
+   "seccion": "s18t"
+  },
+  {
+   "id": 84,
+   "tema": "tcp",
+   "tipo": "vf",
+   "enunciado": "Una conexión TCP se cierra con el mismo saludo de tres vías que la abre: SYN, SYN-ACK y ACK.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "El cierre usa <b>FIN</b> y <b>ACK</b>, normalmente en <b>cuatro pasos</b>: cada sentido de la conexión se cierra por separado (A manda FIN, B responde ACK, B manda su FIN y A responde ACK). SYN se usa solo para abrir.",
+   "seccion": "s18t"
+  },
+  {
+   "id": 85,
+   "tema": "tcp",
+   "tipo": "mc",
+   "enunciado": "Un router recibe un paquete con TTL = 1. ¿Qué hace?",
+   "opciones": [
+    "Lo reenvía con TTL = 0",
+    "Lo descarta y avisa al origen con un ICMP Tiempo excedido",
+    "Le pone TTL = 128 y lo reenvía",
+    "Lo devuelve con ICMP Echo Reply"
+   ],
+   "correcta": 1,
+   "explicacion": "Cada router le resta 1 al TTL. Si llega a 0, el paquete se <b>descarta</b> y el router le envía al origen un <b>ICMP Tiempo excedido</b> (tipo 11). Así se evitan los paquetes que dan vueltas para siempre en un bucle. Es el mecanismo que aprovecha tracert.",
+   "seccion": "s18i"
+  },
+  {
+   "id": 86,
+   "tema": "tcp",
+   "tipo": "mc",
+   "enunciado": "¿Qué comando muestra los routers por los que pasa un paquete hasta llegar al destino?",
+   "opciones": [
+    "ping",
+    "tracert",
+    "ipconfig",
+    "arp -a"
+   ],
+   "correcta": 1,
+   "explicacion": "<b>tracert</b> (traceroute en Linux) envía paquetes con TTL 1, 2, 3… y cada router que descarta uno responde con ICMP Tiempo excedido, revelando su IP. <b>ping</b> solo prueba la conectividad, <b>ipconfig</b> muestra la configuración IP local y <b>arp -a</b>, la caché ARP.",
+   "seccion": "s18i"
+  },
+  {
+   "id": 87,
+   "tema": "tcp",
+   "tipo": "mc",
+   "enunciado": "El campo Protocolo del encabezado IP tiene el valor 6. ¿Qué lleva el paquete?",
+   "opciones": [
+    "UDP",
+    "ICMP",
+    "TCP",
+    "ARP"
+   ],
+   "correcta": 2,
+   "explicacion": "El campo <b>Protocolo</b> indica a qué protocolo de la capa superior hay que entregar los datos: <b>1 = ICMP</b>, <b>6 = TCP</b>, <b>17 = UDP</b>. ARP no va dentro de IP: viaja directo en la trama, con su propio valor en el campo tipo de Ethernet.",
+   "seccion": "s18i"
+  },
+  {
+   "id": 88,
+   "tema": "tcp",
+   "tipo": "vf",
+   "enunciado": "Cuando un paquete atraviesa varios routers, las direcciones IP de origen y destino se mantienen, pero las direcciones MAC cambian en cada salto.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. Las <b>IP</b> identifican los extremos de punta a punta (salvo que un router haga NAT). Las <b>MAC</b> solo tienen sentido dentro de cada enlace: cada router arma una trama nueva con su MAC como origen y la del siguiente equipo como destino.",
+   "seccion": "s18"
+  },
+  {
+   "id": 89,
+   "tema": "tcp",
+   "tipo": "mc",
+   "enunciado": "Hacés ping a una PC de tu misma red y la respuesta muestra TTL=128. Lo más probable es que:",
+   "opciones": [
+    "sea un router Cisco",
+    "sea un equipo Windows y no haya routers en el medio",
+    "el paquete haya pasado por 128 routers",
+    "sea un error de configuración"
+   ],
+   "correcta": 1,
+   "explicacion": "Windows arranca con <b>TTL 128</b>, Linux con 64 y los equipos Cisco con 255. Si el ping vuelve con 128 exacto, el equipo es probablemente un Windows y <b>no hubo saltos</b> que lo descontaran. En el TP7, los hosts respondieron con 128 y el router con 255.",
+   "seccion": "s18i"
+  },
+  {
+   "id": 90,
+   "tema": "lan",
+   "tipo": "vf",
+   "enunciado": "Para que un cliente Windows pueda unirse a un dominio de Active Directory, tiene que usar como DNS un servidor que conozca el dominio, normalmente el propio controlador de dominio.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. Los clientes no buscan al controlador de dominio por broadcast: consultan al DNS los <b>registros SRV</b> que el controlador publica (por ejemplo _ldap._tcp.dc._msdcs.dominio). Si usan el DNS del router o uno público, no encuentran esos registros y no pueden unirse ni iniciar sesión. Lo comprobamos en el TP5.",
+   "seccion": "s15"
+  },
+  {
+   "id": 91,
+   "tema": "lan",
+   "tipo": "mc",
+   "enunciado": "Una carpeta compartida da Control total en los permisos de recurso compartido y Leer en NTFS. ¿Qué puede hacer un usuario que entra por la red?",
+   "opciones": [
+    "Control total",
+    "Solo leer",
+    "Nada",
+    "Modificar"
+   ],
+   "correcta": 1,
+   "explicacion": "Cuando se accede por la red se evalúan las dos capas y rige <b>la más restrictiva</b>: Control total en el compartido y Leer en NTFS dan <b>Leer</b>. Por eso lo habitual es dejar el compartido abierto y hacer el control fino en NTFS.",
+   "seccion": "s15"
+  },
+  {
+   "id": 92,
+   "tema": "lan",
+   "tipo": "vf",
+   "enunciado": "Si un usuario tiene Denegar en forma individual y su grupo tiene Permitir, gana el permiso del grupo porque es más amplio.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "Gana la <b>denegación explícita</b>, sin importar que venga de una entrada individual y el permiso de un grupo. Windows evalúa primero las denegaciones explícitas, después los permisos explícitos y después los heredados. Así se hace una excepción con una persona sin sacarla del grupo, como pasó con torresd en el TP4 y Marcos Tapia en el TP5.",
+   "seccion": "s15"
+  },
+  {
+   "id": 93,
+   "tema": "lan",
+   "tipo": "mc",
+   "enunciado": "Un pasante deja la empresa y hay que quitarle todos los accesos del dominio de forma rápida y reversible. ¿Qué conviene hacer?",
+   "opciones": [
+    "Quitarlo carpeta por carpeta",
+    "Deshabilitar su cuenta en Active Directory",
+    "Cambiarle la IP",
+    "Borrar el grupo al que pertenece"
+   ],
+   "correcta": 1,
+   "explicacion": "<b>Deshabilitar la cuenta</b>: sin autenticación no se llega a evaluar ningún permiso de recurso compartido ni NTFS, en ningún equipo. La cuenta conserva su SID, grupos y permisos, así que se revierte habilitándola. Borrar el grupo afectaría a todos los demás.",
+   "seccion": "s15"
+  },
+  {
+   "id": 94,
+   "tema": "tcp",
+   "tipo": "mc",
+   "enunciado": "Un servidor tiene IP fija 192.168.0.250 y el ámbito DHCP va de .100 a .254. ¿Qué hay que hacer para evitar conflictos?",
+   "opciones": [
+    "Nada, el DHCP detecta solo las IP fijas",
+    "Excluir la .250 del ámbito o achicar el rango",
+    "Cambiar la máscara a /25",
+    "Poner el servidor como cliente DHCP"
+   ],
+   "correcta": 1,
+   "explicacion": "El DHCP no sabe qué IP pusiste a mano: si la .250 está en el ámbito, puede dársela a otro equipo y generar un conflicto. Hay que <b>excluirla</b> (o dejar las fijas fuera del rango). En el TP7, el Windows Server permitió exclusiones y el router de Packet Tracer no.",
+   "seccion": "s18a"
+  },
+  {
+   "id": 95,
+   "tema": "ip",
+   "tipo": "mc",
+   "enunciado": "En una red 192.168.0.0, el DHCP reparte la máscara 255.255.255.128. El servidor tiene la IP 192.168.0.250. ¿Qué pasa con un cliente que recibió 192.168.0.110?",
+   "opciones": [
+    "Se comunica normal, están en la misma red",
+    "Ve al servidor en otra red, porque con /25 su red llega solo hasta .127",
+    "No recibe IP",
+    "Solo falla el DNS"
+   ],
+   "correcta": 1,
+   "explicacion": "Con /25, la red del cliente va de <b>192.168.0.0 a 192.168.0.127</b>. El AND con la .250 da otra red (192.168.0.128), así que el cliente intenta llegar al servidor por el gateway y la comunicación directa falla. Es el error que apareció en el TP7: la máscara mal puesta en el router se propagó por DHCP a todos los clientes.",
+   "seccion": "s18b"
+  },
+  {
+   "id": 96,
+   "tema": "disp",
+   "tipo": "vf",
+   "enunciado": "En la simulación de Packet Tracer, el switch analiza la dirección IP de destino para decidir por qué puerto reenviar la trama.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "El switch es un equipo de <b>capa 2</b>: solo tiene activas las capas 1 y 2 y conmuta por <b>dirección MAC</b> usando su tabla. No mira la IP. Así se vio en el TP6 con In Layers / Out Layers.",
+   "seccion": "s14"
+  },
+  {
+   "id": 97,
+   "tema": "ip",
+   "tipo": "mc",
+   "enunciado": "¿A qué red pertenece el host 172.16.132.70/20?",
+   "opciones": [
+    "172.16.0.0",
+    "172.16.128.0",
+    "172.16.132.0",
+    "172.16.144.0"
+   ],
+   "correcta": 1,
+   "explicacion": "Con /20 la máscara es 255.255.<b>240</b>.0, así que el salto en el tercer octeto es 256 − 240 = <b>16</b>: 0, 16, 32 … 112, <b>128</b>, 144. El 132 cae entre 128 y 143, y la red es <b>172.16.128.0</b> (broadcast 172.16.143.255). Es el ejemplo de la operación AND del apunte de subneteo.",
+   "seccion": "s18b"
+  },
+  {
+   "id": 98,
+   "tema": "ip",
+   "tipo": "mc",
+   "enunciado": "Hay que dividir una red clase C en 6 subredes con al menos 25 hosts cada una. ¿Qué máscara se usa?",
+   "opciones": [
+    "/26 (255.255.255.192)",
+    "/27 (255.255.255.224)",
+    "/28 (255.255.255.240)",
+    "/25 (255.255.255.128)"
+   ],
+   "correcta": 1,
+   "explicacion": "2<sup>N</sup> ≥ 6 da <b>N = 3</b> bits prestados (8 subredes), o sea <b>/27</b>. Quedan 5 bits de host: 2<sup>5</sup> − 2 = <b>30 hosts</b> ≥ 25. Con /26 habría solo 4 subredes, y con /28, solo 14 hosts por subred.",
+   "seccion": "s18b"
+  },
+  {
+   "id": 99,
+   "tema": "ip",
+   "tipo": "mc",
+   "enunciado": "¿Cuál es la dirección de broadcast de la subred a la que pertenece 192.168.5.77/27?",
+   "opciones": [
+    "192.168.5.63",
+    "192.168.5.95",
+    "192.168.5.127",
+    "192.168.5.255"
+   ],
+   "correcta": 1,
+   "explicacion": "/27 = 255.255.255.224, salto 256 − 224 = <b>32</b>. Las subredes empiezan en 0, 32, <b>64</b>, 96… El 77 está en la que empieza en 64, y su broadcast es la dirección anterior a la siguiente subred: <b>192.168.5.95</b>.",
+   "seccion": "s18b"
+  },
+  {
+   "id": 100,
+   "tema": "ip",
+   "tipo": "mc",
+   "enunciado": "¿Cuál es el primer host válido de la subred de 10.1.1.200/26?",
+   "opciones": [
+    "10.1.1.128",
+    "10.1.1.192",
+    "10.1.1.193",
+    "10.1.1.201"
+   ],
+   "correcta": 2,
+   "explicacion": "/26 = 255.255.255.192, salto <b>64</b>: 0, 64, 128, <b>192</b>. El 200 cae en la subred <b>10.1.1.192</b> (red), así que el primer host es <b>10.1.1.193</b> y el broadcast 10.1.1.255.",
+   "seccion": "s18b"
+  },
+  {
+   "id": 101,
+   "tema": "ip",
+   "tipo": "vf",
+   "enunciado": "Una subred /30 tiene exactamente 2 direcciones de host utilizables.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. Con /30 quedan 2 bits de host: 2<sup>2</sup> − 2 = <b>2 hosts</b>. Por eso se usa en los enlaces punto a punto entre routers, que solo necesitan una dirección en cada punta.",
+   "seccion": "s18b"
+  },
+  {
+   "id": 102,
+   "tema": "ip",
+   "tipo": "mc",
+   "enunciado": "A partir de una red clase B se necesitan al menos 50 subredes. ¿Cuántos bits hay que tomar prestados?",
+   "opciones": [
+    "5",
+    "6",
+    "7",
+    "8"
+   ],
+   "correcta": 1,
+   "explicacion": "2<sup>5</sup> = 32 no alcanza, 2<sup>6</sup> = <b>64</b> ≥ 50. Se prestan <b>6 bits</b>: la máscara queda 255.255.252.0 (/22) y sobran 14 subredes para crecer. Es el ejemplo 2 del apunte.",
+   "seccion": "s18b"
+  },
+  {
+   "id": 103,
+   "tema": "ip",
+   "tipo": "mc",
+   "enunciado": "¿Cuántos hosts utilizables tiene cada subred /22?",
+   "opciones": [
+    "1020",
+    "1022",
+    "1024",
+    "2046"
+   ],
+   "correcta": 1,
+   "explicacion": "Con /22 quedan 32 − 22 = <b>10 bits</b> de host: 2<sup>10</sup> − 2 = 1024 − 2 = <b>1022</b>. Ojo: el apunte de subneteo tiene una errata que da 1020.",
+   "seccion": "s18b"
+  },
+  {
+   "id": 104,
+   "tema": "ip",
+   "tipo": "vf",
+   "enunciado": "Según el apunte de subneteo de la cátedra, una dirección con máscara adaptada (subneteada) se considera sin clase, aunque su primer octeto corresponda a una clase.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. Para el apunte, <b>la clase la define la máscara y no la IP</b>: solo con la máscara por defecto (/8, /16, /24) la dirección es de clase A, B o C. Con máscara adaptada es direccionamiento <b>sin clase</b> (classless), por ejemplo 132.18.0.0/22.",
+   "seccion": "s18b"
+  },
+  {
+   "id": 105,
+   "tema": "ip",
+   "tipo": "mc",
+   "enunciado": "¿Cuál de estas direcciones se puede asignar a un equipo en la red 192.168.10.0/28?",
+   "opciones": [
+    "192.168.10.0",
+    "192.168.10.15",
+    "192.168.10.14",
+    "192.168.10.16"
+   ],
+   "correcta": 2,
+   "explicacion": "Con /28 el salto es <b>16</b>: la red 192.168.10.0 va de .0 (red) a .15 (broadcast). Los hosts son de .1 a <b>.14</b>. La .16 ya es la dirección de red de la subred siguiente.",
+   "seccion": "s18b"
+  },
+  {
+   "id": 106,
+   "tema": "tcp",
+   "tipo": "mc",
+   "enunciado": "¿Qué comando de Windows muestra la tabla que asocia direcciones IP con direcciones MAC?",
+   "opciones": [
+    "netstat",
+    "arp -a",
+    "route print",
+    "hostname"
+   ],
+   "correcta": 1,
+   "explicacion": "<b>arp -a</b> muestra la <b>caché ARP</b> (IP ↔ MAC) con sus entradas dinámicas y estáticas. <b>netstat</b> muestra conexiones y puertos, <b>route print</b> la tabla de ruteo y <b>hostname</b> el nombre del equipo.",
+   "seccion": "s18i"
+  },
+  {
+   "id": 107,
+   "tema": "tcp",
+   "tipo": "mc",
+   "enunciado": "¿Qué comando se usa para comprobar si un servidor DNS resuelve correctamente un nombre?",
+   "opciones": [
+    "nslookup",
+    "ipconfig /release",
+    "tracert",
+    "arp -d"
+   ],
+   "correcta": 0,
+   "explicacion": "<b>nslookup</b> consulta al servidor DNS qué IP corresponde a un nombre. En el TP5 se verificó con <code>nslookup Redes1.com</code>, y en el TP7 con <code>nslookup server01.com</code>.",
+   "seccion": "s18i"
+  },
+  {
+   "id": 108,
+   "tema": "lan",
+   "tipo": "mc",
+   "enunciado": "Un hipervisor que se instala directamente sobre el hardware del servidor, sin sistema operativo anfitrión, es de:",
+   "opciones": [
+    "Tipo 1 (bare metal), como VMware ESXi",
+    "Tipo 2 (hosted), como VirtualBox",
+    "Tipo 2, como VMware Workstation",
+    "Ningún tipo: eso es un contenedor"
+   ],
+   "correcta": 0,
+   "explicacion": "El <b>tipo 1 (bare metal)</b> corre directo sobre el hardware y es el estándar en centros de datos: VMware ESXi, Hyper-V, Proxmox. El <b>tipo 2 (hosted)</b> corre como aplicación sobre un SO: VirtualBox, VMware Workstation.",
+   "seccion": "s4"
+  },
+  {
+   "id": 109,
+   "tema": "cab",
+   "tipo": "mc",
+   "enunciado": "¿Qué ventaja tiene usar fibra óptica en el backbone entre dos salas de telecomunicaciones de distintos pisos, además del ancho de banda?",
+   "opciones": [
+    "Es más barata que el cobre",
+    "Es dieléctrica: no lleva continuidad eléctrica y evita lazos de tierra",
+    "No necesita rotulado",
+    "Permite PoE"
+   ],
+   "correcta": 1,
+   "explicacion": "La fibra es <b>dieléctrica</b>: no conduce electricidad, así que no forma <b>lazos de tierra</b> ni lleva diferencias de potencial entre plantas, lo que sí podría pasar con un backbone de cobre. Es la justificación que usamos en el TP2 junto con la TIA-607.",
+   "seccion": "s16"
+  },
+  {
+   "id": 110,
+   "tema": "cab",
+   "tipo": "mc",
+   "enunciado": "Un canal se arma con cable Cat 6, patch cords Cat 6 y jacks Cat 5e. ¿Qué categoría tiene el canal?",
+   "opciones": [
+    "Cat 6",
+    "Cat 5e",
+    "Cat 6A",
+    "Depende de la longitud"
+   ],
+   "correcta": 1,
+   "explicacion": "La categoría del canal la determina <b>el componente de menor prestación</b>: con jacks Cat 5e, el canal es <b>Cat 5e</b>. Por eso en el TP2 se pidió coherencia de categoría en patcheras, jacks, cable y patch cords.",
+   "seccion": "s16"
   }
  ]
 }
