@@ -42,6 +42,11 @@ pre{background:var(--code);padding:12px;border-radius:8px;overflow:auto;font-siz
 .gancho details{margin:6px 0}
 .gancho summary{font-weight:500}
 .gancho .ans{color:var(--ink)}
+table.glo td:first-child{white-space:nowrap}table.glo td:last-child{font-size:13px;white-space:nowrap}
+.glofil{display:flex;gap:10px;align-items:center;margin:8px 0}.glofil input{flex:1;min-width:0;font:inherit;padding:8px 12px;border-radius:10px;border:1.5px solid var(--line);background:var(--card);color:var(--ink)}.glofil input:focus{outline:none;border-color:var(--acc)}.glofil span{font-size:13px;color:var(--mut);white-space:nowrap}
+ol.pp>li{margin:12px 0}ol.pp details{margin:6px 0 0}
+.figparcial{margin:10px 0 14px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px;display:inline-block;max-width:100%}
+.figparcial img{display:block;max-width:100%;height:auto}.figparcial figcaption{font-size:13px;color:#555;margin-top:4px}
 .anim{margin:18px 0;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px 10px}
 .anim svg{width:100%;height:auto;display:block;overflow:visible}
 .anim figcaption{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:var(--mut);margin-top:8px;line-height:1.5}
@@ -89,7 +94,7 @@ details p{margin:8px 0 2px}
 .vlog>li:first-child{border-top:0}
 .vtag{display:inline-block;font-weight:700;font-size:13px;padding:2px 10px;border-radius:99px;color:#fff;white-space:nowrap}
 .vtag small{font-weight:500;opacity:.85;margin-left:4px}
-.v16{background:#4f46e5}.v15{background:#0f766e}.v14{background:#be185d}.v13{background:#7c3aed}.v12{background:#0e8a6a}.v11{background:#c2410c}.v10{background:#1f5fbf}
+.v17{background:#b91c1c}.v16{background:#4f46e5}.v15{background:#0f766e}.v14{background:#be185d}.v13{background:#7c3aed}.v12{background:#0e8a6a}.v11{background:#c2410c}.v10{background:#1f5fbf}
 .cardlink{text-decoration:none;color:var(--ink);transition:border-color .15s,transform .15s}.cardlink:hover{border-color:var(--acc);transform:translateY(-2px)}
 .vlog .now{font-size:11px;font-weight:700;color:var(--acc2);text-transform:uppercase;letter-spacing:.04em}
 @media (max-width:820px){.vlog>li{grid-template-columns:1fr}.theme-btn{top:10px;right:10px}}
@@ -159,20 +164,33 @@ mark.sr.cur{background:#f59e0b;color:#111;outline:2px solid #f59e0b}
 <a href="#s18t">21. TCP/IP: transporte</a>
 <a href="#s18i">22. TCP/IP: Internet y diagnóstico</a>
 <a href="#s18b">23. IPv4 y subneteo</a>
-<a href="#stp">24. Trabajos prácticos</a>
-<a href="#s19">25. Pares que se confunden</a>
-<a href="autoevaluacion.html">26. Autoevaluación: repaso ↗</a>
-<a href="practica.html">27. Examen de práctica ↗</a>
-<a href="examen.html">28. Examen definitivo ↗</a>
+<a href="#sej">24. Ejercicios de subneteo</a>
+<a href="#spp">25. Preparcial y parciales anteriores</a>
+<a href="#stp">26. Trabajos prácticos</a>
+<a href="#s19">27. Pares que se confunden</a>
+<a href="#sglo">28. Glosario de siglas</a>
+<a href="autoevaluacion.html">29. Autoevaluación: repaso ↗</a>
+<a href="practica.html">30. Examen de práctica ↗</a>
+<a href="examen.html">31. Examen definitivo y simulacro ↗</a>
 </nav>
 <main>
 <div class="sbar" id="sbar" data-root="main" data-excluir="#historial,.ans,.anim svg"><label class="sbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="sq" type="search" placeholder="Buscar en la guía… (ej.: CSMA, 802.3u, subneteo)" aria-label="Buscar en la guía" autocomplete="off"><kbd>/</kbd></label><span class="scount" id="scount" aria-live="polite"></span><button type="button" class="sbtn" id="sprev" aria-label="Resultado anterior">↑</button><button type="button" class="sbtn" id="snext" aria-label="Resultado siguiente">↓</button><button type="button" class="sbtn" id="sclear" aria-label="Borrar búsqueda">✕</button></div>
 <button class="theme-btn" id="themeBtn" type="button" aria-label="Cambiar a modo oscuro" title="Cambiar modo claro / oscuro"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
 <h1>Redes de Datos — Guía de estudio, Parcial 1</h1>
-<div class="sub">UTN FRT · Ciclo 2026 · Cátedra Mag. Ing. Patricia Nazar · Unidades 1, 2 y 3 + actividades expuestas<br>Versión 1.6 · 4 de noviembre de 2026 - Pablo López Sardi</div>
+<div class="sub">UTN FRT · Ciclo 2026 · Cátedra Mag. Ing. Patricia Nazar · Unidades 1, 2 y 3 + actividades expuestas<br>Versión 1.7 · 4 de noviembre de 2026 - Pablo López Sardi</div>
 <details id="historial"><summary>Historial de versiones</summary>
 <ul class="vlog">
-<li><span class="vtag v16">v1.6<small>04/11/2026</small></span><div><span class="now">Actual</span><br>
+<li><span class="vtag v17">v1.7<small>04/11/2026</small></span><div><span class="now">Actual</span><br>
+<ul style="margin:4px 0 0">
+<li><b>Cómo es el parcial</b> (sección 0): 19 V/F + 1 ejercicio de subneteo obligatorio, 1 hora, medio punto menos por error, cuándo conviene contestar y la tabla de temas que remarcó la profe.</li>
+<li><b>Sección nueva 24, ejercicios de subneteo:</b> el método en 6 pasos, tablas de bits, errores típicos, 10 ejercicios resueltos de los tipos del TP8 (con otros números) y un <b>generador de ejercicios</b> que corrige campo por campo y muestra la resolución.</li>
+<li><b>Sección nueva 25:</b> el preparcial y un primer parcial anterior, con la respuesta y el porqué de cada pregunta.</li>
+<li><b>Simulacro del parcial</b> en el examen definitivo: 19 V/F al azar + 1 ejercicio de subneteo, 60 minutos y puntaje con descuento.</li>
+<li>Se amplían los temas remarcados: trama vs paquete y cuándo se usa cada dirección (11), definiciones cortas de los V/F (12), método del permiso efectivo según desde dónde se conecta el usuario (16) y la tabla de clases con bits y cantidad de redes (23).</li>
+<li><b>Glosario de siglas</b> (sección 28): 96 siglas con su significado, qué son y un link a la sección donde se explican, con filtro para buscar rápido.</li>
+<li>Bancos de preguntas: de 110 a 150, con todas las del preparcial y el parcial anterior.</li>
+</ul></div></li>
+<li><span class="vtag v16">v1.6<small>04/11/2026</small></span><div>
 <ul style="margin:4px 0 0">
 <li><b>Ocho animaciones en loop</b> para los conceptos que se entienden mejor viéndolos: CSMA/CD con colisión y backoff (6), Token Ring (7), aprendizaje del switch (14), encapsulamiento (19), DHCP DORA (20), saludo de tres vías con secuencia y ACK (21), ARP y tracert (22).</li>
 <li>Cada una tiene un botón para pausarla. Si el sistema tiene activado "reducir movimiento", arrancan pausadas.</li>
@@ -221,6 +239,28 @@ mark.sr.cur{background:#f59e0b;color:#111;outline:2px solid #f59e0b}
 <p>El parcial es <b>multiple choice / verdadero-falso</b>. Ese formato no premia saber recitar: premia distinguir cosas parecidas (física vs lógica, CD vs CA, colisión vs broadcast, flooding vs broadcast). Por eso cada sección cierra la idea con el "por qué", cada tema termina con preguntas gancho <b>¿Lo entendiste?</b> para chequearte, las cajas <b>🧪 En el práctico</b> conectan la teoría con los TPs, y al final tenés una sección de pares que se confunden. La autoevaluación está en páginas aparte: un <a href="practica.html">examen de práctica</a> que corrige al instante, un <a href="examen.html">examen definitivo</a> con tiempo y un <a href="autoevaluacion.html">repaso con respuestas</a>.</p>
 <div class="box"><b>Las cinco distinciones que la profesora marcó en clase</b>
 Protocolo de acceso al medio ≠ protocolo de comunicación · Protocolo de comunicación ≠ norma de comunicación · Dirección física ≠ dirección lógica · Contención ≠ token passing · Los sistemas operativos son independientes de las normas.<br>Las dos primeras están desarrolladas a fondo en la sección <a href="#snp">★ Norma vs protocolo</a>.</div>
+<div class="box warn"><b>Cómo es el parcial</b>
+<ul style="margin:4px 0 0">
+<li><b>20 preguntas en 1 hora:</b> 19 de verdadero o falso y <b>1 ejercicio de subneteo</b>.</li>
+<li><b>El ejercicio de subneteo tiene que estar bien para aprobar.</b> Practicalo en <a href="#sej">24. Ejercicios de subneteo</a>.</li>
+<li><b>Puntaje negativo:</b> cada respuesta mal contestada descuenta la mitad de lo que vale la pregunta. En blanco no suma ni resta.</li>
+<li>Para practicar en condiciones reales está el <a href="examen.html">simulacro del parcial</a> (19 V/F al azar + 1 de subneteo, 60 minutos, con descuento).</li>
+</ul></div>
+<div class="box"><b>¿Conviene contestar si dudo?</b>
+Con medio punto de descuento, la cuenta es: si acertás sumás 1, si errás restás 0,5. Contestar conviene siempre que tengas <b>más de 1 chance en 3</b> de acertar. Si dudás entre V y F pero te inclinás por una, contestala. Si sentís que es más probable equivocarte que acertar (por ejemplo, una afirmación que nunca viste y te suena a trampa), dejarla en blanco no te resta.</div>
+<h3>Lo que la profe remarcó para el parcial</h3>
+<p>Dijo que entra todo, pero hizo hincapié en estos temas:</p>
+<div class="scroll"><table>
+<tr><th>Tema</th><th>Qué hay que saber</th><th>Dónde</th></tr>
+<tr><td>Capas de TCP/IP</td><td>Funciones de cada capa, protocolos, PDU y qué dirección usa</td><td><a href="#s18">19</a> a <a href="#s18i">22</a></td></tr>
+<tr><td>Trama y paquete</td><td>En qué capa está cada uno, qué lleva y quién lo procesa</td><td><a href="#s11">11. MAC e IP</a></td></tr>
+<tr><td>Dirección física y lógica</td><td>Diferencias, cuándo se usa cada una y en qué capa</td><td><a href="#s11">11. MAC e IP</a></td></tr>
+<tr><td>Norma 802.11</td><td>Wi-Fi: variantes, CSMA/CA, modos, nodo oculto</td><td><a href="#s10">10. Wi-Fi</a></td></tr>
+<tr><td>Subneteo</td><td>Que salga bien: puede dar una clase B y pedir subnetearla</td><td><a href="#s18b">23</a> y <a href="#sej">24</a></td></tr>
+<tr><td>Permisos NTFS y de recurso compartido</td><td>Cuándo se aplica cada uno, cuál rige (el más restrictivo) y el permiso efectivo según desde dónde se conecta el usuario</td><td><a href="#s15">16. P2P vs servidor dedicado</a></td></tr>
+<tr><td>Windows Server, DHCP y DNS</td><td>Dominio, Active Directory, ámbito DHCP, registros DNS</td><td><a href="#s15">16</a> y <a href="#s18a">20</a></td></tr>
+<tr><td>UTP y Ethernet</td><td>Categorías, cableado, trama 802.3 y variantes</td><td><a href="#s8">8</a>, <a href="#s9">9</a> y <a href="#s16">17</a></td></tr>
+</table></div>
 <p>Las cajas <span class="tag">ámbar</span> marcan puntos donde el material de clase simplifica o donde un apunte tenía un error: conviene saber las dos versiones (la de clase y la exacta).</p>
 
 <h2 id="s1">1. Qué es una red y cómo se clasifican</h2>
@@ -983,6 +1023,28 @@ netsh wlan start hostednetwork</pre>
 <tr><td>Alcance</td><td>Local: vale dentro de la LAN. Las MAC de la trama se reescriben en cada salto de router</td><td>Extremo a extremo: se mantiene a través de los routers (salvo NAT)</td></tr>
 </table></div>
 <p>Hacen falta las dos, igual que nombre y domicilio para mandar una carta. Cada NIC tiene su propia MAC: una notebook con placa cableada y Wi-Fi tiene dos MAC y, si las dos están conectadas, dos IP.</p>
+<h3>Trama y paquete</h3>
+<div class="scroll"><table>
+<tr><th></th><th>Trama</th><th>Paquete</th></tr>
+<tr><td>Capa</td><td>2, enlace (en TCP/IP, acceso a la red)</td><td>3, red (en TCP/IP, Internet)</td></tr>
+<tr><td>Direcciones que lleva</td><td><b>MAC</b> origen y destino</td><td><b>IP</b> origen y destino</td></tr>
+<tr><td>Qué tiene adentro</td><td>El paquete completo, más encabezado y FCS al final</td><td>El segmento (TCP) o datagrama (UDP), más su encabezado (con TTL y protocolo)</td></tr>
+<tr><td>Control de errores</td><td>FCS (CRC): si falla, la trama se descarta</td><td>Checksum solo del encabezado</td></tr>
+<tr><td>Quién la procesa</td><td>NIC, switch, puente</td><td>Router y el sistema operativo de los hosts</td></tr>
+<tr><td>Alcance</td><td>Un solo enlace: <b>en cada router se arma una trama nueva</b></td><td>De punta a punta: viaja igual desde el origen hasta el destino</td></tr>
+<tr><td>Ejemplo de norma o protocolo</td><td>802.3 (Ethernet), 802.11 (Wi-Fi)</td><td>IP</td></tr>
+</table></div>
+<p>Dicho en una frase: <b>el paquete viaja adentro de la trama</b>, como una carta adentro de un sobre. El sobre (la trama) se cambia en cada oficina de correo (cada router); la carta (el paquete) llega intacta.</p>
+<h3>¿Cuándo se usa cada dirección?</h3>
+<p>PC1 (192.168.1.10) le manda algo a un servidor (200.45.10.5) que está en otra red, pasando por el router de su LAN (192.168.1.1):</p>
+<ol>
+<li><b>La IP decide el destino final:</b> PC1 hace el AND y ve que el servidor está en otra red. Entonces el paquete lleva IP origen 192.168.1.10 e IP destino 200.45.10.5, y así queda <b>todo el viaje</b>.</li>
+<li><b>La MAC decide el próximo salto:</b> como el destino está afuera, la trama no va dirigida al servidor sino al <b>router</b>. PC1 averigua la MAC del router con ARP, y la trama sale con MAC origen = PC1 y MAC destino = router.</li>
+<li><b>En cada router</b> se saca la trama, se lee la IP destino, se consulta la tabla de rutas y se arma una <b>trama nueva</b> con las MAC del siguiente tramo.</li>
+<li><b>Si el destino estuviera en la misma red</b>, la trama iría directo con la MAC del destino, y el switch la entregaría mirando solo la MAC.</li>
+</ol>
+<div class="box ok"><b>Para el V/F</b>
+MAC: capa 2, la usa el switch, sirve dentro de la LAN, cambia en cada salto. IP: capa 3, la usa el router, identifica el destino final, se mantiene de punta a punta (salvo NAT). <b>ARP</b> es el puente entre las dos: de IP a MAC.</div>
 <h4>Tipos de dirección MAC destino</h4>
 <ul>
 <li><b>Unidifusión (unicast):</b> identifica una placa en particular.</li>
@@ -1032,6 +1094,16 @@ Los teléfonos actuales suelen mostrar una <b>MAC aleatoria (privada)</b> distin
 </table>
 <div class="box warn"><b>Gateway</b>
 En clase se lo ubicó en capa 3 junto al router ("traduce protocolos"). En sentido estricto un gateway puede trabajar en cualquier capa hasta la 7 cuando convierte entre arquitecturas distintas. En una red doméstica, la "puerta de enlace" es simplemente el router.</div>
+<h3>Definiciones cortas que aparecen en los V/F</h3>
+<table>
+<tr><th>Concepto</th><th>Definición</th></tr>
+<tr><td><b>Transceiver</b></td><td>Transmisor + receptor. Dispositivo de capa 1 que convierte las señales de la placa en señales del medio y viceversa. En par trenzado viene integrado en la NIC; en coaxil grueso era externo.</td></tr>
+<tr><td><b>Segmentación</b></td><td>Dividir un dominio de colisión en dos o más, con puentes, switches o routers.</td></tr>
+<tr><td><b>Diámetro de la red</b></td><td>Distancia entre los dos nodos más alejados de un dominio de colisión. Se limita para que las colisiones se detecten a tiempo.</td></tr>
+<tr><td><b>Atenuación</b></td><td>Pérdida de intensidad de la señal a medida que recorre el medio. Por eso hay longitudes máximas y se usan repetidores.</td></tr>
+<tr><td><b>Diafonía (crosstalk)</b></td><td>Interferencia entre conductores cercanos por acoplamiento electromagnético. El trenzado de los pares la reduce.</td></tr>
+<tr><td><b>Latencia</b></td><td>Demora que sufre una trama entre que sale y llega. Cada dispositivo intermedio suma un poco.</td></tr>
+</table>
 
 <h2 id="s13">13. Dominio de colisión y dominio de broadcast</h2>
 <p>Son dos cosas distintas, en capas distintas.</p>
@@ -1199,6 +1271,30 @@ En una red de servidor dedicado, los recursos compartidos pueden estar <b>en el 
 <li>Cuando se combinan permisos de compartido y permisos locales NTFS, rige el <b>más restrictivo</b> de los dos.</li>
 </ul>
 
+<h3>Permiso efectivo: método para el parcial</h3>
+<p><b>Todo depende de desde dónde se conecta el usuario.</b> Primero preguntate eso, después aplicá las reglas.</p>
+<div class="scroll"><table>
+<tr><th>Situación</th><th>Qué permisos se evalúan</th><th>Resultado</th></tr>
+<tr><td>El usuario entra <b>desde otra PC, por la red</b> (\\servidor\carpeta)</td><td>Los de <b>recurso compartido</b> y los <b>NTFS</b></td><td>El <b>más restrictivo</b> de los dos</td></tr>
+<tr><td>El usuario está <b>sentado en la PC</b> donde está la carpeta (acceso local)</td><td>Solo los <b>NTFS</b></td><td>Lo que diga NTFS</td></tr>
+<tr><td>La carpeta está en un disco <b>FAT32</b> (sin NTFS) y se accede por red</td><td>Solo los de recurso compartido</td><td>Lo que diga el compartido</td></tr>
+</table></div>
+<ol>
+<li><b>¿Desde dónde entra?</b> Por red, se miran las dos capas. Localmente, solo NTFS.</li>
+<li><b>Dentro de cada capa, se suman</b> los permisos del usuario y los de todos sus grupos (Leer + Cambiar = Cambiar).</li>
+<li><b>Si en esa capa hay una denegación explícita</b>, gana sobre cualquier permiso.</li>
+<li><b>Entre las dos capas, rige la más restrictiva.</b></li>
+</ol>
+<div class="scroll"><table>
+<tr><th>Ejemplo</th><th>Compartido</th><th>NTFS</th><th>Acceso por red</th><th>Acceso local</th></tr>
+<tr><td>Ana (grupos Ventas: Leer y Jefes: Cambiar)</td><td>Leer + Cambiar = <b>Cambiar</b></td><td>Control total</td><td><b>Cambiar</b></td><td>Control total</td></tr>
+<tr><td>Luis (grupo con Control total, pero Denegar Escritura a su nombre en NTFS)</td><td>Control total</td><td>Control total − escritura = <b>solo lectura</b></td><td><b>Lectura</b></td><td>Lectura</td></tr>
+<tr><td>Eva (Todos: Leer en el compartido)</td><td>Leer</td><td>Modificar</td><td><b>Leer</b></td><td>Modificar</td></tr>
+</table></div>
+<div class="box warn"><b>Trampa del preparcial: los permisos son por usuario, no por persona</b>
+Si Joaquín usa la cuenta <i>joaquincompras</i> a la mañana y <i>joaquinventas</i> a la tarde, son <b>dos usuarios distintos</b>: sus permisos no se suman entre sí. Cada cuenta tiene los suyos (más los de sus propios grupos).</div>
+<div class="box"><b>Los tres niveles del recurso compartido</b>
+<b>Leer:</b> ver la carpeta, abrir archivos y ejecutar programas. <b>Cambiar:</b> lo anterior más crear, modificar y borrar. <b>Control total:</b> lo anterior más cambiar permisos y tomar posesión. En NTFS los niveles básicos son Control total, Modificar, Lectura y ejecución, Mostrar el contenido de la carpeta, Lectura y Escritura.</div>
 <div class="tp"><h4>🧪 En el práctico · TP4 (peer to peer) y TP5 (servidor dedicado)</h4>
 <p><b>TP4:</b> PC01 y PC02 unidas por el cable cruzado del TP2, en el grupo de trabajo REDES2026, con IP 192.168.10.1 y .2 /24, sin gateway ni DNS porque la red no sale a otra. Se crearon usuarios locales y los grupos Jefes y Analistas, y se compartió C:\Compartido2026: Jefes con Control total, Analistas con Cambiar y Leer, y sin la entrada Todos.</p>
 <p><b>Las tres reglas para calcular un permiso efectivo:</b></p>
@@ -1722,14 +1818,15 @@ En el apunte quedó "el último [octeto] al hub" y "el .0 es la host". Lo correc
 
 <h3>Clases</h3>
 <div class="scroll"><table>
-<tr><th>Clase</th><th>Primer octeto</th><th>Bits iniciales</th><th>Formato</th><th>Máscara por defecto</th><th>Uso</th></tr>
-<tr><td><b>A</b></td><td>1 a 126</td><td>0…</td><td>R.H.H.H</td><td>255.0.0.0 (/8)</td><td>Redes de gran tamaño (ej.: 10.0.0.32)</td></tr>
-<tr><td><b>B</b></td><td>128 a 191</td><td>10…</td><td>R.R.H.H</td><td>255.255.0.0 (/16)</td><td>Redes de tamaño medio (ej.: 128.14.58.60)</td></tr>
-<tr><td><b>C</b></td><td>192 a 223</td><td>110…</td><td>R.R.R.H</td><td>255.255.255.0 (/24)</td><td>Redes chicas (ej.: 192.9.150.22)</td></tr>
-<tr><td><b>D</b></td><td>224 a 239</td><td>1110…</td><td>—</td><td>—</td><td>Multicast</td></tr>
-<tr><td><b>E</b></td><td>240 a 255</td><td>1111…</td><td>—</td><td>—</td><td>Experimentales / investigación</td></tr>
+<tr><th>Clase</th><th>Primer octeto</th><th>Bits iniciales</th><th>Formato</th><th>Máscara por defecto</th><th>Bits libres para la red · cantidad de redes</th><th>Hosts por red</th><th>Uso</th></tr>
+<tr><td><b>A</b></td><td>1 a 126</td><td>0…</td><td>R.H.H.H</td><td>255.0.0.0 (/8)</td><td>7 → 126 (sin 0 ni 127)</td><td>2<sup>24</sup> − 2 = 16.777.214</td><td>Redes de gran tamaño (ej.: 10.0.0.32)</td></tr>
+<tr><td><b>B</b></td><td>128 a 191</td><td>10…</td><td>R.R.H.H</td><td>255.255.0.0 (/16)</td><td>14 → 2<sup>14</sup> = 16.384</td><td>2<sup>16</sup> − 2 = 65.534</td><td>Redes de tamaño medio (ej.: 128.14.58.60)</td></tr>
+<tr><td><b>C</b></td><td>192 a 223</td><td>110…</td><td>R.R.R.H</td><td>255.255.255.0 (/24)</td><td>21 → 2<sup>21</sup> = 2.097.152</td><td>2<sup>8</sup> − 2 = 254</td><td>Redes chicas (ej.: 192.9.150.22)</td></tr>
+<tr><td><b>D</b></td><td>224 a 239</td><td>1110…</td><td>—</td><td>—</td><td>—</td><td>—</td><td>Multicast</td></tr>
+<tr><td><b>E</b></td><td>240 a 255</td><td>1111…</td><td>—</td><td>—</td><td>—</td><td>—</td><td>Experimentales / investigación</td></tr>
 </table></div>
 <p>Las direcciones de red de clase A <b>no arrancan en 0 ni incluyen el 127</b>: los dos están reservados (ver abajo).</p>
+<p><b>¿Por qué la clase C tiene "21 bits de red" si su máscara es /24?</b> Porque los primeros bits de la red están <b>fijos</b> para marcar la clase (0 en la A, 10 en la B, 110 en la C). En la clase C quedan 24 − 3 = <b>21 bits libres</b> para numerar redes (2<sup>21</sup> = 2.097.152 redes) y 8 bits de host. En la B, 16 − 2 = 14, y en la A, 8 − 1 = 7. Esto se preguntó en el preparcial.</p>
 <h3>Direcciones especiales</h3>
 <table>
 <tr><th>Dirección</th><th>Rango</th><th>Para qué</th></tr>
@@ -1864,7 +1961,7 @@ AND      172.16.128.0   = 10101100.00010000.10000000.00000000  ← red</pre>
 Los equipos hacen el AND solos, pero al diagnosticar una red hay que poder predecirlo: por una configuración incorrecta, un host puede quedar en una red distinta de la planificada y "funcionar raro". Es exactamente lo que pasó en el TP7 con la máscara /25.</div>
 
 <div class="tp"><h4>🧪 En el práctico · TP8 (subneteo) · pendiente</h4>
-<p>El TP8 todavía no está hecho, así que acá van <b>pistas de método</b>, sin resultados:</p>
+<p>El TP8 todavía no está hecho, así que acá van <b>pistas de método</b>, sin resultados. En <a href="#sej">24. Ejercicios de subneteo</a> están resueltos ejercicios de los mismos tipos, con otros números.</p>
 <ul>
 <li><b>Ejercicios con una IP y una máscara</b> (red, broadcast, primer host): usá el atajo del salto. Ubicá entre qué múltiplos del salto cae el octeto interesante de la IP. El múltiplo de abajo es la red, y el de arriba menos 1 es el broadcast.</li>
 <li><b>"La tercera subred":</b> contá desde la subred 0. La tercera es la que empieza en 2 × salto.</li>
@@ -1894,7 +1991,197 @@ Los equipos hacen el AND solos, pero al diagnosticar una red hay que poder prede
 </table></div>
 <p><b>Cómo acortar una IPv6:</b> se omiten los ceros a la izquierda de cada grupo (0db8 → db8) y, <b>una sola vez</b>, una tira de grupos en cero se reemplaza por "::". Ej.: 2001:0db8:0000:0000:0000:0000:0000:0001 → <b>2001:db8::1</b>. Las que empiezan con <b>fe80</b> son de enlace local: la PC se las genera sola y no salen del router. <b>Doble pila</b>: el equipo tiene IPv4 e IPv6 a la vez, que es como se hace la transición.</p>
 
-<h2 id="stp">24. Trabajos prácticos: qué se llevó cada uno</h2>
+<h2 id="sej">24. Ejercicios de subneteo</h2>
+<div class="box warn"><b>En el parcial, el ejercicio de subneteo tiene que estar bien para aprobar</b>
+Por eso esta sección es para practicar hasta que salga sin pensar. La profe adelantó que puede dar una <b>IP clase B</b> y pedir que la subneteen. El método es siempre el mismo y no requiere calculadora; abajo está resuelto para cada tipo de consigna (los mismos tipos del TP8, con otros números) y al final hay un generador de ejercicios infinitos que te corrige.</div>
+
+<h3>El método en 6 pasos (para cualquier consigna)</h3>
+<ol>
+<li><b>Clase y máscara por defecto:</b> mirá el primer octeto. A (1 a 126) → /8, B (128 a 191) → /16, C (192 a 223) → /24. Esos son los bits de red que <b>no se tocan</b>.</li>
+<li><b>Bits prestados (N) y bits de host (M):</b> si piden subredes, el menor N con 2<sup>N</sup> ≥ subredes pedidas. Si piden hosts, el menor M con 2<sup>M</sup> − 2 ≥ hosts pedidos. Siempre <b>N + M = bits de host de la clase</b> (24, 16 u 8).</li>
+<li><b>Verificá la otra condición:</b> si elegiste por subredes, chequeá que 2<sup>M</sup> − 2 alcance para los hosts (y al revés).</li>
+<li><b>Máscara nueva:</b> prefijo = prefijo por defecto + N. Pasala a decimal con los pesos 128 · 64 · 32 · 16 · 8 · 4 · 2 · 1 (ej.: 3 bits en 1 → 128 + 64 + 32 = 224).</li>
+<li><b>Salto:</b> 256 − el octeto de la máscara que quedó partido. Ese salto se aplica <b>en ese octeto</b> (en una clase B suele ser el tercero).</li>
+<li><b>Tabla:</b> cada subred empieza en un múltiplo del salto. Broadcast = dirección anterior a la próxima subred. Primer host = red + 1, último host = broadcast − 1.</li>
+</ol>
+<div class="scroll"><table>
+<tr><th>Bits en 1 del octeto</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th></tr>
+<tr><td><b>Valor en la máscara</b></td><td>128</td><td>192</td><td>224</td><td>240</td><td>248</td><td>252</td><td>254</td><td>255</td></tr>
+<tr><td><b>Salto</b> (256 − valor)</td><td>128</td><td>64</td><td>32</td><td>16</td><td>8</td><td>4</td><td>2</td><td>1</td></tr>
+</table></div>
+<div class="scroll"><table>
+<tr><th>Bits</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th></tr>
+<tr><td><b>2<sup>n</sup></b> (subredes o direcciones)</td><td>4</td><td>8</td><td>16</td><td>32</td><td>64</td><td>128</td><td>256</td><td>512</td><td>1024</td><td>2048</td><td>4096</td></tr>
+<tr><td><b>2<sup>n</sup> − 2</b> (hosts)</td><td>2</td><td>6</td><td>14</td><td>30</td><td>62</td><td>126</td><td>254</td><td>510</td><td>1022</td><td>2046</td><td>4094</td></tr>
+</table></div>
+<p class="sub">Conviene copiar estas dos tablitas en un costado de la hoja apenas empieza el parcial: salen solas y ahorran tiempo.</p>
+<div class="box"><b>Errores típicos que hacen perder el ejercicio</b>
+<ul style="margin:4px 0 0">
+<li>Olvidarse del <b>−2</b> en los hosts (y no restarlo en las subredes: ahí va 2<sup>N</sup> a secas).</li>
+<li>Aplicar el salto en el octeto equivocado: con /20 el salto (16) va en el <b>tercer</b> octeto, no en el cuarto.</li>
+<li>Escribir el broadcast de una clase B como x.x.<b>31.0</b>: el broadcast lleva <b>255</b> en el cuarto octeto (x.x.31.255).</li>
+<li>Contar mal "la tercera subred": la primera es la que empieza en 0. La tercera empieza en 2 × salto.</li>
+<li>Tomar el prefijo y la clase como lo mismo: 172.16.0.0/24 ya no es clase B (es sin clase).</li>
+</ul></div>
+
+<h3>Ejercicios resueltos</h3>
+<p>Intentá cada uno antes de abrir la solución.</p>
+
+<h4>1 · Subredes y hosts a partir del prefijo</h4>
+<p>Dada la red 192.168.20.0 con máscara /27, ¿cuántas subredes se pueden crear y cuántos hosts válidos hay por subred?</p>
+<details><summary>Ver solución</summary><div class="ans">
+<p>Clase C → /24 por defecto. Bits prestados: 27 − 24 = <b>3</b> → 2<sup>3</sup> = <b>8 subredes</b>. Bits de host: 32 − 27 = 5 → 2<sup>5</sup> − 2 = <b>30 hosts</b>. Salto: 256 − 224 = 32.</p></div></details>
+
+<h4>2 · Broadcast de la n-ésima subred</h4>
+<p>¿Cuál es la dirección de broadcast de la <b>cuarta</b> subred de 172.20.0.0/20?</p>
+<details><summary>Ver solución</summary><div class="ans">
+<p>/20 = 255.255.<b>240</b>.0 → salto 16 en el <b>tercer</b> octeto. Subredes: 172.20.0.0 (1.ª), 172.20.16.0 (2.ª), 172.20.32.0 (3.ª), <b>172.20.48.0</b> (4.ª). La 5.ª empezaría en 172.20.64.0, así que el broadcast de la cuarta es <b>172.20.63.255</b>.</p></div></details>
+
+<h4>3 · Red a la que pertenece una IP</h4>
+<p>Para la IP 10.20.30.77 con máscara 255.255.255.240, ¿cuál es la dirección de red?</p>
+<details><summary>Ver solución</summary><div class="ans">
+<p>Octeto interesante: el cuarto (240) → salto 16. Múltiplos de 16: …, 48, <b>64</b>, 80. El 77 cae entre 64 y 79 → red <b>10.20.30.64</b> (broadcast 10.20.30.79). Con AND en binario da lo mismo: 77 = 0100<b>1101</b> AND 1111<b>0000</b> = 01000000 = 64.</p></div></details>
+
+<h4>4 · Primer host de la subred de una IP</h4>
+<p>¿Cuál es el primer host válido de la subred de 192.168.7.100 con máscara 255.255.255.224?</p>
+<details><summary>Ver solución</summary><div class="ans">
+<p>224 → salto 32: 0, 32, 64, <b>96</b>, 128. El 100 cae en la subred 192.168.7.96, así que el primer host es <b>192.168.7.97</b> (último .126, broadcast .127). Ojo con la trampa: la .96 es la dirección de red, no un host.</p></div></details>
+
+<h4>5 · Diseñar subredes clase C con una cantidad de hosts</h4>
+<p>Con la red 200.10.5.0, definí 6 subredes de al menos 20 hosts cada una.</p>
+<details><summary>Ver solución</summary><div class="ans">
+<p>2<sup>N</sup> ≥ 6 → N = 3 (8 subredes). Quedan 5 bits: 2<sup>5</sup> − 2 = 30 ≥ 20 ✔. Máscara <b>/27 = 255.255.255.224</b>, salto 32.</p>
+<table><tr><th>Subred</th><th>Red</th><th>Hosts</th><th>Broadcast</th></tr>
+<tr><td>1</td><td>200.10.5.0</td><td>.1 – .30</td><td>.31</td></tr><tr><td>2</td><td>200.10.5.32</td><td>.33 – .62</td><td>.63</td></tr>
+<tr><td>3</td><td>200.10.5.64</td><td>.65 – .94</td><td>.95</td></tr><tr><td>4</td><td>200.10.5.96</td><td>.97 – .126</td><td>.127</td></tr>
+<tr><td>5</td><td>200.10.5.128</td><td>.129 – .158</td><td>.159</td></tr><tr><td>6</td><td>200.10.5.160</td><td>.161 – .190</td><td>.191</td></tr>
+<tr><td>7 y 8 (libres)</td><td>200.10.5.192 y .224</td><td>—</td><td>.223 y .255</td></tr></table></div></details>
+
+<h4>6 · Analizar redes con prefijo (cantidad de subredes y la segunda subred)</h4>
+<p>Para 192.168.50.0/26, 150.20.0.0/20 y 210.5.8.0/29: cantidad de subredes, hosts por subred y, de la <b>segunda</b> subred, su dirección, primer host, último host y broadcast.</p>
+<details><summary>Ver solución</summary><div class="ans">
+<div class="scroll"><table><tr><th>Red</th><th>Clase · bits prestados</th><th>Subredes</th><th>Hosts</th><th>Salto</th><th>2.ª subred</th><th>Primer host</th><th>Último host</th><th>Broadcast</th></tr>
+<tr><td>192.168.50.0/26</td><td>C · 2</td><td>4</td><td>62</td><td>64 (4.º oct.)</td><td>192.168.50.64</td><td>.65</td><td>.126</td><td>192.168.50.127</td></tr>
+<tr><td>150.20.0.0/20</td><td>B · 4</td><td>16</td><td>4094</td><td>16 (3.er oct.)</td><td>150.20.16.0</td><td>150.20.16.1</td><td>150.20.31.254</td><td>150.20.31.255</td></tr>
+<tr><td>210.5.8.0/29</td><td>C · 5</td><td>32</td><td>6</td><td>8 (4.º oct.)</td><td>210.5.8.8</td><td>.9</td><td>.14</td><td>210.5.8.15</td></tr>
+</table></div>
+<p>En la clase B fijate que los hosts de una subred <b>cruzan varios valores del tercer octeto</b>: de 150.20.16.1 a 150.20.31.254 hay 16 × 256 − 2 = 4094 direcciones.</p></div></details>
+
+<h4>7 · Clase B según cantidad de subredes (el que la profe dijo que puede tomar)</h4>
+<p>Te asignan 160.10.0.0. Necesitás <b>al menos 100 subredes</b> con <b>al menos 300 hosts</b> cada una. Calculá máscara, salto, las tres primeras subredes y la última.</p>
+<details><summary>Ver solución</summary><div class="ans">
+<ol>
+<li>Clase B → /16, quedan 16 bits de host.</li>
+<li>2<sup>N</sup> ≥ 100 → 2<sup>6</sup> = 64 no alcanza, <b>2<sup>7</sup> = 128</b> sí → N = 7.</li>
+<li>Hosts: M = 16 − 7 = 9 → 2<sup>9</sup> − 2 = <b>510</b> ≥ 300 ✔.</li>
+<li>Máscara /16 + 7 = <b>/23</b> = 11111111.11111111.1111111<b>0</b>.00000000 = <b>255.255.254.0</b>.</li>
+<li>Salto: 256 − 254 = <b>2</b> en el tercer octeto.</li>
+</ol>
+<table><tr><th>Subred</th><th>Red</th><th>Rango de hosts</th><th>Broadcast</th></tr>
+<tr><td>1</td><td>160.10.0.0</td><td>160.10.0.1 – 160.10.1.254</td><td>160.10.1.255</td></tr>
+<tr><td>2</td><td>160.10.2.0</td><td>160.10.2.1 – 160.10.3.254</td><td>160.10.3.255</td></tr>
+<tr><td>3</td><td>160.10.4.0</td><td>160.10.4.1 – 160.10.5.254</td><td>160.10.5.255</td></tr>
+<tr><td>…</td><td>…</td><td>…</td><td>…</td></tr>
+<tr><td>128</td><td>160.10.254.0</td><td>160.10.254.1 – 160.10.255.254</td><td>160.10.255.255</td></tr></table>
+<p>Se usan 100 de las 128; quedan 28 para crecer.</p></div></details>
+
+<h4>8 · Clase B según cantidad de hosts</h4>
+<p>Con 172.25.0.0 se necesitan subredes de <b>2000 hosts</b> cada una, la mayor cantidad posible. ¿Máscara, cantidad de subredes y rango de la segunda?</p>
+<details><summary>Ver solución</summary><div class="ans">
+<p>2<sup>M</sup> − 2 ≥ 2000 → 2<sup>10</sup> − 2 = 1022 no alcanza, <b>2<sup>11</sup> − 2 = 2046</b> sí → M = 11. Bits prestados: 16 − 11 = <b>5</b> → <b>32 subredes</b>. Máscara <b>/21 = 255.255.248.0</b>, salto 8 en el tercer octeto. Segunda subred: <b>172.25.8.0</b>, hosts 172.25.8.1 – 172.25.15.254, broadcast <b>172.25.15.255</b>.</p></div></details>
+
+<h4>9 · Subneteo jerárquico: casa central y sucursales</h4>
+<p>Te dan la red 10.50.0.0/16. La casa central necesita un bloque de <b>al menos 1000 nodos</b>, y ese bloque se tiene que dividir en <b>4 sucursales de al menos 200 equipos</b>. ¿Qué bloque y máscara recibe la casa central, y cuáles son las 4 subredes de las sucursales?</p>
+<details><summary>Ver solución</summary><div class="ans">
+<ol>
+<li><b>Bloque de la casa central:</b> 2<sup>M</sup> − 2 ≥ 1000 → M = 10 (1022 hosts). Prefijo 32 − 10 = <b>/22 = 255.255.252.0</b>. El primer bloque es <b>10.50.0.0/22</b> (de 10.50.0.0 a 10.50.3.255).</li>
+<li><b>Se vuelve a subnetear ese bloque</b> para las sucursales: 200 equipos → 2<sup>8</sup> − 2 = 254 ≥ 200 → M = 8 → <b>/24</b>. Del /22 al /24 se prestan 2 bits → 2<sup>2</sup> = 4 subredes, justo las que se necesitan.</li>
+<li><b>Sucursales:</b> 10.50.0.0/24 (hosts .0.1 – .0.254), 10.50.1.0/24, 10.50.2.0/24 y 10.50.3.0/24 (broadcast 10.50.3.255).</li>
+</ol>
+<p>La idea es la de un árbol: el administrador nacional reparte bloques grandes, y cada casa central reparte su bloque en pedazos más chicos. Siempre verificá que después de cada división se siga cumpliendo la cantidad de hosts.</p></div></details>
+
+<h4>10 · Tabla de direcciones con prefijo</h4>
+<p>Completá red, broadcast, bits de host y cantidad de hosts para: 192.168.200.77/28 · 172.16.45.200/30 · 10.8.130.9/18 · 200.1.1.129/25 · 130.50.77.5/21 · 172.31.99.250/26.</p>
+<details><summary>Ver solución</summary><div class="ans">
+<div class="scroll"><table><tr><th>IP/prefijo</th><th>Salto</th><th>Red</th><th>Broadcast</th><th>Bits de host</th><th>Hosts</th></tr>
+<tr><td>192.168.200.77/28</td><td>16 (4.º)</td><td>192.168.200.64</td><td>192.168.200.79</td><td>4</td><td>14</td></tr>
+<tr><td>172.16.45.200/30</td><td>4 (4.º)</td><td>172.16.45.200</td><td>172.16.45.203</td><td>2</td><td>2</td></tr>
+<tr><td>10.8.130.9/18</td><td>64 (3.º)</td><td>10.8.128.0</td><td>10.8.191.255</td><td>14</td><td>16382</td></tr>
+<tr><td>200.1.1.129/25</td><td>128 (4.º)</td><td>200.1.1.128</td><td>200.1.1.255</td><td>7</td><td>126</td></tr>
+<tr><td>130.50.77.5/21</td><td>8 (3.º)</td><td>130.50.72.0</td><td>130.50.79.255</td><td>11</td><td>2046</td></tr>
+<tr><td>172.31.99.250/26</td><td>64 (4.º)</td><td>172.31.99.192</td><td>172.31.99.255</td><td>6</td><td>62</td></tr>
+</table></div>
+<p>Truco: bits de host = 32 − prefijo, sin importar la clase. En 172.16.45.200/30 la IP coincide con la dirección de red, así que <b>no es un host válido</b>.</p></div></details>
+
+<h3>Generador de ejercicios</h3>
+<p>Ejercicios nuevos cada vez, con corrección campo por campo y la resolución paso a paso. Escribí las direcciones con puntos (172.16.32.0) y los números sin puntos de miles. También podés hacer un <a href="examen.html">simulacro del parcial</a> completo, con 19 de verdadero o falso y uno de estos.</p>
+<div class="subgen"></div>
+
+<div class="gancho"><h4>❓ ¿Lo entendiste?</h4>
+<details><summary>En una clase B con /22, ¿en qué octeto va el salto y cuánto vale?</summary><p class="ans">/22 = 255.255.252.0: el octeto partido es el tercero (252), así que el salto es 256 − 252 = 4 en el tercer octeto.</p></details>
+<details><summary>¿Cuántos bits prestás para 30 subredes y por qué no alcanza con 4?</summary><p class="ans">2<sup>4</sup> = 16 &lt; 30, así que hacen falta 5 bits: 2<sup>5</sup> = 32 ≥ 30.</p></details>
+</div>
+
+<h2 id="spp">25. Preparcial y parciales anteriores, resueltos</h2>
+<p>Las preguntas del preparcial que dio la cátedra y de un primer parcial anterior (tema 1), con la respuesta y el porqué. Respondé cada una antes de abrirla. Fijate el estilo: son afirmaciones largas donde <b>un solo detalle</b> las hace falsas.</p>
+<div class="box"><b>Patrones que se repiten</b>
+<ul style="margin:4px 0 0">
+<li><b>Cambian un dispositivo por otro:</b> le atribuyen al hub lo que hace el switch, o al switch lo que hace el router.</li>
+<li><b>Cambian colisión por difusión</b> (o al revés): cada puerto del switch es un dominio de colisión, no de difusión.</li>
+<li><b>Cambian el nombre de un subsistema o una norma:</b> horizontal vs área de trabajo, 802.3 vs 802.11.</li>
+<li><b>Mezclan clase y máscara:</b> una IP 129.x con máscara /24 no es "de clase C".</li>
+<li><b>Suman permisos de cosas que no se suman:</b> dos usuarios distintos no acumulan permisos entre sí.</li>
+</ul></div>
+
+<h3>Preparcial (parcial integral)</h3>
+<ol class="pp">
+<li>Un <i>protocolo</i> es el conjunto de reglas que gobiernan la comunicación entre entidades de una misma capa. Es decir, el protocolo de la capa N intercambia información con su homóloga en la máquina destino, de cara a proporcionar los servicios asignados a esa capa.
+<details><summary>Respuesta</summary><p class="ans"><b>Verdadero.</b> Es la definición de protocolo como diálogo <b>entre capas pares</b> (capa N con capa N del otro equipo). Ver <a href="#snp">★ Norma vs protocolo</a>.</p></details></li>
+<li>Para detectar errores de transmisión a nivel de la capa 2 del modelo OSI, la estación destino compara el campo FCS en la trama con el resultado de un cálculo que debe realizar a partir del contenido de la misma.
+<details><summary>Respuesta</summary><p class="ans"><b>Verdadero.</b> El emisor calcula un CRC y lo pone en el FCS; el receptor lo recalcula y, si no coincide, descarta la trama. Ver <a href="#s8">8. 802.3</a>.</p></details></li>
+<li>Las redes con sistemas operativos PEER to PEER proveen mayor seguridad y control que una red basada en servidor dedicado.
+<details><summary>Respuesta</summary><p class="ans"><b>Falso.</b> Es al revés: la red con servidor dedicado centraliza usuarios, permisos y políticas, y tiene seguridad alta. Peer to peer es descentralizada y de seguridad baja. Ver <a href="#s15">16. P2P vs servidor dedicado</a>.</p></details></li>
+<li>La NIC ubicada en la PC destino, y a nivel de la MAC, se identifica con su dirección física: chequea ante la llegada de una trama de datos si la dirección destino coincide con su dirección; si coincide copia los datos, en caso contrario los ignora.
+<details><summary>Respuesta</summary><p class="ans"><b>Verdadero.</b> Es el filtrado por MAC destino que hace cada placa (además acepta broadcast y los multicast a los que pertenece). Por eso en el flooding B y D descartan la trama en la placa. Ver <a href="#s11">11. MAC e IP</a>.</p></details></li>
+<li>Crosstalk ocurre cuando dos cables físicamente próximos interfieren el uno con el otro a través de campos magnéticos.
+<details><summary>Respuesta</summary><p class="ans"><b>Verdadero.</b> La diafonía (crosstalk) es la interferencia por acoplamiento electromagnético entre conductores cercanos. El trenzado de los pares es justamente para reducirla.</p></details></li>
+<li>Un hub o repetidor multipuerto tiene la capacidad de filtrar el tráfico de la red, es decir, de no enviar a un segmento determinado los datos que no están dirigidos para alguna PC que se ubique en él.
+<details><summary>Respuesta</summary><p class="ans"><b>Falso.</b> El hub es de capa 1: repite todo por todos los puertos, sin tabla. Filtrar por MAC es lo que hacen el puente y el switch (capa 2). Ver <a href="#s12">12. Dispositivos</a>.</p></details></li>
+<li>En cableado estructurado el Subsistema Horizontal es el que realiza la conexión de la PC del usuario a la red.
+<details><summary>Respuesta</summary><p class="ans"><b>Falso (lo más probable).</b> El horizontal va desde el rack o repartidor del piso hasta la roseta (máx. 90 m). La conexión de la PC a la roseta, con el patch cord, es el subsistema de <b>área de trabajo</b>. Ver <a href="#s16">17. Cableado estructurado</a>.</p></details></li>
+<li>Joaquín trabaja a la mañana en compras con el usuario <i>joaquincompras</i>, con lectura y ejecución sobre el directorio compraventas, y a la tarde en ventas con el usuario <i>joaquinventas</i>, con listar el contenido de esa carpeta. Los permisos efectivos de Joaquín sobre compraventas son la suma de ambos permisos, o sea, lectura y ejecución y listar el contenido.
+<details><summary>Respuesta</summary><p class="ans"><b>Falso.</b> Son <b>dos cuentas distintas</b>: los permisos efectivos se calculan por usuario (y sus grupos), no por persona. Con joaquincompras tiene lectura y ejecución; con joaquinventas, solo listar. Solo se suman los permisos de un mismo usuario y de los grupos a los que pertenece. Ver <a href="#s15">16. Permisos</a>.</p></details></li>
+<li>Una de las guías que se debe recordar en el momento de realizar direccionamiento IP es que el identificador de la red no puede comenzar con 127.
+<details><summary>Respuesta</summary><p class="ans"><b>Verdadero.</b> 127.x.x.x está reservada para loopback (pruebas hacia el propio equipo), por eso ninguna red real puede empezar con 127. Ver <a href="#s18b">23. IPv4</a>.</p></details></li>
+<li>La dirección IP 129.102.197.23 es una dirección de clase C y su máscara de subred es 255.255.255.0.
+<details><summary>Respuesta</summary><p class="ans"><b>Falso.</b> El primer octeto 129 está entre 128 y 191: es de <b>clase B</b>, con máscara por defecto <b>255.255.0.0</b>. Y según el apunte, si tuviera máscara /24 sería sin clase, no clase C. Las de clase C empiezan entre 192 y 223.</p></details></li>
+<li>Las redes de clase C, que tienen menos de 2<sup>8</sup> "hosts", utilizan 21 bits para RED ID y solamente 8 bits para HOST ID.
+<details><summary>Respuesta</summary><p class="ans"><b>Verdadero (lo más probable).</b> Parece trampa porque la máscara de clase C es /24, pero de esos 24 bits, los 3 primeros están fijos en <b>110</b> (lo que indica que es clase C) y quedan <b>21 bits libres</b> para numerar redes: 2<sup>21</sup> = 2.097.152 redes, que es justo la cantidad de redes clase C de la tabla del apunte. Hosts: 8 bits → 254, menos de 2<sup>8</sup>. Así lo presenta Tanenbaum. Lo mismo pasa con la A (7 bits de red) y la B (14). Ver la tabla de clases en <a href="#s18b">23. IPv4</a>.</p></details></li>
+</ol>
+
+<h3>Primer parcial anterior (tema 1)</h3>
+<figure class="figparcial"><img src="img/parcial-figura-switch.png" alt="Figura del parcial: un router conectado a Internet y a un switch de capa 2, con cuatro PC (A, B, C y D) conectadas al switch" width="384" height="237" loading="lazy"><figcaption>Figura de la pregunta 1: conmutación de capa 2.</figcaption></figure>
+<ol class="pp">
+<li>A partir de la figura, ¿cuál opción es verdadera? 1) Es una red LAN conectada a una red WAN. 2) La conectividad entre los nodos determina que puede ser únicamente una red de servidor dedicado. 3) Cada puerto del switch representa un dominio de difusión. 4) Ninguna de las anteriores.
+<details><summary>Respuesta</summary><p class="ans"><b>La 1.</b> Las PC y el switch forman una LAN, y el router la conecta a Internet (WAN). La 2 es falsa porque el tipo de red según el sistema operativo no depende del cableado. La 3 es falsa porque cada puerto del switch es un dominio de <b>colisión</b>; todo el switch es un solo dominio de difusión (lo corta el router). Ver <a href="#s13">13. Dominios</a>.</p></details></li>
+<li>En la capa de enlace de datos, en la IEEE 802.3, se especifica que el tamaño mínimo de la trama de datos es de 64 bytes, y un tamaño máximo de 1518 bytes.
+<details><summary>Respuesta</summary><p class="ans"><b>Verdadero.</b> Trama Ethernet: mínimo 64 bytes (si los datos no llegan a 46 se rellena) y máximo 1518 bytes (1500 de datos + 18 de encabezado y FCS), sin contar preámbulo. Ver <a href="#s8">8. 802.3</a>.</p></details></li>
+<li>Una de las desventajas en los protocolos de acceso al medio de TOKEN PASSING es que existe una demora fija en ambientes de baja carga.
+<details><summary>Respuesta</summary><p class="ans"><b>Verdadero.</b> Aunque nadie más quiera transmitir, la estación tiene que esperar que le llegue el token. Con poca carga, la contención es más ágil; con mucha carga, el token rinde mejor. Ver <a href="#s6">6. Acceso al medio</a>.</p></details></li>
+<li>Los transceivers son dispositivos de capa 1 que se encargan de establecer la comunicación (reciben y transmiten señales) entre la PC y el medio de comunicación.
+<details><summary>Respuesta</summary><p class="ans"><b>Verdadero.</b> Transceiver = transmisor + receptor: convierte las señales de la placa en señales del medio y viceversa. Trabaja con señales, así que es de capa 1.</p></details></li>
+<li>Las placas de red Fast Ethernet con conectores RJ45 poseen transceivers internos.
+<details><summary>Respuesta</summary><p class="ans"><b>Verdadero.</b> En par trenzado el transceiver viene integrado en la placa. El transceiver externo era típico del coaxil grueso (10BASE5), conectado a la PC con un cable de hasta 50 m. Ver <a href="#s8">8. 802.3</a>.</p></details></li>
+<li>El diámetro de una red es la longitud total entre los dos nodos más remotos de la red.
+<details><summary>Respuesta</summary><p class="ans"><b>Verdadero.</b> Es la distancia máxima entre los dos extremos de un dominio de colisión. Ethernet lo limita para que una colisión se detecte mientras se sigue transmitiendo (de ahí la regla 5-4-3 y la trama mínima de 64 bytes).</p></details></li>
+<li>Segmentación es el proceso de dividir un único dominio de colisión en dos o más dominios de colisión.
+<details><summary>Respuesta</summary><p class="ans"><b>Verdadero.</b> Se segmenta con puentes, switches o routers: cada puerto pasa a ser su propio dominio de colisión, y hay menos colisiones. Ver <a href="#s13">13. Dominios</a>.</p></details></li>
+<li>La NIC ubicada en la PC destino, a nivel de la MAC, chequea si la dirección destino de la trama coincide con su dirección; si coincide copia los datos, y si no los ignora.
+<details><summary>Respuesta</summary><p class="ans"><b>Verdadero.</b> Es la misma afirmación que la 4 del preparcial: aparece en los dos.</p></details></li>
+</ol>
+<p class="sub">Todas estas preguntas también están en los exámenes de práctica y en el simulacro.</p>
+
+<h2 id="stp">26. Trabajos prácticos: qué se llevó cada uno</h2>
 <p>Cada TP aplica temas de la teoría. En las secciones correspondientes hay una caja <b>🧪 En el práctico</b> con lo que se hizo y, sobre todo, lo que enseñó. Esta tabla sirve de mapa:</p>
 <div class="scroll"><table>
 <tr><th>TP</th><th>Tema</th><th>Idea clave para el parcial</th><th>Dónde está</th></tr>
@@ -1905,7 +2192,7 @@ Los equipos hacen el AND solos, pero al diagnosticar una red hay que poder prede
 <tr><td><b>TP5</b></td><td>Servidor dedicado</td><td>Active Directory necesita DNS (registros SRV), OUs, Domain Admins, deshabilitar una cuenta, tomar posesión, acceso efectivo</td><td><a href="#s15">16. P2P vs servidor dedicado</a></td></tr>
 <tr><td><b>TP6</b></td><td>Protocolos TCP/IP</td><td>Secuencia ARP → DNS (UDP) → saludo TCP → HTTP → FIN; el switch solo usa capas 1 y 2</td><td><a href="#s18">19. Modelo TCP/IP</a></td></tr>
 <tr><td><b>TP7</b></td><td>Red TCP/IP con DHCP y DNS</td><td>Ámbito y exclusiones, opciones 003/006/015, autorizar el DHCP en AD, registro A, una máscara mal puesta que el DHCP propaga, TTL y latencia</td><td><a href="#s18a">20. Aplicación</a> y <a href="#s18i">22. Internet</a></td></tr>
-<tr><td><b>TP8</b></td><td>Subneteo</td><td>Pendiente: pistas de método, sin resultados</td><td><a href="#s18b">23. IPv4 y subneteo</a></td></tr>
+<tr><td><b>TP8</b></td><td>Subneteo</td><td>Pendiente: pistas de método, sin resultados, y ejercicios del mismo tipo con otros números</td><td><a href="#s18b">23. IPv4 y subneteo</a> y <a href="#sej">24. Ejercicios</a></td></tr>
 </table></div>
 <div class="box ok"><b>Una red de punta a punta, juntando los TPs</b>
 El <b>TP2</b> dejó el cableado (capa 1) y el <b>TP3</b> la red lógica. El <b>TP4</b> mostró que con solo IP y grupo de trabajo dos PC comparten recursos, pero cada una administra sus usuarios. El <b>TP5</b> centralizó todo en un dominio, y ahí apareció que <b>sin DNS no hay Active Directory</b>. El <b>TP7</b> sumó DHCP para no configurar cada equipo a mano. El <b>TP6</b> abrió la caja para ver qué protocolos viajan cuando se pide una página. El <b>TP8</b> agrega cómo dividir el espacio de direcciones cuando una sola red no alcanza.</div>
@@ -1913,7 +2200,7 @@ El <b>TP2</b> dejó el cableado (capa 1) y el <b>TP3</b> la red lógica. El <b>T
 <details><summary>En Packet Tracer, al pedir una página por nombre por primera vez, ¿cuál es el primer protocolo que aparece y por qué?</summary><p class="ans">ARP: antes de mandar la consulta DNS, la PC necesita la MAC del servidor DNS (o del gateway) para armar la trama.</p></details>
 <details><summary>El DHCP de un router reparte la máscara 255.255.255.128 en una red donde el servidor es la .250. ¿Qué pasa?</summary><p class="ans">Con /25, la red de los clientes va de .0 a .127, así que el servidor (.250) queda "en otra red". Los clientes intentarían llegar a él por el gateway en vez de directo, y la comunicación falla. Hay que corregir la máscara y renovar las IP.</p></details>
 </div>
-<h2 id="s19">25. Pares que se confunden</h2>
+<h2 id="s19">27. Pares que se confunden</h2>
 <div class="scroll"><table>
 <tr><th>Esto…</th><th>…no es esto</th><th>La diferencia</th></tr>
 <tr><td>Topología física</td><td>Topología lógica</td><td>Cómo se cablea vs cómo circula la información. La lógica la da el protocolo de acceso al medio.</td></tr>
@@ -1949,11 +2236,112 @@ El <b>TP2</b> dejó el cableado (capa 1) y el <b>TP3</b> la red lógica. El <b>T
 <tr><td>Segmento poblado</td><td>Segmento no poblado</td><td>Con PCs conectadas vs solo une repetidores (regla 5-4-3).</td></tr>
 </table></div>
 
-<h2 id="s20">26. Autoevaluación</h2>
-<p>Las <b>110 preguntas</b> (verdadero o falso y opción múltiple, agrupadas por tema) están en tres páginas aparte, con las mismas preguntas en todas:</p>
+<h2 id="sglo">28. Glosario de siglas</h2>
+<p>Todas las siglas que aparecen en la guía, en orden alfabético. Escribí en el filtro para encontrar una rápido; el link de la derecha lleva a la sección donde se explica.</p>
+<div class="glofil"><input type="search" id="gloFiltro" placeholder="Filtrar siglas (ej.: DHCP, SSID, tierra)…" autocomplete="off"><span id="gloCnt"></span></div>
+<div class="scroll"><table class="glo"><tr><th>Sigla</th><th>Significado</th><th>Qué es</th><th>Ver</th></tr>
+<tr><td><b>ACK</b></td><td>Acknowledgement (acuse de recibo)</td><td>Confirmación de que algo llegó. En TCP indica el próximo byte esperado; en Wi-Fi confirma cada trama.</td><td><a href="#s18t">21. TCP/IP: transporte</a></td></tr>
+<tr><td><b>AD / AD DS</b></td><td>Active Directory (Domain Services)</td><td>Servicio de directorio de Windows Server: usuarios, grupos, equipos y políticas del dominio.</td><td><a href="#s15">16. P2P vs servidor dedicado</a></td></tr>
+<tr><td><b>AES</b></td><td>Advanced Encryption Standard</td><td>Algoritmo de cifrado que usa WPA2 y WPA3.</td><td><a href="#s10">10. Wi-Fi 802.11</a></td></tr>
+<tr><td><b>AH, PH, SH, TH, RH, EH</b></td><td>Application / Presentation / Session / Transport / Red / Enlace Header</td><td>Encabezados que agrega cada capa de OSI al bajar los datos.</td><td><a href="#s2">2. Modelo OSI capa por capa</a></td></tr>
+<tr><td><b>ANSI</b></td><td>American National Standards Institute</td><td>Organismo de normas de EE. UU. que avala las normas TIA de cableado.</td><td><a href="#snp">★ Norma vs protocolo</a></td></tr>
+<tr><td><b>AP</b></td><td>Access Point (punto de acceso)</td><td>Equipo central de una red Wi-Fi en modo infraestructura.</td><td><a href="#s10">10. Wi-Fi 802.11</a></td></tr>
+<tr><td><b>APDU, PPDU, SPDU</b></td><td>Application / Presentation / Session Protocol Data Unit</td><td>PDU de las capas 7, 6 y 5 de OSI (el mensaje).</td><td><a href="#s2">2. Modelo OSI capa por capa</a></td></tr>
+<tr><td><b>APIPA</b></td><td>Automatic Private IP Addressing</td><td>Dirección 169.254.x.x que se pone sola la PC cuando no le responde ningún DHCP.</td><td><a href="#s18b">23. IPv4 y subneteo</a></td></tr>
+<tr><td><b>ARP</b></td><td>Address Resolution Protocol</td><td>Averigua la MAC que corresponde a una IP en la red local (por broadcast).</td><td><a href="#s18i">22. TCP/IP: Internet y diagnóstico</a></td></tr>
+<tr><td><b>ASCII / EBCDIC</b></td><td>American Standard Code for Information Interchange / Extended Binary Coded Decimal Interchange Code</td><td>Códigos de caracteres; convertir entre ellos es tarea de la capa de presentación.</td><td><a href="#s2">2. Modelo OSI capa por capa</a></td></tr>
+<tr><td><b>AUI</b></td><td>Attachment Unit Interface</td><td>Conector DB-15 de la placa para un transceiver externo (10BASE5).</td><td><a href="#s8">8. 802.3: trama y variantes clásicas</a></td></tr>
+<tr><td><b>BNC</b></td><td>Bayonet Neill-Concelman</td><td>Conector de bayoneta del coaxil fino (10BASE2).</td><td><a href="#s8">8. 802.3: trama y variantes clásicas</a></td></tr>
+<tr><td><b>BOOTP</b></td><td>Bootstrap Protocol</td><td>Antecesor de DHCP para asignar IP al arrancar.</td><td><a href="#s18i">22. TCP/IP: Internet y diagnóstico</a></td></tr>
+<tr><td><b>BPDU</b></td><td>Bridge Protocol Data Unit</td><td>Mensajes que intercambian los switches en STP.</td><td><a href="#s14b">15. Switching: STP y VLAN</a></td></tr>
+<tr><td><b>CAM</b></td><td>Content Addressable Memory</td><td>Memoria donde el switch guarda su tabla MAC.</td><td><a href="#s12">12. Dispositivos de interconexión</a></td></tr>
+<tr><td><b>CIDR</b></td><td>Classless Inter-Domain Routing</td><td>Notación con barra (/24) que indica cuántos bits en 1 tiene la máscara; direccionamiento sin clase.</td><td><a href="#s18b">23. IPv4 y subneteo</a></td></tr>
+<tr><td><b>CNAME, MX, NS, PTR, SRV, A, AAAA</b></td><td>Tipos de registro DNS</td><td>A: nombre → IPv4. AAAA: nombre → IPv6. CNAME: alias. MX: correo. NS: servidor DNS. PTR: IP → nombre. SRV: ubicación de servicios.</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
+<tr><td><b>CRC</b></td><td>Cyclic Redundancy Check</td><td>Cálculo para detectar errores; su resultado va en el FCS de la trama.</td><td><a href="#s8">8. 802.3: trama y variantes clásicas</a></td></tr>
+<tr><td><b>CSMA</b></td><td>Carrier Sense Multiple Access</td><td>Escuchar el medio antes de transmitir, con acceso múltiple.</td><td><a href="#s6">6. Acceso al medio</a></td></tr>
+<tr><td><b>CSMA/CA</b></td><td>CSMA with Collision Avoidance (evitación)</td><td>Acceso al medio de Wi-Fi: evita colisiones y confirma con ACK.</td><td><a href="#s6">6. Acceso al medio</a></td></tr>
+<tr><td><b>CSMA/CD</b></td><td>CSMA with Collision Detection (detección)</td><td>Acceso al medio de Ethernet: detecta colisiones mientras transmite.</td><td><a href="#s6">6. Acceso al medio</a></td></tr>
+<tr><td><b>DCF</b></td><td>Distributed Coordination Function</td><td>Función de la subcapa MAC de 802.11 basada en CSMA/CA.</td><td><a href="#s10">10. Wi-Fi 802.11</a></td></tr>
+<tr><td><b>DHCP</b></td><td>Dynamic Host Configuration Protocol</td><td>Asigna automáticamente IP, máscara, gateway y DNS (UDP 67/68, proceso DORA).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
+<tr><td><b>DIX</b></td><td>Digital (DEC), Intel y Xerox</td><td>Las empresas que crearon Ethernet antes de que fuera la norma 802.3.</td><td><a href="#s8">8. 802.3: trama y variantes clásicas</a></td></tr>
+<tr><td><b>DNS</b></td><td>Domain Name System</td><td>Traduce nombres de dominio a direcciones IP (puerto 53).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
+<tr><td><b>DORA</b></td><td>Discover, Offer, Request, Acknowledge</td><td>Los cuatro mensajes con los que DHCP entrega una IP.</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
+<tr><td><b>DSSS / FHSS / OFDM</b></td><td>Direct Sequence / Frequency Hopping Spread Spectrum / Orthogonal Frequency Division Multiplexing</td><td>Técnicas de modulación de las variantes 802.11.</td><td><a href="#s10">10. Wi-Fi 802.11</a></td></tr>
+<tr><td><b>EF, ER, TR, WA</b></td><td>Entrance Facility, Equipment Room, Telecommunications Room, Work Area</td><td>Espacios de la TIA-569: entrada de servicios, sala de equipos, sala de telecomunicaciones del piso y área de trabajo.</td><td><a href="#s17">18. Normas TIA 569/606/607/942</a></td></tr>
+<tr><td><b>EMI</b></td><td>Electromagnetic Interference</td><td>Interferencia electromagnética que afecta a los cables de cobre.</td><td><a href="#s2">2. Modelo OSI capa por capa</a></td></tr>
+<tr><td><b>ETD</b></td><td>Equipo Terminal de Datos</td><td>El equipo final (PC, servidor) que origina o recibe los datos.</td><td><a href="#s9">9. Evolución de Ethernet</a></td></tr>
+<tr><td><b>FCS</b></td><td>Frame Check Sequence</td><td>Campo final de la trama con el CRC para detectar errores.</td><td><a href="#s8">8. 802.3: trama y variantes clásicas</a></td></tr>
+<tr><td><b>FDDI</b></td><td>Fiber Distributed Data Interface</td><td>Red de fibra en doble anillo con token.</td><td><a href="#s7">7. Token Ring, Token Bus, MSAU</a></td></tr>
+<tr><td><b>FDM / TDM</b></td><td>Frequency / Time Division Multiplexing</td><td>Multiplexar por frecuencia (broadband) o por tiempo (baseband).</td><td><a href="#s2">2. Modelo OSI capa por capa</a></td></tr>
+<tr><td><b>FIN / SYN / RST</b></td><td>Finish / Synchronize / Reset</td><td>Flags de TCP: SYN abre la conexión, FIN la cierra, RST la corta.</td><td><a href="#s18t">21. TCP/IP: transporte</a></td></tr>
+<tr><td><b>FQDN</b></td><td>Fully Qualified Domain Name</td><td>Nombre de dominio completo hasta la raíz (Servidor1.Redes1.com.).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
+<tr><td><b>FTP</b></td><td>File Transfer Protocol</td><td>Transferencia de archivos (TCP 20 y 21).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
+<tr><td><b>Gbps / Mbps</b></td><td>Gigabits / Megabits por segundo</td><td>Unidades de velocidad de transmisión.</td><td><a href="#s9">9. Evolución de Ethernet</a></td></tr>
+<tr><td><b>GVRP / GARP</b></td><td>GARP VLAN Registration Protocol / Generic Attribute Registration Protocol</td><td>Protocolos para propagar la configuración de VLAN entre switches.</td><td><a href="#s14b">15. Switching: STP y VLAN</a></td></tr>
+<tr><td><b>HCC / ICC / MCC</b></td><td>Horizontal / Intermediate / Main Cross-Connect</td><td>Otros nombres de los repartidores (de piso, intermedio y principal).</td><td><a href="#s16">17. Cableado estructurado</a></td></tr>
+<tr><td><b>HTTP / HTTPS</b></td><td>HyperText Transfer Protocol (Secure)</td><td>Protocolo web (80); con cifrado TLS, HTTPS (443).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
+<tr><td><b>IANA</b></td><td>Internet Assigned Numbers Authority</td><td>Asigna los puertos bien conocidos y los bloques de direcciones.</td><td><a href="#s18t">21. TCP/IP: transporte</a></td></tr>
+<tr><td><b>ICMP</b></td><td>Internet Control Message Protocol</td><td>Mensajes de control y error de IP; lo usan ping y tracert.</td><td><a href="#s18i">22. TCP/IP: Internet y diagnóstico</a></td></tr>
+<tr><td><b>IDF / MDF</b></td><td>Intermediate / Main Distribution Facility</td><td>Repartidor de piso / repartidor principal del edificio.</td><td><a href="#s16">17. Cableado estructurado</a></td></tr>
+<tr><td><b>IEEE</b></td><td>Institute of Electrical and Electronics Engineers</td><td>Organismo que define las normas 802 (802.3 Ethernet, 802.11 Wi-Fi…).</td><td><a href="#s8">8. 802.3: trama y variantes clásicas</a></td></tr>
+<tr><td><b>IETF</b></td><td>Internet Engineering Task Force</td><td>Organismo que publica las RFC de los protocolos de Internet.</td><td><a href="#s18">19. TCP/IP: modelo y capas</a></td></tr>
+<tr><td><b>IGMP</b></td><td>Internet Group Management Protocol</td><td>Administra la pertenencia de los hosts a grupos multicast.</td><td><a href="#s18i">22. TCP/IP: Internet y diagnóstico</a></td></tr>
+<tr><td><b>IMAP</b></td><td>Internet Message Access Protocol</td><td>Leer el correo sincronizado en varios dispositivos (143).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
+<tr><td><b>IP</b></td><td>Internet Protocol</td><td>Protocolo de capa 3: direccionamiento lógico y enrutamiento. Sin conexión y no confiable.</td><td><a href="#s18i">22. TCP/IP: Internet y diagnóstico</a></td></tr>
+<tr><td><b>IPv4 / IPv6</b></td><td>Internet Protocol versión 4 / 6</td><td>Direcciones de 32 bits / de 128 bits.</td><td><a href="#s18b">23. IPv4 y subneteo</a></td></tr>
+<tr><td><b>ISO</b></td><td>International Organization for Standardization</td><td>Organismo que definió el modelo de referencia OSI.</td><td><a href="#s2">2. Modelo OSI capa por capa</a></td></tr>
+<tr><td><b>LAN / MAN / WAN</b></td><td>Local / Metropolitan / Wide Area Network</td><td>Red local, metropolitana y de área amplia.</td><td><a href="#s1">1. Red y clasificación</a></td></tr>
+<tr><td><b>LLC</b></td><td>Logical Link Control</td><td>Subcapa superior de enlace: sincronización de tramas, control de flujo y de errores.</td><td><a href="#s2">2. Modelo OSI capa por capa</a></td></tr>
+<tr><td><b>MAC</b></td><td>Media Access Control</td><td>Subcapa de acceso al medio y, por extensión, la dirección física de 48 bits de la placa.</td><td><a href="#s11">11. MAC e IP</a></td></tr>
+<tr><td><b>MDI / MDIX</b></td><td>Medium Dependent Interface (Crossover)</td><td>Tipos de puerto; Auto-MDIX cruza solo, así sirve cable derecho entre iguales.</td><td><a href="#s16">17. Cableado estructurado</a></td></tr>
+<tr><td><b>MIMO</b></td><td>Multiple Input Multiple Output</td><td>Varias antenas transmitiendo a la vez (802.11n en adelante).</td><td><a href="#s10">10. Wi-Fi 802.11</a></td></tr>
+<tr><td><b>MSAU</b></td><td>Multistation Access Unit</td><td>Concentrador de Token Ring: estrella física, anillo lógico.</td><td><a href="#s7">7. Token Ring, Token Bus, MSAU</a></td></tr>
+<tr><td><b>MTU</b></td><td>Maximum Transmission Unit</td><td>Tamaño máximo de datos por trama (1500 bytes en Ethernet).</td><td><a href="#s18i">22. TCP/IP: Internet y diagnóstico</a></td></tr>
+<tr><td><b>NAT</b></td><td>Network Address Translation</td><td>El router reemplaza IP privadas por una pública para salir a Internet.</td><td><a href="#s18i">22. TCP/IP: Internet y diagnóstico</a></td></tr>
+<tr><td><b>NIC</b></td><td>Network Interface Card</td><td>Placa de red.</td><td><a href="#s3">3. Elementos de una LAN</a></td></tr>
+<tr><td><b>NTFS</b></td><td>New Technology File System</td><td>Sistema de archivos de Windows con permisos por carpeta y archivo.</td><td><a href="#s15">16. P2P vs servidor dedicado</a></td></tr>
+<tr><td><b>OSI</b></td><td>Open Systems Interconnection</td><td>Modelo de referencia de 7 capas de la ISO.</td><td><a href="#s2">2. Modelo OSI capa por capa</a></td></tr>
+<tr><td><b>OU</b></td><td>Organizational Unit (unidad organizativa)</td><td>Contenedor de Active Directory para ordenar objetos y aplicar directivas.</td><td><a href="#s15">16. P2P vs servidor dedicado</a></td></tr>
+<tr><td><b>OUI</b></td><td>Organizationally Unique Identifier</td><td>Los 3 primeros bytes de la MAC: identifican al fabricante.</td><td><a href="#s11">11. MAC e IP</a></td></tr>
+<tr><td><b>P2P</b></td><td>Peer to peer (de igual a igual)</td><td>Red donde cada PC es cliente y servidor a la vez (grupo de trabajo).</td><td><a href="#s15">16. P2P vs servidor dedicado</a></td></tr>
+<tr><td><b>PDU</b></td><td>Protocol Data Unit</td><td>Unidad de datos de cada capa: mensaje, segmento, paquete, trama, bits.</td><td><a href="#s2">2. Modelo OSI capa por capa</a></td></tr>
+<tr><td><b>POP3</b></td><td>Post Office Protocol versión 3</td><td>Descargar el correo a un dispositivo (110).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
+<tr><td><b>RAID</b></td><td>Redundant Array of Independent Disks</td><td>Discos en conjunto con redundancia: tolerancia a fallos en servidores.</td><td><a href="#s4">4. Servidores</a></td></tr>
+<tr><td><b>RARP</b></td><td>Reverse ARP</td><td>Lo inverso de ARP: de MAC a IP. Lo reemplazaron BOOTP y DHCP.</td><td><a href="#s18i">22. TCP/IP: Internet y diagnóstico</a></td></tr>
+<tr><td><b>RFC</b></td><td>Request for Comments</td><td>Documentos públicos del IETF que definen los protocolos de TCP/IP.</td><td><a href="#s18">19. TCP/IP: modelo y capas</a></td></tr>
+<tr><td><b>RIP / IGRP</b></td><td>Routing Information Protocol / Interior Gateway Routing Protocol</td><td>Protocolos de enrutamiento: los usan los routers para armar sus tablas.</td><td><a href="#s19">27. Pares que se confunden</a></td></tr>
+<tr><td><b>RJ-45</b></td><td>Registered Jack 45</td><td>Conector de 8 pines del cable UTP.</td><td><a href="#s16">17. Cableado estructurado</a></td></tr>
+<tr><td><b>RTS / CTS</b></td><td>Request To Send / Clear To Send</td><td>Reserva del canal en Wi-Fi; mitiga el problema del nodo oculto.</td><td><a href="#s10">10. Wi-Fi 802.11</a></td></tr>
+<tr><td><b>SMTP</b></td><td>Simple Mail Transfer Protocol</td><td>Enviar correo (25).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
+<tr><td><b>SNMP</b></td><td>Simple Network Management Protocol</td><td>Monitoreo y gestión de equipos de red (UDP 161).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
+<tr><td><b>SO</b></td><td>Sistema operativo</td><td>Software base del equipo; el de red define si la LAN es P2P o de servidor dedicado.</td><td><a href="#s15">16. P2P vs servidor dedicado</a></td></tr>
+<tr><td><b>SSH</b></td><td>Secure Shell</td><td>Terminal remota cifrada (22).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
+<tr><td><b>SSID</b></td><td>Service Set Identifier</td><td>Nombre de la red Wi-Fi.</td><td><a href="#s10">10. Wi-Fi 802.11</a></td></tr>
+<tr><td><b>STP (cable)</b></td><td>Shielded Twisted Pair</td><td>Par trenzado blindado.</td><td><a href="#s2">2. Modelo OSI capa por capa</a></td></tr>
+<tr><td><b>STP (switching)</b></td><td>Spanning Tree Protocol</td><td>Evita bucles de capa 2 bloqueando enlaces redundantes.</td><td><a href="#s14b">15. Switching: STP y VLAN</a></td></tr>
+<tr><td><b>TBB / TGB / TMGB</b></td><td>Telecommunications Bonding Backbone / Grounding Busbar / Main Grounding Busbar</td><td>Elementos de puesta a tierra de la TIA-607.</td><td><a href="#s17">18. Normas TIA 569/606/607/942</a></td></tr>
+<tr><td><b>TCP</b></td><td>Transmission Control Protocol</td><td>Transporte orientado a conexión y confiable (saludo de 3 vías, ACK, retransmisión).</td><td><a href="#s18t">21. TCP/IP: transporte</a></td></tr>
+<tr><td><b>TFTP</b></td><td>Trivial File Transfer Protocol</td><td>FTP reducido sobre UDP (69).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
+<tr><td><b>TIA / EIA</b></td><td>Telecommunications Industry Association / Electronic Industries Alliance</td><td>Autoras de las normas de cableado estructurado (568, 569, 606, 607, 942).</td><td><a href="#s16">17. Cableado estructurado</a></td></tr>
+<tr><td><b>TKIP</b></td><td>Temporal Key Integrity Protocol</td><td>Mecanismo de cifrado de WPA (reemplazado por AES en WPA2).</td><td><a href="#s10">10. Wi-Fi 802.11</a></td></tr>
+<tr><td><b>TLD</b></td><td>Top-Level Domain</td><td>Dominio de primer nivel: .com, .org, .ar.</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
+<tr><td><b>TLS / SSL</b></td><td>Transport Layer Security / Secure Sockets Layer</td><td>Cifrado que usa HTTPS (SSL es el antecesor).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
+<tr><td><b>TTL</b></td><td>Time To Live</td><td>Campo de IP que cada router descuenta; en 0 el paquete se descarta.</td><td><a href="#s18i">22. TCP/IP: Internet y diagnóstico</a></td></tr>
+<tr><td><b>UDP</b></td><td>User Datagram Protocol</td><td>Transporte sin conexión, sin garantías, con encabezado de 8 bytes.</td><td><a href="#s18t">21. TCP/IP: transporte</a></td></tr>
+<tr><td><b>UPS</b></td><td>Uninterruptible Power Supply</td><td>Fuente de energía ininterrumpida para los racks.</td><td><a href="#s17">18. Normas TIA 569/606/607/942</a></td></tr>
+<tr><td><b>URL</b></td><td>Uniform Resource Locator</td><td>Dirección de un recurso web: protocolo + servidor + recurso.</td><td><a href="#s18">19. TCP/IP: modelo y capas</a></td></tr>
+<tr><td><b>UTP</b></td><td>Unshielded Twisted Pair</td><td>Par trenzado sin blindaje: el cable de red más común.</td><td><a href="#s2">2. Modelo OSI capa por capa</a></td></tr>
+<tr><td><b>VLAN</b></td><td>Virtual LAN</td><td>LAN lógica dentro de un switch: separa dominios de broadcast. Etiqueta 802.1Q.</td><td><a href="#s14b">15. Switching: STP y VLAN</a></td></tr>
+<tr><td><b>VoIP</b></td><td>Voice over IP</td><td>Voz sobre IP: usa UDP por ser tiempo real.</td><td><a href="#s18t">21. TCP/IP: transporte</a></td></tr>
+<tr><td><b>WDS</b></td><td>Wireless Distribution System</td><td>Conexión inalámbrica entre puntos de acceso.</td><td><a href="#s10">10. Wi-Fi 802.11</a></td></tr>
+<tr><td><b>WEP / WPA / WPA2 / WPA3</b></td><td>Wired Equivalent Privacy / Wi-Fi Protected Access</td><td>Seguridad de Wi-Fi, de la más vieja e insegura (WEP) a la actual (WPA3).</td><td><a href="#s10">10. Wi-Fi 802.11</a></td></tr>
+<tr><td><b>Wi-Fi / WLAN</b></td><td>Wireless Fidelity / Wireless LAN</td><td>Red local inalámbrica, norma IEEE 802.11.</td><td><a href="#s10">10. Wi-Fi 802.11</a></td></tr>
+</table></div>
+<h2 id="s20">29. Autoevaluación</h2>
+<p>Las <b>150 preguntas</b> (verdadero o falso y opción múltiple, agrupadas por tema) están en tres páginas aparte, con las mismas preguntas en todas:</p>
 <div class="grid">
 <a class="card cardlink" href="practica.html"><h4>Examen de práctica →</h4>Cada respuesta se <b>corrige al instante</b> y queda fija: ves si acertaste, por qué, y en qué sección de la guía repasarlo. Al final te dice qué secciones repasar y podés reintentar solo las incorrectas.</a>
-<a class="card cardlink" href="examen.html"><h4>Examen definitivo →</h4>Como el parcial: con <b>tiempo límite</b> opcional, podés cambiar las respuestas y la corrección llega al enviar, con nota, tiempo, qué repasar y reintento de las incorrectas.</a>
+<a class="card cardlink" href="examen.html"><h4>Examen definitivo y simulacro →</h4>Incluye el <b>simulacro del parcial</b> (19 V/F + 1 de subneteo, 60 min, −0,5 por error). Por tema: con <b>tiempo límite</b> opcional, podés cambiar las respuestas y la corrección llega al enviar, con nota, tiempo, qué repasar y reintento de las incorrectas.</a>
 <a class="card cardlink" href="autoevaluacion.html"><h4>Repaso con respuestas →</h4>Cada pregunta con sus opciones y un desplegable <b>Ver respuesta</b> con la explicación. Sin puntaje: ideal para repasar leyendo.</a>
 </div>
 <p class="sub" style="margin-top:40px">Fuentes: material oficial del aula virtual (Ing. Patricia Nazar): Modelo OSI partes 1 a 3, Norma IEEE 802.3 Ethernet, Norma IEEE 802.3u Fast Ethernet, Introducción a Switching Ethernet, Redes inalámbricas, Modelo TCP/IP partes 1 a 3, apunte de Subneteo 2026, clase-taller de TCP/IP, Teoría y Práctica de Cableado Estructurado, trama 802.3; slides Primeras Unidades 2026, planificación 2026, apuntes de clase 1 y 2, resumen de conceptos a afianzar, resumen de normas TIA las presentaciones de actividades del grupo y los trabajos prácticos 1 a 7.</p>
@@ -2011,6 +2399,156 @@ document.querySelectorAll('.anim').forEach(function(f){var s=f.querySelector('sv
 function upd(){b.textContent=on?'⏸':'▶';b.setAttribute('aria-label',on?'Pausar animación':'Reproducir animación');}
 if(red){try{s.pauseAnimations();}catch(e){}on=false;}upd();
 b.addEventListener('click',function(){on=!on;try{on?s.unpauseAnimations():s.pauseAnimations();}catch(e){}upd();});});})();
+</script>
+<script>/*glosario*/
+(function(){var i=document.getElementById('gloFiltro');if(!i)return;var rows=[].slice.call(document.querySelectorAll('table.glo tr')).slice(1),c=document.getElementById('gloCnt');
+function n(s){return s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();}
+rows.forEach(function(r){r.__t=n(r.textContent);});
+function f(){var q=n(i.value.trim()),k=0;rows.forEach(function(r){var v=!q||r.__t.indexOf(q)>=0;r.style.display=v?'':'none';if(v)k++;});c.textContent=q?(k+' de '+rows.length):(rows.length+' siglas');}
+i.addEventListener('input',f);f();})();
+</script>
+<script>/*subneteo-js*/
+/* Generador y corrector de ejercicios de subneteo (guía y simulacro) */
+(function(){
+  if(window.Subneteo) return;
+  function rnd(a,b){return a+Math.floor(Math.random()*(b-a+1));}
+  function n2ip(n){return [n>>>24,(n>>>16)&255,(n>>>8)&255,n&255].join('.');}
+  function mask(p){return p===0?0:(0xFFFFFFFF<<(32-p))>>>0;}
+  function bin(n){var s=(n>>>0).toString(2);while(s.length<32)s='0'+s;return s.slice(0,8)+'.'+s.slice(8,16)+'.'+s.slice(16,24)+'.'+s.slice(24);}
+  function miles(n){return String(n).replace(/\B(?=(\d{3})+(?!\d))/g,'.');}
+  var DEF={A:8,B:16,C:24}, ORD=['primer','segundo','tercer','cuarto'];
+  function claseAzar(pref){
+    if(pref) return pref;
+    var r=Math.random(); return r<0.45?'B':(r<0.85?'C':'A');
+  }
+  function primerOcteto(c){return c==='A'?rnd(1,126):(c==='B'?rnd(128,191):rnd(192,223));}
+  function salto(p){var oi=Math.floor((p-1)/8), mv=(mask(p)>>>(24-8*oi))&255; return {oi:oi,mv:mv,s:256-mv};}
+
+  /* ---- tipo 1: IP con prefijo ---- */
+  function genIP(cl){
+    var c=claseAzar(cl), d=DEF[c], p=rnd(d+1,Math.min(30,d+(c==='C'?6:12))), ip, m, net, bc;
+    do{ ip=((primerOcteto(c)<<24)|(rnd(0,255)<<16)|(rnd(0,255)<<8)|rnd(0,255))>>>0;
+        m=mask(p); net=(ip&m)>>>0; bc=(net|(~m>>>0))>>>0; }while(ip===net||ip===bc);
+    var st=salto(p), oct=(ip>>>(24-8*st.oi))&255, base=Math.floor(oct/st.s)*st.s;
+    return {tipo:'ip', clase:c, ip:ip, p:p,
+      campos:[['red','Dirección de red'],['bc','Dirección de broadcast'],['h1','Primer host'],['hn','Último host'],['hosts','Cantidad de hosts utilizables']],
+      sol:{red:n2ip(net), bc:n2ip(bc), h1:n2ip(net+1), hn:n2ip(bc-1), hosts:Math.pow(2,32-p)-2},
+      pasos:[
+        'Prefijo /'+p+' → máscara <b>'+n2ip(m)+'</b> ('+bin(m)+').',
+        'El octeto "interesante" es el '+ORD[st.oi]+' (el que no es 255 ni 0, o el último 255 si el prefijo es múltiplo de 8): vale '+st.mv+', así que el <b>salto es 256 − '+st.mv+' = '+st.s+'</b> en ese octeto.',
+        'En la IP ese octeto vale '+oct+'. El múltiplo de '+st.s+' que queda justo abajo es <b>'+base+'</b> → red <b>'+n2ip(net)+'</b>. La siguiente red empezaría en '+(base+st.s)+', y la dirección anterior es el broadcast: <b>'+n2ip(bc)+'</b>.',
+        'Primer host = red + 1 = <b>'+n2ip(net+1)+'</b>. Último host = broadcast − 1 = <b>'+n2ip(bc-1)+'</b>.',
+        'Bits de host: 32 − '+p+' = '+(32-p)+' → 2<sup>'+(32-p)+'</sup> − 2 = <b>'+miles(Math.pow(2,32-p)-2)+'</b> hosts.'
+      ],
+      enunciado:'Dada la dirección <b>'+n2ip(ip)+'/'+p+'</b>, calculá la dirección de red, la de broadcast, el primer y el último host de su subred, y la cantidad de hosts utilizables.'};
+  }
+
+  /* ---- tipo 2: subnetear una red con clase según requisitos ---- */
+  function genReq(cl){
+    var c=claseAzar(cl), d=DEF[c], maxN=c==='C'?5:(c==='B'?8:12), n=rnd(2,maxN), h=32-d-n, net;
+    if(c==='A') net=(primerOcteto('A')<<24)>>>0;
+    else if(c==='B') net=((primerOcteto('B')<<24)|(rnd(0,255)<<16))>>>0;
+    else net=((primerOcteto('C')<<24)|(rnd(0,255)<<16)|(rnd(0,255)<<8))>>>0;
+    var hostsMax=Math.pow(2,h)-2, porHosts=Math.random()<0.4, S, H, txt;
+    if(porHosts){
+      H=rnd(Math.pow(2,h-1)-1,hostsMax); if(H<2)H=2;
+      txt='Se necesitan subredes de <b>al menos '+miles(H)+' hosts</b> cada una, y la <b>mayor cantidad de subredes</b> posible.';
+    }else{
+      S=rnd(Math.pow(2,n-1)+1,Math.pow(2,n));
+      H=rnd(Math.max(2,Math.floor(hostsMax/3)),hostsMax);
+      txt='Se necesitan <b>al menos '+S+' subredes</b> con <b>al menos '+miles(H)+' hosts</b> cada una (prestá la menor cantidad de bits posible).';
+    }
+    var p=d+n, m=mask(p), st=salto(p), tam=Math.pow(2,h), k=rnd(2,Math.min(4,Math.pow(2,n)));
+    var red=(net+(k-1)*tam)>>>0, bc=(red+tam-1)>>>0, ult=(net+(Math.pow(2,n)-1)*tam)>>>0;
+    var pasos=['Red clase '+c+': máscara por defecto /'+d+' ('+n2ip(mask(d))+'). Hay '+(32-d)+' bits de host para repartir.'];
+    if(porHosts){
+      pasos.push('Hosts: busco el menor M con 2<sup>M</sup> − 2 ≥ '+miles(H)+': 2<sup>'+(h-1)+'</sup> − 2 = '+miles(Math.pow(2,h-1)-2)+' no alcanza, 2<sup>'+h+'</sup> − 2 = <b>'+miles(hostsMax)+'</b> sí → M = '+h+' bits de host.');
+      pasos.push('Bits prestados: N = '+(32-d)+' − '+h+' = <b>'+n+'</b> → 2<sup>'+n+'</sup> = <b>'+miles(Math.pow(2,n))+' subredes</b>.');
+    }else{
+      pasos.push('Subredes: busco el menor N con 2<sup>N</sup> ≥ '+S+': 2<sup>'+(n-1)+'</sup> = '+Math.pow(2,n-1)+' no alcanza, 2<sup>'+n+'</sup> = <b>'+miles(Math.pow(2,n))+'</b> sí → N = '+n+' bits prestados.');
+      pasos.push('Verifico hosts: quedan M = '+(32-d)+' − '+n+' = '+h+' bits → 2<sup>'+h+'</sup> − 2 = <b>'+miles(hostsMax)+'</b> ≥ '+miles(H)+' ✔.');
+    }
+    pasos.push('Máscara nueva: /'+d+' + '+n+' = <b>/'+p+'</b> = <b>'+n2ip(m)+'</b> ('+bin(m)+').');
+    pasos.push('Salto: 256 − '+st.mv+' = <b>'+st.s+'</b> en el '+ORD[st.oi]+' octeto. Las subredes empiezan en '+n2ip(net)+', '+n2ip(net+tam)+', '+n2ip(net+2*tam)+'…');
+    pasos.push('Subred número '+k+' (la primera es la que empieza en '+n2ip(net)+'): '+n2ip(net)+' + '+(k-1)+(k===2?' salto':' saltos')+' de '+tam+' direcciones → red <b>'+n2ip(red)+'</b>, hosts de <b>'+n2ip(red+1)+'</b> a <b>'+n2ip(bc-1)+'</b>, broadcast <b>'+n2ip(bc)+'</b>.');
+    pasos.push('Para controlar: la última subred empieza en '+n2ip(ult)+' y su broadcast es '+n2ip((ult+tam-1)>>>0)+' (el broadcast de toda la red original).');
+    return {tipo:'req', clase:c, ip:net, p:d,
+      campos:[['masc','Máscara de subred (decimal)'],['pref','Prefijo (/n)'],['nsub','Cantidad de subredes'],['hosts','Hosts utilizables por subred'],['salto','Salto (rango entre subredes)'],
+              ['red','Subred n.º '+k+': dirección de red'],['h1','Subred n.º '+k+': primer host'],['hn','Subred n.º '+k+': último host'],['bc','Subred n.º '+k+': broadcast']],
+      sol:{masc:n2ip(m), pref:p, nsub:Math.pow(2,n), hosts:hostsMax, salto:st.s, red:n2ip(red), h1:n2ip(red+1), hn:n2ip(bc-1), bc:n2ip(bc)},
+      pasos:pasos,
+      enunciado:'Te asignan la red <b>'+n2ip(net)+'/'+d+'</b> (clase '+c+'). '+txt+' Calculá la máscara, la cantidad de subredes, los hosts por subred, el salto y los datos de la <b>subred número '+k+'</b> (la primera es la que empieza en '+n2ip(net)+').'};
+  }
+
+  function norm(k,v){
+    v=String(v||'').trim().replace(/\s+/g,'');
+    if(k==='pref') return v.replace(/^\//,'');
+    if(k==='hosts'||k==='nsub'||k==='salto') return v.replace(/[.,]/g,'');
+    return v.replace(/^0+(\d)/,'$1').replace(/\.0+(\d)/g,'.$1');
+  }
+  function corregir(ex,ans){
+    var r={}, ok=0;
+    ex.campos.forEach(function(c){var k=c[0], b=norm(k,ans[k])===norm(k,ex.sol[k]); r[k]=b; if(b)ok++;});
+    return {campos:r, ok:ok, total:ex.campos.length, todo:ok===ex.campos.length};
+  }
+  function fmtSol(k,v){return (k==='hosts'||k==='nsub')?miles(v):(k==='pref'?'/'+v:String(v));}
+  function html(ex,ans,res,pref){
+    ans=ans||{}; pref=pref||'sg';
+    var h='<p class="sg-en">'+ex.enunciado+'</p><div class="sg-grid">';
+    ex.campos.forEach(function(c){
+      var k=c[0], st=res?(res.campos[k]?' ok':' bad'):'';
+      h+='<label class="sg-f'+st+'"><span>'+c[1]+'</span><input data-k="'+k+'" autocomplete="off" spellcheck="false" inputmode="'+((k==='hosts'||k==='nsub'||k==='salto'||k==='pref')?'numeric':'decimal')+'" value="'+(ans[k]!==undefined?String(ans[k]).replace(/"/g,''):'')+'"'+(res?' disabled':'')+'>'+
+        (res&&!res.campos[k]?'<em>Correcto: '+fmtSol(k,ex.sol[k])+'</em>':'')+'</label>';
+    });
+    h+='</div>';
+    if(res){
+      h+='<div class="sg-res '+(res.todo?'ok':'bad')+'"><b>'+(res.todo?'✓ Todo bien.':'✗ '+res.ok+' de '+res.total+' bien.')+'</b> Resolución paso a paso:<ol>';
+      ex.pasos.forEach(function(p){h+='<li>'+p+'</li>';}); h+='</ol></div>';
+    }
+    return h;
+  }
+  function leer(el){var a={};el.querySelectorAll('input[data-k]').forEach(function(i){a[i.getAttribute('data-k')]=i.value;});return a;}
+  function lleno(el){var ins=el.querySelectorAll('input[data-k]');if(!ins.length)return false;for(var i=0;i<ins.length;i++)if(!ins[i].value.trim())return false;return true;}
+
+  var css='.sg-en{margin:6px 0 10px}.sg-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px 14px}'+
+    '.sg-f{display:flex;flex-direction:column;gap:4px;font-size:13.5px;color:var(--mut)}.sg-f input{font:15px ui-monospace,Consolas,monospace;padding:8px 10px;border-radius:8px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);min-width:0}'+
+    '.sg-f input:focus{outline:none;border-color:var(--acc)}.sg-f.ok input{border-color:var(--acc2);background:var(--okbg)}.sg-f.bad input{border-color:#dc2626}.sg-f em{font-style:normal;font:13px ui-monospace,Consolas,monospace;color:var(--acc2);font-weight:700}'+
+    '.sg-res{margin-top:14px;padding:10px 14px;border-radius:0 8px 8px 0;border-left:4px solid var(--acc2);background:var(--okbg)}.sg-res.bad{border-color:var(--warn);background:var(--warnbg)}.sg-res ol{margin:6px 0 0;padding-left:20px}.sg-res li{margin:4px 0}'+
+    '.subgen{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:16px 0}.subgen .sg-opts{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px}'+
+    '.subgen .sg-opts button,.subgen .sg-act button{font:inherit;font-size:14px;padding:6px 12px;border-radius:99px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}'+
+    '.subgen .sg-opts button.on{border-color:var(--acc);background:var(--acc);color:var(--on-acc)}.subgen .sg-act{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}.subgen .sg-act button.p{background:var(--acc);border-color:var(--acc);color:var(--on-acc);font-weight:700}'+
+    '.subgen .sg-cnt{font-size:13px;color:var(--mut);margin-left:auto;align-self:center}';
+  var st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+
+  /* ---- widget de práctica en la guía ---- */
+  function montar(box){
+    var tipo='ip', clase='', ex=null, hechos=0, bien=0;
+    box.innerHTML='<div class="sg-opts" data-g="tipo"><button type="button" data-v="ip" class="on">IP/prefijo → red, broadcast, hosts</button><button type="button" data-v="req">Subnetear según requisitos</button></div>'+
+      '<div class="sg-opts" data-g="clase"><button type="button" data-v="" class="on">Clase al azar</button><button type="button" data-v="A">Clase A</button><button type="button" data-v="B">Clase B</button><button type="button" data-v="C">Clase C</button></div>'+
+      '<div class="sg-body"></div><div class="sg-act"><button type="button" class="p" data-a="corregir">Corregir</button><button type="button" data-a="ver">Ver la solución</button><button type="button" data-a="otro">Otro ejercicio</button><span class="sg-cnt"></span></div>';
+    var body=box.querySelector('.sg-body'), cnt=box.querySelector('.sg-cnt');
+    function nuevo(){ex=tipo==='ip'?genIP(clase):genReq(clase); body.innerHTML=html(ex); box.querySelector('[data-a="corregir"]').disabled=false;}
+    function cont(){cnt.textContent=hechos?('Bien: '+bien+' de '+hechos):'';}
+    box.addEventListener('click',function(e){
+      var b=e.target.closest('button'); if(!b) return;
+      var g=b.parentNode.getAttribute('data-g');
+      if(g){b.parentNode.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x===b);});
+        if(g==='tipo')tipo=b.getAttribute('data-v'); else clase=b.getAttribute('data-v'); nuevo(); return;}
+      var a=b.getAttribute('data-a');
+      if(a==='otro') nuevo();
+      else if(a==='corregir'||a==='ver'){
+        var ans=a==='ver'?{}:leer(body), r=corregir(ex,ans);
+        if(a==='corregir'){hechos++; if(r.todo)bien++; cont();}
+        body.innerHTML=html(ex,ans,r); box.querySelector('[data-a="corregir"]').disabled=true;
+      }
+    });
+    body.addEventListener('keydown',function(e){if(e.key==='Enter'){var c=box.querySelector('[data-a="corregir"]');if(!c.disabled)c.click();}});
+    nuevo();
+  }
+  window.Subneteo={genIP:genIP, genReq:genReq, corregir:corregir, html:html, leer:leer, lleno:lleno};
+  function init(){document.querySelectorAll('.subgen').forEach(montar);}
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
+})();
 </script>
 <script>/*buscador-js*/
 (function(){

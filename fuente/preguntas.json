@@ -1,5 +1,5 @@
 {
- "version": "1.5",
+ "version": "1.7",
  "temas": [
   {
    "id": "osi",
@@ -1616,6 +1616,532 @@
    "correcta": 1,
    "explicacion": "La categoría del canal la determina <b>el componente de menor prestación</b>: con jacks Cat 5e, el canal es <b>Cat 5e</b>. Por eso en el TP2 se pidió coherencia de categoría en patcheras, jacks, cable y patch cords.",
    "seccion": "s16"
+  },
+  {
+   "id": 111,
+   "tema": "norma",
+   "tipo": "vf",
+   "enunciado": "Un protocolo es el conjunto de reglas que gobiernan la comunicación entre entidades de una misma capa: el protocolo de la capa N intercambia información con su homóloga en la máquina destino. <i>(Preparcial)</i>",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Es la definición de protocolo como diálogo entre <b>capas pares</b>: la capa N de un equipo habla con la capa N del otro, siguiendo reglas de sintaxis, semántica y temporización, para dar los servicios de esa capa.",
+   "seccion": "snp"
+  },
+  {
+   "id": 112,
+   "tema": "eth",
+   "tipo": "vf",
+   "enunciado": "Para detectar errores de transmisión en la capa 2, la estación destino compara el campo FCS de la trama con el resultado de un cálculo que hace sobre el contenido de la misma. <i>(Preparcial)</i>",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "El emisor calcula un <b>CRC</b> sobre la trama y lo pone en el <b>FCS</b>. El receptor hace el mismo cálculo; si no coincide, la trama llegó dañada y se descarta. Detecta errores, no los corrige.",
+   "seccion": "s8"
+  },
+  {
+   "id": 113,
+   "tema": "lan",
+   "tipo": "vf",
+   "enunciado": "Las redes con sistemas operativos peer to peer proveen mayor seguridad y control que una red basada en servidor dedicado. <i>(Preparcial)</i>",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "Es al revés. El <b>servidor dedicado</b> centraliza usuarios, grupos, permisos y políticas, con una base de seguridad única: seguridad alta. En <b>peer to peer</b> cada PC administra sus propias cuentas y lo que comparte: seguridad baja.",
+   "seccion": "s15"
+  },
+  {
+   "id": 114,
+   "tema": "disp",
+   "tipo": "vf",
+   "enunciado": "La NIC de la PC destino, a nivel de la subcapa MAC, chequea si la dirección destino de la trama coincide con su dirección física: si coincide copia los datos y, si no, los ignora. <i>(Preparcial)</i>",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Cada placa filtra por <b>MAC destino</b>: procesa las tramas dirigidas a ella (además de broadcast y los multicast a los que pertenece) y descarta el resto. Por eso, en el flooding del switch, las PC que no son destino descartan la trama en la placa.",
+   "seccion": "s11"
+  },
+  {
+   "id": 115,
+   "tema": "osi",
+   "tipo": "vf",
+   "enunciado": "El crosstalk ocurre cuando dos cables físicamente próximos interfieren el uno con el otro a través de campos magnéticos. <i>(Preparcial)</i>",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "La <b>diafonía</b> (crosstalk) es la interferencia por acoplamiento electromagnético entre conductores cercanos. El <b>trenzado</b> de los pares del UTP está pensado para reducirla.",
+   "seccion": "s12"
+  },
+  {
+   "id": 116,
+   "tema": "disp",
+   "tipo": "vf",
+   "enunciado": "Un hub o repetidor multipuerto puede filtrar el tráfico, es decir, no enviar a un segmento los datos que no están dirigidos a ninguna PC de ese segmento. <i>(Preparcial)</i>",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "El <b>hub</b> es de capa 1: no lee direcciones y repite todo por todos los puertos. Filtrar por MAC es lo que hacen el <b>puente</b> y el <b>switch</b> (capa 2), que tienen una tabla de direcciones.",
+   "seccion": "s12"
+  },
+  {
+   "id": 117,
+   "tema": "cab",
+   "tipo": "vf",
+   "enunciado": "En cableado estructurado, el subsistema horizontal es el que realiza la conexión de la PC del usuario a la red. <i>(Preparcial)</i>",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "El <b>horizontal</b> va del repartidor o rack del piso hasta la roseta (hasta 90 m). La conexión de la PC a la roseta, con el patch cord, corresponde al subsistema de <b>área de trabajo</b>.",
+   "seccion": "s16"
+  },
+  {
+   "id": 118,
+   "tema": "lan",
+   "tipo": "vf",
+   "enunciado": "Joaquín usa a la mañana el usuario joaquincompras (lectura y ejecución sobre la carpeta compraventas) y a la tarde el usuario joaquinventas (listar el contenido). Sus permisos efectivos sobre la carpeta son la suma de los dos. <i>(Preparcial)</i>",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "Son <b>dos cuentas distintas</b>. Los permisos efectivos se calculan por <b>usuario</b> (sumando los suyos y los de sus grupos), no por persona. Con joaquincompras tiene lectura y ejecución; con joaquinventas, solo listar.",
+   "seccion": "s15"
+  },
+  {
+   "id": 119,
+   "tema": "ip",
+   "tipo": "vf",
+   "enunciado": "Al hacer direccionamiento IP hay que recordar que el identificador de red no puede comenzar con 127. <i>(Preparcial)</i>",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Todo el rango <b>127.x.x.x</b> está reservado para <b>loopback</b> (pruebas hacia el propio equipo, típicamente 127.0.0.1). Ninguna red real puede usarlo.",
+   "seccion": "s18b"
+  },
+  {
+   "id": 120,
+   "tema": "ip",
+   "tipo": "vf",
+   "enunciado": "La dirección IP 129.102.197.23 es de clase C y su máscara de subred es 255.255.255.0. <i>(Preparcial)</i>",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "El primer octeto <b>129</b> está entre 128 y 191: es de <b>clase B</b>, con máscara por defecto <b>255.255.0.0</b>. Las de clase C empiezan entre 192 y 223.",
+   "seccion": "s18b"
+  },
+  {
+   "id": 121,
+   "tema": "ip",
+   "tipo": "vf",
+   "enunciado": "Las redes de clase C, que tienen menos de 2<sup>8</sup> hosts, utilizan 21 bits para el ID de red y 8 bits para el ID de host. <i>(Preparcial)</i>",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "De los 24 bits de red de la clase C, los 3 primeros están fijos en <b>110</b> (marcan la clase) y quedan <b>21 libres</b> para numerar redes: 2<sup>21</sup> = 2.097.152 redes, como en la tabla del apunte. Los hosts usan 8 bits (254 hosts, menos de 2<sup>8</sup>).",
+   "seccion": "s18b"
+  },
+  {
+   "id": 122,
+   "tema": "disp",
+   "tipo": "mc",
+   "enunciado": "Una red tiene un router conectado a Internet y a un switch de capa 2 con cuatro PC. ¿Cuál afirmación es verdadera? <i>(Parcial anterior)</i>",
+   "opciones": [
+    "Es una red LAN conectada a una red WAN",
+    "Por cómo están conectados los nodos, solo puede ser una red de servidor dedicado",
+    "Cada puerto del switch es un dominio de difusión",
+    "Ninguna de las anteriores"
+   ],
+   "correcta": 0,
+   "explicacion": "Las PC con el switch forman una <b>LAN</b> y el router la conecta a Internet, una <b>WAN</b>. El tipo de red (P2P o servidor dedicado) depende del sistema operativo, no de la conexión. Y cada puerto del switch es un dominio de <b>colisión</b>: todo el switch es un único dominio de difusión.",
+   "seccion": "s13"
+  },
+  {
+   "id": 123,
+   "tema": "eth",
+   "tipo": "vf",
+   "enunciado": "La IEEE 802.3 especifica que la trama tiene un tamaño mínimo de 64 bytes y un máximo de 1518 bytes. <i>(Parcial anterior)</i>",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Mínimo <b>64 bytes</b> (si los datos no llegan a 46 bytes, se rellenan) y máximo <b>1518 bytes</b>: 1500 de datos más 18 de encabezado y FCS, sin contar el preámbulo.",
+   "seccion": "s8"
+  },
+  {
+   "id": 124,
+   "tema": "topo",
+   "tipo": "vf",
+   "enunciado": "Una de las desventajas de los protocolos de acceso al medio por token passing es que existe una demora fija en ambientes de baja carga. <i>(Parcial anterior)</i>",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Aunque nadie más quiera transmitir, la estación tiene que <b>esperar que le llegue el token</b>. Con poca carga, la contención es más ágil; con mucha carga, el token rinde mejor porque no hay colisiones.",
+   "seccion": "s6"
+  },
+  {
+   "id": 125,
+   "tema": "osi",
+   "tipo": "vf",
+   "enunciado": "Los transceivers son dispositivos de capa 1 que establecen la comunicación (reciben y transmiten señales) entre la PC y el medio. <i>(Parcial anterior)</i>",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Transceiver = <b>trans</b>misor + re<b>ceiver</b>. Convierte las señales de la placa en señales del medio y viceversa: trabaja con señales, así que es de capa 1.",
+   "seccion": "s12"
+  },
+  {
+   "id": 126,
+   "tema": "eth",
+   "tipo": "vf",
+   "enunciado": "Las placas de red Fast Ethernet con conectores RJ45 tienen transceivers internos. <i>(Parcial anterior)</i>",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "En par trenzado el transceiver está <b>integrado en la placa</b>. El transceiver externo era típico del coaxil grueso (10BASE5), conectado a la PC con un cable de hasta 50 m.",
+   "seccion": "s8"
+  },
+  {
+   "id": 127,
+   "tema": "eth",
+   "tipo": "vf",
+   "enunciado": "El diámetro de una red es la longitud total entre los dos nodos más remotos de la red. <i>(Parcial anterior)</i>",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "El diámetro es la distancia entre los dos extremos más alejados de un dominio de colisión. Ethernet lo limita para que una colisión se detecte mientras la estación todavía está transmitiendo.",
+   "seccion": "s12"
+  },
+  {
+   "id": 128,
+   "tema": "disp",
+   "tipo": "vf",
+   "enunciado": "La segmentación es el proceso de dividir un único dominio de colisión en dos o más dominios de colisión. <i>(Parcial anterior)</i>",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Se segmenta con <b>puentes, switches o routers</b>: cada segmento (o cada puerto del switch) pasa a ser su propio dominio de colisión, y bajan las colisiones.",
+   "seccion": "s13"
+  },
+  {
+   "id": 129,
+   "tema": "tcp",
+   "tipo": "vf",
+   "enunciado": "La capa de transporte de TCP/IP es la responsable de entregar los paquetes salto a salto entre routers usando la dirección IP.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "Eso lo hace la capa de <b>Internet</b> (IP), con enrutamiento salto a salto. Transporte (TCP/UDP) lleva los datos <b>de una aplicación a otra</b>, de extremo a extremo, usando <b>puertos</b>: segmenta, numera y, en TCP, confirma y retransmite.",
+   "seccion": "s18t"
+  },
+  {
+   "id": 130,
+   "tema": "tcp",
+   "tipo": "vf",
+   "enunciado": "La capa de acceso a la red de TCP/IP equivale a las capas física y de enlace de OSI, y su PDU es la trama.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Acceso a la red agrupa las capas <b>1 y 2</b> de OSI: ahí están las normas como Ethernet y Wi-Fi, las direcciones MAC y la <b>trama</b> (que finalmente sale como bits).",
+   "seccion": "s18"
+  },
+  {
+   "id": 131,
+   "tema": "tcp",
+   "tipo": "vf",
+   "enunciado": "La capa de aplicación de TCP/IP agrupa las funciones de las capas de sesión, presentación y aplicación del modelo OSI.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "TCP/IP tiene 4 capas: la de <b>aplicación</b> cubre las capas 5, 6 y 7 de OSI. Por eso en Packet Tracer las capas 5 y 6 aparecen sin actividad.",
+   "seccion": "s18"
+  },
+  {
+   "id": 132,
+   "tema": "disp",
+   "tipo": "vf",
+   "enunciado": "La trama viaja dentro del paquete IP de un extremo al otro de la comunicación.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "Es al revés: el <b>paquete viaja dentro de la trama</b>. Y la trama no llega de punta a punta: en cada router se descarta y se arma una nueva para el siguiente tramo. El paquete es el que se mantiene.",
+   "seccion": "s11"
+  },
+  {
+   "id": 133,
+   "tema": "disp",
+   "tipo": "vf",
+   "enunciado": "Cuando el destino está en otra red, la trama que sale de la PC lleva como MAC destino la del router (puerta de enlace) y como IP destino la del equipo final.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "La <b>IP destino</b> es siempre el destino final. La <b>MAC destino</b> es el próximo salto: si el destino está afuera, es la MAC del router, que la PC obtiene con ARP.",
+   "seccion": "s11"
+  },
+  {
+   "id": 134,
+   "tema": "disp",
+   "tipo": "vf",
+   "enunciado": "La dirección física se usa en la capa 3 y la dirección lógica en la capa 2.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "Es al revés: la dirección <b>física (MAC)</b> es de la capa <b>2</b> y la usa el switch; la <b>lógica (IP)</b> es de la capa <b>3</b> y la usa el router.",
+   "seccion": "s11"
+  },
+  {
+   "id": 135,
+   "tema": "wifi",
+   "tipo": "vf",
+   "enunciado": "Las redes 802.11 usan CSMA/CD porque las estaciones pueden detectar las colisiones mientras transmiten por el aire.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "802.11 usa <b>CSMA/CA</b>: en el aire una estación no puede escuchar mientras transmite, así que no puede detectar colisiones. Las <b>evita</b> (espera aleatoria, RTS/CTS) y confirma cada trama con un <b>ACK</b>.",
+   "seccion": "s10"
+  },
+  {
+   "id": 136,
+   "tema": "wifi",
+   "tipo": "vf",
+   "enunciado": "En una red Wi-Fi en modo infraestructura, la comunicación entre dos estaciones pasa por el punto de acceso.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "En modo <b>infraestructura</b> todo pasa por el <b>AP</b>; por eso entre dos notebooks hay dos tramos inalámbricos. En modo <b>ad hoc</b> se comunican directamente.",
+   "seccion": "s10"
+  },
+  {
+   "id": 137,
+   "tema": "lan",
+   "tipo": "vf",
+   "enunciado": "Los permisos de recurso compartido se evalúan también cuando el usuario accede a la carpeta sentado en la misma PC donde está.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "Los permisos de <b>recurso compartido</b> solo se evalúan en el <b>acceso por red</b>. Localmente, solo cuentan los permisos <b>NTFS</b>.",
+   "seccion": "s15"
+  },
+  {
+   "id": 138,
+   "tema": "lan",
+   "tipo": "vf",
+   "enunciado": "Si un usuario accede por la red a una carpeta con Cambiar en el recurso compartido y Lectura en NTFS, su permiso efectivo es Cambiar.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "Por red se combinan las dos capas y rige la <b>más restrictiva</b>: Cambiar y Lectura dan <b>Lectura</b>.",
+   "seccion": "s15"
+  },
+  {
+   "id": 139,
+   "tema": "lan",
+   "tipo": "vf",
+   "enunciado": "Dentro de los permisos NTFS, si un usuario recibe Lectura por un grupo y Escritura por otro, su permiso es la suma de ambos, salvo que haya una denegación.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Dentro de una misma capa, los permisos del usuario y de todos sus grupos <b>se acumulan</b>. La única excepción es una <b>denegación explícita</b>, que gana.",
+   "seccion": "s15"
+  },
+  {
+   "id": 140,
+   "tema": "lan",
+   "tipo": "vf",
+   "enunciado": "En un dominio de Windows Server, los usuarios se crean una sola vez en Active Directory y pueden iniciar sesión en cualquier equipo del dominio.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Esa es la ventaja de la <b>administración centralizada</b>: en un grupo de trabajo (peer to peer) habría que crear el usuario en cada PC.",
+   "seccion": "s15"
+  },
+  {
+   "id": 141,
+   "tema": "tcp",
+   "tipo": "vf",
+   "enunciado": "Un servidor DHCP entrega a los clientes la IP, la máscara, la puerta de enlace y el servidor DNS, pero las IP fijas de servidores e impresoras conviene excluirlas del ámbito.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "DHCP reparte los cuatro datos. Las IP asignadas a mano deben quedar <b>fuera del ámbito</b> o <b>excluidas</b>, porque el DHCP no sabe que están en uso y podría dárselas a otro equipo.",
+   "seccion": "s18a"
+  },
+  {
+   "id": 142,
+   "tema": "tcp",
+   "tipo": "vf",
+   "enunciado": "El DNS traduce direcciones MAC a direcciones IP.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "El <b>DNS</b> traduce <b>nombres de dominio</b> a direcciones IP (y con la zona inversa, IP a nombre). La traducción de IP a MAC la hace <b>ARP</b>.",
+   "seccion": "s18a"
+  },
+  {
+   "id": 143,
+   "tema": "cab",
+   "tipo": "vf",
+   "enunciado": "El cable UTP no tiene blindaje y basa su protección contra interferencias en el trenzado de sus pares.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "UTP = <b>Unshielded</b> Twisted Pair. Sin malla ni lámina: el <b>trenzado</b> cancela la interferencia y la diafonía. El STP o FTP agregan blindaje.",
+   "seccion": "s2"
+  },
+  {
+   "id": 144,
+   "tema": "cab",
+   "tipo": "vf",
+   "enunciado": "La longitud máxima de un tramo de cableado horizontal UTP es de 100 metros, sin contar los patch cords.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "El cableado <b>horizontal fijo</b> llega hasta <b>90 m</b>. Los <b>100 m</b> son el canal completo, sumando los patch cords de los dos extremos (hasta 10 m).",
+   "seccion": "s16"
+  },
+  {
+   "id": 145,
+   "tema": "eth",
+   "tipo": "vf",
+   "enunciado": "10BASE-T, 100BASE-TX y 1000BASE-T usan cable de par trenzado con una longitud máxima de segmento de 100 m.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Las variantes <b>BASE-T</b> son sobre par trenzado y comparten el límite de <b>100 m</b> por segmento. Cambian la velocidad, la categoría de cable y los pares que usan.",
+   "seccion": "s9"
+  },
+  {
+   "id": 146,
+   "tema": "eth",
+   "tipo": "vf",
+   "enunciado": "Ethernet 802.3 usa como método de acceso al medio el token passing.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "802.3 usa <b>CSMA/CD</b> (contención). El token passing es de <b>802.5 Token Ring</b> y <b>802.4 Token Bus</b>.",
+   "seccion": "s8"
+  },
+  {
+   "id": 147,
+   "tema": "ip",
+   "tipo": "vf",
+   "enunciado": "La dirección 192.168.1.0/24 se puede asignar a una PC de esa red.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "Con /24, la <b>.0</b> es la <b>dirección de red</b> (bits de host en 0) y la .255 es el broadcast: ninguna se asigna a un equipo. Los hosts van de .1 a .254.",
+   "seccion": "s18b"
+  },
+  {
+   "id": 148,
+   "tema": "ip",
+   "tipo": "mc",
+   "enunciado": "Te dan la red 150.10.0.0 y necesitás al menos 60 subredes. ¿Qué máscara usás?",
+   "opciones": [
+    "255.255.248.0",
+    "255.255.252.0",
+    "255.255.255.0",
+    "255.255.240.0"
+   ],
+   "correcta": 1,
+   "explicacion": "Clase B (/16). 2<sup>N</sup> ≥ 60 → 2<sup>5</sup> = 32 no alcanza, <b>2<sup>6</sup> = 64</b> sí. /16 + 6 = <b>/22 = 255.255.252.0</b>. Quedan 10 bits de host: 1022 hosts por subred, con salto 4 en el tercer octeto.",
+   "seccion": "sej"
+  },
+  {
+   "id": 149,
+   "tema": "ip",
+   "tipo": "mc",
+   "enunciado": "¿Cuál es el broadcast de la tercera subred de 172.18.0.0/21?",
+   "opciones": [
+    "172.18.23.255",
+    "172.18.16.255",
+    "172.18.24.255",
+    "172.18.15.255"
+   ],
+   "correcta": 0,
+   "explicacion": "/21 = 255.255.<b>248</b>.0 → salto 8 en el tercer octeto: 172.18.0.0 (1.ª), 172.18.8.0 (2.ª), <b>172.18.16.0</b> (3.ª), 172.18.24.0 (4.ª). El broadcast de la tercera es la dirección anterior a la cuarta: <b>172.18.23.255</b>.",
+   "seccion": "sej"
+  },
+  {
+   "id": 150,
+   "tema": "ip",
+   "tipo": "vf",
+   "enunciado": "En el subneteo, la cantidad de hosts utilizables por subred se calcula como 2<sup>M</sup> − 2, porque se restan la dirección de red y la de broadcast.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Cada subred reserva la dirección con los bits de host en 0 (<b>red</b>) y la que los tiene en 1 (<b>broadcast</b>). La cantidad de <b>subredes</b>, en cambio, es 2<sup>N</sup> sin restar nada (según el apunte).",
+   "seccion": "sej"
   }
  ]
 }

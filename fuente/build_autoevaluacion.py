@@ -174,8 +174,10 @@ def pagina_repaso():
 
 
 EXAM_JS = (RAIZ / "fuente" / "examen_motor.js").read_text(encoding="utf-8")
+SUB_JS = (RAIZ / "fuente" / "subneteo.js").read_text(encoding="utf-8")
 
 EXAM_CSS = r"""
+.simbox{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 14px;margin:10px 0}.simbox p{margin:6px 0}.sim-ok{color:var(--acc2)}.sim-bad{color:var(--bad)}
 .ops{display:grid;gap:6px}
 .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:16px 0}
 .panel h3{margin:0 0 4px;font-size:16px}
@@ -221,6 +223,8 @@ def pagina_examen(modo):
     tiempo_html = "" if prac else """<div class="panel"><h3>Tiempo</h3><div class="sub">Si se termina el tiempo, el examen se envía automáticamente. Sin límite, el reloj solo cuenta lo que tardás.</div>
 <div class="chips" id="tiempos" style="margin-bottom:0"><button type="button" data-m="0" class="on">Sin límite</button><button type="button" data-m="10">10 min</button><button type="button" data-m="20">20 min</button><button type="button" data-m="30">30 min</button><button type="button" data-m="45">45 min</button><button type="button" data-m="60">60 min</button>
 <label class="otro">Otro: <input id="tOtro" type="number" min="1" max="300" inputmode="numeric" placeholder="min"> min</label></div></div>"""
+    modo_html = "" if prac else """<div class="panel"><h3>Modo</h3><div class="sub">El simulacro arma un parcial como el real: 19 de verdadero o falso al azar + 1 ejercicio de subneteo, 60 minutos y medio punto menos por cada incorrecta.</div>
+<div class="chips" id="modos" style="margin-bottom:0"><button type="button" data-sim="0" class="on">Examen por tema</button><button type="button" data-sim="1">🎯 Simulacro del parcial</button></div></div>"""
     stats_html = ("""<div class="stats"><span class="st"><span>Contestadas</span><b id="sResp">0 / 0</b></span><span class="st ok"><span>✓ Correctas</span><b id="sOk">0</b></span><span class="st bad"><span>✗ Incorrectas</span><b id="sBad">0</b></span><span class="st tm"><span>⏱</span><b id="sTiempo">00:00</b></span><div class="track"><div class="fill" id="progFill"></div></div></div>
 <button type="button" class="btn" id="enviar">Terminar</button>"""
                   if prac else
@@ -233,6 +237,7 @@ def pagina_examen(modo):
 <div class="sub">Redes de Datos · UTN FRT · {n} preguntas de verdadero o falso y opción múltiple · versión {DATA["version"]}</div>
 <section id="setup">
 <div class="box">{intro}</div>
+{modo_html}
 <div class="panel" id="temasBox"><h3>Tema</h3><div class="sub">Hacelo completo o elegí un tema.</div><div class="chips" id="chips" style="margin-bottom:0"></div></div>
 {tiempo_html}
 <div class="panel"><div id="setupInfo"></div><button type="button" class="btn big" id="comenzar">Comenzar examen</button></div>
@@ -240,7 +245,8 @@ def pagina_examen(modo):
 <section id="resultado" class="hidden">
 <h2 style="margin-top:16px">Resultado · <span id="rTema"></span></h2>
 <div class="porTiempo hidden" id="rPorTiempo">⏱ Se terminó el tiempo: el examen se envió automáticamente.</div>
-<div class="score"><div class="k-nota"><b id="rNota">0%</b>Nota</div><div class="k-ok"><b id="rOk">0</b>Correctas</div><div class="k-bad"><b id="rBad">0</b>Incorrectas</div><div class="k-none"><b id="rNone">0</b>Sin responder</div><div class="k-tm"><b id="rTiempo">00:00</b>Tiempo</div></div>
+<div class="score"><div class="k-nota"><b id="rNota">0%</b><span id="rNotaLbl">Nota</span></div><div class="k-ok"><b id="rOk">0</b>Correctas</div><div class="k-bad"><b id="rBad">0</b>Incorrectas</div><div class="k-none"><b id="rNone">0</b>Sin responder</div><div class="k-tm"><b id="rTiempo">00:00</b>Tiempo</div></div>
+<div id="rSim" class="simbox hidden"></div>
 <div style="display:flex;gap:10px;flex-wrap:wrap;margin:8px 0 4px"><button type="button" class="btn" id="reintentarInc">Reintentar solo las incorrectas</button><button type="button" class="btn sec" id="repetir">Repetir este examen</button><button type="button" class="btn sec" id="otroTema">Elegir otro tema{"" if prac else " o tiempo"}</button></div>
 <h2>Qué repasar</h2>
 <div id="rRepaso"></div>
@@ -254,6 +260,7 @@ def pagina_examen(modo):
 <div class="aviso" id="aviso"><span id="avisoTxt"></span><button type="button" class="btn" id="enviarIgual">{aviso_btn}</button><button type="button" class="btn sec" id="seguir">Seguir respondiendo</button></div>
 </div></div>
 <script>window.__DATA__={json.dumps(DATA, ensure_ascii=False)};window.__MODO__="{modo}";</script>
+{"" if prac else "<script>" + SUB_JS + "</script>"}
 <script>{EXAM_JS}</script>
 <script>{THEME_JS}</script>
 </body>
@@ -266,6 +273,7 @@ idx = RAIZ / "index.html"
 txt = idx.read_text(encoding="utf-8")
 import re as _re
 txt = _re.sub(r"/\*buscador-css\*/.*?/\*fin-buscador-css\*/", lambda m: "/*buscador-css*/\n" + BUSCADOR_CSS + "/*fin-buscador-css*/", txt, flags=_re.S)
+txt = _re.sub(r"<script>/\*subneteo-js\*/.*?</script>", lambda m: "<script>/*subneteo-js*/\n" + SUB_JS + "</script>", txt, flags=_re.S)
 txt = _re.sub(r"<script>/\*buscador-js\*/.*?</script>", lambda m: "<script>/*buscador-js*/\n" + BUSCADOR_JS + "</script>", txt, flags=_re.S)
 idx.write_text(txt, encoding="utf-8")
 _nav = _re.search(r"<nav>(.*?)</nav>", txt, flags=_re.S).group(1)
