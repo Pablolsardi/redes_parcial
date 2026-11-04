@@ -5,6 +5,8 @@
   var setup=$('setup'), run=$('run'), res=$('resultado'), list=$('lista'), chips=$('chips'), bar=$('bar'),
       aviso=$('aviso'), avisoTxt=$('avisoTxt'), filtros=$('filtros'), tiempos=$('tiempos');
   var tema='todos', limite=0, banco=null, qs=[], answers={}, done=false, t0=0, timer=null, ultimoTiempo=0, etiqueta='';
+  var sim=false, simOn=false, ex=null, subAns={}, subRes=null, modos=$('modos');
+  function mezclar(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;}return a;}
   function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML;}
   function let(q,i){return q.tipo==='vf'?(i===0?'V':'F'):L[i]+')';}
   function fmt(sec){sec=Math.max(0,Math.round(sec));var m=Math.floor(sec/60),s=sec%60;return (m<10?'0':'')+m+':'+(s<10?'0':'')+s;}
@@ -23,7 +25,8 @@
     $('setupInfo').innerHTML=banco
       ? 'Vas a reintentar <b>'+n+'</b> pregunta'+(n===1?'':'s')+' que respondiste mal. <button type="button" class="lnk" id="salirReintento">Volver a elegir tema</button>'
       : '<b>'+n+'</b> preguntas · '+(tema==='todos'?'todos los temas':esc(temaNombre[tema]));
-    $('temasBox').classList.toggle('hidden',!!banco);
+    if(!banco&&sim) $('setupInfo').innerHTML='<b>Simulacro del parcial:</b> 19 preguntas de verdadero o falso al azar de todos los temas + 1 ejercicio de subneteo. Cada incorrecta descuenta medio punto.';
+    $('temasBox').classList.toggle('hidden',!!banco||sim);
     var s=$('salirReintento'); if(s) s.addEventListener('click',function(){banco=null;renderChips();});
   }
   chips.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;tema=b.getAttribute('data-t');renderChips();});
@@ -35,11 +38,22 @@
       tiempos.querySelectorAll('button').forEach(function(x){x.classList.remove('on');});
       if(v>0){limite=Math.min(v,300)*60;}else{limite=0;tiempos.querySelector('[data-m="0"]').classList.add('on');}});
   }
+  if(modos){
+    modos.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;
+      sim=b.getAttribute('data-sim')==='1'; modos.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x===b);});
+      if(tiempos){var m=tiempos.querySelector('[data-m="'+(sim?60:0)+'"]'); if(m) m.click();}
+      resumenSetup();});
+  }
   $('comenzar').addEventListener('click',comenzar);
 
   function comenzar(){
-    qs=banco?banco.slice():delTema(); answers={}; done=false;
-    etiqueta=banco?'Reintento de incorrectas':(tema==='todos'?'Todos los temas':temaNombre[tema]);
+    simOn=!banco&&sim&&!!window.Subneteo; subAns={}; subRes=null;
+    if(simOn){
+      qs=mezclar(D.preguntas.filter(function(q){return q.tipo==='vf';})).slice(0,19);
+      var r=Math.random(); ex=Subneteo.genReq(r<0.6?'B':(r<0.85?'C':'A'));
+    }else qs=banco?banco.slice():delTema();
+    answers={}; done=false;
+    etiqueta=simOn?'Simulacro del parcial':(banco?'Reintento de incorrectas':(tema==='todos'?'Todos los temas':temaNombre[tema]));
     setup.classList.add('hidden'); res.classList.add('hidden'); run.classList.remove('hidden'); bar.classList.remove('hidden');
     aviso.classList.remove('on'); $('runTitulo').textContent=etiqueta;
     render(); t0=Date.now(); clearInterval(timer); timer=setInterval(tick,500); tick(); stats();
@@ -92,13 +106,21 @@
     return h+'</div>';
   }
   function render(){
-    var h='', ultimo=null, porTema=!banco&&tema==='todos';
+    var h='', ultimo=null, porTema=!banco&&tema==='todos'&&!simOn;
     qs.forEach(function(q,idx){
       if(porTema&&q.tema!==ultimo){h+='<h2>'+esc(temaNombre[q.tema])+'</h2>';ultimo=q.tema;}
       h+=tarjeta(q,idx);
     });
+    if(simOn) h+=tarjetaSub();
     list.innerHTML=h;
   }
+  function tarjetaSub(){
+    var st=done?(subRes.todo?'ok':'bad'):'', cls='q sub'+(done?(subRes.todo?' res-ok':' res-bad'):'');
+    return '<div class="'+cls+'" id="psub" data-estado="'+st+'"><div class="qh"><span class="num">20.</span><span class="tipo">Ejercicio de subneteo</span>'+(done?'<span class="estado">'+(subRes.todo?'Bien':'Con errores')+'</span>':'')+'</div>'+
+      Subneteo.html(ex,subAns,done?subRes:null)+
+      (done?'<div class="repasar">📖 Para repasar: '+secLink('sej')+'</div>':'<div class="hint">Escribí las direcciones con puntos (ej.: 172.16.32.0) y los números sin puntos de miles.</div>')+'</div>';
+  }
+  list.addEventListener('input',function(e){var i=e.target.closest('#psub input');if(!i)return;subAns[i.getAttribute('data-k')]=i.value;stats();});
   function reemplazar(q){
     var el=$('p'+q.id); if(!el) return;
     var tmp=document.createElement('div'); tmp.innerHTML=tarjeta(q,qs.indexOf(q)); el.replaceWith(tmp.firstChild);
@@ -114,7 +136,9 @@
   /* ---------- estadísticas en vivo ---------- */
   function cuenta(){
     var ok=0,bad=0,resp=0; qs.forEach(function(q){var a=answers[q.id];if(a===undefined)return;resp++;if(a===q.correcta)ok++;else bad++;});
-    return {ok:ok,bad:bad,resp:resp,none:qs.length-resp,total:qs.length};
+    var tot=qs.length;
+    if(simOn){tot++; var ps=$('psub'); if(ps&&Subneteo.lleno(ps)) resp++;}
+    return {ok:ok,bad:bad,resp:resp,none:tot-resp,total:tot};
   }
   function stats(){
     var c=cuenta();
@@ -145,13 +169,24 @@
     if(done) return; done=true; clearInterval(timer); ultimoTiempo=(Date.now()-t0)/1000;
     if(!PRAC&&limite>0) ultimoTiempo=Math.min(ultimoTiempo,limite);
     var c=cuenta(), nota=c.total?Math.round(100*c.ok/c.total):0;
-    $('rNota').textContent=nota+'%'; $('rOk').textContent=c.ok; $('rBad').textContent=c.bad; $('rNone').textContent=c.none;
+    $('rNota').textContent=nota+'%'; $('rNotaLbl').textContent='Nota'; var rs=$('rSim'); rs.classList.add('hidden');
+    if(simOn){
+      subRes=Subneteo.corregir(ex,subAns);
+      var pts=c.ok-0.5*c.bad, f=function(x){return String(x).replace('.',',');};
+      $('rNota').textContent=f(pts)+' / 19'; $('rNotaLbl').textContent='Puntaje V/F';
+      $('rNone').textContent=qs.length-c.ok-c.bad;
+      rs.innerHTML='<p><b>Cuenta del puntaje:</b> '+c.ok+' correctas × 1 − '+c.bad+' incorrectas × 0,5 = <b>'+f(pts)+'</b> sobre 19. Las que dejaste sin responder no suman ni restan.</p>'+
+        (subRes.todo?'<p class="sim-ok">✓ <b>Ejercicio de subneteo bien resuelto.</b> En el parcial es condición para aprobar.</p>'
+                    :'<p class="sim-bad">✗ <b>Ejercicio de subneteo con errores ('+subRes.ok+' de '+subRes.total+' campos bien).</b> En el parcial tiene que estar bien para aprobar: mirá la resolución paso a paso en la pregunta 20.</p>');
+      rs.classList.remove('hidden');
+    } $('rOk').textContent=c.ok; $('rBad').textContent=c.bad; $('rNone').textContent=c.none;
     $('rTiempo').textContent=fmt(ultimoTiempo); $('rTema').textContent=etiqueta;
     $('rPorTiempo').classList.toggle('hidden',!porTiempo);
     // qué repasar
     var grupos={}, orden=[];
     qs.forEach(function(q,idx){var a=answers[q.id]; if(a===q.correcta) return;
       if(!grupos[q.seccion]){grupos[q.seccion]=[];orden.push(q.seccion);} grupos[q.seccion].push(idx+1);});
+    if(simOn&&!subRes.todo){if(!grupos.sej){grupos.sej=[];orden.push('sej');}grupos.sej.push(20);}
     var keys=Object.keys(D.secciones);
     orden.sort(function(x,y){return keys.indexOf(x)-keys.indexOf(y);});
     var h='';
