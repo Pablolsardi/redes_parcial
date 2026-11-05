@@ -4,7 +4,7 @@ Guía de estudio de Redes de Datos (UTN FRT, ciclo 2026), elaborada a partir del
 
 Versión publicada: https://pablolsardi.github.io/redes_parcial/
 
-Versión actual: 1.8 (05/11/2026)
+Versión actual: 2.1 (05/11/2026)
 
 Páginas:
 - Guía: index.html
