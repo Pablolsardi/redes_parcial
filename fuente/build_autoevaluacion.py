@@ -276,7 +276,7 @@ txt = _re.sub(r"/\*buscador-css\*/.*?/\*fin-buscador-css\*/", lambda m: "/*busca
 txt = _re.sub(r"<script>/\*subneteo-js\*/.*?</script>", lambda m: "<script>/*subneteo-js*/\n" + SUB_JS + "</script>", txt, flags=_re.S)
 txt = _re.sub(r"<script>/\*buscador-js\*/.*?</script>", lambda m: "<script>/*buscador-js*/\n" + BUSCADOR_JS + "</script>", txt, flags=_re.S)
 idx.write_text(txt, encoding="utf-8")
-_nav = _re.search(r"<nav>(.*?)</nav>", txt, flags=_re.S).group(1)
+_nav = _re.search(r"<nav[^>]*>(.*?)</nav>", txt, flags=_re.S).group(1)
 DATA["secciones"] = {m.group(1): _re.sub(r"<[^>]+>", "", m.group(2)).strip() for m in _re.finditer(r'<a href="#([^"]+)"[^>]*>(.*?)</a>', _nav)}
 _faltan = {q["seccion"] for q in DATA["preguntas"]} - set(DATA["secciones"])
 assert not _faltan, _faltan
