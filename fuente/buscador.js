@@ -48,6 +48,7 @@
     cur=(i+marks.length)%marks.length;
     var m=marks[cur];m.classList.add('cur');
     var d=m.closest('details');while(d){d.open=true;d=d.parentElement&&d.parentElement.closest('details');}
+    try{document.dispatchEvent(new CustomEvent('buscador:ir',{detail:m}));}catch(e){}
     m.scrollIntoView({block:'center',behavior:'instant'});
     cnt.textContent=(cur+1)+' de '+marks.length+(marks.length>=600?'+':'');
   }
