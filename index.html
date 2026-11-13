@@ -389,7 +389,7 @@ mark.sr.cur{background:#f59e0b;color:#111;outline:2px solid #f59e0b}
 <li>El buscador de texto sigue buscando en toda la guía: al saltar a un resultado abre el tema donde está. Los links viejos a secciones (por ejemplo los de "Para repasar" de los exámenes) abren el tema correspondiente.</li>
 <li><b>Quiz al final de cada tema:</b> 6 preguntas de verdadero o falso sobre lo que se vio en ese tema (180 en total), <b>una por vez y con corrección inmediata</b>: respondés, te marca si está bien con la explicación, y pasás a la siguiente. Al final muestra el puntaje, <b>en qué te equivocaste</b> y te deja <b>repetir solo los errores</b> o empezar de nuevo.</li>
 <li>El <b>buscador</b> pasa a la barra de arriba, al lado del avance, y ya no queda fijo al bajar por el tema.</li>
-<li>Las animaciones arrancan desde el principio cada vez que abrís un tema, y las de los temas que no estás viendo quedan en pausa.</li>
+<li>Cada animación arranca recién cuando aparece en pantalla, desde el principio; si la sacás de la vista se pausa, y al volver a verla arranca de nuevo.</li>
 </ul></div></li>
 <li><span class="vtag v21">v2.1<small>05/11/2026</small></span><div>
 <ul style="margin:4px 0 0">
@@ -2680,7 +2680,15 @@ El <b>TP2</b> dejó el cableado (capa 1) y el <b>TP3</b> la red lógica. El <b>T
 document.querySelectorAll('.anim').forEach(function(f){var s=f.querySelector('svg'),b=f.querySelector('.anim-btn'),on=true;
 function upd(){b.textContent=on?'⏸':'▶';b.setAttribute('aria-label',on?'Pausar animación':'Reproducir animación');}
 if(red){try{s.pauseAnimations();}catch(e){}on=false;f.dataset.pausada='1';}upd();
-b.addEventListener('click',function(){on=!on;if(on)delete f.dataset.pausada;else f.dataset.pausada='1';try{on?s.unpauseAnimations():s.pauseAnimations();}catch(e){}upd();});});})();
+b.addEventListener('click',function(){on=!on;if(on)delete f.dataset.pausada;else f.dataset.pausada='1';try{on?s.unpauseAnimations():s.pauseAnimations();}catch(e){}upd();});
+/* cada animación arranca recién cuando la ves en pantalla, desde el principio */
+f._fuera=true;try{s.pauseAnimations();}catch(e){}});
+if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(en){var f=en.target,s=f.querySelector('svg');try{
+  if(en.isIntersecting&&en.intersectionRatio>=0.35){if(f._fuera){f._fuera=false;s.setCurrentTime(0);if(!f.dataset.pausada)s.unpauseAnimations();}}
+  else if(!en.isIntersecting){f._fuera=true;s.pauseAnimations();}}catch(e){}});},{threshold:[0,0.35]});
+  document.querySelectorAll('.anim').forEach(function(f){io.observe(f);});}
+else document.querySelectorAll('.anim').forEach(function(f){if(!f.dataset.pausada)try{f.querySelector('svg').unpauseAnimations();}catch(e){}});
+})();
 </script>
 <script>/*glosario*/
 (function(){var i=document.getElementById('gloFiltro');if(!i)return;var tb=document.querySelector('table.glo tbody')||document.querySelector('table.glo');
@@ -2798,9 +2806,7 @@ i.addEventListener('input',filtrar);ordenar();})();
   function pageDe(el){return el&&el.closest?el.closest('section.page'):null;}
   function mostrar(p,anim){
     if(actual===p) return;
-    pages.forEach(function(x){x.classList.toggle('on',x===p);
-      [].forEach.call(x.querySelectorAll('.anim'),function(f){var s=f.querySelector('svg');try{
-        if(x===p){s.setCurrentTime(0); if(!f.dataset.pausada) s.unpauseAnimations();} else s.pauseAnimations();}catch(e){}});});
+    pages.forEach(function(x){x.classList.toggle('on',x===p);});
     if(anim&&!reduce){p.classList.remove('entra');void p.offsetWidth;p.classList.add('entra');}
     actual=p; var id=p.getAttribute('data-page');
     links.forEach(function(a){var on=a.getAttribute('href').slice(1)===id; a.classList.toggle('activo',on); if(on){a.setAttribute('aria-current','page');
