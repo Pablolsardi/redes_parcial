@@ -40,7 +40,8 @@
       marks=marks.concat(locales);
     });
     if(!marks.length){cnt.textContent='Sin resultados';return;}
-    ir(0);
+    var ini=0;for(var x=0;x<marks.length;x++){if(marks[x].closest('section.page.on')){ini=x;break;}}
+    ir(ini);
   }
   function ir(i){
     if(!marks.length)return;

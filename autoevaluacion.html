@@ -273,7 +273,7 @@ mark.sr.cur{background:#f59e0b;color:#111;outline:2px solid #f59e0b}
 <div class="q" id="p150"><div class="qh"><span class="num">150.</span><span class="tipo vf">Verdadero o falso</span></div><p class="enun">En el subneteo, la cantidad de hosts utilizables por subred se calcula como 2<sup>M</sup> − 2, porque se restan la dirección de red y la de broadcast.</p><ol class="ops"><li><span class="let">V</span><span>Verdadero</span></li><li><span class="let">F</span><span>Falso</span></li></ol><details><summary>Ver respuesta</summary><p class="resp"><b>Verdadero.</b> Cada subred reserva la dirección con los bits de host en 0 (<b>red</b>) y la que los tiene en 1 (<b>broadcast</b>). La cantidad de <b>subredes</b>, en cambio, es 2<sup>N</sup> sin restar nada (según el apunte).</p></details></div>
 </main>
 <script>
-(function(){function f(){var h=0;var t=document.querySelector('.top'),s=document.getElementById('sbar');if(t)h+=t.offsetHeight;if(s)h+=s.offsetHeight;document.documentElement.style.setProperty('--anch',h+'px');}f();window.addEventListener('resize',f);window.addEventListener('load',f);})();
+(function(){function f(){var h=0;var t=document.querySelector('.top'),s=document.getElementById('sbar');if(t)h+=t.offsetHeight;if(s&&!(t&&t.contains(s)))h+=s.offsetHeight;document.documentElement.style.setProperty('--anch',h+'px');}f();window.addEventListener('resize',f);window.addEventListener('load',f);})();
 (function(){var t=document.querySelector('.top');if(!t)return;function f(){document.documentElement.style.setProperty('--toph',t.offsetHeight+'px');}f();window.addEventListener('resize',f);})();
 (function(){
   var root=document.documentElement, btn=document.getElementById('themeBtn');
@@ -327,7 +327,8 @@ mark.sr.cur{background:#f59e0b;color:#111;outline:2px solid #f59e0b}
       marks=marks.concat(locales);
     });
     if(!marks.length){cnt.textContent='Sin resultados';return;}
-    ir(0);
+    var ini=0;for(var x=0;x<marks.length;x++){if(marks[x].closest('section.page.on')){ini=x;break;}}
+    ir(ini);
   }
   function ir(i){
     if(!marks.length)return;

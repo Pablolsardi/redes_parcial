@@ -107,7 +107,7 @@ THEME_BTN = ('<button class="theme-btn" id="themeBtn" type="button" aria-label="
   '<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>')
 
 THEME_JS = r"""
-(function(){function f(){var h=0;var t=document.querySelector('.top'),s=document.getElementById('sbar');if(t)h+=t.offsetHeight;if(s)h+=s.offsetHeight;document.documentElement.style.setProperty('--anch',h+'px');}f();window.addEventListener('resize',f);window.addEventListener('load',f);})();
+(function(){function f(){var h=0;var t=document.querySelector('.top'),s=document.getElementById('sbar');if(t)h+=t.offsetHeight;if(s&&!(t&&t.contains(s)))h+=s.offsetHeight;document.documentElement.style.setProperty('--anch',h+'px');}f();window.addEventListener('resize',f);window.addEventListener('load',f);})();
 (function(){var t=document.querySelector('.top');if(!t)return;function f(){document.documentElement.style.setProperty('--toph',t.offsetHeight+'px');}f();window.addEventListener('resize',f);})();
 (function(){
   var root=document.documentElement, btn=document.getElementById('themeBtn');
