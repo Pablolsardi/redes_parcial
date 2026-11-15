@@ -326,3 +326,327 @@ FIG = {
 if __name__ == "__main__":
     for k, f in FIG.items():
         print(k, len(f()))
+
+
+# ---------------------------------------------------------------- v3.4
+
+def nodo_expuesto():
+    a = A(15)
+    xs = {"A": 70, "B": 240, "C": 400, "D": 570}
+    b = '<ellipse cx="240" cy="140" rx="200" ry="92" class="a-cov1"/><ellipse cx="400" cy="140" rx="200" ry="92" class="a-cov3"/>'
+    b += T(56, 226, "alcance de B", "a-small t1", "start") + T(584, 226, "alcance de C", "a-small t3", "end")
+    for k, x in xs.items():
+        b += R(x - 30, 125, 60, 30, "a-nd", 7) + T(x, 144.5, "PC " + k, "a-b")
+    pk = lambda c: f'<circle r="7" class="{c}"/>'
+    b += a.move(pk("a-p1"), [(0.05, 210, 140), (0.17, 100, 140)])
+    b += a.move(pk("a-p1"), [(0.30, 210, 140), (0.42, 100, 140)])
+    b += a.show(T(400, 186, "oye a B: ocupado", "a-small t3"), 0.19, 0.44)
+    b += a.show(T(400, 204, "⏳ espera", "a-b t3"), 0.24, 0.44)
+    b += a.show(R(530, 116, 80, 48, "a-hl", 9) + R(30, 116, 80, 48, "a-hl", 9), 0.47, 0.62)
+    b += a.show(T(570, 186, "no oye a B", "a-small t1"), 0.47, 0.62) + a.show(T(70, 186, "no oye a C", "a-small t3"), 0.47, 0.62)
+    b += a.move(pk("a-p1"), [(0.66, 210, 140), (0.80, 100, 140)], t1=0.95)
+    b += a.move(pk("a-p2"), [(0.66, 430, 140), (0.80, 540, 140)], t1=0.95)
+    b += a.show(T(70, 114, "✓", "a-big a-ok") + T(570, 114, "✓", "a-big a-ok"), 0.81)
+    y = 24
+    b += a.show(T(320, y, "B le transmite a A", "a-lbl t1"), 0.02, 0.17)
+    b += a.show(T(320, y, "C quiere mandarle a D: escucha el canal y oye a B", "a-lbl t3"), 0.17, 0.30)
+    b += a.show(T(320, y, "Cree que está ocupado y espera, aunque no haría falta", "a-lbl t3"), 0.30, 0.45)
+    b += a.show(T(320, y, "D está fuera del alcance de B, y A fuera del de C", "a-lbl t1"), 0.45, 0.63)
+    b += a.show(T(320, y, "Si C transmitía igual, A y D recibían bien las dos tramas", "a-lbl t2"), 0.63, 0.86)
+    b += a.show(T(320, y, "Nodo expuesto: espera sin necesidad y se desaprovecha el canal", "a-b t3"), 0.86)
+    return anim("Animación del problema del nodo expuesto", 260, b,
+                "<b>Nodo expuesto</b>, el caso opuesto al oculto: C oye la transmisión de B y concluye que el canal está ocupado, pero su "
+                "destino (D) está fuera del alcance de B, y el destino de B (A) está fuera del alcance de C. Las dos transmisiones podían "
+                "convivir sin chocar: C espera de más y el canal se desaprovecha.")
+
+
+FIG["nodo_expuesto"] = nodo_expuesto
+
+
+def csma_ca():
+    """Línea de tiempo de CSMA/CA: espera aleatoria, la que llega a 0 transmite, la otra congela."""
+    a = A(20)
+    X0, X1, T1 = 130, 625, 0.86          # eje de tiempo y momento en que termina el barrido
+    tx = lambda x: round((x - X0) / (X1 - X0) * T1 + 0.03, 4)
+    rows = {"canal": 62, "A": 126, "B": 190}
+    b = ""
+    for k, y in rows.items():
+        b += L(X0, y + 17, X1, y + 17, "a-life")
+    b += T(X0 - 12, rows["canal"] + 5, "Canal", "a-b", "end") + T(X0 - 12, rows["A"] + 5, "Estación A", "a-b", "end") + T(X0 - 12, rows["B"] + 5, "Estación B", "a-b", "end")
+
+    def barra(x, x2, y, cls, txt="", tcls="a-tw"):
+        w = x2 - x
+        r_ = (f'<rect x="{x}" y="{y - 13}" width="0" height="26" rx="5" class="{cls}">'
+              f'{a.an("width", [0, 0, w, w], [0, tx(x), tx(x2), 1])}</rect>')
+        t_ = a.show(T((x + x2) / 2, y + 4.5, txt, tcls), tx(x2) - 0.01) if txt else ""
+        return a.show(r_, tx(x)) + t_
+
+    # 1) el canal está ocupado por otra estación
+    b += barra(X0, 210, rows["canal"], "a-sw", "ocupado", "a-small")
+    b += a.show(T(170, rows["A"] + 4.5, "escucha…", "a-small"), 0.03) + a.show(T(170, rows["B"] + 4.5, "escucha…", "a-small"), 0.03)
+    # 2) espera aleatoria (backoff) en ranuras: A sortea 3, B sortea 6
+    S = 22
+    for i in range(3):
+        x = 214 + i * S
+        b += a.show(R(x, rows["A"] - 12, S - 3, 24, "a-step", 4) + T(x + (S - 3) / 2, rows["A"] + 4.5, str(3 - i), "a-mono"), tx(x))
+        b += a.show(R(x, rows["B"] - 12, S - 3, 24, "a-step", 4) + T(x + (S - 3) / 2, rows["B"] + 4.5, str(6 - i), "a-mono"), tx(x))
+    # 3) A llega a 0 y transmite; B oye el canal ocupado y congela su cuenta en 3
+    xa = 214 + 3 * S
+    b += barra(xa, xa + 120, rows["A"], "a-p1", "DATOS de A")
+    b += barra(xa, xa + 120, rows["canal"], "a-p1", "A transmite")
+    b += a.show(R(xa, rows["B"] - 12, 150, 24, "a-step", 4) + T(xa + 75, rows["B"] + 4.5, "congela la cuenta en 3", "a-small t3"), tx(xa) + 0.01)
+    xk = xa + 128
+    b += barra(xk, xk + 34, rows["canal"], "a-p2", "ACK")
+    # 4) B retoma desde 3 y transmite
+    xb = xk + 42
+    for i in range(3):
+        x = xb + i * S
+        b += a.show(R(x, rows["B"] - 12, S - 3, 24, "a-step", 4) + T(x + (S - 3) / 2, rows["B"] + 4.5, str(3 - i), "a-mono"), tx(x))
+    xd = xb + 3 * S
+    b += barra(xd, X1 - 4, rows["B"], "a-p3", "DATOS de B")
+    b += barra(xd, X1 - 4, rows["canal"], "a-p3", "B transmite")
+    # cursor de tiempo
+    cur = (f'<line x1="{X0}" y1="40" x2="{X0}" y2="214" class="a-hl" style="stroke-dasharray:3 4;stroke-width:1.5">'
+           f'{a.an("x1", [X0, X0, X1, X1], [0, 0.03, T1 + 0.03, 1])}{a.an("x2", [X0, X0, X1, X1], [0, 0.03, T1 + 0.03, 1])}</line>')
+    b += a.show(cur, 0.03, T1 + 0.03)
+    y = 246
+    b += a.show(T(320, y, "El canal está ocupado: las dos escuchan y esperan", "a-lbl"), 0.02, tx(214))
+    b += a.show(T(320, y, "Se libera: cada una espera un tiempo al azar (A sorteó 3 ranuras, B sorteó 6)", "a-lbl t3"), tx(214), tx(xa))
+    b += a.show(T(320, y, "A llega a 0 y transmite; B oye el canal ocupado y congela su cuenta", "a-lbl t1"), tx(xa), tx(xk))
+    b += a.show(T(320, y, "El receptor confirma con ACK: sin ACK, A retransmitiría", "a-lbl t2"), tx(xk), tx(xb))
+    b += a.show(T(320, y, "B sigue desde 3 (no vuelve a sortear) y transmite: no chocaron", "a-lbl t3"), tx(xb))
+    return anim("Animación del acceso al medio CSMA/CA", 262, b,
+                "<b>CSMA/CA</b> en una línea de tiempo. Como por aire no se puede detectar una colisión, se trata de <b>evitarla</b>: "
+                "cuando el canal se libera, cada estación espera un tiempo al azar (<i>backoff</i>) y transmite la que termina primero. "
+                "La otra oye el canal ocupado, congela su cuenta y la retoma después. Cada trama se confirma con <b>ACK</b>.")
+
+
+def half_full():
+    a = A(12)
+    b = ""
+    for y, dev, tit in ((78, "Hub", "Half duplex · con hub"), (206, "Switch", "Full duplex · con switch")):
+        b += T(24, y - 44, tit, "a-b", "start")
+        b += R(30, y - 16, 84, 32, "a-nd", 7) + T(72, y + 4.5, "PC A" if y < 100 else "PC C", "a-b")
+        b += R(526, y - 16, 84, 32, "a-nd", 7) + T(568, y + 4.5, "PC B" if y < 100 else "PC D", "a-b")
+        b += R(278, y - 16, 84, 32, "a-sw", 7) + T(320, y + 4.5, dev, "a-b")
+    b += L(114, 78, 278, 78, "a-link") + L(362, 78, 526, 78, "a-link")
+    for yy in (198, 214):
+        b += L(114, yy, 278, yy, "a-link") + L(362, yy, 526, yy, "a-link")
+    b += T(196, 192, "transmite", "a-port") + T(196, 230, "recibe", "a-port")
+    pk = lambda c: f'<circle r="7" class="{c}"/>'
+    # half: A→B, después B→A, después los dos a la vez → colisión
+    b += a.move(pk("a-p1"), [(0.04, 122, 78), (0.22, 518, 78)])
+    b += a.move(pk("a-p3"), [(0.27, 518, 78), (0.45, 122, 78)])
+    b += a.move(pk("a-p1"), [(0.52, 122, 78), (0.60, 270, 78)], t1=0.66)
+    b += a.move(pk("a-p3"), [(0.52, 518, 78), (0.60, 370, 78)], t1=0.66)
+    b += a.show(T(320, 52, "✕ colisión", "a-x"), 0.60, 0.74)
+    b += a.show(T(320, 120, "uno por vez · con CSMA/CD", "a-small t3"), 0.02, 0.50)
+    b += a.show(T(320, 120, "si transmiten juntos, chocan", "a-small tbad"), 0.50, 0.78)
+    b += a.show(T(320, 120, "uno por vez · con CSMA/CD", "a-small t3"), 0.78)
+    # full: los dos sentidos a la vez, siempre
+    for t0 in (0.04, 0.36, 0.68):
+        b += a.move(pk("a-p1"), [(t0, 122, 198), (t0 + 0.24, 518, 198)])
+        b += a.move(pk("a-p3"), [(t0, 518, 214), (t0 + 0.24, 122, 214)])
+    b += T(320, 254, "los dos sentidos a la vez · sin colisiones, CSMA/CD no actúa", "a-small t2")
+    return anim("Animación de half duplex contra full duplex", 266, b,
+                "<b>Half duplex</b> (arriba): con un hub el medio es compartido, así que se transmite o se recibe, nunca las dos cosas, "
+                "y si dos arrancan juntos chocan. <b>Full duplex</b> (abajo): el enlace con el switch es dedicado y tiene un par para cada "
+                "sentido, así que se transmite y se recibe al mismo tiempo, sin colisiones.")
+
+
+def polling():
+    a = A(13)
+    mx, my = 320, 46
+    sx = {1: 120, 2: 320, 3: 520}
+    sy = 200
+    b = R(mx - 60, my - 17, 120, 34, "a-sw", 7) + T(mx, my + 4.5, "Maestro", "a-b")
+    for k, x in sx.items():
+        b += L(mx, my + 17, x, sy - 17, "a-link") + R(x - 50, sy - 17, 100, 34, "a-nd", 7) + T(x, sy + 4.5, f"Esclavo {k}", "a-b")
+    def via(k, t0, t1, up, c, txt):
+        x = sx[k]
+        p0, p1 = ((mx, my + 30), (x, sy - 24)) if not up else ((x, sy - 24), (mx + (x - mx) * 0.22, my + 44))
+        g = R(-38, -11, 76, 22, c, 11) + T(0, 4.5, txt, "a-b" if c == "a-sw" else "a-tw")
+        return a.move(g, [(t0, p0[0], p0[1]), (t1, p1[0], p1[1])], t1=t1 + 0.04)
+    b += via(1, 0.04, 0.14, False, "a-p1", "¿datos?") + via(1, 0.17, 0.25, True, "a-sw", "no")
+    b += via(2, 0.29, 0.38, False, "a-p1", "¿datos?") + via(2, 0.41, 0.51, True, "a-p2", "DATOS")
+    b += via(3, 0.55, 0.64, False, "a-p1", "¿datos?") + via(3, 0.67, 0.75, True, "a-sw", "no")
+    b += a.show(T(mx + 74, my + 5, "✕", "a-x", "start"), 0.82)
+    y = 262
+    b += a.show(T(320, y, "El maestro pregunta a cada esclavo, siempre en el mismo orden", "a-lbl t1"), 0.02, 0.29)
+    b += a.show(T(320, y, "El esclavo 2 tiene datos: transmite solo cuando le preguntan", "a-lbl t2"), 0.29, 0.55)
+    b += a.show(T(320, y, "Sigue con el 3 y vuelve a empezar: se sabe cuánto espera cada uno", "a-lbl t1"), 0.55, 0.80)
+    b += a.show(T(320, y, "Si cae el maestro, nadie puede transmitir", "a-b tbad"), 0.80)
+    return anim("Animación del método de acceso polling", 276, b,
+                "<b>Polling</b>: el maestro interroga a los esclavos uno por uno y en orden; cada uno transmite solo cuando le toca. "
+                "Es determinístico (el tiempo de espera está acotado), pero el maestro es un punto único de falla.")
+
+
+def udp():
+    a = A(13)
+    xa, xb = 110, 530
+    b = "<defs>" + marker("ud1", "f1") + marker("udb", "fbad") + "</defs>"
+    b += R(xa - 75, 10, 150, 30, "a-nd", 7) + T(xa, 29.5, "Emisor", "a-b") + R(xb - 75, 10, 150, 30, "a-nd", 7) + T(xb, 29.5, "Receptor", "a-b")
+    b += L(xa, 41, xa, 250, "a-life") + L(xb, 41, xb, 250, "a-life")
+    b += a.arrow(xa, 60, xb, 96, "s1", "ud1", 0.04, 0.08) + a.show(T(xa - 12, 64, "datagrama 1", "a-small t1", "end"), 0.04)
+    b += a.arrow(xa, 82, 330, 104, "sbad", "udb", 0.12, 0.06) + a.show(T(xa - 12, 86, "datagrama 2", "a-small tbad", "end"), 0.12)
+    b += a.show(T(346, 110, "✕ se pierde", "a-small tbad", "start"), 0.19)
+    b += a.arrow(xa, 104, xb, 192, "s1", "ud1", 0.22, 0.12) + a.show(T(xa - 12, 108, "datagrama 3", "a-small t1", "end"), 0.22)
+    b += a.arrow(xa, 126, xb, 160, "s1", "ud1", 0.30, 0.08) + a.show(T(xa - 12, 130, "datagrama 4", "a-small t1", "end"), 0.30)
+    b += a.show(T(xb + 12, 100, "llega 1.º", "a-small", "start"), 0.13) + a.show(T(xb + 12, 164, "llega 2.º: el 4", "a-small t3", "start"), 0.39)
+    b += a.show(T(xb + 12, 196, "llega 3.º: el 3", "a-small t3", "start"), 0.35)
+    y = 236
+    b += a.show(T(320, y, "Manda sin abrir conexión y sin esperar confirmaciones", "a-lbl t1"), 0.02, 0.42)
+    b += a.show(T(320, y, "Llegan 1, 4 y 3: desordenados y sin el 2. Nadie avisa ni retransmite", "a-lbl t3"), 0.42, 0.70)
+    b += a.show(T(320, y, "Si hace falta, lo resuelve la aplicación (DNS vuelve a preguntar)", "a-lbl t2"), 0.70)
+    return anim("Animación del envío de datagramas UDP", 250, b,
+                "<b>UDP</b>, lo opuesto a TCP: no hay saludo, ni números de secuencia que ordenen, ni ACK, ni retransmisión. "
+                "Lo que se pierde se pierde y puede llegar desordenado. A cambio es liviano y rápido: sirve para consultas cortas y para tiempo real.")
+
+
+def banda():
+    b = ""
+    for ox, tit, sub in ((20, "Banda base · TDM", "toda la capacidad, una señal por turno"), (340, "Banda ancha · FDM", "varios canales a la vez, cada uno en su frecuencia")):
+        b += T(ox + 140, 20, tit, "d-t") + T(ox + 140, 36, sub, "d-n")
+        b += P(f"M{ox + 20},50 V196 H{ox + 286}", "d-ln")
+        b += T(ox + 286, 212, "tiempo →", "d-z", "end") + T(ox + 14, 58, "frecuencia", "d-z", "end") if False else ""
+        b += T(ox + 284, 212, "tiempo →", "d-z", "end")
+        b += f'<text x="{ox + 12}" y="124" text-anchor="middle" class="d-z" transform="rotate(-90 {ox + 12} 124)">frecuencia →</text>'
+    cls = ["d-f1", "d-f3", "d-f2"]
+    for i in range(6):
+        x = 42 + i * 43
+        b += R(x, 62, 40, 126, cls[i % 3], 3) + T(x + 20, 129, "ABC"[i % 3], "d-l")
+    for i, (c, n) in enumerate(zip(cls, ("canal 1", "canal 2", "canal 3"))):
+        y = 62 + i * 43
+        b += R(362, y, 262, 40, c, 3) + T(493, y + 24, n, "d-l")
+    return diag("Diagrama de banda base contra banda ancha", 222, b,
+                "<b>Banda base</b> (LAN): una sola señal digital usa todo el ancho del medio, y varias conversaciones se turnan en el "
+                "tiempo (<b>TDM</b>). <b>Banda ancha</b> (WAN, TV por cable): el ancho de banda se reparte en varios canales analógicos "
+                "que transmiten a la vez, cada uno en su frecuencia (<b>FDM</b>).")
+
+
+def fisica_logica():
+    b = "<defs>" + marker("fl1", "d-m1") + marker("fl3", "d-m3") + "</defs>"
+    pcs = [(-100, -70), (100, -70), (100, 70), (-100, 70)]
+    for ox, dev, tit, sub in ((160, "Hub", "Ethernet con hub", "estrella física · bus lógico"), (480, "MSAU", "Token Ring con MSAU", "estrella física · anillo lógico")):
+        cy = 130
+        b += T(ox, 20, tit, "d-t") + T(ox, 36, sub, "d-bl")
+        for k, (dx, dy) in enumerate(pcs):
+            b += L(ox, cy, ox + dx, cy + dy, "d-ln2")
+        for k, (dx, dy) in enumerate(pcs):
+            b += R(ox + dx - 26, cy + dy - 14, 52, 28, "d-f1", 5) + T(ox + dx, cy + dy + 4.5, f"PC {k + 1}", "d-l")
+        b += R(ox - 32, cy - 16, 64, 32, "d-f0", 6) + T(ox, cy + 4.5, dev, "d-l")
+    # hub: PC1 transmite y lo reciben todas
+    ox, cy = 160, 130
+    for dx, dy in pcs[1:]:
+        b += L(ox + dx * 0.32, cy + dy * 0.32, ox + dx * 0.72, cy + dy * 0.72, "d-a1", ' marker-end="url(#fl1)"')
+    b += L(ox - 72, cy - 50, ox - 36, cy - 25, "d-a1", ' marker-end="url(#fl1)"')
+    b += T(ox, 238, "lo que manda la PC 1 lo reciben todas", "d-n")
+    # msau: anillo en orden 1→2→3→4→1
+    ox = 480
+    pts = [(ox - 74, cy - 52), (ox + 74, cy - 52), (ox + 74, cy + 52), (ox - 74, cy + 52)]
+    for i in range(4):
+        (x1, y1), (x2, y2) = pts[i], pts[(i + 1) % 4]
+        sx, sy = x1 + (x2 - x1) * 0.28, y1 + (y2 - y1) * 0.28
+        ex, ey = x1 + (x2 - x1) * 0.72, y1 + (y2 - y1) * 0.72
+        b += L(round(sx, 1), round(sy, 1), round(ex, 1), round(ey, 1), "d-a3", ' marker-end="url(#fl3)"')
+    b += T(ox, 238, "la trama pasa de estación en estación, en orden", "d-n")
+    return diag("Diagrama de topología física contra lógica", 250, b,
+                "El mismo cableado en <b>estrella</b>, dos topologías <b>lógicas</b> distintas. Con un hub, lo que transmite una PC le llega "
+                "a todas: <b>bus lógico</b>. Con una MSAU, la trama recorre las estaciones una por una en un sentido: <b>anillo lógico</b>. "
+                "La lógica la define el protocolo de acceso al medio, no el cable.")
+
+
+def adhoc_infra():
+    b = ""
+    def pc(x, y, t="PC"):
+        return R(x - 24, y - 13, 48, 26, "d-f1", 5) + T(x, y + 4.5, t, "d-l")
+    wl = lambda x1, y1, x2, y2: L(x1, y1, x2, y2, "d-a1 d-dash")
+    b += T(160, 20, "Ad hoc", "d-t") + T(160, 36, "de igual a igual, sin access point", "d-n")
+    P_ = [(160, 72), (70, 180), (250, 180)]
+    for i in range(3):
+        for j in range(i + 1, 3):
+            b += wl(*P_[i], *P_[j])
+    for x, y in P_:
+        b += pc(x, y)
+    b += T(480, 20, "Infraestructura", "d-t") + T(480, 36, "todos se comunican a través del AP", "d-n")
+    ap = (480, 120)
+    for x, y in ((390, 72), (390, 176), (570, 72)):
+        b += wl(x, y, *ap)
+    b += L(480, 134, 570, 186, "d-ln") + R(540, 172, 70, 28, "d-f0", 5) + T(575, 190.5, "Switch", "d-l")
+    b += T(588, 216, "red cableada", "d-z")
+    b += R(450, 106, 60, 28, "d-f3", 6) + T(480, 124.5, "AP", "d-l")
+    for x, y in ((390, 72), (390, 176), (570, 72)):
+        b += pc(x, y)
+    b += T(320, 238, "- - -  enlace inalámbrico        ——  cable", "d-z")
+    return diag("Diagrama de los modos ad hoc e infraestructura", 248, b,
+                "<b>Ad hoc</b>: los equipos se hablan directamente entre sí; sirve para pocos equipos y redes temporales. "
+                "<b>Infraestructura</b>: todo pasa por el <b>access point</b>, que además une la red inalámbrica con la cableada.")
+
+
+def p2p_dominio():
+    b = ""
+    def pc(x, y, users):
+        o = R(x - 30, y - 15, 60, 30, "d-f1", 5) + T(x, y + 4.5, "PC", "d-l")
+        if users:
+            o += R(x + 20, y - 26, 34, 18, "d-f3", 4) + T(x + 37, y - 13, "👤", "d-z")
+        return o
+    izq = ((80, 76), (240, 76), (80, 196), (240, 196))
+    der = ((400, 76), (400, 196), (560, 196))
+    for x, y in izq:
+        b += L(x, y, 160, 132, "d-ln2")
+    for x, y in der + ((560, 76),):
+        b += L(x, y, 480, 132, "d-ln2")
+    for ox, tit, sub in ((160, "Peer to peer · grupo de trabajo", "cada PC tiene sus propios usuarios"), (480, "Servidor dedicado · dominio", "los usuarios están una sola vez, en el servidor")):
+        b += T(ox, 20, tit, "d-t") + T(ox, 36, sub, "d-n")
+        b += R(ox - 34, 118, 68, 28, "d-f0", 5) + T(ox, 136.5, "Switch", "d-l")
+    b += P("M412,62 Q470,34 520,64", "d-a3 d-dash") + P("M430,194 Q545,200 548,96", "d-a3 d-dash") + P("M566,180 Q590,140 578,96", "d-a3 d-dash")
+    for x, y in izq:
+        b += pc(x, y, True)
+    for x, y in der:
+        b += pc(x, y, False)
+    b += R(522, 58, 92, 36, "d-f2", 6) + T(568, 74, "Servidor", "d-l") + T(568, 87, "AD + DNS", "d-s")
+    b += R(586, 36, 34, 18, "d-f3", 4) + T(603, 49, "👤", "d-z")
+    b += T(160, 238, "cada PC valida a sus usuarios locales", "d-n")
+    b += T(480, 238, "todas validan contra el servidor (- - -)", "d-n")
+    return diag("Diagrama de peer to peer contra servidor dedicado", 250, b,
+                "La misma red física (un switch y PCs) con dos sistemas operativos de red. En <b>peer to peer</b> cada PC tiene sus usuarios "
+                "y decide qué comparte. En el <b>dominio</b>, los usuarios se crean una vez en el servidor y todas las PCs validan contra él. "
+                "Es una relación lógica: el centro físico sigue siendo el switch, no el servidor (por eso no es una estrella con centro en el servidor).")
+
+
+def derecho_cruzado():
+    b = "<defs>" + marker("dc1", "d-m1") + marker("dc2", "d-m2") + "</defs>"
+    pins = [1, 2, 3, 6]
+    ys = {1: 82, 2: 112, 3: 152, 6: 182}
+    def lado(x, nombre, tx_pins, izq):
+        o = T(x, 50, nombre, "d-t")
+        for p in pins:
+            y = ys[p]
+            o += R(x - 16, y - 11, 32, 22, "d-f0", 4) + T(x, y + 4.5, str(p), "d-l")
+            es_tx = p in tx_pins
+            o += T(x + (-24 if izq else 24), y + 4.5, "TX" if es_tx else "RX", "d-s", "end" if izq else "start")
+        return o
+    # derecho: PC (TX 1,2) ↔ switch (RX 1,2), pin a pin
+    b += T(160, 20, "Derecho · A en las dos puntas", "d-t")
+    b += lado(70, "PC", (1, 2), True) + lado(250, "Switch", (3, 6), False)
+    for p in pins:
+        c, m = ("d-a1", "dc1") if p in (1, 2) else ("d-a2", "dc2")
+        x1, x2 = (88, 232) if p in (1, 2) else (232, 88)
+        b += L(x1, ys[p], x2, ys[p], c, f' marker-end="url(#{m})"')
+    b += T(160, 222, "equipos distintos: 1→1, 2→2, 3→3, 6→6", "d-n")
+    # cruzado: PC ↔ PC
+    b += T(480, 20, "Cruzado · A en una punta, B en la otra", "d-t")
+    b += lado(390, "PC", (1, 2), True) + lado(570, "PC", (1, 2), False)
+    for a_, z in ((1, 3), (2, 6)):
+        b += L(408, ys[a_], 552, ys[z], "d-a1", ' marker-end="url(#dc1)"')
+        b += L(552, ys[a_], 408, ys[z], "d-a2", ' marker-end="url(#dc2)"')
+    b += T(480, 222, "equipos iguales: 1↔3 y 2↔6", "d-n")
+    b += T(320, 244, "Lo que una punta transmite tiene que llegar a lo que la otra recibe", "d-bl")
+    return diag("Diagrama de cable derecho contra cruzado", 254, b,
+                "Por qué existen los dos cables (en 10/100 Mbps). Una PC transmite por 1 y 2 y recibe por 3 y 6; el puerto del switch, al revés. "
+                "Entre equipos <b>distintos</b> el cable <b>derecho</b> ya conecta transmisión con recepción. Entre equipos <b>iguales</b> hay que "
+                "<b>cruzar</b> los pares para que la transmisión de uno llegue a la recepción del otro.")
+
+
+FIG.update({"csma_ca": csma_ca, "half_full": half_full, "polling": polling, "udp": udp, "banda": banda,
+            "fisica_logica": fisica_logica, "adhoc_infra": adhoc_infra, "p2p_dominio": p2p_dominio, "derecho_cruzado": derecho_cruzado})
