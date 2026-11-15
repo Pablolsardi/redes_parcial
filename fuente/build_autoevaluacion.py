@@ -131,7 +131,11 @@ def head(title, desc):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
 <meta name="description" content="{desc}">
-<style>{CSS}\n{BUSCADOR_CSS}</style>
+<link rel="icon" href="img/logo.svg" type="image/svg+xml">
+<link rel="icon" href="img/logo-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="img/logo-180.png">
+<meta name="theme-color" content="#1f5fbf">
+<style>{CSS}\n{BUSCADOR_CSS}\n.top-in .tlogo{{width:26px;height:26px;border-radius:7px;flex:none;align-self:center;padding:0;background:none}}</style>
 </head>
 <body>
 {THEME_BTN}
@@ -141,7 +145,7 @@ def head(title, desc):
 def topbar(actual):
     links = [("index.html", "← Guía de estudio"), ("autoevaluacion.html", "Preguntas con respuestas"), ("practica.html", "Examen de práctica"), ("examen.html", "Examen definitivo")]
     a = "".join(f'<a href="{h}"{" class=\"on\"" if h == actual else ""}>{t}</a>' for h, t in links)
-    return f'<header class="top"><div class="top-in">{a}</div></header>\n'
+    return f'<header class="top"><div class="top-in"><a class="tlogo" href="index.html" aria-label="Guía"><img src="img/logo.svg" alt="" width="26" height="26" style="display:block;border-radius:7px"></a>{a}</div></header>\n'
 
 
 def letra(q, i):
