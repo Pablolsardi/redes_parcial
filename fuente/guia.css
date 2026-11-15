@@ -96,7 +96,7 @@ section.page.entra{animation:pagein .35s ease}
 .crumb .rt{color:var(--acc2)}
 .hero{display:flex;align-items:center;gap:18px;margin:6px 0 10px}
 .hero h1{margin:0}
-.hero-logo{width:72px;height:72px;border-radius:18px;flex:none;box-shadow:0 6px 18px rgba(31,95,191,.28)}
+.hero-logo{width:72px;height:72px;border-radius:18px;flex:none}
 h1{font-size:40px;line-height:1.1;letter-spacing:-.025em;font-weight:800;margin:6px 0 10px}
 section.page>h2{font-size:34px;line-height:1.15;letter-spacing:-.02em;font-weight:800;margin:0 0 20px;padding:0 0 16px;border-bottom:1px solid var(--line)}
 section.page>h2.hh{font-size:13px;letter-spacing:.06em;text-transform:uppercase;font-weight:800;color:var(--mut);margin:38px 0 12px;padding:0;border:0}
