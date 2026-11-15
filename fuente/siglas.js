@@ -13,12 +13,13 @@
   [].forEach.call(tabla.querySelectorAll('tr'),function(tr){
     var td=tr.querySelectorAll('td'); if(td.length<3) return;
     var crudo=td[0].textContent.trim(), id=tr.id;
+    var flot=tr.getAttribute('data-flot')!=='no';
     if(!id){id='g-'+nrm(crudo).replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''); tr.id=id;}
     var nota=(crudo.match(/\(([^)]*)\)/)||[])[1]||'';
     var ver=td[3]&&td[3].querySelector('a');
     filas[id]={sigla:crudo.replace(/\s*\([^)]*\)/,''),nota:nota,sig:td[1].textContent.trim(),que:td[2].textContent.trim(),tema:ver?ver.textContent.trim():''};
     crudo.replace(/\s*\([^)]*\)/,'').split(/\s*[\/,]\s*/).forEach(function(t){
-      t=t.trim(); if(t.length<2||IGNORAR[t]) return;
+      t=t.trim(); if(!flot||t.length<2||IGNORAR[t]) return;
       (dic[t]=dic[t]||[]).indexOf(id)<0&&dic[t].push(id);
     });
   });

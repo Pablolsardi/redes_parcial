@@ -563,6 +563,7 @@ table.glo tr:target>td:first-child{box-shadow:inset 3px 0 0 var(--warn)}
 <li><span class="vtag v32">v3.2<small>14/11/2026</small></span><div><span class="now">Actual</span><br>
 <ul>
 <li><b>Glosario completo:</b> pasa de 96 a 141 siglas. Se sumaron las que aparecían en el texto sin flotante: hardware de servidores (HDD, SSD, SATA, NVMe, PCIe, RDIMM, ECC, TDP, SMT, SFP+), codificaciones y modulaciones (MLT-3, PAM-5, PAM-16, QAM, OFDMA), campos de tramas (SD, ED, AC, SFD, DSAP, SSAP, TPID, TCI, DEI) y otras como AND, IRQ, RI/RO, ACL, RC4, OM3, FAT32, NFS, IIS, SQL, IPX/SPX e ITU, entre otras.</li>
+<li>Las unidades (Gbps, Mbps, GHz, MHz) y las siglas obvias (SO, CPU, RAM, HDD, SSD, HTML, SQL, IBM, IoT, ID) siguen en el glosario, pero no se subrayan en el texto.</li>
 <li>Las siglas ahora se reconocen también en plural (APs, VLANs, IPs) y en la forma RJ45, sin guion. ISA muestra sus dos significados: el bus viejo y el juego de instrucciones del procesador. Ya no se marca el "TX" suelto dentro de nombres como 100BASE-TX.</li>
 </ul></div></li>
 <li><span class="vtag v31">v3.1<small>14/11/2026</small></span><div>
@@ -2911,7 +2912,7 @@ El <b>TP2</b> dejó el cableado (capa 1) y el <b>TP3</b> la red lógica. El <b>T
 <tr id="g-cam"><td><b>CAM</b></td><td>Content Addressable Memory</td><td>Memoria donde el switch guarda su tabla MAC.</td><td><a href="#s12">11. Dispositivos de interconexión</a></td></tr>
 <tr id="g-cidr"><td><b>CIDR</b></td><td>Classless Inter-Domain Routing</td><td>Notación con barra (/24) que indica cuántos bits en 1 tiene la máscara; direccionamiento sin clase.</td><td><a href="#s18b">23. IPv4 y subneteo</a></td></tr>
 <tr id="g-cname-mx-ns-ptr-srv-a-aaaa"><td><b>CNAME, MX, NS, PTR, SRV, A, AAAA</b></td><td>Tipos de registro DNS</td><td>A: nombre → IPv4. AAAA: nombre → IPv6. CNAME: alias. MX: correo. NS: servidor DNS. PTR: IP → nombre. SRV: ubicación de servicios.</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
-<tr id="g-cpu-ram-sram"><td><b>CPU / RAM / SRAM</b></td><td>Central Processing Unit / Random Access Memory / Static RAM</td><td>El procesador, la memoria principal y la memoria rápida de la caché (L1, L2, L3).</td><td><a href="#s4">15. Servidores</a></td></tr>
+<tr id="g-cpu-ram-sram" data-flot="no"><td><b>CPU / RAM / SRAM</b></td><td>Central Processing Unit / Random Access Memory / Static RAM</td><td>El procesador, la memoria principal y la memoria rápida de la caché (L1, L2, L3).</td><td><a href="#s4">15. Servidores</a></td></tr>
 <tr id="g-crc"><td><b>CRC</b></td><td>Cyclic Redundancy Check</td><td>Cálculo para detectar errores; su resultado va en el FCS de la trama.</td><td><a href="#s8">7. 802.3: trama y variantes clásicas</a></td></tr>
 <tr id="g-csma"><td><b>CSMA</b></td><td>Carrier Sense Multiple Access</td><td>Escuchar el medio antes de transmitir, con acceso múltiple.</td><td><a href="#s6">5. Acceso al medio</a></td></tr>
 <tr id="g-csma-ca"><td><b>CSMA/CA</b></td><td>CSMA with Collision Avoidance (evitación)</td><td>Acceso al medio de Wi-Fi: evita colisiones y confirma con ACK.</td><td><a href="#s6">5. Acceso al medio</a></td></tr>
@@ -2938,24 +2939,24 @@ El <b>TP2</b> dejó el cableado (capa 1) y el <b>TP3</b> la red lógica. El <b>T
 <tr id="g-fqdn"><td><b>FQDN</b></td><td>Fully Qualified Domain Name</td><td>Nombre de dominio completo hasta la raíz (Servidor1.Redes1.com.).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
 <tr id="g-ftp"><td><b>FTP</b></td><td>File Transfer Protocol</td><td>Transferencia de archivos (TCP 20 y 21).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
 <tr id="g-gbe"><td><b>GbE</b></td><td>Gigabit Ethernet</td><td>Ethernet de 1 Gbps (802.3ab sobre UTP).</td><td><a href="#s9">8. Evolución de Ethernet</a></td></tr>
-<tr id="g-gbps-mbps"><td><b>Gbps / Mbps</b></td><td>Gigabits / Megabits por segundo</td><td>Unidades de velocidad de transmisión.</td><td><a href="#s9">8. Evolución de Ethernet</a></td></tr>
-<tr id="g-ghz-mhz"><td><b>GHz / MHz</b></td><td>Gigahertz / Megahertz</td><td>Unidades de frecuencia. Wi-Fi trabaja en las bandas de 2,4, 5 y 6 GHz; los cables se certifican por MHz (Cat 5e 100 MHz, Cat 6 250 MHz).</td><td><a href="#s10">9. Wi-Fi 802.11</a></td></tr>
+<tr id="g-gbps-mbps" data-flot="no"><td><b>Gbps / Mbps</b></td><td>Gigabits / Megabits por segundo</td><td>Unidades de velocidad de transmisión.</td><td><a href="#s9">8. Evolución de Ethernet</a></td></tr>
+<tr id="g-ghz-mhz" data-flot="no"><td><b>GHz / MHz</b></td><td>Gigahertz / Megahertz</td><td>Unidades de frecuencia. Wi-Fi trabaja en las bandas de 2,4, 5 y 6 GHz; los cables se certifican por MHz (Cat 5e 100 MHz, Cat 6 250 MHz).</td><td><a href="#s10">9. Wi-Fi 802.11</a></td></tr>
 <tr id="g-gvrp-garp"><td><b>GVRP / GARP</b></td><td>GARP VLAN Registration Protocol / Generic Attribute Registration Protocol</td><td>Protocolos para propagar la configuración de VLAN entre switches.</td><td><a href="#s14b">14. Switching: STP y VLAN</a></td></tr>
 <tr id="g-hcc-icc-mcc"><td><b>HCC / ICC / MCC</b></td><td>Horizontal / Intermediate / Main Cross-Connect</td><td>Otros nombres de los repartidores (de piso, intermedio y principal).</td><td><a href="#s16">17. Cableado estructurado</a></td></tr>
-<tr id="g-hdd-ssd"><td><b>HDD / SSD</b></td><td>Hard Disk Drive / Solid State Drive</td><td>Disco mecánico (barato, mucha capacidad) y disco de estado sólido (sin partes móviles, mucho más rápido).</td><td><a href="#s4">15. Servidores</a></td></tr>
-<tr id="g-html"><td><b>HTML</b></td><td>HyperText Markup Language</td><td>El lenguaje de las páginas web; es lo que viaja en la respuesta HTTP.</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
+<tr id="g-hdd-ssd" data-flot="no"><td><b>HDD / SSD</b></td><td>Hard Disk Drive / Solid State Drive</td><td>Disco mecánico (barato, mucha capacidad) y disco de estado sólido (sin partes móviles, mucho más rápido).</td><td><a href="#s4">15. Servidores</a></td></tr>
+<tr id="g-html" data-flot="no"><td><b>HTML</b></td><td>HyperText Markup Language</td><td>El lenguaje de las páginas web; es lo que viaja en la respuesta HTTP.</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
 <tr id="g-http-https"><td><b>HTTP / HTTPS</b></td><td>HyperText Transfer Protocol (Secure)</td><td>Protocolo web (80); con cifrado TLS, HTTPS (443).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
 <tr id="g-iana"><td><b>IANA</b></td><td>Internet Assigned Numbers Authority</td><td>Asigna los puertos bien conocidos y los bloques de direcciones.</td><td><a href="#s18t">21. TCP/IP: transporte</a></td></tr>
-<tr id="g-ibm"><td><b>IBM</b></td><td>International Business Machines</td><td>Empresa que desarrolló Token Ring (luego IEEE 802.5).</td><td><a href="#s7">6. Token Ring, Token Bus, MSAU</a></td></tr>
+<tr id="g-ibm" data-flot="no"><td><b>IBM</b></td><td>International Business Machines</td><td>Empresa que desarrolló Token Ring (luego IEEE 802.5).</td><td><a href="#s7">6. Token Ring, Token Bus, MSAU</a></td></tr>
 <tr id="g-icmp"><td><b>ICMP</b></td><td>Internet Control Message Protocol</td><td>Mensajes de control y error de IP; lo usan ping y tracert.</td><td><a href="#s18i">22. TCP/IP: Internet y diagnóstico</a></td></tr>
-<tr id="g-id"><td><b>ID</b></td><td>Identifier (identificador)</td><td>Número que identifica algo: la VLAN (VLAN-ID), el switch en STP (prioridad + MAC) o la asociación en Wi-Fi.</td><td><a href="#s14b">14. Switching: STP y VLAN</a></td></tr>
+<tr id="g-id" data-flot="no"><td><b>ID</b></td><td>Identifier (identificador)</td><td>Número que identifica algo: la VLAN (VLAN-ID), el switch en STP (prioridad + MAC) o la asociación en Wi-Fi.</td><td><a href="#s14b">14. Switching: STP y VLAN</a></td></tr>
 <tr id="g-idf-mdf"><td><b>IDF / MDF</b></td><td>Intermediate / Main Distribution Facility</td><td>Repartidor de piso / repartidor principal del edificio.</td><td><a href="#s16">17. Cableado estructurado</a></td></tr>
 <tr id="g-ieee"><td><b>IEEE</b></td><td>Institute of Electrical and Electronics Engineers</td><td>Organismo que define las normas 802 (802.3 Ethernet, 802.11 Wi-Fi…).</td><td><a href="#s8">7. 802.3: trama y variantes clásicas</a></td></tr>
 <tr id="g-ietf"><td><b>IETF</b></td><td>Internet Engineering Task Force</td><td>Organismo que publica las RFC de los protocolos de Internet.</td><td><a href="#s18">19. TCP/IP: modelo y capas</a></td></tr>
 <tr id="g-igmp"><td><b>IGMP</b></td><td>Internet Group Management Protocol</td><td>Administra la pertenencia de los hosts a grupos multicast.</td><td><a href="#s18i">22. TCP/IP: Internet y diagnóstico</a></td></tr>
 <tr id="g-iis"><td><b>IIS</b></td><td>Internet Information Services</td><td>Servidor web de Windows Server (como Apache o Nginx).</td><td><a href="#s4">15. Servidores</a></td></tr>
 <tr id="g-imap"><td><b>IMAP</b></td><td>Internet Message Access Protocol</td><td>Leer el correo sincronizado en varios dispositivos (143).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
-<tr id="g-iot"><td><b>IoT</b></td><td>Internet of Things (Internet de las cosas)</td><td>Dispositivos que no son computadoras (cámaras, sensores, electrodomésticos) conectados a la red.</td><td><a href="#s18">19. TCP/IP: modelo y capas</a></td></tr>
+<tr id="g-iot" data-flot="no"><td><b>IoT</b></td><td>Internet of Things (Internet de las cosas)</td><td>Dispositivos que no son computadoras (cámaras, sensores, electrodomésticos) conectados a la red.</td><td><a href="#s18">19. TCP/IP: modelo y capas</a></td></tr>
 <tr id="g-ip"><td><b>IP</b></td><td>Internet Protocol</td><td>Protocolo de capa 3: direccionamiento lógico y enrutamiento. Sin conexión y no confiable.</td><td><a href="#s18i">22. TCP/IP: Internet y diagnóstico</a></td></tr>
 <tr id="g-ipv4-ipv6"><td><b>IPv4 / IPv6</b></td><td>Internet Protocol versión 4 / 6</td><td>Direcciones de 32 bits / de 128 bits.</td><td><a href="#s18b">23. IPv4 y subneteo</a></td></tr>
 <tr id="g-ipx-spx"><td><b>IPX / SPX</b></td><td>Internetwork / Sequenced Packet Exchange</td><td>Protocolos de red de Novell NetWare, reemplazados por TCP/IP.</td><td><a href="#snp">★ Norma vs protocolo</a></td></tr>
@@ -3007,8 +3008,8 @@ El <b>TP2</b> dejó el cableado (capa 1) y el <b>TP3</b> la red lógica. El <b>T
 <tr id="g-smt"><td><b>SMT</b></td><td>Simultaneous Multithreading</td><td>Dos hilos por núcleo de procesador (Hyper-Threading en Intel).</td><td><a href="#s4">15. Servidores</a></td></tr>
 <tr id="g-smtp"><td><b>SMTP</b></td><td>Simple Mail Transfer Protocol</td><td>Enviar correo (25).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
 <tr id="g-snmp"><td><b>SNMP</b></td><td>Simple Network Management Protocol</td><td>Monitoreo y gestión de equipos de red (UDP 161).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
-<tr id="g-so"><td><b>SO</b></td><td>Sistema operativo</td><td>Software base del equipo; el de red define si la LAN es P2P o de servidor dedicado.</td><td><a href="#s15">16. P2P vs servidor dedicado</a></td></tr>
-<tr id="g-sql"><td><b>SQL</b></td><td>Structured Query Language</td><td>Lenguaje de las bases de datos relacionales (MySQL, PostgreSQL, SQL Server).</td><td><a href="#s4">15. Servidores</a></td></tr>
+<tr id="g-so" data-flot="no"><td><b>SO</b></td><td>Sistema operativo</td><td>Software base del equipo; el de red define si la LAN es P2P o de servidor dedicado.</td><td><a href="#s15">16. P2P vs servidor dedicado</a></td></tr>
+<tr id="g-sql" data-flot="no"><td><b>SQL</b></td><td>Structured Query Language</td><td>Lenguaje de las bases de datos relacionales (MySQL, PostgreSQL, SQL Server).</td><td><a href="#s4">15. Servidores</a></td></tr>
 <tr id="g-ssh"><td><b>SSH</b></td><td>Secure Shell</td><td>Terminal remota cifrada (22).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
 <tr id="g-ssid"><td><b>SSID</b></td><td>Service Set Identifier</td><td>Nombre de la red Wi-Fi.</td><td><a href="#s10">9. Wi-Fi 802.11</a></td></tr>
 <tr id="g-stp-cable"><td><b>STP (cable)</b></td><td>Shielded Twisted Pair</td><td>Par trenzado blindado.</td><td><a href="#s2">2. Modelo OSI capa por capa</a></td></tr>
@@ -3538,12 +3539,13 @@ i.addEventListener('input',filtrar);ordenar();})();
   [].forEach.call(tabla.querySelectorAll('tr'),function(tr){
     var td=tr.querySelectorAll('td'); if(td.length<3) return;
     var crudo=td[0].textContent.trim(), id=tr.id;
+    var flot=tr.getAttribute('data-flot')!=='no';
     if(!id){id='g-'+nrm(crudo).replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''); tr.id=id;}
     var nota=(crudo.match(/\(([^)]*)\)/)||[])[1]||'';
     var ver=td[3]&&td[3].querySelector('a');
     filas[id]={sigla:crudo.replace(/\s*\([^)]*\)/,''),nota:nota,sig:td[1].textContent.trim(),que:td[2].textContent.trim(),tema:ver?ver.textContent.trim():''};
     crudo.replace(/\s*\([^)]*\)/,'').split(/\s*[\/,]\s*/).forEach(function(t){
-      t=t.trim(); if(t.length<2||IGNORAR[t]) return;
+      t=t.trim(); if(!flot||t.length<2||IGNORAR[t]) return;
       (dic[t]=dic[t]||[]).indexOf(id)<0&&dic[t].push(id);
     });
   });
