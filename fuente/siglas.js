@@ -13,19 +13,20 @@
   [].forEach.call(tabla.querySelectorAll('tr'),function(tr){
     var td=tr.querySelectorAll('td'); if(td.length<3) return;
     var crudo=td[0].textContent.trim(), id=tr.id;
+    var flot=tr.getAttribute('data-flot')!=='no';
     if(!id){id='g-'+nrm(crudo).replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''); tr.id=id;}
     var nota=(crudo.match(/\(([^)]*)\)/)||[])[1]||'';
     var ver=td[3]&&td[3].querySelector('a');
     filas[id]={sigla:crudo.replace(/\s*\([^)]*\)/,''),nota:nota,sig:td[1].textContent.trim(),que:td[2].textContent.trim(),tema:ver?ver.textContent.trim():''};
     crudo.replace(/\s*\([^)]*\)/,'').split(/\s*[\/,]\s*/).forEach(function(t){
-      t=t.trim(); if(t.length<2||IGNORAR[t]) return;
+      t=t.trim(); if(!flot||t.length<2||IGNORAR[t]) return;
       (dic[t]=dic[t]||[]).indexOf(id)<0&&dic[t].push(id);
     });
   });
   var claves=Object.keys(dic).sort(function(a,b){return b.length-a.length;});
   if(!claves.length) return;
   var esc=function(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');};
-  var RE=new RegExp('(^|[^A-Za-z0-9ÁÉÍÓÚáéíóúñÑ])('+claves.map(esc).join('|')+')(?![A-Za-z0-9ÁÉÍÓÚáéíóúñÑ])','g');
+  var RE=new RegExp('(^|[^A-Za-z0-9ÁÉÍÓÚáéíóúñÑ\\-])('+claves.map(esc).join('|')+')(s?)(?![A-Za-z0-9ÁÉÍÓÚáéíóúñÑ])','g');
 
   /* 2. marcar en el cuerpo: la primera aparición de cada sigla por bloque (párrafo, ítem, celda) */
   var puestas=[];
@@ -40,10 +41,10 @@
       var t=node.nodeValue, m, hits=[]; RE.lastIndex=0;
       var blq=node.parentElement.closest('p,li,td,th,figcaption,summary,dd,.box,.card,div')||root;
       var set=vistos.get(blq); if(!set){set={}; vistos.set(blq,set);}
-      while((m=RE.exec(t))){var k=m[2]; if(set[k]) continue; set[k]=1; hits.push([m.index+m[1].length,k]);}
+      while((m=RE.exec(t))){var k=m[2]; if(set[k]) continue; set[k]=1; hits.push([m.index+m[1].length,k,(m[3]||'').length]);}
       for(var i=hits.length-1;i>=0;i--){
         var ini=hits[i][0], k=hits[i][1], ids=dic[k];
-        var cola=node.splitText(ini); cola.splitText(k.length);
+        var cola=node.splitText(ini); cola.splitText(k.length+hits[i][2]);
         var a=document.createElement('a'); a.className='sg'; a.href='#'+ids[0]; a.target='_blank'; a.rel='noopener';
         a.setAttribute('data-sg',k); a.setAttribute('aria-describedby','sgPop');
         cola.parentNode.replaceChild(a,cola); a.appendChild(cola); puestas.push(a);

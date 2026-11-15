@@ -564,6 +564,9 @@ table.glo tr:target>td:first-child{box-shadow:inset 3px 0 0 var(--warn)}
 <ul>
 <li><b>Siglas con flotante:</b> las siglas del glosario que aparecen en el texto quedan subrayadas con puntos. Al pasar el mouse se abre un cuadro chico con qué significa y qué es; con un clic se abre esa sigla en el glosario en otra pestaña, resaltada, sin perder lo que estabas leyendo. En el celular, el primer toque muestra el cuadro y adentro está el link.</li>
 <li>Para no llenar el texto de subrayados, cada sigla se marca la primera vez que aparece en cada párrafo. No se marcan en títulos, links ni en los quiz (para no regalar respuestas). Si una sigla tiene dos significados, como STP (cable y Spanning Tree), el cuadro muestra los dos.</li>
+<li><b>Glosario completo:</b> pasa de 96 a 142 siglas. Se sumaron las que aparecían en el texto y no estaban: hardware de servidores (HDD, SSD, SATA, NVMe, PCIe, RDIMM, ECC, TDP, SMT, SFP+), codificaciones y modulaciones (MLT-3, PAM-5, PAM-16, QAM, OFDMA), campos de tramas (SD, ED, AC, SFD, DSAP, SSAP, TPID, TCI, DEI) y otras como AND, IRQ, RI/RO, ACL, RC4, OM3, FAT32, NFS, IIS, SQL, IPX/SPX e ITU, entre otras.</li>
+<li>Las unidades (Gbps, Mbps, GHz, MHz) y las siglas obvias (SO, CPU, RAM, HDD, SSD, HTML, SQL, IBM, IoT, ID) siguen en el glosario, pero no se subrayan en el texto.</li>
+<li>Las siglas ahora se reconocen también en plural (APs, VLANs, IPs) y en la forma RJ45, sin guion. ISA muestra sus dos significados: el bus viejo y el juego de instrucciones del procesador. Ya no se marca el "TX" suelto dentro de nombres como 100BASE-TX.</li>
 <li>Glosario: la columna "Ver" ya no queda cortada en pantallas anchas.</li>
 </ul></div></li>
 <li><span class="vtag v30">v3.0<small>14/11/2026</small></span><div>
@@ -2888,9 +2891,11 @@ El <b>TP2</b> dejó el cableado (capa 1) y el <b>TP3</b> la red lógica. El <b>T
 <div class="glofil"><div class="gloord" id="gloOrd"><button type="button" data-o="az" class="on">A–Z</button><button type="button" data-o="idx">Por índice del resumen</button></div><input type="search" id="gloFiltro" placeholder="Filtrar siglas (ej.: DHCP, SSID, tierra)…" autocomplete="off"><span id="gloCnt"></span></div>
 <div class="scroll"><table class="glo"><tr><th>Sigla</th><th>Significado</th><th>Qué es</th><th>Ver</th></tr>
 <tr id="g-ack"><td><b>ACK</b></td><td>Acknowledgement (acuse de recibo)</td><td>Confirmación de que algo llegó. En TCP indica el próximo byte esperado; en Wi-Fi confirma cada trama.</td><td><a href="#s18t">21. TCP/IP: transporte</a></td></tr>
+<tr id="g-acl"><td><b>ACL</b></td><td>Access Control List (lista de control de acceso)</td><td>Lista de equipos o direcciones permitidos; en Wi-Fi, el filtro por MAC del access point.</td><td><a href="#s10">9. Wi-Fi 802.11</a></td></tr>
 <tr id="g-ad-ad-ds"><td><b>AD / AD DS</b></td><td>Active Directory (Domain Services)</td><td>Servicio de directorio de Windows Server: usuarios, grupos, equipos y políticas del dominio.</td><td><a href="#s15">16. P2P vs servidor dedicado</a></td></tr>
 <tr id="g-aes"><td><b>AES</b></td><td>Advanced Encryption Standard</td><td>Algoritmo de cifrado que usa WPA2 y WPA3.</td><td><a href="#s10">9. Wi-Fi 802.11</a></td></tr>
 <tr id="g-ah-ph-sh-th-rh-eh"><td><b>AH, PH, SH, TH, RH, EH</b></td><td>Application / Presentation / Session / Transport / Red / Enlace Header</td><td>Encabezados que agrega cada capa de OSI al bajar los datos.</td><td><a href="#s2">2. Modelo OSI capa por capa</a></td></tr>
+<tr id="g-and"><td><b>AND</b></td><td>Y lógico (operación bit a bit)</td><td>Operación entre la IP y la máscara: da 1 solo donde las dos tienen 1. El resultado es la dirección de red.</td><td><a href="#s18b">23. IPv4 y subneteo</a></td></tr>
 <tr id="g-ansi"><td><b>ANSI</b></td><td>American National Standards Institute</td><td>Organismo de normas de EE. UU. que avala las normas TIA de cableado.</td><td><a href="#snp">★ Norma vs protocolo</a></td></tr>
 <tr id="g-ap"><td><b>AP</b></td><td>Access Point (punto de acceso)</td><td>Equipo central de una red Wi-Fi en modo infraestructura.</td><td><a href="#s10">9. Wi-Fi 802.11</a></td></tr>
 <tr id="g-apdu-ppdu-spdu"><td><b>APDU, PPDU, SPDU</b></td><td>Application / Presentation / Session Protocol Data Unit</td><td>PDU de las capas 7, 6 y 5 de OSI (el mensaje).</td><td><a href="#s2">2. Modelo OSI capa por capa</a></td></tr>
@@ -2904,76 +2909,120 @@ El <b>TP2</b> dejó el cableado (capa 1) y el <b>TP3</b> la red lógica. El <b>T
 <tr id="g-cam"><td><b>CAM</b></td><td>Content Addressable Memory</td><td>Memoria donde el switch guarda su tabla MAC.</td><td><a href="#s12">11. Dispositivos de interconexión</a></td></tr>
 <tr id="g-cidr"><td><b>CIDR</b></td><td>Classless Inter-Domain Routing</td><td>Notación con barra (/24) que indica cuántos bits en 1 tiene la máscara; direccionamiento sin clase.</td><td><a href="#s18b">23. IPv4 y subneteo</a></td></tr>
 <tr id="g-cname-mx-ns-ptr-srv-a-aaaa"><td><b>CNAME, MX, NS, PTR, SRV, A, AAAA</b></td><td>Tipos de registro DNS</td><td>A: nombre → IPv4. AAAA: nombre → IPv6. CNAME: alias. MX: correo. NS: servidor DNS. PTR: IP → nombre. SRV: ubicación de servicios.</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
+<tr id="g-cpu-ram" data-flot="no"><td><b>CPU / RAM</b></td><td>Central Processing Unit / Random Access Memory</td><td>El procesador y la memoria principal.</td><td><a href="#s4">15. Servidores</a></td></tr>
 <tr id="g-crc"><td><b>CRC</b></td><td>Cyclic Redundancy Check</td><td>Cálculo para detectar errores; su resultado va en el FCS de la trama.</td><td><a href="#s8">7. 802.3: trama y variantes clásicas</a></td></tr>
 <tr id="g-csma"><td><b>CSMA</b></td><td>Carrier Sense Multiple Access</td><td>Escuchar el medio antes de transmitir, con acceso múltiple.</td><td><a href="#s6">5. Acceso al medio</a></td></tr>
 <tr id="g-csma-ca"><td><b>CSMA/CA</b></td><td>CSMA with Collision Avoidance (evitación)</td><td>Acceso al medio de Wi-Fi: evita colisiones y confirma con ACK.</td><td><a href="#s6">5. Acceso al medio</a></td></tr>
 <tr id="g-csma-cd"><td><b>CSMA/CD</b></td><td>CSMA with Collision Detection (detección)</td><td>Acceso al medio de Ethernet: detecta colisiones mientras transmite.</td><td><a href="#s6">5. Acceso al medio</a></td></tr>
 <tr id="g-dcf"><td><b>DCF</b></td><td>Distributed Coordination Function</td><td>Función de la subcapa MAC de 802.11 basada en CSMA/CA.</td><td><a href="#s10">9. Wi-Fi 802.11</a></td></tr>
+<tr id="g-dec"><td><b>DEC</b></td><td>Digital Equipment Corporation</td><td>Empresa que, con Intel y Xerox, creó Ethernet (la D de DIX). También desarrolló STP.</td><td><a href="#s8">7. 802.3: trama y variantes clásicas</a></td></tr>
 <tr id="g-dhcp"><td><b>DHCP</b></td><td>Dynamic Host Configuration Protocol</td><td>Asigna automáticamente IP, máscara, gateway y DNS (UDP 67/68, proceso DORA).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
 <tr id="g-dix"><td><b>DIX</b></td><td>Digital (DEC), Intel y Xerox</td><td>Las empresas que crearon Ethernet antes de que fuera la norma 802.3.</td><td><a href="#s8">7. 802.3: trama y variantes clásicas</a></td></tr>
 <tr id="g-dns"><td><b>DNS</b></td><td>Domain Name System</td><td>Traduce nombres de dominio a direcciones IP (puerto 53).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
 <tr id="g-dora"><td><b>DORA</b></td><td>Discover, Offer, Request, Acknowledge</td><td>Los cuatro mensajes con los que DHCP entrega una IP.</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
+<tr id="g-dsap-ssap"><td><b>DSAP / SSAP</b></td><td>Destination / Source Service Access Point</td><td>Campos del encabezado LLC: a qué protocolo de la capa de arriba se entregan los datos.</td><td><a href="#s8">7. 802.3: trama y variantes clásicas</a></td></tr>
+<tr id="g-dsp"><td><b>DSP</b></td><td>Digital Signal Processor</td><td>Procesador de señal de la NIC Gigabit: cancela el eco para usar cada par en los dos sentidos a la vez.</td><td><a href="#s9">8. Evolución de Ethernet</a></td></tr>
 <tr id="g-dsss-fhss-ofdm"><td><b>DSSS / FHSS / OFDM</b></td><td>Direct Sequence / Frequency Hopping Spread Spectrum / Orthogonal Frequency Division Multiplexing</td><td>Técnicas de modulación de las variantes 802.11.</td><td><a href="#s10">9. Wi-Fi 802.11</a></td></tr>
+<tr id="g-ecc"><td><b>ECC</b></td><td>Error Correcting Code</td><td>Memoria que detecta y corrige errores de bits; la que se usa en servidores.</td><td><a href="#s4">15. Servidores</a></td></tr>
 <tr id="g-ef-er-tr-wa"><td><b>EF, ER, TR, WA</b></td><td>Entrance Facility, Equipment Room, Telecommunications Room, Work Area</td><td>Espacios de la TIA-569: entrada de servicios, sala de equipos, sala de telecomunicaciones del piso y área de trabajo.</td><td><a href="#s17">18. Normas TIA 569/606/607/942</a></td></tr>
 <tr id="g-emi"><td><b>EMI</b></td><td>Electromagnetic Interference</td><td>Interferencia electromagnética que afecta a los cables de cobre.</td><td><a href="#s2">2. Modelo OSI capa por capa</a></td></tr>
 <tr id="g-etd"><td><b>ETD</b></td><td>Equipo Terminal de Datos</td><td>El equipo final (PC, servidor) que origina o recibe los datos.</td><td><a href="#s9">8. Evolución de Ethernet</a></td></tr>
+<tr id="g-fat32"><td><b>FAT32</b></td><td>File Allocation Table de 32 bits</td><td>Sistema de archivos viejo, sin permisos por usuario. Por eso los permisos de seguridad necesitan NTFS.</td><td><a href="#s15">16. P2P vs servidor dedicado</a></td></tr>
 <tr id="g-fcs"><td><b>FCS</b></td><td>Frame Check Sequence</td><td>Campo final de la trama con el CRC para detectar errores.</td><td><a href="#s8">7. 802.3: trama y variantes clásicas</a></td></tr>
 <tr id="g-fddi"><td><b>FDDI</b></td><td>Fiber Distributed Data Interface</td><td>Red de fibra en doble anillo con token.</td><td><a href="#s7">6. Token Ring, Token Bus, MSAU</a></td></tr>
 <tr id="g-fdm-tdm"><td><b>FDM / TDM</b></td><td>Frequency / Time Division Multiplexing</td><td>Multiplexar por frecuencia (broadband) o por tiempo (baseband).</td><td><a href="#s2">2. Modelo OSI capa por capa</a></td></tr>
+<tr id="g-fec"><td><b>FEC</b></td><td>Forward Error Correction</td><td>Corrección de errores que hace el receptor sin pedir retransmisión; la usa 10GBASE-T.</td><td><a href="#s9">8. Evolución de Ethernet</a></td></tr>
 <tr id="g-fin-syn-rst"><td><b>FIN / SYN / RST</b></td><td>Finish / Synchronize / Reset</td><td>Flags de TCP: SYN abre la conexión, FIN la cierra, RST la corta.</td><td><a href="#s18t">21. TCP/IP: transporte</a></td></tr>
 <tr id="g-fqdn"><td><b>FQDN</b></td><td>Fully Qualified Domain Name</td><td>Nombre de dominio completo hasta la raíz (Servidor1.Redes1.com.).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
 <tr id="g-ftp"><td><b>FTP</b></td><td>File Transfer Protocol</td><td>Transferencia de archivos (TCP 20 y 21).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
-<tr id="g-gbps-mbps"><td><b>Gbps / Mbps</b></td><td>Gigabits / Megabits por segundo</td><td>Unidades de velocidad de transmisión.</td><td><a href="#s9">8. Evolución de Ethernet</a></td></tr>
+<tr id="g-gbe"><td><b>GbE</b></td><td>Gigabit Ethernet</td><td>Ethernet de 1 Gbps (802.3ab sobre UTP).</td><td><a href="#s9">8. Evolución de Ethernet</a></td></tr>
+<tr id="g-gbps-mbps" data-flot="no"><td><b>Gbps / Mbps</b></td><td>Gigabits / Megabits por segundo</td><td>Unidades de velocidad de transmisión.</td><td><a href="#s9">8. Evolución de Ethernet</a></td></tr>
+<tr id="g-ghz-mhz" data-flot="no"><td><b>GHz / MHz</b></td><td>Gigahertz / Megahertz</td><td>Unidades de frecuencia. Wi-Fi trabaja en las bandas de 2,4, 5 y 6 GHz; los cables se certifican por MHz (Cat 5e 100 MHz, Cat 6 250 MHz).</td><td><a href="#s10">9. Wi-Fi 802.11</a></td></tr>
 <tr id="g-gvrp-garp"><td><b>GVRP / GARP</b></td><td>GARP VLAN Registration Protocol / Generic Attribute Registration Protocol</td><td>Protocolos para propagar la configuración de VLAN entre switches.</td><td><a href="#s14b">14. Switching: STP y VLAN</a></td></tr>
 <tr id="g-hcc-icc-mcc"><td><b>HCC / ICC / MCC</b></td><td>Horizontal / Intermediate / Main Cross-Connect</td><td>Otros nombres de los repartidores (de piso, intermedio y principal).</td><td><a href="#s16">17. Cableado estructurado</a></td></tr>
+<tr id="g-hdd-ssd" data-flot="no"><td><b>HDD / SSD</b></td><td>Hard Disk Drive / Solid State Drive</td><td>Disco mecánico (barato, mucha capacidad) y disco de estado sólido (sin partes móviles, mucho más rápido).</td><td><a href="#s4">15. Servidores</a></td></tr>
+<tr id="g-html" data-flot="no"><td><b>HTML</b></td><td>HyperText Markup Language</td><td>El lenguaje de las páginas web; es lo que viaja en la respuesta HTTP.</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
 <tr id="g-http-https"><td><b>HTTP / HTTPS</b></td><td>HyperText Transfer Protocol (Secure)</td><td>Protocolo web (80); con cifrado TLS, HTTPS (443).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
 <tr id="g-iana"><td><b>IANA</b></td><td>Internet Assigned Numbers Authority</td><td>Asigna los puertos bien conocidos y los bloques de direcciones.</td><td><a href="#s18t">21. TCP/IP: transporte</a></td></tr>
+<tr id="g-ibm" data-flot="no"><td><b>IBM</b></td><td>International Business Machines</td><td>Empresa que desarrolló Token Ring (luego IEEE 802.5).</td><td><a href="#s7">6. Token Ring, Token Bus, MSAU</a></td></tr>
 <tr id="g-icmp"><td><b>ICMP</b></td><td>Internet Control Message Protocol</td><td>Mensajes de control y error de IP; lo usan ping y tracert.</td><td><a href="#s18i">22. TCP/IP: Internet y diagnóstico</a></td></tr>
+<tr id="g-id" data-flot="no"><td><b>ID</b></td><td>Identifier (identificador)</td><td>Número que identifica algo: la VLAN (VLAN-ID), el switch en STP (prioridad + MAC) o la asociación en Wi-Fi.</td><td><a href="#s14b">14. Switching: STP y VLAN</a></td></tr>
 <tr id="g-idf-mdf"><td><b>IDF / MDF</b></td><td>Intermediate / Main Distribution Facility</td><td>Repartidor de piso / repartidor principal del edificio.</td><td><a href="#s16">17. Cableado estructurado</a></td></tr>
 <tr id="g-ieee"><td><b>IEEE</b></td><td>Institute of Electrical and Electronics Engineers</td><td>Organismo que define las normas 802 (802.3 Ethernet, 802.11 Wi-Fi…).</td><td><a href="#s8">7. 802.3: trama y variantes clásicas</a></td></tr>
 <tr id="g-ietf"><td><b>IETF</b></td><td>Internet Engineering Task Force</td><td>Organismo que publica las RFC de los protocolos de Internet.</td><td><a href="#s18">19. TCP/IP: modelo y capas</a></td></tr>
 <tr id="g-igmp"><td><b>IGMP</b></td><td>Internet Group Management Protocol</td><td>Administra la pertenencia de los hosts a grupos multicast.</td><td><a href="#s18i">22. TCP/IP: Internet y diagnóstico</a></td></tr>
+<tr id="g-iis"><td><b>IIS</b></td><td>Internet Information Services</td><td>Servidor web de Windows Server (como Apache o Nginx).</td><td><a href="#s4">15. Servidores</a></td></tr>
 <tr id="g-imap"><td><b>IMAP</b></td><td>Internet Message Access Protocol</td><td>Leer el correo sincronizado en varios dispositivos (143).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
+<tr id="g-iot" data-flot="no"><td><b>IoT</b></td><td>Internet of Things (Internet de las cosas)</td><td>Dispositivos que no son computadoras (cámaras, sensores, electrodomésticos) conectados a la red.</td><td><a href="#s18">19. TCP/IP: modelo y capas</a></td></tr>
 <tr id="g-ip"><td><b>IP</b></td><td>Internet Protocol</td><td>Protocolo de capa 3: direccionamiento lógico y enrutamiento. Sin conexión y no confiable.</td><td><a href="#s18i">22. TCP/IP: Internet y diagnóstico</a></td></tr>
 <tr id="g-ipv4-ipv6"><td><b>IPv4 / IPv6</b></td><td>Internet Protocol versión 4 / 6</td><td>Direcciones de 32 bits / de 128 bits.</td><td><a href="#s18b">23. IPv4 y subneteo</a></td></tr>
+<tr id="g-ipx-spx"><td><b>IPX / SPX</b></td><td>Internetwork / Sequenced Packet Exchange</td><td>Protocolos de red de Novell NetWare, reemplazados por TCP/IP.</td><td><a href="#snp">★ Norma vs protocolo</a></td></tr>
+<tr id="g-irq"><td><b>IRQ</b></td><td>Interrupt Request</td><td>Línea de interrupción de la placa: junto con el puerto de E/S y la memoria base, lo que se configuraba en una NIC.</td><td><a href="#s3">3. Elementos de una LAN</a></td></tr>
+<tr id="g-isa-bus"><td><b>ISA (bus)</b></td><td>Industry Standard Architecture</td><td>Bus de expansión viejo: en sus placas el IRQ y la E/S se configuraban a mano.</td><td><a href="#s3">3. Elementos de una LAN</a></td></tr>
+<tr id="g-isa-procesador"><td><b>ISA (procesador)</b></td><td>Instruction Set Architecture</td><td>El juego de instrucciones del procesador: x86, x64, ARM.</td><td><a href="#s4">15. Servidores</a></td></tr>
 <tr id="g-iso"><td><b>ISO</b></td><td>International Organization for Standardization</td><td>Organismo que definió el modelo de referencia OSI.</td><td><a href="#s2">2. Modelo OSI capa por capa</a></td></tr>
+<tr id="g-itu"><td><b>ITU</b></td><td>International Telecommunication Union</td><td>Organismo de normas de telecomunicaciones de la ONU.</td><td><a href="#snp">★ Norma vs protocolo</a></td></tr>
 <tr id="g-lan-man-wan"><td><b>LAN / MAN / WAN</b></td><td>Local / Metropolitan / Wide Area Network</td><td>Red local, metropolitana y de área amplia.</td><td><a href="#s1">1. Red y clasificación</a></td></tr>
 <tr id="g-llc"><td><b>LLC</b></td><td>Logical Link Control</td><td>Subcapa superior de enlace: sincronización de tramas, control de flujo y de errores.</td><td><a href="#s2">2. Modelo OSI capa por capa</a></td></tr>
 <tr id="g-mac"><td><b>MAC</b></td><td>Media Access Control</td><td>Subcapa de acceso al medio y, por extensión, la dirección física de 48 bits de la placa.</td><td><a href="#s11">10. MAC e IP</a></td></tr>
 <tr id="g-mdi-mdix"><td><b>MDI / MDIX</b></td><td>Medium Dependent Interface (Crossover)</td><td>Tipos de puerto; Auto-MDIX cruza solo, así sirve cable derecho entre iguales.</td><td><a href="#s16">17. Cableado estructurado</a></td></tr>
 <tr id="g-mimo"><td><b>MIMO</b></td><td>Multiple Input Multiple Output</td><td>Varias antenas transmitiendo a la vez (802.11n en adelante).</td><td><a href="#s10">9. Wi-Fi 802.11</a></td></tr>
+<tr id="g-mpls"><td><b>MPLS</b></td><td>Multiprotocol Label Switching</td><td>Tecnología de los proveedores para armar enlaces WAN entre sedes.</td><td><a href="#s1">1. Red y clasificación</a></td></tr>
 <tr id="g-msau"><td><b>MSAU</b></td><td>Multistation Access Unit</td><td>Concentrador de Token Ring: estrella física, anillo lógico.</td><td><a href="#s7">6. Token Ring, Token Bus, MSAU</a></td></tr>
 <tr id="g-mtu"><td><b>MTU</b></td><td>Maximum Transmission Unit</td><td>Tamaño máximo de datos por trama (1500 bytes en Ethernet).</td><td><a href="#s18i">22. TCP/IP: Internet y diagnóstico</a></td></tr>
 <tr id="g-nat"><td><b>NAT</b></td><td>Network Address Translation</td><td>El router reemplaza IP privadas por una pública para salir a Internet.</td><td><a href="#s18i">22. TCP/IP: Internet y diagnóstico</a></td></tr>
+<tr id="g-netbeui"><td><b>NetBEUI</b></td><td>NetBIOS Extended User Interface</td><td>Protocolo viejo de redes Microsoft, no ruteable.</td><td><a href="#snp">★ Norma vs protocolo</a></td></tr>
+<tr id="g-nfs"><td><b>NFS</b></td><td>Network File System</td><td>Protocolo para compartir archivos en red, propio de Linux y Unix.</td><td><a href="#s4">15. Servidores</a></td></tr>
 <tr id="g-nic"><td><b>NIC</b></td><td>Network Interface Card</td><td>Placa de red.</td><td><a href="#s3">3. Elementos de una LAN</a></td></tr>
+<tr id="g-nrzi-mlt-3-pam-5-pam-16"><td><b>NRZI / MLT-3 / PAM-5 / PAM-16</b></td><td>Non-Return to Zero Inverted / Multi-Level Transmit 3 / Pulse Amplitude Modulation de 5 y 16 niveles</td><td>Codificaciones de capa 1: MLT-3 en 100BASE-TX, PAM-5 en 1000BASE-T y PAM-16 en 10GBASE-T. Más niveles = más bits por símbolo.</td><td><a href="#s9">8. Evolución de Ethernet</a></td></tr>
 <tr id="g-ntfs"><td><b>NTFS</b></td><td>New Technology File System</td><td>Sistema de archivos de Windows con permisos por carpeta y archivo.</td><td><a href="#s15">16. P2P vs servidor dedicado</a></td></tr>
+<tr id="g-nvme-sata-pcie"><td><b>NVMe / SATA / PCI / PCIe</b></td><td>Non-Volatile Memory Express / Serial ATA / Peripheral Component Interconnect (Express)</td><td>Interfaces de disco: SATA (hasta ~600 MB/s) y NVMe sobre el bus PCIe (miles de MB/s). En PCIe también van las placas de red dedicadas.</td><td><a href="#s4">15. Servidores</a></td></tr>
+<tr id="g-ofdma"><td><b>OFDMA</b></td><td>Orthogonal Frequency Division Multiple Access</td><td>Lo que agrega Wi-Fi 6 (802.11ax): reparte el canal entre varios clientes a la vez.</td><td><a href="#s10">9. Wi-Fi 802.11</a></td></tr>
+<tr id="g-om3"><td><b>OM3</b></td><td>Optical Multimode 3</td><td>Fibra multimodo para 10 Gbps hasta 300 m; la del backbone del TP2.</td><td><a href="#s16">17. Cableado estructurado</a></td></tr>
 <tr id="g-osi"><td><b>OSI</b></td><td>Open Systems Interconnection</td><td>Modelo de referencia de 7 capas de la ISO.</td><td><a href="#s2">2. Modelo OSI capa por capa</a></td></tr>
 <tr id="g-ou"><td><b>OU</b></td><td>Organizational Unit (unidad organizativa)</td><td>Contenedor de Active Directory para ordenar objetos y aplicar directivas.</td><td><a href="#s15">16. P2P vs servidor dedicado</a></td></tr>
 <tr id="g-oui"><td><b>OUI</b></td><td>Organizationally Unique Identifier</td><td>Los 3 primeros bytes de la MAC: identifican al fabricante.</td><td><a href="#s11">10. MAC e IP</a></td></tr>
 <tr id="g-p2p"><td><b>P2P</b></td><td>Peer to peer (de igual a igual)</td><td>Red donde cada PC es cliente y servidor a la vez (grupo de trabajo).</td><td><a href="#s15">16. P2P vs servidor dedicado</a></td></tr>
 <tr id="g-pdu"><td><b>PDU</b></td><td>Protocol Data Unit</td><td>Unidad de datos de cada capa: mensaje, segmento, paquete, trama, bits.</td><td><a href="#s2">2. Modelo OSI capa por capa</a></td></tr>
+<tr id="g-pop-cableado"><td><b>POP (cableado)</b></td><td>Point of Presence</td><td>Punto donde entra el proveedor de servicios al edificio.</td><td><a href="#s16">17. Cableado estructurado</a></td></tr>
 <tr id="g-pop3"><td><b>POP3</b></td><td>Post Office Protocol versión 3</td><td>Descargar el correo a un dispositivo (110).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
+<tr id="g-qam"><td><b>QAM</b></td><td>Quadrature Amplitude Modulation</td><td>Modulación de Wi-Fi: QAM-256 en 802.11ac y QAM-1024 en 802.11ax. Más puntos = más bits por símbolo.</td><td><a href="#s10">9. Wi-Fi 802.11</a></td></tr>
+<tr id="g-quic"><td><b>QUIC</b></td><td>Quick UDP Internet Connections</td><td>Transporte sobre UDP que usa HTTP/3.</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
 <tr id="g-raid"><td><b>RAID</b></td><td>Redundant Array of Independent Disks</td><td>Discos en conjunto con redundancia: tolerancia a fallos en servidores.</td><td><a href="#s4">15. Servidores</a></td></tr>
 <tr id="g-rarp"><td><b>RARP</b></td><td>Reverse ARP</td><td>Lo inverso de ARP: de MAC a IP. Lo reemplazaron BOOTP y DHCP.</td><td><a href="#s18i">22. TCP/IP: Internet y diagnóstico</a></td></tr>
+<tr id="g-rc4"><td><b>RC4</b></td><td>Rivest Cipher 4</td><td>Cifrado que usaba WEP; tiene fallas y por eso WEP es inseguro.</td><td><a href="#s10">9. Wi-Fi 802.11</a></td></tr>
+<tr id="g-rdimm-dimm"><td><b>RDIMM / DIMM</b></td><td>Registered / Dual Inline Memory Module</td><td>Módulos de memoria. RDIMM tiene un registro que estabiliza las señales: es el estándar en servidores.</td><td><a href="#s4">15. Servidores</a></td></tr>
+<tr id="g-rf"><td><b>RF</b></td><td>Radio Frequency (radiofrecuencia)</td><td>Ondas electromagnéticas que usan las redes inalámbricas como medio.</td><td><a href="#s10">9. Wi-Fi 802.11</a></td></tr>
 <tr id="g-rfc"><td><b>RFC</b></td><td>Request for Comments</td><td>Documentos públicos del IETF que definen los protocolos de TCP/IP.</td><td><a href="#s18">19. TCP/IP: modelo y capas</a></td></tr>
+<tr id="g-ri-ro"><td><b>RI / RO</b></td><td>Ring In / Ring Out</td><td>Puertos de la MSAU para encadenar varias: el RO de una va al RI de la siguiente.</td><td><a href="#s7">6. Token Ring, Token Bus, MSAU</a></td></tr>
 <tr id="g-rip-igrp"><td><b>RIP / IGRP</b></td><td>Routing Information Protocol / Interior Gateway Routing Protocol</td><td>Protocolos de enrutamiento: los usan los routers para armar sus tablas.</td><td><a href="#s19">27. Pares que se confunden</a></td></tr>
-<tr id="g-rj-45"><td><b>RJ-45</b></td><td>Registered Jack 45</td><td>Conector de 8 pines del cable UTP.</td><td><a href="#s16">17. Cableado estructurado</a></td></tr>
+<tr id="g-rj-45"><td><b>RJ-45 / RJ45</b></td><td>Registered Jack 45</td><td>Conector de 8 pines del cable UTP.</td><td><a href="#s16">17. Cableado estructurado</a></td></tr>
 <tr id="g-rts-cts"><td><b>RTS / CTS</b></td><td>Request To Send / Clear To Send</td><td>Reserva del canal en Wi-Fi; mitiga el problema del nodo oculto.</td><td><a href="#s10">9. Wi-Fi 802.11</a></td></tr>
+<tr id="g-sap"><td><b>SAP</b></td><td>Service Access Point</td><td>Punto por el que una capa se comunica con la de arriba o la de abajo.</td><td><a href="#s2">2. Modelo OSI capa por capa</a></td></tr>
+<tr id="g-sd-ed-ac"><td><b>SD / ED / AC</b></td><td>Starting Delimiter / Ending Delimiter / Access Control</td><td>Los 3 bytes del token de Token Ring. En la trama 802.3, SD (o SFD) es el byte que marca el inicio de la trama.</td><td><a href="#s7">6. Token Ring, Token Bus, MSAU</a></td></tr>
+<tr id="g-sfd"><td><b>SFD</b></td><td>Start Frame Delimiter</td><td>Byte después del preámbulo que marca dónde empieza la trama 802.3.</td><td><a href="#s8">7. 802.3: trama y variantes clásicas</a></td></tr>
+<tr id="g-sfp"><td><b>SFP+</b></td><td>Small Form-factor Pluggable plus</td><td>Módulo enchufable de 10 Gbps para fibra o cobre en switches y placas de red.</td><td><a href="#s4">15. Servidores</a></td></tr>
+<tr id="g-smt"><td><b>SMT</b></td><td>Simultaneous Multithreading</td><td>Dos hilos por núcleo de procesador (Hyper-Threading en Intel).</td><td><a href="#s4">15. Servidores</a></td></tr>
 <tr id="g-smtp"><td><b>SMTP</b></td><td>Simple Mail Transfer Protocol</td><td>Enviar correo (25).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
 <tr id="g-snmp"><td><b>SNMP</b></td><td>Simple Network Management Protocol</td><td>Monitoreo y gestión de equipos de red (UDP 161).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
-<tr id="g-so"><td><b>SO</b></td><td>Sistema operativo</td><td>Software base del equipo; el de red define si la LAN es P2P o de servidor dedicado.</td><td><a href="#s15">16. P2P vs servidor dedicado</a></td></tr>
+<tr id="g-so" data-flot="no"><td><b>SO</b></td><td>Sistema operativo</td><td>Software base del equipo; el de red define si la LAN es P2P o de servidor dedicado.</td><td><a href="#s15">16. P2P vs servidor dedicado</a></td></tr>
+<tr id="g-sql" data-flot="no"><td><b>SQL</b></td><td>Structured Query Language</td><td>Lenguaje de las bases de datos relacionales (MySQL, PostgreSQL, SQL Server).</td><td><a href="#s4">15. Servidores</a></td></tr>
+<tr id="g-sram"><td><b>SRAM</b></td><td>Static Random Access Memory</td><td>Memoria rápida y cara, sin refresco; es la de la caché del procesador (L1, L2, L3).</td><td><a href="#s4">15. Servidores</a></td></tr>
 <tr id="g-ssh"><td><b>SSH</b></td><td>Secure Shell</td><td>Terminal remota cifrada (22).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
 <tr id="g-ssid"><td><b>SSID</b></td><td>Service Set Identifier</td><td>Nombre de la red Wi-Fi.</td><td><a href="#s10">9. Wi-Fi 802.11</a></td></tr>
 <tr id="g-stp-cable"><td><b>STP (cable)</b></td><td>Shielded Twisted Pair</td><td>Par trenzado blindado.</td><td><a href="#s2">2. Modelo OSI capa por capa</a></td></tr>
 <tr id="g-stp-switching"><td><b>STP (switching)</b></td><td>Spanning Tree Protocol</td><td>Evita bucles de capa 2 bloqueando enlaces redundantes.</td><td><a href="#s14b">14. Switching: STP y VLAN</a></td></tr>
 <tr id="g-tbb-tgb-tmgb"><td><b>TBB / TGB / TMGB</b></td><td>Telecommunications Bonding Backbone / Grounding Busbar / Main Grounding Busbar</td><td>Elementos de puesta a tierra de la TIA-607.</td><td><a href="#s17">18. Normas TIA 569/606/607/942</a></td></tr>
 <tr id="g-tcp"><td><b>TCP</b></td><td>Transmission Control Protocol</td><td>Transporte orientado a conexión y confiable (saludo de 3 vías, ACK, retransmisión).</td><td><a href="#s18t">21. TCP/IP: transporte</a></td></tr>
+<tr id="g-tdp"><td><b>TDP</b></td><td>Thermal Design Power</td><td>Calor máximo que disipa el procesador, en watts; sirve para dimensionar la refrigeración.</td><td><a href="#s4">15. Servidores</a></td></tr>
 <tr id="g-tftp"><td><b>TFTP</b></td><td>Trivial File Transfer Protocol</td><td>FTP reducido sobre UDP (69).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
 <tr id="g-tia-eia"><td><b>TIA / EIA</b></td><td>Telecommunications Industry Association / Electronic Industries Alliance</td><td>Autoras de las normas de cableado estructurado (568, 569, 606, 607, 942).</td><td><a href="#s16">17. Cableado estructurado</a></td></tr>
 <tr id="g-tkip"><td><b>TKIP</b></td><td>Temporal Key Integrity Protocol</td><td>Mecanismo de cifrado de WPA (reemplazado por AES en WPA2).</td><td><a href="#s10">9. Wi-Fi 802.11</a></td></tr>
 <tr id="g-tld"><td><b>TLD</b></td><td>Top-Level Domain</td><td>Dominio de primer nivel: .com, .org, .ar.</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
 <tr id="g-tls-ssl"><td><b>TLS / SSL</b></td><td>Transport Layer Security / Secure Sockets Layer</td><td>Cifrado que usa HTTPS (SSL es el antecesor).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
+<tr id="g-tpid-tci-dei"><td><b>TPID / TCI / DEI</b></td><td>Tag Protocol Identifier / Tag Control Information / Drop Eligible Indicator</td><td>Campos de la etiqueta 802.1Q: TPID vale 0x8100; TCI lleva prioridad, DEI y los 12 bits del VLAN-ID.</td><td><a href="#s14b">14. Switching: STP y VLAN</a></td></tr>
 <tr id="g-ttl"><td><b>TTL</b></td><td>Time To Live</td><td>Campo de IP que cada router descuenta; en 0 el paquete se descarta.</td><td><a href="#s18i">22. TCP/IP: Internet y diagnóstico</a></td></tr>
+<tr id="g-tx-rx"><td><b>TX / RX</b></td><td>Transmit / Receive</td><td>Transmisión y recepción: los pines y pares que transmiten y reciben en el cable.</td><td><a href="#s16">17. Cableado estructurado</a></td></tr>
 <tr id="g-udp"><td><b>UDP</b></td><td>User Datagram Protocol</td><td>Transporte sin conexión, sin garantías, con encabezado de 8 bytes.</td><td><a href="#s18t">21. TCP/IP: transporte</a></td></tr>
 <tr id="g-ups"><td><b>UPS</b></td><td>Uninterruptible Power Supply</td><td>Fuente de energía ininterrumpida para los racks.</td><td><a href="#s17">18. Normas TIA 569/606/607/942</a></td></tr>
 <tr id="g-url"><td><b>URL</b></td><td>Uniform Resource Locator</td><td>Dirección de un recurso web: protocolo + servidor + recurso.</td><td><a href="#s18">19. TCP/IP: modelo y capas</a></td></tr>
@@ -3488,19 +3537,20 @@ i.addEventListener('input',filtrar);ordenar();})();
   [].forEach.call(tabla.querySelectorAll('tr'),function(tr){
     var td=tr.querySelectorAll('td'); if(td.length<3) return;
     var crudo=td[0].textContent.trim(), id=tr.id;
+    var flot=tr.getAttribute('data-flot')!=='no';
     if(!id){id='g-'+nrm(crudo).replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''); tr.id=id;}
     var nota=(crudo.match(/\(([^)]*)\)/)||[])[1]||'';
     var ver=td[3]&&td[3].querySelector('a');
     filas[id]={sigla:crudo.replace(/\s*\([^)]*\)/,''),nota:nota,sig:td[1].textContent.trim(),que:td[2].textContent.trim(),tema:ver?ver.textContent.trim():''};
     crudo.replace(/\s*\([^)]*\)/,'').split(/\s*[\/,]\s*/).forEach(function(t){
-      t=t.trim(); if(t.length<2||IGNORAR[t]) return;
+      t=t.trim(); if(!flot||t.length<2||IGNORAR[t]) return;
       (dic[t]=dic[t]||[]).indexOf(id)<0&&dic[t].push(id);
     });
   });
   var claves=Object.keys(dic).sort(function(a,b){return b.length-a.length;});
   if(!claves.length) return;
   var esc=function(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');};
-  var RE=new RegExp('(^|[^A-Za-z0-9ÁÉÍÓÚáéíóúñÑ])('+claves.map(esc).join('|')+')(?![A-Za-z0-9ÁÉÍÓÚáéíóúñÑ])','g');
+  var RE=new RegExp('(^|[^A-Za-z0-9ÁÉÍÓÚáéíóúñÑ\\-])('+claves.map(esc).join('|')+')(s?)(?![A-Za-z0-9ÁÉÍÓÚáéíóúñÑ])','g');
 
   /* 2. marcar en el cuerpo: la primera aparición de cada sigla por bloque (párrafo, ítem, celda) */
   var puestas=[];
@@ -3515,10 +3565,10 @@ i.addEventListener('input',filtrar);ordenar();})();
       var t=node.nodeValue, m, hits=[]; RE.lastIndex=0;
       var blq=node.parentElement.closest('p,li,td,th,figcaption,summary,dd,.box,.card,div')||root;
       var set=vistos.get(blq); if(!set){set={}; vistos.set(blq,set);}
-      while((m=RE.exec(t))){var k=m[2]; if(set[k]) continue; set[k]=1; hits.push([m.index+m[1].length,k]);}
+      while((m=RE.exec(t))){var k=m[2]; if(set[k]) continue; set[k]=1; hits.push([m.index+m[1].length,k,(m[3]||'').length]);}
       for(var i=hits.length-1;i>=0;i--){
         var ini=hits[i][0], k=hits[i][1], ids=dic[k];
-        var cola=node.splitText(ini); cola.splitText(k.length);
+        var cola=node.splitText(ini); cola.splitText(k.length+hits[i][2]);
         var a=document.createElement('a'); a.className='sg'; a.href='#'+ids[0]; a.target='_blank'; a.rel='noopener';
         a.setAttribute('data-sg',k); a.setAttribute('aria-describedby','sgPop');
         cola.parentNode.replaceChild(a,cola); a.appendChild(cola); puestas.push(a);
