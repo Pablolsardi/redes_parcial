@@ -562,7 +562,7 @@ table.glo tr:target>td:first-child{box-shadow:inset 3px 0 0 var(--warn)}
 <ul class="vlog">
 <li><span class="vtag v32">v3.2<small>14/11/2026</small></span><div><span class="now">Actual</span><br>
 <ul>
-<li><b>Glosario completo:</b> pasa de 96 a 141 siglas. Se sumaron las que aparecían en el texto sin flotante: hardware de servidores (HDD, SSD, SATA, NVMe, PCIe, RDIMM, ECC, TDP, SMT, SFP+), codificaciones y modulaciones (MLT-3, PAM-5, PAM-16, QAM, OFDMA), campos de tramas (SD, ED, AC, SFD, DSAP, SSAP, TPID, TCI, DEI) y otras como AND, IRQ, RI/RO, ACL, RC4, OM3, FAT32, NFS, IIS, SQL, IPX/SPX e ITU, entre otras.</li>
+<li><b>Glosario completo:</b> pasa de 96 a 142 siglas. Se sumaron las que aparecían en el texto sin flotante: hardware de servidores (HDD, SSD, SATA, NVMe, PCIe, RDIMM, ECC, TDP, SMT, SFP+), codificaciones y modulaciones (MLT-3, PAM-5, PAM-16, QAM, OFDMA), campos de tramas (SD, ED, AC, SFD, DSAP, SSAP, TPID, TCI, DEI) y otras como AND, IRQ, RI/RO, ACL, RC4, OM3, FAT32, NFS, IIS, SQL, IPX/SPX e ITU, entre otras.</li>
 <li>Las unidades (Gbps, Mbps, GHz, MHz) y las siglas obvias (SO, CPU, RAM, HDD, SSD, HTML, SQL, IBM, IoT, ID) siguen en el glosario, pero no se subrayan en el texto.</li>
 <li>Las siglas ahora se reconocen también en plural (APs, VLANs, IPs) y en la forma RJ45, sin guion. ISA muestra sus dos significados: el bus viejo y el juego de instrucciones del procesador. Ya no se marca el "TX" suelto dentro de nombres como 100BASE-TX.</li>
 </ul></div></li>
@@ -2912,7 +2912,7 @@ El <b>TP2</b> dejó el cableado (capa 1) y el <b>TP3</b> la red lógica. El <b>T
 <tr id="g-cam"><td><b>CAM</b></td><td>Content Addressable Memory</td><td>Memoria donde el switch guarda su tabla MAC.</td><td><a href="#s12">11. Dispositivos de interconexión</a></td></tr>
 <tr id="g-cidr"><td><b>CIDR</b></td><td>Classless Inter-Domain Routing</td><td>Notación con barra (/24) que indica cuántos bits en 1 tiene la máscara; direccionamiento sin clase.</td><td><a href="#s18b">23. IPv4 y subneteo</a></td></tr>
 <tr id="g-cname-mx-ns-ptr-srv-a-aaaa"><td><b>CNAME, MX, NS, PTR, SRV, A, AAAA</b></td><td>Tipos de registro DNS</td><td>A: nombre → IPv4. AAAA: nombre → IPv6. CNAME: alias. MX: correo. NS: servidor DNS. PTR: IP → nombre. SRV: ubicación de servicios.</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
-<tr id="g-cpu-ram-sram" data-flot="no"><td><b>CPU / RAM / SRAM</b></td><td>Central Processing Unit / Random Access Memory / Static RAM</td><td>El procesador, la memoria principal y la memoria rápida de la caché (L1, L2, L3).</td><td><a href="#s4">15. Servidores</a></td></tr>
+<tr id="g-cpu-ram" data-flot="no"><td><b>CPU / RAM</b></td><td>Central Processing Unit / Random Access Memory</td><td>El procesador y la memoria principal.</td><td><a href="#s4">15. Servidores</a></td></tr>
 <tr id="g-crc"><td><b>CRC</b></td><td>Cyclic Redundancy Check</td><td>Cálculo para detectar errores; su resultado va en el FCS de la trama.</td><td><a href="#s8">7. 802.3: trama y variantes clásicas</a></td></tr>
 <tr id="g-csma"><td><b>CSMA</b></td><td>Carrier Sense Multiple Access</td><td>Escuchar el medio antes de transmitir, con acceso múltiple.</td><td><a href="#s6">5. Acceso al medio</a></td></tr>
 <tr id="g-csma-ca"><td><b>CSMA/CA</b></td><td>CSMA with Collision Avoidance (evitación)</td><td>Acceso al medio de Wi-Fi: evita colisiones y confirma con ACK.</td><td><a href="#s6">5. Acceso al medio</a></td></tr>
@@ -3010,6 +3010,7 @@ El <b>TP2</b> dejó el cableado (capa 1) y el <b>TP3</b> la red lógica. El <b>T
 <tr id="g-snmp"><td><b>SNMP</b></td><td>Simple Network Management Protocol</td><td>Monitoreo y gestión de equipos de red (UDP 161).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
 <tr id="g-so" data-flot="no"><td><b>SO</b></td><td>Sistema operativo</td><td>Software base del equipo; el de red define si la LAN es P2P o de servidor dedicado.</td><td><a href="#s15">16. P2P vs servidor dedicado</a></td></tr>
 <tr id="g-sql" data-flot="no"><td><b>SQL</b></td><td>Structured Query Language</td><td>Lenguaje de las bases de datos relacionales (MySQL, PostgreSQL, SQL Server).</td><td><a href="#s4">15. Servidores</a></td></tr>
+<tr id="g-sram"><td><b>SRAM</b></td><td>Static Random Access Memory</td><td>Memoria rápida y cara, sin refresco; es la de la caché del procesador (L1, L2, L3).</td><td><a href="#s4">15. Servidores</a></td></tr>
 <tr id="g-ssh"><td><b>SSH</b></td><td>Secure Shell</td><td>Terminal remota cifrada (22).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
 <tr id="g-ssid"><td><b>SSID</b></td><td>Service Set Identifier</td><td>Nombre de la red Wi-Fi.</td><td><a href="#s10">9. Wi-Fi 802.11</a></td></tr>
 <tr id="g-stp-cable"><td><b>STP (cable)</b></td><td>Shielded Twisted Pair</td><td>Par trenzado blindado.</td><td><a href="#s2">2. Modelo OSI capa por capa</a></td></tr>
