@@ -315,7 +315,7 @@ main a.repaso-cta,main a.repaso-cta:visited{color:var(--ink)}
 .vlog ul{margin:4px 0 0}
 .vtag{display:inline-block;font-weight:700;font-size:13px;padding:2px 10px;border-radius:99px;color:#fff;white-space:nowrap}
 .vtag small{font-weight:500;opacity:.85;margin-left:4px}
-.v30{background:#b91c1c}.v22{background:#15803d}.v21{background:#0369a1}.v20{background:#b45309}.v16{background:#4f46e5}.v15{background:#0f766e}.v14{background:#be185d}.v13{background:#7c3aed}.v12{background:#0e8a6a}.v11{background:#c2410c}.v10{background:#1f5fbf}
+.v31{background:#0891b2}.v30{background:#b91c1c}.v22{background:#15803d}.v21{background:#0369a1}.v20{background:#b45309}.v16{background:#4f46e5}.v15{background:#0f766e}.v14{background:#be185d}.v13{background:#7c3aed}.v12{background:#0e8a6a}.v11{background:#c2410c}.v10{background:#1f5fbf}
 .vlog .now{font-size:11px;font-weight:700;color:var(--acc2);text-transform:uppercase;letter-spacing:.04em}
 
 /* ---- 11. Repaso ---- */
@@ -348,8 +348,9 @@ main .rp h4 a,main .rp h4 a:visited{color:var(--ink)}
 .rp-fin{margin:36px 0 0;text-align:center;color:var(--mut);font-size:14.5px}
 
 /* ---- 12. Glosario, preparcial y otros ---- */
-table.glo td:first-child{white-space:nowrap}
-table.glo td:last-child{font-size:13px;white-space:nowrap}
+table.glo td:first-child{width:24%;overflow-wrap:anywhere}
+table.glo td:last-child{font-size:13px;width:19%}
+table.glo tr{scroll-margin-top:calc(var(--anch,56px) + 90px)}
 .glofil{display:flex;gap:10px;align-items:center;margin:8px 0}
 .glofil input{flex:1;min-width:0;font:inherit;padding:8px 12px;border-radius:10px;border:1.5px solid var(--line);background:var(--card);color:var(--ink)}
 .glofil input:focus{outline:none;border-color:var(--acc)}
@@ -443,6 +444,28 @@ main .ptoc a.on{color:var(--acc);border-left-color:var(--acc);font-weight:650}
  details{break-inside:avoid}
  .rp,.box,table,figure{break-inside:avoid}
 }
+
+/* ---- 16. Siglas con flotante (v3.1) ---- */
+main a.sg,main a.sg:visited{color:inherit;text-decoration:underline dotted;text-decoration-color:color-mix(in srgb,var(--acc) 65%,transparent);text-decoration-thickness:1.5px;text-underline-offset:3px;cursor:help;border-radius:3px;transition:background .15s,text-decoration-color .15s}
+main a.sg:hover,main a.sg.sg-on{background:var(--infobg);text-decoration-color:var(--acc)}
+.sgpop{position:absolute;z-index:90;width:max-content;max-width:min(330px,calc(100vw - 20px));padding:12px 14px 10px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);box-shadow:0 10px 30px rgba(16,24,40,.16),0 2px 6px rgba(16,24,40,.08);font-size:14px;line-height:1.45;opacity:0;transform:translateY(4px);transition:opacity .14s ease,transform .14s ease;pointer-events:auto}
+.sgpop.on{opacity:1;transform:none}
+.sgpop.arriba{transform:translateY(-4px)}.sgpop.arriba.on{transform:none}
+.sgpop::before{content:"";position:absolute;top:-6px;left:calc(var(--fx,50%) - 6px);width:10px;height:10px;background:var(--card);border-left:1px solid var(--line);border-top:1px solid var(--line);transform:rotate(45deg)}
+.sgpop.arriba::before{top:auto;bottom:-6px;transform:rotate(225deg)}
+.sgp-it+.sgp-it{margin-top:8px;padding-top:8px;border-top:1px solid var(--line)}
+.sgp-k{display:inline-block;font-size:16px;font-weight:800;letter-spacing:-.01em;margin-right:6px}
+.sgp-n{display:inline-block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--mut);background:var(--soft);border-radius:99px;padding:1px 7px;margin-right:6px;vertical-align:2px}
+.sgp-s{display:block;font-weight:650;color:var(--acc);margin-top:2px}
+.sgpop p{margin:4px 0 0;color:var(--ink)}
+.sgp-f{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 12px;margin-top:9px;padding-top:7px;border-top:1px solid var(--line);font-size:12px;color:var(--mut)}
+.sgp-f a{color:var(--acc);font-weight:650;text-decoration:none}
+.sgp-t{font-style:italic;font-size:12px;color:var(--mut)}
+.sgp-it>.sgp-t{display:block;margin-top:3px}
+@keyframes glohit{0%,40%{background:var(--warnbg)}100%{background:transparent}}
+table.glo tr.glo-hit>td,table.glo tr:target>td{animation:glohit 2.6s ease}
+table.glo tr:target>td:first-child{box-shadow:inset 3px 0 0 var(--warn)}
+@media print{.sgpop{display:none!important}main a.sg{text-decoration:none}}
 /*fin-guia-css*/
 </style>
 </head>
@@ -522,7 +545,7 @@ main .ptoc a.on{color:var(--acc);border-left-color:var(--acc);font-weight:650}
 <main id="main" tabindex="-1">
 <section class="page" data-page="inicio" id="inicio">
 <h1>Redes de Datos — Guía completa</h1>
-<div class="sub">UTN FRT · Ciclo 2026 · Cátedra Mag. Ing. Patricia Nazar · Unidades 1, 2 y 3 + actividades expuestas<br>Versión 3.0 · 14 de noviembre de 2026 - Pablo López Sardi</div>
+<div class="sub">UTN FRT · Ciclo 2026 · Cátedra Mag. Ing. Patricia Nazar · Unidades 1, 2 y 3 + actividades expuestas<br>Versión 3.1 · 14 de noviembre de 2026 - Pablo López Sardi</div>
 
 <div id="homeStart" class="homestart"></div>
 <a class="repaso-cta" href="#repaso"><div><b>Repaso para el día del parcial</b><span>Lo que tiene que quedar de cada tema, uno por uno, para leer unas horas antes.</span></div><i>Abrir →</i></a>
@@ -537,7 +560,13 @@ main .ptoc a.on{color:var(--acc);border-left-color:var(--acc);font-weight:650}
 <p class="fuentes">Fuentes: material oficial del aula virtual (Ing. Patricia Nazar): Modelo OSI partes 1 a 3, Norma IEEE 802.3 Ethernet, Norma IEEE 802.3u Fast Ethernet, Introducción a Switching Ethernet, Redes inalámbricas, Modelo TCP/IP partes 1 a 3, apunte de Subneteo 2026, clase-taller de TCP/IP, Teoría y Práctica de Cableado Estructurado, trama 802.3; slides Primeras Unidades 2026, planificación 2026, apuntes de clase 1 y 2, resumen de conceptos a afianzar, resumen de normas TIA, las presentaciones de actividades del grupo y los trabajos prácticos 1 a 7.</p>
 <details id="historial"><summary>Historial de versiones</summary>
 <ul class="vlog">
-<li><span class="vtag v30">v3.0<small>14/11/2026</small></span><div><span class="now">Actual</span><br>
+<li><span class="vtag v31">v3.1<small>14/11/2026</small></span><div><span class="now">Actual</span><br>
+<ul>
+<li><b>Siglas con flotante:</b> las siglas del glosario que aparecen en el texto quedan subrayadas con puntos. Al pasar el mouse se abre un cuadro chico con qué significa y qué es; con un clic se abre esa sigla en el glosario en otra pestaña, resaltada, sin perder lo que estabas leyendo. En el celular, el primer toque muestra el cuadro y adentro está el link.</li>
+<li>Para no llenar el texto de subrayados, cada sigla se marca la primera vez que aparece en cada párrafo. No se marcan en títulos, links ni en los quiz (para no regalar respuestas). Si una sigla tiene dos significados, como STP (cable y Spanning Tree), el cuadro muestra los dos.</li>
+<li>Glosario: la columna "Ver" ya no queda cortada en pantallas anchas.</li>
+</ul></div></li>
+<li><span class="vtag v30">v3.0<small>14/11/2026</small></span><div>
 <ul>
 <li><b>Repaso:</b> página nueva, debajo de Inicio en el índice, con lo que tiene que quedar de cada tema (del 0 al 28), para leer unas horas antes del parcial. Cada tema tiene sus puntos clave, un "Ojo" con la trampa típica y el link al tema completo. Arriba, las reglas del parcial de un vistazo.</li>
 <li><b>Gráficos revisados uno por uno.</b> Pasan a diagrama fijo los que se entienden mejor quietos: LAN, MAN y WAN (1), elementos de una LAN (3), la trama 802.3 (7) y la puesta a tierra (18). Se quitaron las animaciones que no explicaban nada (19, 25, 26, 27 y 28). Se corrigió la del nodo oculto (9).</li>
@@ -2858,102 +2887,102 @@ El <b>TP2</b> dejó el cableado (capa 1) y el <b>TP3</b> la red lógica. El <b>T
 <p>Todas las siglas que aparecen en la guía. Podés verlas en orden alfabético o agrupadas por sección, en el orden del índice. Escribí en el filtro para encontrar una rápido; el link de la derecha lleva a la sección donde se explica.</p>
 <div class="glofil"><div class="gloord" id="gloOrd"><button type="button" data-o="az" class="on">A–Z</button><button type="button" data-o="idx">Por índice del resumen</button></div><input type="search" id="gloFiltro" placeholder="Filtrar siglas (ej.: DHCP, SSID, tierra)…" autocomplete="off"><span id="gloCnt"></span></div>
 <div class="scroll"><table class="glo"><tr><th>Sigla</th><th>Significado</th><th>Qué es</th><th>Ver</th></tr>
-<tr><td><b>ACK</b></td><td>Acknowledgement (acuse de recibo)</td><td>Confirmación de que algo llegó. En TCP indica el próximo byte esperado; en Wi-Fi confirma cada trama.</td><td><a href="#s18t">21. TCP/IP: transporte</a></td></tr>
-<tr><td><b>AD / AD DS</b></td><td>Active Directory (Domain Services)</td><td>Servicio de directorio de Windows Server: usuarios, grupos, equipos y políticas del dominio.</td><td><a href="#s15">16. P2P vs servidor dedicado</a></td></tr>
-<tr><td><b>AES</b></td><td>Advanced Encryption Standard</td><td>Algoritmo de cifrado que usa WPA2 y WPA3.</td><td><a href="#s10">9. Wi-Fi 802.11</a></td></tr>
-<tr><td><b>AH, PH, SH, TH, RH, EH</b></td><td>Application / Presentation / Session / Transport / Red / Enlace Header</td><td>Encabezados que agrega cada capa de OSI al bajar los datos.</td><td><a href="#s2">2. Modelo OSI capa por capa</a></td></tr>
-<tr><td><b>ANSI</b></td><td>American National Standards Institute</td><td>Organismo de normas de EE. UU. que avala las normas TIA de cableado.</td><td><a href="#snp">★ Norma vs protocolo</a></td></tr>
-<tr><td><b>AP</b></td><td>Access Point (punto de acceso)</td><td>Equipo central de una red Wi-Fi en modo infraestructura.</td><td><a href="#s10">9. Wi-Fi 802.11</a></td></tr>
-<tr><td><b>APDU, PPDU, SPDU</b></td><td>Application / Presentation / Session Protocol Data Unit</td><td>PDU de las capas 7, 6 y 5 de OSI (el mensaje).</td><td><a href="#s2">2. Modelo OSI capa por capa</a></td></tr>
-<tr><td><b>APIPA</b></td><td>Automatic Private IP Addressing</td><td>Dirección 169.254.x.x que se pone sola la PC cuando no le responde ningún DHCP.</td><td><a href="#s18b">23. IPv4 y subneteo</a></td></tr>
-<tr><td><b>ARP</b></td><td>Address Resolution Protocol</td><td>Averigua la MAC que corresponde a una IP en la red local (por broadcast).</td><td><a href="#s18i">22. TCP/IP: Internet y diagnóstico</a></td></tr>
-<tr><td><b>ASCII / EBCDIC</b></td><td>American Standard Code for Information Interchange / Extended Binary Coded Decimal Interchange Code</td><td>Códigos de caracteres; convertir entre ellos es tarea de la capa de presentación.</td><td><a href="#s2">2. Modelo OSI capa por capa</a></td></tr>
-<tr><td><b>AUI</b></td><td>Attachment Unit Interface</td><td>Conector DB-15 de la placa para un transceiver externo (10BASE5).</td><td><a href="#s8">7. 802.3: trama y variantes clásicas</a></td></tr>
-<tr><td><b>BNC</b></td><td>Bayonet Neill-Concelman</td><td>Conector de bayoneta del coaxil fino (10BASE2).</td><td><a href="#s8">7. 802.3: trama y variantes clásicas</a></td></tr>
-<tr><td><b>BOOTP</b></td><td>Bootstrap Protocol</td><td>Antecesor de DHCP para asignar IP al arrancar.</td><td><a href="#s18i">22. TCP/IP: Internet y diagnóstico</a></td></tr>
-<tr><td><b>BPDU</b></td><td>Bridge Protocol Data Unit</td><td>Mensajes que intercambian los switches en STP.</td><td><a href="#s14b">14. Switching: STP y VLAN</a></td></tr>
-<tr><td><b>CAM</b></td><td>Content Addressable Memory</td><td>Memoria donde el switch guarda su tabla MAC.</td><td><a href="#s12">11. Dispositivos de interconexión</a></td></tr>
-<tr><td><b>CIDR</b></td><td>Classless Inter-Domain Routing</td><td>Notación con barra (/24) que indica cuántos bits en 1 tiene la máscara; direccionamiento sin clase.</td><td><a href="#s18b">23. IPv4 y subneteo</a></td></tr>
-<tr><td><b>CNAME, MX, NS, PTR, SRV, A, AAAA</b></td><td>Tipos de registro DNS</td><td>A: nombre → IPv4. AAAA: nombre → IPv6. CNAME: alias. MX: correo. NS: servidor DNS. PTR: IP → nombre. SRV: ubicación de servicios.</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
-<tr><td><b>CRC</b></td><td>Cyclic Redundancy Check</td><td>Cálculo para detectar errores; su resultado va en el FCS de la trama.</td><td><a href="#s8">7. 802.3: trama y variantes clásicas</a></td></tr>
-<tr><td><b>CSMA</b></td><td>Carrier Sense Multiple Access</td><td>Escuchar el medio antes de transmitir, con acceso múltiple.</td><td><a href="#s6">5. Acceso al medio</a></td></tr>
-<tr><td><b>CSMA/CA</b></td><td>CSMA with Collision Avoidance (evitación)</td><td>Acceso al medio de Wi-Fi: evita colisiones y confirma con ACK.</td><td><a href="#s6">5. Acceso al medio</a></td></tr>
-<tr><td><b>CSMA/CD</b></td><td>CSMA with Collision Detection (detección)</td><td>Acceso al medio de Ethernet: detecta colisiones mientras transmite.</td><td><a href="#s6">5. Acceso al medio</a></td></tr>
-<tr><td><b>DCF</b></td><td>Distributed Coordination Function</td><td>Función de la subcapa MAC de 802.11 basada en CSMA/CA.</td><td><a href="#s10">9. Wi-Fi 802.11</a></td></tr>
-<tr><td><b>DHCP</b></td><td>Dynamic Host Configuration Protocol</td><td>Asigna automáticamente IP, máscara, gateway y DNS (UDP 67/68, proceso DORA).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
-<tr><td><b>DIX</b></td><td>Digital (DEC), Intel y Xerox</td><td>Las empresas que crearon Ethernet antes de que fuera la norma 802.3.</td><td><a href="#s8">7. 802.3: trama y variantes clásicas</a></td></tr>
-<tr><td><b>DNS</b></td><td>Domain Name System</td><td>Traduce nombres de dominio a direcciones IP (puerto 53).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
-<tr><td><b>DORA</b></td><td>Discover, Offer, Request, Acknowledge</td><td>Los cuatro mensajes con los que DHCP entrega una IP.</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
-<tr><td><b>DSSS / FHSS / OFDM</b></td><td>Direct Sequence / Frequency Hopping Spread Spectrum / Orthogonal Frequency Division Multiplexing</td><td>Técnicas de modulación de las variantes 802.11.</td><td><a href="#s10">9. Wi-Fi 802.11</a></td></tr>
-<tr><td><b>EF, ER, TR, WA</b></td><td>Entrance Facility, Equipment Room, Telecommunications Room, Work Area</td><td>Espacios de la TIA-569: entrada de servicios, sala de equipos, sala de telecomunicaciones del piso y área de trabajo.</td><td><a href="#s17">18. Normas TIA 569/606/607/942</a></td></tr>
-<tr><td><b>EMI</b></td><td>Electromagnetic Interference</td><td>Interferencia electromagnética que afecta a los cables de cobre.</td><td><a href="#s2">2. Modelo OSI capa por capa</a></td></tr>
-<tr><td><b>ETD</b></td><td>Equipo Terminal de Datos</td><td>El equipo final (PC, servidor) que origina o recibe los datos.</td><td><a href="#s9">8. Evolución de Ethernet</a></td></tr>
-<tr><td><b>FCS</b></td><td>Frame Check Sequence</td><td>Campo final de la trama con el CRC para detectar errores.</td><td><a href="#s8">7. 802.3: trama y variantes clásicas</a></td></tr>
-<tr><td><b>FDDI</b></td><td>Fiber Distributed Data Interface</td><td>Red de fibra en doble anillo con token.</td><td><a href="#s7">6. Token Ring, Token Bus, MSAU</a></td></tr>
-<tr><td><b>FDM / TDM</b></td><td>Frequency / Time Division Multiplexing</td><td>Multiplexar por frecuencia (broadband) o por tiempo (baseband).</td><td><a href="#s2">2. Modelo OSI capa por capa</a></td></tr>
-<tr><td><b>FIN / SYN / RST</b></td><td>Finish / Synchronize / Reset</td><td>Flags de TCP: SYN abre la conexión, FIN la cierra, RST la corta.</td><td><a href="#s18t">21. TCP/IP: transporte</a></td></tr>
-<tr><td><b>FQDN</b></td><td>Fully Qualified Domain Name</td><td>Nombre de dominio completo hasta la raíz (Servidor1.Redes1.com.).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
-<tr><td><b>FTP</b></td><td>File Transfer Protocol</td><td>Transferencia de archivos (TCP 20 y 21).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
-<tr><td><b>Gbps / Mbps</b></td><td>Gigabits / Megabits por segundo</td><td>Unidades de velocidad de transmisión.</td><td><a href="#s9">8. Evolución de Ethernet</a></td></tr>
-<tr><td><b>GVRP / GARP</b></td><td>GARP VLAN Registration Protocol / Generic Attribute Registration Protocol</td><td>Protocolos para propagar la configuración de VLAN entre switches.</td><td><a href="#s14b">14. Switching: STP y VLAN</a></td></tr>
-<tr><td><b>HCC / ICC / MCC</b></td><td>Horizontal / Intermediate / Main Cross-Connect</td><td>Otros nombres de los repartidores (de piso, intermedio y principal).</td><td><a href="#s16">17. Cableado estructurado</a></td></tr>
-<tr><td><b>HTTP / HTTPS</b></td><td>HyperText Transfer Protocol (Secure)</td><td>Protocolo web (80); con cifrado TLS, HTTPS (443).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
-<tr><td><b>IANA</b></td><td>Internet Assigned Numbers Authority</td><td>Asigna los puertos bien conocidos y los bloques de direcciones.</td><td><a href="#s18t">21. TCP/IP: transporte</a></td></tr>
-<tr><td><b>ICMP</b></td><td>Internet Control Message Protocol</td><td>Mensajes de control y error de IP; lo usan ping y tracert.</td><td><a href="#s18i">22. TCP/IP: Internet y diagnóstico</a></td></tr>
-<tr><td><b>IDF / MDF</b></td><td>Intermediate / Main Distribution Facility</td><td>Repartidor de piso / repartidor principal del edificio.</td><td><a href="#s16">17. Cableado estructurado</a></td></tr>
-<tr><td><b>IEEE</b></td><td>Institute of Electrical and Electronics Engineers</td><td>Organismo que define las normas 802 (802.3 Ethernet, 802.11 Wi-Fi…).</td><td><a href="#s8">7. 802.3: trama y variantes clásicas</a></td></tr>
-<tr><td><b>IETF</b></td><td>Internet Engineering Task Force</td><td>Organismo que publica las RFC de los protocolos de Internet.</td><td><a href="#s18">19. TCP/IP: modelo y capas</a></td></tr>
-<tr><td><b>IGMP</b></td><td>Internet Group Management Protocol</td><td>Administra la pertenencia de los hosts a grupos multicast.</td><td><a href="#s18i">22. TCP/IP: Internet y diagnóstico</a></td></tr>
-<tr><td><b>IMAP</b></td><td>Internet Message Access Protocol</td><td>Leer el correo sincronizado en varios dispositivos (143).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
-<tr><td><b>IP</b></td><td>Internet Protocol</td><td>Protocolo de capa 3: direccionamiento lógico y enrutamiento. Sin conexión y no confiable.</td><td><a href="#s18i">22. TCP/IP: Internet y diagnóstico</a></td></tr>
-<tr><td><b>IPv4 / IPv6</b></td><td>Internet Protocol versión 4 / 6</td><td>Direcciones de 32 bits / de 128 bits.</td><td><a href="#s18b">23. IPv4 y subneteo</a></td></tr>
-<tr><td><b>ISO</b></td><td>International Organization for Standardization</td><td>Organismo que definió el modelo de referencia OSI.</td><td><a href="#s2">2. Modelo OSI capa por capa</a></td></tr>
-<tr><td><b>LAN / MAN / WAN</b></td><td>Local / Metropolitan / Wide Area Network</td><td>Red local, metropolitana y de área amplia.</td><td><a href="#s1">1. Red y clasificación</a></td></tr>
-<tr><td><b>LLC</b></td><td>Logical Link Control</td><td>Subcapa superior de enlace: sincronización de tramas, control de flujo y de errores.</td><td><a href="#s2">2. Modelo OSI capa por capa</a></td></tr>
-<tr><td><b>MAC</b></td><td>Media Access Control</td><td>Subcapa de acceso al medio y, por extensión, la dirección física de 48 bits de la placa.</td><td><a href="#s11">10. MAC e IP</a></td></tr>
-<tr><td><b>MDI / MDIX</b></td><td>Medium Dependent Interface (Crossover)</td><td>Tipos de puerto; Auto-MDIX cruza solo, así sirve cable derecho entre iguales.</td><td><a href="#s16">17. Cableado estructurado</a></td></tr>
-<tr><td><b>MIMO</b></td><td>Multiple Input Multiple Output</td><td>Varias antenas transmitiendo a la vez (802.11n en adelante).</td><td><a href="#s10">9. Wi-Fi 802.11</a></td></tr>
-<tr><td><b>MSAU</b></td><td>Multistation Access Unit</td><td>Concentrador de Token Ring: estrella física, anillo lógico.</td><td><a href="#s7">6. Token Ring, Token Bus, MSAU</a></td></tr>
-<tr><td><b>MTU</b></td><td>Maximum Transmission Unit</td><td>Tamaño máximo de datos por trama (1500 bytes en Ethernet).</td><td><a href="#s18i">22. TCP/IP: Internet y diagnóstico</a></td></tr>
-<tr><td><b>NAT</b></td><td>Network Address Translation</td><td>El router reemplaza IP privadas por una pública para salir a Internet.</td><td><a href="#s18i">22. TCP/IP: Internet y diagnóstico</a></td></tr>
-<tr><td><b>NIC</b></td><td>Network Interface Card</td><td>Placa de red.</td><td><a href="#s3">3. Elementos de una LAN</a></td></tr>
-<tr><td><b>NTFS</b></td><td>New Technology File System</td><td>Sistema de archivos de Windows con permisos por carpeta y archivo.</td><td><a href="#s15">16. P2P vs servidor dedicado</a></td></tr>
-<tr><td><b>OSI</b></td><td>Open Systems Interconnection</td><td>Modelo de referencia de 7 capas de la ISO.</td><td><a href="#s2">2. Modelo OSI capa por capa</a></td></tr>
-<tr><td><b>OU</b></td><td>Organizational Unit (unidad organizativa)</td><td>Contenedor de Active Directory para ordenar objetos y aplicar directivas.</td><td><a href="#s15">16. P2P vs servidor dedicado</a></td></tr>
-<tr><td><b>OUI</b></td><td>Organizationally Unique Identifier</td><td>Los 3 primeros bytes de la MAC: identifican al fabricante.</td><td><a href="#s11">10. MAC e IP</a></td></tr>
-<tr><td><b>P2P</b></td><td>Peer to peer (de igual a igual)</td><td>Red donde cada PC es cliente y servidor a la vez (grupo de trabajo).</td><td><a href="#s15">16. P2P vs servidor dedicado</a></td></tr>
-<tr><td><b>PDU</b></td><td>Protocol Data Unit</td><td>Unidad de datos de cada capa: mensaje, segmento, paquete, trama, bits.</td><td><a href="#s2">2. Modelo OSI capa por capa</a></td></tr>
-<tr><td><b>POP3</b></td><td>Post Office Protocol versión 3</td><td>Descargar el correo a un dispositivo (110).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
-<tr><td><b>RAID</b></td><td>Redundant Array of Independent Disks</td><td>Discos en conjunto con redundancia: tolerancia a fallos en servidores.</td><td><a href="#s4">15. Servidores</a></td></tr>
-<tr><td><b>RARP</b></td><td>Reverse ARP</td><td>Lo inverso de ARP: de MAC a IP. Lo reemplazaron BOOTP y DHCP.</td><td><a href="#s18i">22. TCP/IP: Internet y diagnóstico</a></td></tr>
-<tr><td><b>RFC</b></td><td>Request for Comments</td><td>Documentos públicos del IETF que definen los protocolos de TCP/IP.</td><td><a href="#s18">19. TCP/IP: modelo y capas</a></td></tr>
-<tr><td><b>RIP / IGRP</b></td><td>Routing Information Protocol / Interior Gateway Routing Protocol</td><td>Protocolos de enrutamiento: los usan los routers para armar sus tablas.</td><td><a href="#s19">27. Pares que se confunden</a></td></tr>
-<tr><td><b>RJ-45</b></td><td>Registered Jack 45</td><td>Conector de 8 pines del cable UTP.</td><td><a href="#s16">17. Cableado estructurado</a></td></tr>
-<tr><td><b>RTS / CTS</b></td><td>Request To Send / Clear To Send</td><td>Reserva del canal en Wi-Fi; mitiga el problema del nodo oculto.</td><td><a href="#s10">9. Wi-Fi 802.11</a></td></tr>
-<tr><td><b>SMTP</b></td><td>Simple Mail Transfer Protocol</td><td>Enviar correo (25).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
-<tr><td><b>SNMP</b></td><td>Simple Network Management Protocol</td><td>Monitoreo y gestión de equipos de red (UDP 161).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
-<tr><td><b>SO</b></td><td>Sistema operativo</td><td>Software base del equipo; el de red define si la LAN es P2P o de servidor dedicado.</td><td><a href="#s15">16. P2P vs servidor dedicado</a></td></tr>
-<tr><td><b>SSH</b></td><td>Secure Shell</td><td>Terminal remota cifrada (22).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
-<tr><td><b>SSID</b></td><td>Service Set Identifier</td><td>Nombre de la red Wi-Fi.</td><td><a href="#s10">9. Wi-Fi 802.11</a></td></tr>
-<tr><td><b>STP (cable)</b></td><td>Shielded Twisted Pair</td><td>Par trenzado blindado.</td><td><a href="#s2">2. Modelo OSI capa por capa</a></td></tr>
-<tr><td><b>STP (switching)</b></td><td>Spanning Tree Protocol</td><td>Evita bucles de capa 2 bloqueando enlaces redundantes.</td><td><a href="#s14b">14. Switching: STP y VLAN</a></td></tr>
-<tr><td><b>TBB / TGB / TMGB</b></td><td>Telecommunications Bonding Backbone / Grounding Busbar / Main Grounding Busbar</td><td>Elementos de puesta a tierra de la TIA-607.</td><td><a href="#s17">18. Normas TIA 569/606/607/942</a></td></tr>
-<tr><td><b>TCP</b></td><td>Transmission Control Protocol</td><td>Transporte orientado a conexión y confiable (saludo de 3 vías, ACK, retransmisión).</td><td><a href="#s18t">21. TCP/IP: transporte</a></td></tr>
-<tr><td><b>TFTP</b></td><td>Trivial File Transfer Protocol</td><td>FTP reducido sobre UDP (69).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
-<tr><td><b>TIA / EIA</b></td><td>Telecommunications Industry Association / Electronic Industries Alliance</td><td>Autoras de las normas de cableado estructurado (568, 569, 606, 607, 942).</td><td><a href="#s16">17. Cableado estructurado</a></td></tr>
-<tr><td><b>TKIP</b></td><td>Temporal Key Integrity Protocol</td><td>Mecanismo de cifrado de WPA (reemplazado por AES en WPA2).</td><td><a href="#s10">9. Wi-Fi 802.11</a></td></tr>
-<tr><td><b>TLD</b></td><td>Top-Level Domain</td><td>Dominio de primer nivel: .com, .org, .ar.</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
-<tr><td><b>TLS / SSL</b></td><td>Transport Layer Security / Secure Sockets Layer</td><td>Cifrado que usa HTTPS (SSL es el antecesor).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
-<tr><td><b>TTL</b></td><td>Time To Live</td><td>Campo de IP que cada router descuenta; en 0 el paquete se descarta.</td><td><a href="#s18i">22. TCP/IP: Internet y diagnóstico</a></td></tr>
-<tr><td><b>UDP</b></td><td>User Datagram Protocol</td><td>Transporte sin conexión, sin garantías, con encabezado de 8 bytes.</td><td><a href="#s18t">21. TCP/IP: transporte</a></td></tr>
-<tr><td><b>UPS</b></td><td>Uninterruptible Power Supply</td><td>Fuente de energía ininterrumpida para los racks.</td><td><a href="#s17">18. Normas TIA 569/606/607/942</a></td></tr>
-<tr><td><b>URL</b></td><td>Uniform Resource Locator</td><td>Dirección de un recurso web: protocolo + servidor + recurso.</td><td><a href="#s18">19. TCP/IP: modelo y capas</a></td></tr>
-<tr><td><b>UTP</b></td><td>Unshielded Twisted Pair</td><td>Par trenzado sin blindaje: el cable de red más común.</td><td><a href="#s2">2. Modelo OSI capa por capa</a></td></tr>
-<tr><td><b>VLAN</b></td><td>Virtual LAN</td><td>LAN lógica dentro de un switch: separa dominios de broadcast. Etiqueta 802.1Q.</td><td><a href="#s14b">14. Switching: STP y VLAN</a></td></tr>
-<tr><td><b>VoIP</b></td><td>Voice over IP</td><td>Voz sobre IP: usa UDP por ser tiempo real.</td><td><a href="#s18t">21. TCP/IP: transporte</a></td></tr>
-<tr><td><b>WDS</b></td><td>Wireless Distribution System</td><td>Conexión inalámbrica entre puntos de acceso.</td><td><a href="#s10">9. Wi-Fi 802.11</a></td></tr>
-<tr><td><b>WEP / WPA / WPA2 / WPA3</b></td><td>Wired Equivalent Privacy / Wi-Fi Protected Access</td><td>Seguridad de Wi-Fi, de la más vieja e insegura (WEP) a la actual (WPA3).</td><td><a href="#s10">9. Wi-Fi 802.11</a></td></tr>
-<tr><td><b>Wi-Fi / WLAN</b></td><td>Wireless Fidelity / Wireless LAN</td><td>Red local inalámbrica, norma IEEE 802.11.</td><td><a href="#s10">9. Wi-Fi 802.11</a></td></tr>
+<tr id="g-ack"><td><b>ACK</b></td><td>Acknowledgement (acuse de recibo)</td><td>Confirmación de que algo llegó. En TCP indica el próximo byte esperado; en Wi-Fi confirma cada trama.</td><td><a href="#s18t">21. TCP/IP: transporte</a></td></tr>
+<tr id="g-ad-ad-ds"><td><b>AD / AD DS</b></td><td>Active Directory (Domain Services)</td><td>Servicio de directorio de Windows Server: usuarios, grupos, equipos y políticas del dominio.</td><td><a href="#s15">16. P2P vs servidor dedicado</a></td></tr>
+<tr id="g-aes"><td><b>AES</b></td><td>Advanced Encryption Standard</td><td>Algoritmo de cifrado que usa WPA2 y WPA3.</td><td><a href="#s10">9. Wi-Fi 802.11</a></td></tr>
+<tr id="g-ah-ph-sh-th-rh-eh"><td><b>AH, PH, SH, TH, RH, EH</b></td><td>Application / Presentation / Session / Transport / Red / Enlace Header</td><td>Encabezados que agrega cada capa de OSI al bajar los datos.</td><td><a href="#s2">2. Modelo OSI capa por capa</a></td></tr>
+<tr id="g-ansi"><td><b>ANSI</b></td><td>American National Standards Institute</td><td>Organismo de normas de EE. UU. que avala las normas TIA de cableado.</td><td><a href="#snp">★ Norma vs protocolo</a></td></tr>
+<tr id="g-ap"><td><b>AP</b></td><td>Access Point (punto de acceso)</td><td>Equipo central de una red Wi-Fi en modo infraestructura.</td><td><a href="#s10">9. Wi-Fi 802.11</a></td></tr>
+<tr id="g-apdu-ppdu-spdu"><td><b>APDU, PPDU, SPDU</b></td><td>Application / Presentation / Session Protocol Data Unit</td><td>PDU de las capas 7, 6 y 5 de OSI (el mensaje).</td><td><a href="#s2">2. Modelo OSI capa por capa</a></td></tr>
+<tr id="g-apipa"><td><b>APIPA</b></td><td>Automatic Private IP Addressing</td><td>Dirección 169.254.x.x que se pone sola la PC cuando no le responde ningún DHCP.</td><td><a href="#s18b">23. IPv4 y subneteo</a></td></tr>
+<tr id="g-arp"><td><b>ARP</b></td><td>Address Resolution Protocol</td><td>Averigua la MAC que corresponde a una IP en la red local (por broadcast).</td><td><a href="#s18i">22. TCP/IP: Internet y diagnóstico</a></td></tr>
+<tr id="g-ascii-ebcdic"><td><b>ASCII / EBCDIC</b></td><td>American Standard Code for Information Interchange / Extended Binary Coded Decimal Interchange Code</td><td>Códigos de caracteres; convertir entre ellos es tarea de la capa de presentación.</td><td><a href="#s2">2. Modelo OSI capa por capa</a></td></tr>
+<tr id="g-aui"><td><b>AUI</b></td><td>Attachment Unit Interface</td><td>Conector DB-15 de la placa para un transceiver externo (10BASE5).</td><td><a href="#s8">7. 802.3: trama y variantes clásicas</a></td></tr>
+<tr id="g-bnc"><td><b>BNC</b></td><td>Bayonet Neill-Concelman</td><td>Conector de bayoneta del coaxil fino (10BASE2).</td><td><a href="#s8">7. 802.3: trama y variantes clásicas</a></td></tr>
+<tr id="g-bootp"><td><b>BOOTP</b></td><td>Bootstrap Protocol</td><td>Antecesor de DHCP para asignar IP al arrancar.</td><td><a href="#s18i">22. TCP/IP: Internet y diagnóstico</a></td></tr>
+<tr id="g-bpdu"><td><b>BPDU</b></td><td>Bridge Protocol Data Unit</td><td>Mensajes que intercambian los switches en STP.</td><td><a href="#s14b">14. Switching: STP y VLAN</a></td></tr>
+<tr id="g-cam"><td><b>CAM</b></td><td>Content Addressable Memory</td><td>Memoria donde el switch guarda su tabla MAC.</td><td><a href="#s12">11. Dispositivos de interconexión</a></td></tr>
+<tr id="g-cidr"><td><b>CIDR</b></td><td>Classless Inter-Domain Routing</td><td>Notación con barra (/24) que indica cuántos bits en 1 tiene la máscara; direccionamiento sin clase.</td><td><a href="#s18b">23. IPv4 y subneteo</a></td></tr>
+<tr id="g-cname-mx-ns-ptr-srv-a-aaaa"><td><b>CNAME, MX, NS, PTR, SRV, A, AAAA</b></td><td>Tipos de registro DNS</td><td>A: nombre → IPv4. AAAA: nombre → IPv6. CNAME: alias. MX: correo. NS: servidor DNS. PTR: IP → nombre. SRV: ubicación de servicios.</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
+<tr id="g-crc"><td><b>CRC</b></td><td>Cyclic Redundancy Check</td><td>Cálculo para detectar errores; su resultado va en el FCS de la trama.</td><td><a href="#s8">7. 802.3: trama y variantes clásicas</a></td></tr>
+<tr id="g-csma"><td><b>CSMA</b></td><td>Carrier Sense Multiple Access</td><td>Escuchar el medio antes de transmitir, con acceso múltiple.</td><td><a href="#s6">5. Acceso al medio</a></td></tr>
+<tr id="g-csma-ca"><td><b>CSMA/CA</b></td><td>CSMA with Collision Avoidance (evitación)</td><td>Acceso al medio de Wi-Fi: evita colisiones y confirma con ACK.</td><td><a href="#s6">5. Acceso al medio</a></td></tr>
+<tr id="g-csma-cd"><td><b>CSMA/CD</b></td><td>CSMA with Collision Detection (detección)</td><td>Acceso al medio de Ethernet: detecta colisiones mientras transmite.</td><td><a href="#s6">5. Acceso al medio</a></td></tr>
+<tr id="g-dcf"><td><b>DCF</b></td><td>Distributed Coordination Function</td><td>Función de la subcapa MAC de 802.11 basada en CSMA/CA.</td><td><a href="#s10">9. Wi-Fi 802.11</a></td></tr>
+<tr id="g-dhcp"><td><b>DHCP</b></td><td>Dynamic Host Configuration Protocol</td><td>Asigna automáticamente IP, máscara, gateway y DNS (UDP 67/68, proceso DORA).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
+<tr id="g-dix"><td><b>DIX</b></td><td>Digital (DEC), Intel y Xerox</td><td>Las empresas que crearon Ethernet antes de que fuera la norma 802.3.</td><td><a href="#s8">7. 802.3: trama y variantes clásicas</a></td></tr>
+<tr id="g-dns"><td><b>DNS</b></td><td>Domain Name System</td><td>Traduce nombres de dominio a direcciones IP (puerto 53).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
+<tr id="g-dora"><td><b>DORA</b></td><td>Discover, Offer, Request, Acknowledge</td><td>Los cuatro mensajes con los que DHCP entrega una IP.</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
+<tr id="g-dsss-fhss-ofdm"><td><b>DSSS / FHSS / OFDM</b></td><td>Direct Sequence / Frequency Hopping Spread Spectrum / Orthogonal Frequency Division Multiplexing</td><td>Técnicas de modulación de las variantes 802.11.</td><td><a href="#s10">9. Wi-Fi 802.11</a></td></tr>
+<tr id="g-ef-er-tr-wa"><td><b>EF, ER, TR, WA</b></td><td>Entrance Facility, Equipment Room, Telecommunications Room, Work Area</td><td>Espacios de la TIA-569: entrada de servicios, sala de equipos, sala de telecomunicaciones del piso y área de trabajo.</td><td><a href="#s17">18. Normas TIA 569/606/607/942</a></td></tr>
+<tr id="g-emi"><td><b>EMI</b></td><td>Electromagnetic Interference</td><td>Interferencia electromagnética que afecta a los cables de cobre.</td><td><a href="#s2">2. Modelo OSI capa por capa</a></td></tr>
+<tr id="g-etd"><td><b>ETD</b></td><td>Equipo Terminal de Datos</td><td>El equipo final (PC, servidor) que origina o recibe los datos.</td><td><a href="#s9">8. Evolución de Ethernet</a></td></tr>
+<tr id="g-fcs"><td><b>FCS</b></td><td>Frame Check Sequence</td><td>Campo final de la trama con el CRC para detectar errores.</td><td><a href="#s8">7. 802.3: trama y variantes clásicas</a></td></tr>
+<tr id="g-fddi"><td><b>FDDI</b></td><td>Fiber Distributed Data Interface</td><td>Red de fibra en doble anillo con token.</td><td><a href="#s7">6. Token Ring, Token Bus, MSAU</a></td></tr>
+<tr id="g-fdm-tdm"><td><b>FDM / TDM</b></td><td>Frequency / Time Division Multiplexing</td><td>Multiplexar por frecuencia (broadband) o por tiempo (baseband).</td><td><a href="#s2">2. Modelo OSI capa por capa</a></td></tr>
+<tr id="g-fin-syn-rst"><td><b>FIN / SYN / RST</b></td><td>Finish / Synchronize / Reset</td><td>Flags de TCP: SYN abre la conexión, FIN la cierra, RST la corta.</td><td><a href="#s18t">21. TCP/IP: transporte</a></td></tr>
+<tr id="g-fqdn"><td><b>FQDN</b></td><td>Fully Qualified Domain Name</td><td>Nombre de dominio completo hasta la raíz (Servidor1.Redes1.com.).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
+<tr id="g-ftp"><td><b>FTP</b></td><td>File Transfer Protocol</td><td>Transferencia de archivos (TCP 20 y 21).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
+<tr id="g-gbps-mbps"><td><b>Gbps / Mbps</b></td><td>Gigabits / Megabits por segundo</td><td>Unidades de velocidad de transmisión.</td><td><a href="#s9">8. Evolución de Ethernet</a></td></tr>
+<tr id="g-gvrp-garp"><td><b>GVRP / GARP</b></td><td>GARP VLAN Registration Protocol / Generic Attribute Registration Protocol</td><td>Protocolos para propagar la configuración de VLAN entre switches.</td><td><a href="#s14b">14. Switching: STP y VLAN</a></td></tr>
+<tr id="g-hcc-icc-mcc"><td><b>HCC / ICC / MCC</b></td><td>Horizontal / Intermediate / Main Cross-Connect</td><td>Otros nombres de los repartidores (de piso, intermedio y principal).</td><td><a href="#s16">17. Cableado estructurado</a></td></tr>
+<tr id="g-http-https"><td><b>HTTP / HTTPS</b></td><td>HyperText Transfer Protocol (Secure)</td><td>Protocolo web (80); con cifrado TLS, HTTPS (443).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
+<tr id="g-iana"><td><b>IANA</b></td><td>Internet Assigned Numbers Authority</td><td>Asigna los puertos bien conocidos y los bloques de direcciones.</td><td><a href="#s18t">21. TCP/IP: transporte</a></td></tr>
+<tr id="g-icmp"><td><b>ICMP</b></td><td>Internet Control Message Protocol</td><td>Mensajes de control y error de IP; lo usan ping y tracert.</td><td><a href="#s18i">22. TCP/IP: Internet y diagnóstico</a></td></tr>
+<tr id="g-idf-mdf"><td><b>IDF / MDF</b></td><td>Intermediate / Main Distribution Facility</td><td>Repartidor de piso / repartidor principal del edificio.</td><td><a href="#s16">17. Cableado estructurado</a></td></tr>
+<tr id="g-ieee"><td><b>IEEE</b></td><td>Institute of Electrical and Electronics Engineers</td><td>Organismo que define las normas 802 (802.3 Ethernet, 802.11 Wi-Fi…).</td><td><a href="#s8">7. 802.3: trama y variantes clásicas</a></td></tr>
+<tr id="g-ietf"><td><b>IETF</b></td><td>Internet Engineering Task Force</td><td>Organismo que publica las RFC de los protocolos de Internet.</td><td><a href="#s18">19. TCP/IP: modelo y capas</a></td></tr>
+<tr id="g-igmp"><td><b>IGMP</b></td><td>Internet Group Management Protocol</td><td>Administra la pertenencia de los hosts a grupos multicast.</td><td><a href="#s18i">22. TCP/IP: Internet y diagnóstico</a></td></tr>
+<tr id="g-imap"><td><b>IMAP</b></td><td>Internet Message Access Protocol</td><td>Leer el correo sincronizado en varios dispositivos (143).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
+<tr id="g-ip"><td><b>IP</b></td><td>Internet Protocol</td><td>Protocolo de capa 3: direccionamiento lógico y enrutamiento. Sin conexión y no confiable.</td><td><a href="#s18i">22. TCP/IP: Internet y diagnóstico</a></td></tr>
+<tr id="g-ipv4-ipv6"><td><b>IPv4 / IPv6</b></td><td>Internet Protocol versión 4 / 6</td><td>Direcciones de 32 bits / de 128 bits.</td><td><a href="#s18b">23. IPv4 y subneteo</a></td></tr>
+<tr id="g-iso"><td><b>ISO</b></td><td>International Organization for Standardization</td><td>Organismo que definió el modelo de referencia OSI.</td><td><a href="#s2">2. Modelo OSI capa por capa</a></td></tr>
+<tr id="g-lan-man-wan"><td><b>LAN / MAN / WAN</b></td><td>Local / Metropolitan / Wide Area Network</td><td>Red local, metropolitana y de área amplia.</td><td><a href="#s1">1. Red y clasificación</a></td></tr>
+<tr id="g-llc"><td><b>LLC</b></td><td>Logical Link Control</td><td>Subcapa superior de enlace: sincronización de tramas, control de flujo y de errores.</td><td><a href="#s2">2. Modelo OSI capa por capa</a></td></tr>
+<tr id="g-mac"><td><b>MAC</b></td><td>Media Access Control</td><td>Subcapa de acceso al medio y, por extensión, la dirección física de 48 bits de la placa.</td><td><a href="#s11">10. MAC e IP</a></td></tr>
+<tr id="g-mdi-mdix"><td><b>MDI / MDIX</b></td><td>Medium Dependent Interface (Crossover)</td><td>Tipos de puerto; Auto-MDIX cruza solo, así sirve cable derecho entre iguales.</td><td><a href="#s16">17. Cableado estructurado</a></td></tr>
+<tr id="g-mimo"><td><b>MIMO</b></td><td>Multiple Input Multiple Output</td><td>Varias antenas transmitiendo a la vez (802.11n en adelante).</td><td><a href="#s10">9. Wi-Fi 802.11</a></td></tr>
+<tr id="g-msau"><td><b>MSAU</b></td><td>Multistation Access Unit</td><td>Concentrador de Token Ring: estrella física, anillo lógico.</td><td><a href="#s7">6. Token Ring, Token Bus, MSAU</a></td></tr>
+<tr id="g-mtu"><td><b>MTU</b></td><td>Maximum Transmission Unit</td><td>Tamaño máximo de datos por trama (1500 bytes en Ethernet).</td><td><a href="#s18i">22. TCP/IP: Internet y diagnóstico</a></td></tr>
+<tr id="g-nat"><td><b>NAT</b></td><td>Network Address Translation</td><td>El router reemplaza IP privadas por una pública para salir a Internet.</td><td><a href="#s18i">22. TCP/IP: Internet y diagnóstico</a></td></tr>
+<tr id="g-nic"><td><b>NIC</b></td><td>Network Interface Card</td><td>Placa de red.</td><td><a href="#s3">3. Elementos de una LAN</a></td></tr>
+<tr id="g-ntfs"><td><b>NTFS</b></td><td>New Technology File System</td><td>Sistema de archivos de Windows con permisos por carpeta y archivo.</td><td><a href="#s15">16. P2P vs servidor dedicado</a></td></tr>
+<tr id="g-osi"><td><b>OSI</b></td><td>Open Systems Interconnection</td><td>Modelo de referencia de 7 capas de la ISO.</td><td><a href="#s2">2. Modelo OSI capa por capa</a></td></tr>
+<tr id="g-ou"><td><b>OU</b></td><td>Organizational Unit (unidad organizativa)</td><td>Contenedor de Active Directory para ordenar objetos y aplicar directivas.</td><td><a href="#s15">16. P2P vs servidor dedicado</a></td></tr>
+<tr id="g-oui"><td><b>OUI</b></td><td>Organizationally Unique Identifier</td><td>Los 3 primeros bytes de la MAC: identifican al fabricante.</td><td><a href="#s11">10. MAC e IP</a></td></tr>
+<tr id="g-p2p"><td><b>P2P</b></td><td>Peer to peer (de igual a igual)</td><td>Red donde cada PC es cliente y servidor a la vez (grupo de trabajo).</td><td><a href="#s15">16. P2P vs servidor dedicado</a></td></tr>
+<tr id="g-pdu"><td><b>PDU</b></td><td>Protocol Data Unit</td><td>Unidad de datos de cada capa: mensaje, segmento, paquete, trama, bits.</td><td><a href="#s2">2. Modelo OSI capa por capa</a></td></tr>
+<tr id="g-pop3"><td><b>POP3</b></td><td>Post Office Protocol versión 3</td><td>Descargar el correo a un dispositivo (110).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
+<tr id="g-raid"><td><b>RAID</b></td><td>Redundant Array of Independent Disks</td><td>Discos en conjunto con redundancia: tolerancia a fallos en servidores.</td><td><a href="#s4">15. Servidores</a></td></tr>
+<tr id="g-rarp"><td><b>RARP</b></td><td>Reverse ARP</td><td>Lo inverso de ARP: de MAC a IP. Lo reemplazaron BOOTP y DHCP.</td><td><a href="#s18i">22. TCP/IP: Internet y diagnóstico</a></td></tr>
+<tr id="g-rfc"><td><b>RFC</b></td><td>Request for Comments</td><td>Documentos públicos del IETF que definen los protocolos de TCP/IP.</td><td><a href="#s18">19. TCP/IP: modelo y capas</a></td></tr>
+<tr id="g-rip-igrp"><td><b>RIP / IGRP</b></td><td>Routing Information Protocol / Interior Gateway Routing Protocol</td><td>Protocolos de enrutamiento: los usan los routers para armar sus tablas.</td><td><a href="#s19">27. Pares que se confunden</a></td></tr>
+<tr id="g-rj-45"><td><b>RJ-45</b></td><td>Registered Jack 45</td><td>Conector de 8 pines del cable UTP.</td><td><a href="#s16">17. Cableado estructurado</a></td></tr>
+<tr id="g-rts-cts"><td><b>RTS / CTS</b></td><td>Request To Send / Clear To Send</td><td>Reserva del canal en Wi-Fi; mitiga el problema del nodo oculto.</td><td><a href="#s10">9. Wi-Fi 802.11</a></td></tr>
+<tr id="g-smtp"><td><b>SMTP</b></td><td>Simple Mail Transfer Protocol</td><td>Enviar correo (25).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
+<tr id="g-snmp"><td><b>SNMP</b></td><td>Simple Network Management Protocol</td><td>Monitoreo y gestión de equipos de red (UDP 161).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
+<tr id="g-so"><td><b>SO</b></td><td>Sistema operativo</td><td>Software base del equipo; el de red define si la LAN es P2P o de servidor dedicado.</td><td><a href="#s15">16. P2P vs servidor dedicado</a></td></tr>
+<tr id="g-ssh"><td><b>SSH</b></td><td>Secure Shell</td><td>Terminal remota cifrada (22).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
+<tr id="g-ssid"><td><b>SSID</b></td><td>Service Set Identifier</td><td>Nombre de la red Wi-Fi.</td><td><a href="#s10">9. Wi-Fi 802.11</a></td></tr>
+<tr id="g-stp-cable"><td><b>STP (cable)</b></td><td>Shielded Twisted Pair</td><td>Par trenzado blindado.</td><td><a href="#s2">2. Modelo OSI capa por capa</a></td></tr>
+<tr id="g-stp-switching"><td><b>STP (switching)</b></td><td>Spanning Tree Protocol</td><td>Evita bucles de capa 2 bloqueando enlaces redundantes.</td><td><a href="#s14b">14. Switching: STP y VLAN</a></td></tr>
+<tr id="g-tbb-tgb-tmgb"><td><b>TBB / TGB / TMGB</b></td><td>Telecommunications Bonding Backbone / Grounding Busbar / Main Grounding Busbar</td><td>Elementos de puesta a tierra de la TIA-607.</td><td><a href="#s17">18. Normas TIA 569/606/607/942</a></td></tr>
+<tr id="g-tcp"><td><b>TCP</b></td><td>Transmission Control Protocol</td><td>Transporte orientado a conexión y confiable (saludo de 3 vías, ACK, retransmisión).</td><td><a href="#s18t">21. TCP/IP: transporte</a></td></tr>
+<tr id="g-tftp"><td><b>TFTP</b></td><td>Trivial File Transfer Protocol</td><td>FTP reducido sobre UDP (69).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
+<tr id="g-tia-eia"><td><b>TIA / EIA</b></td><td>Telecommunications Industry Association / Electronic Industries Alliance</td><td>Autoras de las normas de cableado estructurado (568, 569, 606, 607, 942).</td><td><a href="#s16">17. Cableado estructurado</a></td></tr>
+<tr id="g-tkip"><td><b>TKIP</b></td><td>Temporal Key Integrity Protocol</td><td>Mecanismo de cifrado de WPA (reemplazado por AES en WPA2).</td><td><a href="#s10">9. Wi-Fi 802.11</a></td></tr>
+<tr id="g-tld"><td><b>TLD</b></td><td>Top-Level Domain</td><td>Dominio de primer nivel: .com, .org, .ar.</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
+<tr id="g-tls-ssl"><td><b>TLS / SSL</b></td><td>Transport Layer Security / Secure Sockets Layer</td><td>Cifrado que usa HTTPS (SSL es el antecesor).</td><td><a href="#s18a">20. TCP/IP: aplicación</a></td></tr>
+<tr id="g-ttl"><td><b>TTL</b></td><td>Time To Live</td><td>Campo de IP que cada router descuenta; en 0 el paquete se descarta.</td><td><a href="#s18i">22. TCP/IP: Internet y diagnóstico</a></td></tr>
+<tr id="g-udp"><td><b>UDP</b></td><td>User Datagram Protocol</td><td>Transporte sin conexión, sin garantías, con encabezado de 8 bytes.</td><td><a href="#s18t">21. TCP/IP: transporte</a></td></tr>
+<tr id="g-ups"><td><b>UPS</b></td><td>Uninterruptible Power Supply</td><td>Fuente de energía ininterrumpida para los racks.</td><td><a href="#s17">18. Normas TIA 569/606/607/942</a></td></tr>
+<tr id="g-url"><td><b>URL</b></td><td>Uniform Resource Locator</td><td>Dirección de un recurso web: protocolo + servidor + recurso.</td><td><a href="#s18">19. TCP/IP: modelo y capas</a></td></tr>
+<tr id="g-utp"><td><b>UTP</b></td><td>Unshielded Twisted Pair</td><td>Par trenzado sin blindaje: el cable de red más común.</td><td><a href="#s2">2. Modelo OSI capa por capa</a></td></tr>
+<tr id="g-vlan"><td><b>VLAN</b></td><td>Virtual LAN</td><td>LAN lógica dentro de un switch: separa dominios de broadcast. Etiqueta 802.1Q.</td><td><a href="#s14b">14. Switching: STP y VLAN</a></td></tr>
+<tr id="g-voip"><td><b>VoIP</b></td><td>Voice over IP</td><td>Voz sobre IP: usa UDP por ser tiempo real.</td><td><a href="#s18t">21. TCP/IP: transporte</a></td></tr>
+<tr id="g-wds"><td><b>WDS</b></td><td>Wireless Distribution System</td><td>Conexión inalámbrica entre puntos de acceso.</td><td><a href="#s10">9. Wi-Fi 802.11</a></td></tr>
+<tr id="g-wep-wpa-wpa2-wpa3"><td><b>WEP / WPA / WPA2 / WPA3</b></td><td>Wired Equivalent Privacy / Wi-Fi Protected Access</td><td>Seguridad de Wi-Fi, de la más vieja e insegura (WEP) a la actual (WPA3).</td><td><a href="#s10">9. Wi-Fi 802.11</a></td></tr>
+<tr id="g-wi-fi-wlan"><td><b>Wi-Fi / WLAN</b></td><td>Wireless Fidelity / Wireless LAN</td><td>Red local inalámbrica, norma IEEE 802.11.</td><td><a href="#s10">9. Wi-Fi 802.11</a></td></tr>
 </table></div>
 <div class="vfq" data-q="sglo"><h4>✅ Quiz del tema <small>6 de verdadero o falso</small></h4><p class="vint">Respondé todas y tocá <b>Corregir</b>. Podés cambiar una respuesta antes de corregir.</p><ol><li class="vq" data-ok="v"><p>DHCP significa Dynamic Host Configuration Protocol.</p><div class="vbtn"><button type="button" data-r="v">Verdadero</button><button type="button" data-r="f">Falso</button></div><div class="vexp" hidden><b></b> Asigna IP, máscara, gateway y DNS automáticamente.</div></li><li class="vq" data-ok="f"><p>SSID es el identificador de la dirección MAC del access point.</p><div class="vbtn"><button type="button" data-r="v">Verdadero</button><button type="button" data-r="f">Falso</button></div><div class="vexp" hidden><b></b> SSID (Service Set Identifier) es el nombre de la red Wi-Fi.</div></li><li class="vq" data-ok="v"><p>NAT significa Network Address Translation.</p><div class="vbtn"><button type="button" data-r="v">Verdadero</button><button type="button" data-r="f">Falso</button></div><div class="vexp" hidden><b></b> Traduce direcciones privadas a una pública.</div></li><li class="vq" data-ok="f"><p>UTP significa par trenzado blindado.</p><div class="vbtn"><button type="button" data-r="v">Verdadero</button><button type="button" data-r="f">Falso</button></div><div class="vexp" hidden><b></b> UTP es Unshielded Twisted Pair: sin blindaje. El blindado es STP.</div></li><li class="vq" data-ok="v"><p>TTL significa Time To Live.</p><div class="vbtn"><button type="button" data-r="v">Verdadero</button><button type="button" data-r="f">Falso</button></div><div class="vexp" hidden><b></b> Campo de IP que cada router descuenta.</div></li><li class="vq" data-ok="v"><p>FCS es el campo de la trama que lleva el CRC para detectar errores.</p><div class="vbtn"><button type="button" data-r="v">Verdadero</button><button type="button" data-r="f">Falso</button></div><div class="vexp" hidden><b></b> Frame Check Sequence.</div></li></ol><div class="vact"><button type="button" class="vcorr">Corregir</button><span class="vmsg" aria-live="polite"></span></div><div class="vres" hidden aria-live="polite"></div></div>
 </section>
@@ -3375,9 +3404,12 @@ i.addEventListener('input',filtrar);ordenar();})();
   var excl=bar.getAttribute('data-excluir')||'';
   var marks=[], cur=-1, timer=null;
   function nrm(s){return s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();}
-  function limpiar(){
+  var S=function(f){try{window.Siglas&&window.Siglas[f]();}catch(e){}};
+  function limpiar(re){
+    S('quitar');
     marks.forEach(function(m){var p=m.parentNode;if(!p)return;p.replaceChild(document.createTextNode(m.textContent),m);p.normalize();});
     marks=[];cur=-1;
+    if(re!==false) S('poner');
   }
   function excluido(n){
     var el=n.parentElement;
@@ -3385,9 +3417,9 @@ i.addEventListener('input',filtrar);ordenar();})();
     return excl?!!el.closest(excl):false;
   }
   function buscar(q){
-    limpiar();
+    limpiar(false);
     var nq=nrm(q.trim());
-    if(nq.length<2){cnt.textContent='';bar.classList.remove('has');return;}
+    if(nq.length<2){cnt.textContent='';bar.classList.remove('has');S('poner');return;}
     bar.classList.add('has');
     var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,null),nodos=[],n;
     while((n=w.nextNode())){if(n.nodeValue.trim()&&!excluido(n))nodos.push(n);}
@@ -3408,6 +3440,7 @@ i.addEventListener('input',filtrar);ordenar();})();
       }
       marks=marks.concat(locales);
     });
+    S('poner');
     if(!marks.length){cnt.textContent='Sin resultados';return;}
     var ini=0;for(var x=0;x<marks.length;x++){if(marks[x].closest('section.page.on')){ini=x;break;}}
     ir(ini);
@@ -3437,6 +3470,143 @@ i.addEventListener('input',filtrar);ordenar();})();
     var t=e.target.tagName;if(t==='INPUT'||t==='TEXTAREA')return;
     if(e.key==='/'||((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k')){e.preventDefault();input.focus();input.select();}
   });
+})();
+</script>
+<script>/*siglas-js*/
+(function(){
+  /* Siglas con flotante (v3.1). Los datos salen de la tabla del glosario (table.glo).
+     Hover o foco: flotante con significado y qué es. Clic: abre la sigla en el glosario en otra pestaña.
+     En pantallas táctiles, el primer toque muestra el flotante y el link va adentro. */
+  var tabla=document.querySelector('table.glo'), root=document.getElementById('main');
+  if(!tabla||!root) return;
+  var EXCL='h1,h2,h3,h4,a,code,pre,svg,button,input,textarea,select,label,mark,.crumb,.ptoc,.pager,.mk,.vfq,.subgen,#historial,#homeMods,#homeStart,section[data-page="sglo"],.sg';
+  var IGNORAR={'A':1};
+  function nrm(s){return s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();}
+
+  /* 1. diccionario: sigla -> filas del glosario */
+  var dic={}, filas={};
+  [].forEach.call(tabla.querySelectorAll('tr'),function(tr){
+    var td=tr.querySelectorAll('td'); if(td.length<3) return;
+    var crudo=td[0].textContent.trim(), id=tr.id;
+    if(!id){id='g-'+nrm(crudo).replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''); tr.id=id;}
+    var nota=(crudo.match(/\(([^)]*)\)/)||[])[1]||'';
+    var ver=td[3]&&td[3].querySelector('a');
+    filas[id]={sigla:crudo.replace(/\s*\([^)]*\)/,''),nota:nota,sig:td[1].textContent.trim(),que:td[2].textContent.trim(),tema:ver?ver.textContent.trim():''};
+    crudo.replace(/\s*\([^)]*\)/,'').split(/\s*[\/,]\s*/).forEach(function(t){
+      t=t.trim(); if(t.length<2||IGNORAR[t]) return;
+      (dic[t]=dic[t]||[]).indexOf(id)<0&&dic[t].push(id);
+    });
+  });
+  var claves=Object.keys(dic).sort(function(a,b){return b.length-a.length;});
+  if(!claves.length) return;
+  var esc=function(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');};
+  var RE=new RegExp('(^|[^A-Za-z0-9ÁÉÍÓÚáéíóúñÑ])('+claves.map(esc).join('|')+')(?![A-Za-z0-9ÁÉÍÓÚáéíóúñÑ])','g');
+
+  /* 2. marcar en el cuerpo: la primera aparición de cada sigla por bloque (párrafo, ítem, celda) */
+  var puestas=[];
+  function poner(){
+    if(puestas.length) return;
+    var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:function(n){
+      var el=n.parentElement; if(!el||!n.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+      return el.closest(EXCL)?NodeFilter.FILTER_REJECT:NodeFilter.FILTER_ACCEPT;}});
+    var nodos=[],n; while((n=w.nextNode())) nodos.push(n);
+    var vistos=new WeakMap();
+    nodos.forEach(function(node){
+      var t=node.nodeValue, m, hits=[]; RE.lastIndex=0;
+      var blq=node.parentElement.closest('p,li,td,th,figcaption,summary,dd,.box,.card,div')||root;
+      var set=vistos.get(blq); if(!set){set={}; vistos.set(blq,set);}
+      while((m=RE.exec(t))){var k=m[2]; if(set[k]) continue; set[k]=1; hits.push([m.index+m[1].length,k]);}
+      for(var i=hits.length-1;i>=0;i--){
+        var ini=hits[i][0], k=hits[i][1], ids=dic[k];
+        var cola=node.splitText(ini); cola.splitText(k.length);
+        var a=document.createElement('a'); a.className='sg'; a.href='#'+ids[0]; a.target='_blank'; a.rel='noopener';
+        a.setAttribute('data-sg',k); a.setAttribute('aria-describedby','sgPop');
+        cola.parentNode.replaceChild(a,cola); a.appendChild(cola); puestas.push(a);
+      }
+    });
+  }
+  function quitar(){
+    ocultar(true);
+    puestas.forEach(function(a){var p=a.parentNode; if(!p) return; p.replaceChild(document.createTextNode(a.textContent),a); p.normalize();});
+    puestas=[];
+  }
+  window.Siglas={poner:poner,quitar:quitar};
+
+  /* 3. flotante */
+  var pop=document.createElement('div'); pop.id='sgPop'; pop.className='sgpop'; pop.setAttribute('role','tooltip'); pop.hidden=true;
+  document.body.appendChild(pop);
+  var actual=null, tIn=0, tOut=0, tactil=false, desde=0;
+  function e(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+  function llenar(a){
+    var k=a.getAttribute('data-sg'), ids=dic[k]||[], h='';
+    ids.forEach(function(id,i){var f=filas[id];
+      h+='<div class="sgp-it">'+(i===0?'<b class="sgp-k">'+e(k)+'</b>':'')+(f.nota?'<span class="sgp-n">'+e(f.nota)+'</span>':'')
+        +'<span class="sgp-s">'+e(f.sig)+'</span><p>'+e(f.que)+'</p>'+(ids.length>1&&f.tema?'<span class="sgp-t">'+e(f.tema)+'</span>':'')+'</div>';});
+    var tema=ids.length===1?filas[ids[0]].tema:'';
+    h+='<div class="sgp-f">'+(tactil?'<a href="#'+ids[0]+'" target="_blank" rel="noopener">Ver en el glosario ↗</a>':'<span>Clic: ver en el glosario ↗</span>')
+      +(tema?'<span class="sgp-t">'+e(tema)+'</span>':'')+'</div>';
+    pop.innerHTML=h;
+  }
+  function ubicar(a){
+    var r=a.getBoundingClientRect(), vw=document.documentElement.clientWidth, vh=window.innerHeight;
+    pop.style.left='0px'; pop.style.top='0px'; pop.classList.remove('arriba');
+    var pw=pop.offsetWidth, ph=pop.offsetHeight, x=r.left+r.width/2-pw/2;
+    x=Math.max(10,Math.min(x,vw-pw-10));
+    var y=r.bottom+10, arriba=false;
+    if(y+ph>vh-8&&r.top-ph-10>8){y=r.top-ph-10; arriba=true;}
+    pop.style.left=Math.round(x+window.scrollX)+'px'; pop.style.top=Math.round(y+window.scrollY)+'px';
+    pop.style.setProperty('--fx',Math.round(r.left+r.width/2-x)+'px');
+    pop.classList.toggle('arriba',arriba);
+  }
+  function mostrar(a){
+    clearTimeout(tOut); clearTimeout(tIn);
+    if(actual&&actual!==a) actual.classList.remove('sg-on');
+    if(actual!==a||pop.hidden) desde=Date.now();
+    actual=a; a.classList.add('sg-on'); llenar(a); pop.hidden=false; ubicar(a);
+    requestAnimationFrame(function(){pop.classList.add('on');});
+  }
+  function ocultar(ya){
+    clearTimeout(tIn); clearTimeout(tOut);
+    var fin=function(){pop.classList.remove('on'); pop.hidden=true; if(actual) actual.classList.remove('sg-on'); actual=null;};
+    if(ya===true) fin(); else tOut=setTimeout(fin,160);
+  }
+  root.addEventListener('mouseover',function(ev){
+    var a=ev.target.closest&&ev.target.closest('a.sg'); if(!a||tactil) return;
+    clearTimeout(tOut); if(a===actual) return;
+    clearTimeout(tIn); tIn=setTimeout(function(){mostrar(a);},actual?60:220);
+  });
+  root.addEventListener('mouseout',function(ev){
+    var a=ev.target.closest&&ev.target.closest('a.sg'); if(!a||tactil) return;
+    if(ev.relatedTarget&&(a.contains(ev.relatedTarget)||pop.contains(ev.relatedTarget))) return;
+    clearTimeout(tIn); if(actual) ocultar();
+  });
+  pop.addEventListener('mouseenter',function(){clearTimeout(tOut);});
+  pop.addEventListener('mouseleave',function(){if(!tactil) ocultar();});
+  root.addEventListener('focusin',function(ev){var a=ev.target.closest&&ev.target.closest('a.sg'); if(a) mostrar(a);});
+  root.addEventListener('focusout',function(ev){var a=ev.target.closest&&ev.target.closest('a.sg'); if(a&&!tactil) ocultar();});
+  document.addEventListener('pointerdown',function(ev){
+    tactil=ev.pointerType==='touch';
+    if(actual&&!pop.contains(ev.target)&&!(ev.target.closest&&ev.target.closest('a.sg'))) ocultar(true);
+  },true);
+  root.addEventListener('click',function(ev){
+    var a=ev.target.closest&&ev.target.closest('a.sg'); if(!a) return;
+    if(tactil&&(actual!==a||pop.hidden||Date.now()-desde<450)){ev.preventDefault(); mostrar(a);}
+    else ocultar(true);
+  });
+  document.addEventListener('keydown',function(ev){if(ev.key==='Escape'&&actual) ocultar(true);});
+  window.addEventListener('scroll',function(){if(actual&&!tactil) ocultar(true); else if(actual) ubicar(actual);},{passive:true});
+  window.addEventListener('resize',function(){if(actual) ocultar(true);});
+  document.addEventListener('pagina:cambio',function(){ocultar(true);});
+
+  /* 4. al llegar al glosario desde una sigla: resaltar la fila */
+  function resaltar(){
+    var h=location.hash.slice(1); if(!/^g-/.test(h)) return;
+    var tr=document.getElementById(h); if(!tr||!tr.closest('table.glo')) return;
+    tr.classList.remove('glo-hit'); void tr.offsetWidth; tr.classList.add('glo-hit');
+  }
+  window.addEventListener('hashchange',resaltar);
+
+  (window.requestIdleCallback||function(f){setTimeout(f,1);})(function(){poner(); resaltar();});
 })();
 </script>
 </body>

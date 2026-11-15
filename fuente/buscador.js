@@ -6,9 +6,12 @@
   var excl=bar.getAttribute('data-excluir')||'';
   var marks=[], cur=-1, timer=null;
   function nrm(s){return s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();}
-  function limpiar(){
+  var S=function(f){try{window.Siglas&&window.Siglas[f]();}catch(e){}};
+  function limpiar(re){
+    S('quitar');
     marks.forEach(function(m){var p=m.parentNode;if(!p)return;p.replaceChild(document.createTextNode(m.textContent),m);p.normalize();});
     marks=[];cur=-1;
+    if(re!==false) S('poner');
   }
   function excluido(n){
     var el=n.parentElement;
@@ -16,9 +19,9 @@
     return excl?!!el.closest(excl):false;
   }
   function buscar(q){
-    limpiar();
+    limpiar(false);
     var nq=nrm(q.trim());
-    if(nq.length<2){cnt.textContent='';bar.classList.remove('has');return;}
+    if(nq.length<2){cnt.textContent='';bar.classList.remove('has');S('poner');return;}
     bar.classList.add('has');
     var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,null),nodos=[],n;
     while((n=w.nextNode())){if(n.nodeValue.trim()&&!excluido(n))nodos.push(n);}
@@ -39,6 +42,7 @@
       }
       marks=marks.concat(locales);
     });
+    S('poner');
     if(!marks.length){cnt.textContent='Sin resultados';return;}
     var ini=0;for(var x=0;x<marks.length;x++){if(marks[x].closest('section.page.on')){ini=x;break;}}
     ir(ini);

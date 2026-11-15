@@ -107,7 +107,7 @@ mark.sr.cur{background:#f59e0b;color:#111;outline:2px solid #f59e0b}
 <main>
 <div class="sbar" id="sbar" data-root="main" data-excluir="details"><label class="sbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="sq" type="search" placeholder="Buscar en las preguntas (sin mostrar respuestas)…" aria-label="Buscar" autocomplete="off"><kbd>/</kbd></label><span class="scount" id="scount" aria-live="polite"></span><button type="button" class="sbtn" id="sprev" aria-label="Resultado anterior">↑</button><button type="button" class="sbtn" id="snext" aria-label="Resultado siguiente">↓</button><button type="button" class="sbtn" id="sclear" aria-label="Borrar búsqueda">✕</button></div>
 <h1>Preguntas con respuestas</h1>
-<div class="sub">Redes de Datos · UTN FRT · 150 preguntas de verdadero o falso y opción múltiple · versión 3.0</div>
+<div class="sub">Redes de Datos · UTN FRT · 150 preguntas de verdadero o falso y opción múltiple · versión 3.1</div>
 <div class="box">Leé la pregunta, elegí mentalmente tu respuesta y recién después abrí <b>Ver respuesta</b>. Si querés que te corrija, usá el <a href="practica.html">examen de práctica</a> (corrección inmediata) o el <a href="examen.html">examen definitivo</a> (con tiempo y nota al final).</div>
 <div class="chips"><a href="#t-osi">Modelo OSI y capa física</a><a href="#t-topo">Topologías y acceso al medio</a><a href="#t-norma">Norma vs protocolo de comunicación</a><a href="#t-eth">Ethernet 802.3 y sus variantes</a><a href="#t-wifi">Redes inalámbricas 802.11</a><a href="#t-disp">MAC, dispositivos y dominios</a><a href="#t-sw">Switching, STP y VLAN</a><a href="#t-lan">Tipos de LAN y servidores</a><a href="#t-cab">Cableado estructurado y normas TIA</a><a href="#t-tcp">Modelo TCP/IP y protocolos</a><a href="#t-ip">IPv4 y subneteo</a></div>
 <h2 id="t-osi">Modelo OSI y capa física <span style="font-size:14px;color:var(--mut);font-weight:500">(8)</span></h2>
@@ -293,9 +293,12 @@ mark.sr.cur{background:#f59e0b;color:#111;outline:2px solid #f59e0b}
   var excl=bar.getAttribute('data-excluir')||'';
   var marks=[], cur=-1, timer=null;
   function nrm(s){return s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();}
-  function limpiar(){
+  var S=function(f){try{window.Siglas&&window.Siglas[f]();}catch(e){}};
+  function limpiar(re){
+    S('quitar');
     marks.forEach(function(m){var p=m.parentNode;if(!p)return;p.replaceChild(document.createTextNode(m.textContent),m);p.normalize();});
     marks=[];cur=-1;
+    if(re!==false) S('poner');
   }
   function excluido(n){
     var el=n.parentElement;
@@ -303,9 +306,9 @@ mark.sr.cur{background:#f59e0b;color:#111;outline:2px solid #f59e0b}
     return excl?!!el.closest(excl):false;
   }
   function buscar(q){
-    limpiar();
+    limpiar(false);
     var nq=nrm(q.trim());
-    if(nq.length<2){cnt.textContent='';bar.classList.remove('has');return;}
+    if(nq.length<2){cnt.textContent='';bar.classList.remove('has');S('poner');return;}
     bar.classList.add('has');
     var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,null),nodos=[],n;
     while((n=w.nextNode())){if(n.nodeValue.trim()&&!excluido(n))nodos.push(n);}
@@ -326,6 +329,7 @@ mark.sr.cur{background:#f59e0b;color:#111;outline:2px solid #f59e0b}
       }
       marks=marks.concat(locales);
     });
+    S('poner');
     if(!marks.length){cnt.textContent='Sin resultados';return;}
     var ini=0;for(var x=0;x<marks.length;x++){if(marks[x].closest('section.page.on')){ini=x;break;}}
     ir(ini);

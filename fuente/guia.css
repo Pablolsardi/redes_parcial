@@ -289,7 +289,7 @@ main a.repaso-cta,main a.repaso-cta:visited{color:var(--ink)}
 .vlog ul{margin:4px 0 0}
 .vtag{display:inline-block;font-weight:700;font-size:13px;padding:2px 10px;border-radius:99px;color:#fff;white-space:nowrap}
 .vtag small{font-weight:500;opacity:.85;margin-left:4px}
-.v30{background:#b91c1c}.v22{background:#15803d}.v21{background:#0369a1}.v20{background:#b45309}.v16{background:#4f46e5}.v15{background:#0f766e}.v14{background:#be185d}.v13{background:#7c3aed}.v12{background:#0e8a6a}.v11{background:#c2410c}.v10{background:#1f5fbf}
+.v31{background:#0891b2}.v30{background:#b91c1c}.v22{background:#15803d}.v21{background:#0369a1}.v20{background:#b45309}.v16{background:#4f46e5}.v15{background:#0f766e}.v14{background:#be185d}.v13{background:#7c3aed}.v12{background:#0e8a6a}.v11{background:#c2410c}.v10{background:#1f5fbf}
 .vlog .now{font-size:11px;font-weight:700;color:var(--acc2);text-transform:uppercase;letter-spacing:.04em}
 
 /* ---- 11. Repaso ---- */
@@ -322,8 +322,9 @@ main .rp h4 a,main .rp h4 a:visited{color:var(--ink)}
 .rp-fin{margin:36px 0 0;text-align:center;color:var(--mut);font-size:14.5px}
 
 /* ---- 12. Glosario, preparcial y otros ---- */
-table.glo td:first-child{white-space:nowrap}
-table.glo td:last-child{font-size:13px;white-space:nowrap}
+table.glo td:first-child{width:24%;overflow-wrap:anywhere}
+table.glo td:last-child{font-size:13px;width:19%}
+table.glo tr{scroll-margin-top:calc(var(--anch,56px) + 90px)}
 .glofil{display:flex;gap:10px;align-items:center;margin:8px 0}
 .glofil input{flex:1;min-width:0;font:inherit;padding:8px 12px;border-radius:10px;border:1.5px solid var(--line);background:var(--card);color:var(--ink)}
 .glofil input:focus{outline:none;border-color:var(--acc)}
@@ -417,3 +418,25 @@ main .ptoc a.on{color:var(--acc);border-left-color:var(--acc);font-weight:650}
  details{break-inside:avoid}
  .rp,.box,table,figure{break-inside:avoid}
 }
+
+/* ---- 16. Siglas con flotante (v3.1) ---- */
+main a.sg,main a.sg:visited{color:inherit;text-decoration:underline dotted;text-decoration-color:color-mix(in srgb,var(--acc) 65%,transparent);text-decoration-thickness:1.5px;text-underline-offset:3px;cursor:help;border-radius:3px;transition:background .15s,text-decoration-color .15s}
+main a.sg:hover,main a.sg.sg-on{background:var(--infobg);text-decoration-color:var(--acc)}
+.sgpop{position:absolute;z-index:90;width:max-content;max-width:min(330px,calc(100vw - 20px));padding:12px 14px 10px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);box-shadow:0 10px 30px rgba(16,24,40,.16),0 2px 6px rgba(16,24,40,.08);font-size:14px;line-height:1.45;opacity:0;transform:translateY(4px);transition:opacity .14s ease,transform .14s ease;pointer-events:auto}
+.sgpop.on{opacity:1;transform:none}
+.sgpop.arriba{transform:translateY(-4px)}.sgpop.arriba.on{transform:none}
+.sgpop::before{content:"";position:absolute;top:-6px;left:calc(var(--fx,50%) - 6px);width:10px;height:10px;background:var(--card);border-left:1px solid var(--line);border-top:1px solid var(--line);transform:rotate(45deg)}
+.sgpop.arriba::before{top:auto;bottom:-6px;transform:rotate(225deg)}
+.sgp-it+.sgp-it{margin-top:8px;padding-top:8px;border-top:1px solid var(--line)}
+.sgp-k{display:inline-block;font-size:16px;font-weight:800;letter-spacing:-.01em;margin-right:6px}
+.sgp-n{display:inline-block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--mut);background:var(--soft);border-radius:99px;padding:1px 7px;margin-right:6px;vertical-align:2px}
+.sgp-s{display:block;font-weight:650;color:var(--acc);margin-top:2px}
+.sgpop p{margin:4px 0 0;color:var(--ink)}
+.sgp-f{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 12px;margin-top:9px;padding-top:7px;border-top:1px solid var(--line);font-size:12px;color:var(--mut)}
+.sgp-f a{color:var(--acc);font-weight:650;text-decoration:none}
+.sgp-t{font-style:italic;font-size:12px;color:var(--mut)}
+.sgp-it>.sgp-t{display:block;margin-top:3px}
+@keyframes glohit{0%,40%{background:var(--warnbg)}100%{background:transparent}}
+table.glo tr.glo-hit>td,table.glo tr:target>td{animation:glohit 2.6s ease}
+table.glo tr:target>td:first-child{box-shadow:inset 3px 0 0 var(--warn)}
+@media print{.sgpop{display:none!important}main a.sg{text-decoration:none}}

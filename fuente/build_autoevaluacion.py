@@ -9,6 +9,7 @@ TEMAS = {t["id"]: t["nombre"] for t in DATA["temas"]}
 LETRAS = "abcd"
 BUSCADOR_CSS = (RAIZ / "fuente" / "buscador.css").read_text(encoding="utf-8")
 BUSCADOR_JS = (RAIZ / "fuente" / "buscador.js").read_text(encoding="utf-8")
+SIGLAS_JS = (RAIZ / "fuente" / "siglas.js").read_text(encoding="utf-8")
 GUIA_CSS = (RAIZ / "fuente" / "guia.css").read_text(encoding="utf-8")
 
 
@@ -277,6 +278,7 @@ txt = _re.sub(r"/\*buscador-css\*/.*?/\*fin-buscador-css\*/", lambda m: "/*busca
 txt = _re.sub(r"/\*guia-css\*/.*?/\*fin-guia-css\*/", lambda m: "/*guia-css*/\n" + GUIA_CSS + "/*fin-guia-css*/", txt, flags=_re.S)
 txt = _re.sub(r"<script>/\*subneteo-js\*/.*?</script>", lambda m: "<script>/*subneteo-js*/\n" + SUB_JS + "</script>", txt, flags=_re.S)
 txt = _re.sub(r"<script>/\*buscador-js\*/.*?</script>", lambda m: "<script>/*buscador-js*/\n" + BUSCADOR_JS + "</script>", txt, flags=_re.S)
+txt = _re.sub(r"<script>/\*siglas-js\*/.*?</script>", lambda m: "<script>/*siglas-js*/\n" + SIGLAS_JS + "</script>", txt, flags=_re.S)
 idx.write_text(txt, encoding="utf-8")
 _nav = _re.search(r"<nav[^>]*>(.*?)</nav>", txt, flags=_re.S).group(1)
 DATA["secciones"] = {m.group(1): _re.sub(r"<[^>]+>", "", m.group(2)).strip() for m in _re.finditer(r'<a href="#([^"]+)"[^>]*>(.*?)</a>', _nav)}
