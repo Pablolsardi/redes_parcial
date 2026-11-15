@@ -474,3 +474,25 @@ table.glo tr:target>td:first-child{box-shadow:inset 3px 0 0 var(--warn)}
 .fest-chip.ok{color:var(--acc2);background:var(--okbg)}
 .fest-mod{border-color:var(--acc2);border-width:1.5px}
 .fest-mod .fest-ck{width:64px;height:64px}
+.navref{margin:16px 0 4px;padding-top:12px;border-top:1px solid var(--line)}
+.navref>span{display:block;font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--ink);padding:0 8px 4px}
+.rp-n.rp-ref{font-size:13px;letter-spacing:0}
+/* confirmación (v3.3) */
+.conf{position:fixed;inset:0;z-index:96;display:none;place-items:center;padding:20px;background:rgba(10,14,20,.42)}
+.conf.on{display:grid;animation:confbg .2s ease}
+.conf.off{animation:confbgout .22s ease forwards}
+@keyframes confbg{from{background:rgba(10,14,20,0)}}
+@keyframes confbgout{to{background:rgba(10,14,20,0)}}
+.conf-card{display:flex;flex-direction:column;align-items:center;gap:8px;width:min(380px,100%);padding:26px 26px 22px;border-radius:18px;background:var(--card);border:1px solid var(--line);box-shadow:0 24px 60px rgba(16,24,40,.25);text-align:center;animation:festin .28s cubic-bezier(.2,.9,.3,1.25) both;opacity:0;transform:translateY(10px) scale(.94)}
+.conf.off .conf-card{animation:festout .22s ease forwards}
+.conf-ic{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;font-size:30px;font-weight:800;color:var(--warn);background:var(--warnbg);border:3px solid var(--warn);margin-bottom:4px}
+.conf-ic.info{color:var(--acc);background:var(--infobg);border-color:var(--acc);font-family:Georgia,serif}
+.conf-card b{font-size:21px;letter-spacing:-.01em;font-weight:800}
+.conf-card>span:not(.conf-ic){font-size:15px;color:var(--mut);line-height:1.5}
+.conf-card em{font-style:normal;font-weight:700;color:var(--ink)}
+.conf-bt{display:flex;gap:10px;justify-content:center;margin-top:12px;width:100%}
+.conf-bt button{flex:1;font:inherit;font-size:15px;font-weight:700;padding:11px 16px;border-radius:11px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;transition:filter .15s,border-color .15s}
+.conf-bt button:hover{border-color:var(--mut)}
+.conf-bt button.peligro{background:var(--bad);border-color:var(--bad);color:#fff}
+.conf-bt button.peligro:hover{filter:brightness(1.08)}
+@media (prefers-reduced-motion:reduce){.conf-card{animation:none;opacity:1;transform:none}}
