@@ -452,28 +452,28 @@ table.glo tr:target>td:first-child{box-shadow:inset 3px 0 0 var(--warn)}
 .fest{position:fixed;inset:0;z-index:95;display:none;place-items:center;pointer-events:none;background:rgba(10,14,20,0);transition:background .25s ease}
 .fest.on{display:grid;background:rgba(10,14,20,.18)}
 .fest.off{background:rgba(10,14,20,0)}
-.fest-card{display:flex;flex-direction:column;align-items:center;gap:6px;width:min(360px,calc(100vw - 40px));padding:24px 26px 20px;border-radius:18px;background:var(--card);border:1px solid var(--line);box-shadow:0 24px 60px rgba(16,24,40,.22),0 4px 12px rgba(16,24,40,.1);text-align:center;opacity:0;transform:translateY(10px) scale(.94)}
+.fest-card{display:flex;flex-direction:column;align-items:center;gap:6px;width:min(460px,calc(100vw - 32px));padding:34px 36px 26px;border-radius:22px;gap:8px;background:var(--card);border:1px solid var(--line);box-shadow:0 24px 60px rgba(16,24,40,.22),0 4px 12px rgba(16,24,40,.1);text-align:center;opacity:0;transform:translateY(10px) scale(.94)}
 .fest.on .fest-card{animation:festin .32s cubic-bezier(.2,.9,.3,1.25) forwards}
 .fest.off .fest-card{animation:festout .3s ease forwards}
 @keyframes festin{to{opacity:1;transform:none}}
 @keyframes festout{from{opacity:1;transform:none}to{opacity:0;transform:translateY(-8px) scale(.97)}}
-.fest-ck{width:58px;height:58px;margin-bottom:4px}
+.fest-ck{width:78px;height:78px;margin-bottom:6px}
 .fest-ck circle{fill:var(--okbg);stroke:var(--acc2);stroke-width:3;stroke-dasharray:145;stroke-dashoffset:145}
 .fest-ck path{fill:none;stroke:var(--acc2);stroke-width:4.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:40;stroke-dashoffset:40}
 .fest.on .fest-ck circle{animation:festdraw .45s ease .05s forwards}
 .fest.on .fest-ck path{animation:festdraw .3s ease .35s forwards}
 @keyframes festdraw{to{stroke-dashoffset:0}}
-.fest-card b{font-size:22px;letter-spacing:-.01em;font-weight:800}
-.fest-card span{font-size:15px;color:var(--mut);line-height:1.45}
+.fest-card b{font-size:28px;letter-spacing:-.01em;font-weight:800}
+.fest-card span{font-size:17px;color:var(--mut);line-height:1.45}
 .fest-card em{font-style:normal;font-weight:650;color:var(--ink)}
-.fest-bar{display:block;width:100%;height:6px;margin-top:10px;border-radius:99px;background:var(--line);overflow:hidden}
-.fest-card small{font-size:12.5px;color:var(--mut);margin-top:2px}
+.fest-bar{display:block;width:100%;height:8px;margin-top:14px;border-radius:99px;background:var(--line);overflow:hidden}
+.fest-card small{font-size:13.5px;color:var(--mut);margin-top:2px}
 .fest-bar>i{display:block;height:100%;background:var(--acc2);border-radius:99px;transition:width .5s ease .2s}
 @media (prefers-reduced-motion:reduce){.fest.on .fest-card{animation:none;opacity:1;transform:none}.fest.off .fest-card{animation:none;opacity:0}.fest-ck circle,.fest-ck path{stroke-dashoffset:0;animation:none!important}}
-.fest-chip{font-style:normal;font-size:11.5px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--warn);background:var(--warnbg);border-radius:99px;padding:3px 10px;margin:-4px 0 8px}
+.fest-chip{font-style:normal;font-size:12.5px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--warn);background:var(--warnbg);border-radius:99px;padding:3px 10px;margin:-4px 0 8px}
 .fest-chip.ok{color:var(--acc2);background:var(--okbg)}
 .fest-mod{border-color:var(--acc2);border-width:1.5px}
-.fest-mod .fest-ck{width:64px;height:64px}
+.fest-mod .fest-ck{width:84px;height:84px}
 .navref{margin:16px 0 4px;padding-top:12px;border-top:1px solid var(--line)}
 .navref>span{display:block;font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--ink);padding:0 8px 4px}
 .rp-n.rp-ref{font-size:13px;letter-spacing:0}
@@ -483,15 +483,15 @@ table.glo tr:target>td:first-child{box-shadow:inset 3px 0 0 var(--warn)}
 .conf.off{animation:confbgout .22s ease forwards}
 @keyframes confbg{from{background:rgba(10,14,20,0)}}
 @keyframes confbgout{to{background:rgba(10,14,20,0)}}
-.conf-card{display:flex;flex-direction:column;align-items:center;gap:8px;width:min(380px,100%);padding:26px 26px 22px;border-radius:18px;background:var(--card);border:1px solid var(--line);box-shadow:0 24px 60px rgba(16,24,40,.25);text-align:center;animation:festin .28s cubic-bezier(.2,.9,.3,1.25) both;opacity:0;transform:translateY(10px) scale(.94)}
+.conf-card{display:flex;flex-direction:column;align-items:center;gap:8px;width:min(460px,100%);padding:34px 34px 28px;border-radius:22px;background:var(--card);border:1px solid var(--line);box-shadow:0 24px 60px rgba(16,24,40,.25);text-align:center;animation:festin .28s cubic-bezier(.2,.9,.3,1.25) both;opacity:0;transform:translateY(10px) scale(.94)}
 .conf.off .conf-card{animation:festout .22s ease forwards}
-.conf-ic{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;font-size:30px;font-weight:800;color:var(--warn);background:var(--warnbg);border:3px solid var(--warn);margin-bottom:4px}
+.conf-ic{width:74px;height:74px;border-radius:50%;display:grid;place-items:center;font-size:40px;font-weight:800;color:var(--warn);background:var(--warnbg);border:3px solid var(--warn);margin-bottom:4px}
 .conf-ic.info{color:var(--acc);background:var(--infobg);border-color:var(--acc);font-family:Georgia,serif}
-.conf-card b{font-size:21px;letter-spacing:-.01em;font-weight:800}
-.conf-card>span:not(.conf-ic){font-size:15px;color:var(--mut);line-height:1.5}
+.conf-card b{font-size:26px;letter-spacing:-.01em;font-weight:800}
+.conf-card>span:not(.conf-ic){font-size:17px;color:var(--mut);line-height:1.5}
 .conf-card em{font-style:normal;font-weight:700;color:var(--ink)}
 .conf-bt{display:flex;gap:10px;justify-content:center;margin-top:12px;width:100%}
-.conf-bt button{flex:1;font:inherit;font-size:15px;font-weight:700;padding:11px 16px;border-radius:11px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;transition:filter .15s,border-color .15s}
+.conf-bt button{flex:1;font:inherit;font-size:16px;font-weight:700;padding:13px 18px;border-radius:11px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;transition:filter .15s,border-color .15s}
 .conf-bt button:hover{border-color:var(--mut)}
 .conf-bt button.peligro{background:var(--bad);border-color:var(--bad);color:#fff}
 .conf-bt button.peligro:hover{filter:brightness(1.08)}
