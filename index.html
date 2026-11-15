@@ -500,6 +500,10 @@ table.glo tr:target>td:first-child{box-shadow:inset 3px 0 0 var(--warn)}
 .fest-card small{font-size:12.5px;color:var(--mut);margin-top:2px}
 .fest-bar>i{display:block;height:100%;background:var(--acc2);border-radius:99px;transition:width .5s ease .2s}
 @media (prefers-reduced-motion:reduce){.fest.on .fest-card{animation:none;opacity:1;transform:none}.fest.off .fest-card{animation:none;opacity:0}.fest-ck circle,.fest-ck path{stroke-dashoffset:0;animation:none!important}}
+.fest-chip{font-style:normal;font-size:11.5px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--warn);background:var(--warnbg);border-radius:99px;padding:3px 10px;margin:-4px 0 8px}
+.fest-chip.ok{color:var(--acc2);background:var(--okbg)}
+.fest-mod{border-color:var(--acc2);border-width:1.5px}
+.fest-mod .fest-ck{width:64px;height:64px}
 /*fin-guia-css*/
 </style>
 </head>
@@ -597,6 +601,7 @@ table.glo tr:target>td:first-child{box-shadow:inset 3px 0 0 var(--warn)}
 <li><span class="vtag v33">v3.3<small>15/11/2026</small></span><div><span class="now">Actual</span><br>
 <ul>
 <li><b>"Marcar este tema como aprendido" te lleva al siguiente:</b> al tocarlo al final de un tema aparece un cartel con un tilde, un "¡Bien ahí!" y el tema con el que seguís, y la página pasa sola al siguiente. El cartel se cierra solo en menos de 2 segundos y muestra cuántos temas llevás.</li>
+<li>Si el tema siguiente es de otro módulo, el cartel cambia: "¡Módulo 3 terminado!" con el módulo que arranca y su primer tema. Si te quedaron temas sin marcar en ese módulo, dice "¡Fin del Módulo N!" y te avisa cuántos faltan.</li>
 <li>Desmarcar desde ese botón, o tildar desde el índice lateral, sigue igual: no cambia de página ni muestra el cartel. En el último tema te devuelve al inicio, y si completaste todos te lo festeja.</li>
 </ul></div></li>
 <li><span class="vtag v32">v3.2<small>15/11/2026</small></span><div>
@@ -3221,9 +3226,9 @@ i.addEventListener('input',filtrar);ordenar();})();
   /* botón del final del tema: marca, festeja y pasa al siguiente (desde el índice solo se tilda) */
   var festejo=null, tFest=0, tSig=0;
   var FRASES=['¡Bien ahí!','¡Excelente!','¡Uno menos!','¡Vamos bien!','¡Bien ahí, crack!'];
-  function festejar(titulo2,sub,pct,cuenta){
+  function festejar(titulo2,sub,pct,cuenta,chip,okMod){
     if(!festejo){festejo=document.createElement('div'); festejo.className='fest'; festejo.setAttribute('role','status'); festejo.setAttribute('aria-live','polite'); document.body.appendChild(festejo);}
-    festejo.innerHTML='<div class="fest-card"><svg class="fest-ck" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="23"/><path d="M15 27 L23 35 L38 18"/></svg>'
+    festejo.innerHTML='<div class="fest-card'+(chip?' fest-mod':'')+'">'+(chip?'<em class="fest-chip'+(okMod?' ok':'')+'">'+chip+'</em>':'')+'<svg class="fest-ck" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="23"/><path d="M15 27 L23 35 L38 18"/></svg>'
       +'<b>'+titulo2+'</b><span>'+sub+'</span><i class="fest-bar"><i style="width:'+pct+'%"></i></i><small>'+cuenta+'</small></div>';
     festejo.classList.remove('on','off'); void festejo.offsetWidth; festejo.classList.add('on');
     clearTimeout(tFest); tFest=setTimeout(function(){festejo.classList.add('off');},1450);
@@ -3239,6 +3244,15 @@ i.addEventListener('input',filtrar);ordenar();})();
     var esc=function(t){return t.replace(/&/g,'&amp;').replace(/</g,'&lt;');};
     var f=FRASES[Math.floor(Math.random()*FRASES.length)], cta=ok+' de '+tot+' temas aprendidos';
     if(ok===tot) festejar('¡Terminaste la guía!','Los '+tot+' temas, aprendidos. Ahora, a practicar con el simulacro.',100,cta);
+    else if(sig&&modDe[sig]!==modDe[id]){
+      var ma=modDe[id]||'', mb=modDe[sig]||'', pa=ma.split(' · '), pb=mb.split(' · ');
+      var delMod=ids.filter(function(x){return modDe[x]===ma;}), falta=delMod.filter(function(x){return !hecho[x];}).length;
+      var nomA=pa[1]||pa[0], quien=pa.length>1?pa[0]:'esta parte';
+      var tit=ma==='Antes de empezar'?'¡Listo, arrancamos!':(falta?'¡Fin del '+quien+'!':'¡'+quien+' terminado!');
+      var chip=ma==='Antes de empezar'?'Introducción lista':(falta?nomA+' · '+(falta===1?'falta 1 tema':'faltan '+falta+' temas'):nomA+' · completo');
+      var sigTxt=pb.length>1?'Arrancamos el <em>'+esc(pb[0])+': '+esc(pb[1])+'</em>, con '+esc(titulo[sig])+'.':'Seguimos con <em>'+esc(mb)+'</em>: '+esc(titulo[sig])+'.';
+      festejar(tit,sigTxt,pct,cta,esc(chip),!falta);
+    }
     else if(sig) festejar(f,'Ahora seguimos con <em>'+esc(titulo[sig])+'</em>',pct,cta);
     else festejar(f,'Era el último tema. Volvemos al inicio para ver lo que te falta.',pct,cta);
     clearTimeout(tSig); tSig=setTimeout(function(){location.hash='#'+(sig&&ok<tot?sig:'inicio');},420);
