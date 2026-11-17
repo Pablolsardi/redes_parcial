@@ -1,5 +1,5 @@
 {
- "version": "3.4",
+ "version": "3.5",
  "temas": [
   {
    "id": "osi",
@@ -2142,6 +2142,1570 @@
    "correcta": 0,
    "explicacion": "Cada subred reserva la dirección con los bits de host en 0 (<b>red</b>) y la que los tiene en 1 (<b>broadcast</b>). La cantidad de <b>subredes</b>, en cambio, es 2<sup>N</sup> sin restar nada (según el apunte).",
    "seccion": "sej"
+  },
+  {
+   "id": 151,
+   "tema": "osi",
+   "tipo": "vf",
+   "enunciado": "La capa de enlace agrega un encabezado y también un trailer; el trailer lleva el FCS, que permite detectar errores en la trama pero no corregirlos.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. Enlace es la única capa que agrega trailer, y ahí va el <b>FCS</b> (un CRC). El receptor recalcula el CRC: si no coincide, <b>descarta</b> la trama. Detecta el error, pero no lo corrige: la recuperación queda en manos de una retransmisión.",
+   "seccion": "s2",
+   "dificil": true
+  },
+  {
+   "id": 152,
+   "tema": "osi",
+   "tipo": "vf",
+   "enunciado": "Un repetidor regenera la señal y corrige la atenuación, por eso permite extender un segmento sin crear un nuevo dominio de colisión.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. El repetidor es de capa 1: regenera los bits y así corrige la <b>atenuación</b>. Como no mira tramas ni direcciones, todo lo que une sigue siendo <b>un solo dominio de colisión</b>.",
+   "seccion": "s2",
+   "dificil": true
+  },
+  {
+   "id": 153,
+   "tema": "osi",
+   "tipo": "vf",
+   "enunciado": "El trenzado de los pares del cable UTP sirve para reducir la atenuación de la señal a lo largo del cable.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "La trampa está en el problema. El trenzado reduce la <b>interferencia electromagnética (EMI)</b> y la <b>diafonía (crosstalk)</b> entre pares. La <b>atenuación</b> (pérdida de potencia con la distancia) se corrige con <b>repetidores</b>.",
+   "seccion": "s2",
+   "dificil": true
+  },
+  {
+   "id": 154,
+   "tema": "osi",
+   "tipo": "vf",
+   "enunciado": "La capa de presentación establece, mantiene y termina el diálogo entre las aplicaciones, y define si la comunicación es simplex, half duplex o full duplex.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "Eso es la capa de <b>sesión</b> (5): maneja el diálogo y su modo. La de <b>presentación</b> (6) es \"el traductor\": formato de los datos (ASCII/EBCDIC), compresión y cifrado.",
+   "seccion": "s2",
+   "dificil": true
+  },
+  {
+   "id": 155,
+   "tema": "osi",
+   "tipo": "vf",
+   "enunciado": "IP es un protocolo ruteable y RIP es un protocolo de enrutamiento: el primero viaja con los datos del usuario y el segundo sirve para que los routers armen sus tablas.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto, y es una distinción que se pregunta mucho. <b>Ruteable</b> = el que lleva los datos y puede ser encaminado (IP). <b>De enrutamiento</b> = el que usan los routers entre sí para construir las tablas (RIP, IGRP).",
+   "seccion": "s2",
+   "dificil": true
+  },
+  {
+   "id": 156,
+   "tema": "osi",
+   "tipo": "vf",
+   "enunciado": "En el encapsulamiento del modelo OSI, cada capa agrega su encabezado al bajar y la capa física agrega al final el trailer con el FCS.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "El trailer con el FCS lo agrega la capa de <b>enlace</b>, no la física. La capa física no agrega encabezados: transmite los bits.",
+   "seccion": "s2",
+   "dificil": true
+  },
+  {
+   "id": 157,
+   "tema": "topo",
+   "tipo": "vf",
+   "enunciado": "Una red Ethernet en la que cada PC tiene su propio cable a un switch tiene topología física estrella y topología lógica estrella.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "Física estrella sí, pero la <b>lógica</b> la da el protocolo de acceso al medio de la norma: en Ethernet (CSMA/CD) es <b>bus lógico</b>. La tabla de la cátedra: \"Ethernet con hub o switch: estrella física, bus lógico\".",
+   "seccion": "s5",
+   "dificil": true
+  },
+  {
+   "id": 158,
+   "tema": "topo",
+   "tipo": "vf",
+   "enunciado": "En Token Bus el cableado es un bus físico, pero el token circula entre las estaciones siguiendo un anillo lógico.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. Token Bus (802.4) es el ejemplo clásico de física y lógica distintas: <b>bus físico</b> (coaxil) con <b>anillo lógico</b>, porque el token pasa de estación en estación en un orden fijo.",
+   "seccion": "s7",
+   "dificil": true
+  },
+  {
+   "id": 159,
+   "tema": "topo",
+   "tipo": "vf",
+   "enunciado": "Con poca carga de tráfico, el token passing es más eficiente que la contención porque nunca hay colisiones.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "Es al revés. Con <b>poca carga</b> gana la <b>contención</b>: transmito apenas quiero. En token passing hay una <b>demora fija</b> aunque la red esté vacía, porque hay que esperar que llegue el token. El token gana con mucha carga, cuando la contención se llena de colisiones.",
+   "seccion": "s6",
+   "dificil": true
+  },
+  {
+   "id": 160,
+   "tema": "topo",
+   "tipo": "vf",
+   "enunciado": "CSMA/CD reduce las colisiones escuchando el canal antes de transmitir, pero no las elimina, porque dos estaciones pueden encontrar el canal libre al mismo tiempo.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. Escuchar antes de hablar baja la probabilidad de chocar, pero si dos escuchan libre en el mismo instante, arrancan juntas y colisionan. Por eso además escucha <b>mientras</b> transmite (CD) para detectarla y abortar.",
+   "seccion": "s6",
+   "dificil": true
+  },
+  {
+   "id": 161,
+   "tema": "topo",
+   "tipo": "vf",
+   "enunciado": "En Token Ring, la estación destino copia la trama, la retira del anillo y genera un nuevo token libre.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "El destino solo <b>copia</b> la trama y marca los bits A y C. La trama sigue dando la vuelta y la retira el <b>emisor</b>, que es quien genera el nuevo token libre.",
+   "seccion": "s7",
+   "dificil": true
+  },
+  {
+   "id": 162,
+   "tema": "topo",
+   "tipo": "vf",
+   "enunciado": "En el método de polling, si falla uno de los esclavos el resto de la red deja de poder comunicarse.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "El punto débil del polling es el <b>maestro</b>: si cae él, nadie transmite. Si falla un esclavo, el maestro simplemente no obtiene respuesta de ese y sigue con los demás.",
+   "seccion": "s6",
+   "dificil": true
+  },
+  {
+   "id": 163,
+   "tema": "topo",
+   "tipo": "vf",
+   "enunciado": "La MSAU permite cablear una red Token Ring en estrella y, si una estación se apaga, sus relés de bypass la sacan del anillo para que siga funcionando.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. La MSAU es el concentrador de Token Ring: <b>estrella física</b> con el <b>anillo lógico</b> armado por dentro. Los relés de bypass cierran el anillo cuando una estación está apagada.",
+   "seccion": "s7",
+   "dificil": true
+  },
+  {
+   "id": 164,
+   "tema": "topo",
+   "tipo": "vf",
+   "enunciado": "El esquema de un servidor dedicado en el centro, con las PCs alrededor conectadas a él, es un ejemplo de topología física estrella.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "La cátedra lo aclara: ese dibujo muestra una relación de <b>dependencia</b> (las PCs validan contra el servidor), no una topología. El centro de una estrella física es un <b>hub o switch</b>, nunca un servidor.",
+   "seccion": "s5",
+   "dificil": true
+  },
+  {
+   "id": 165,
+   "tema": "norma",
+   "tipo": "vf",
+   "enunciado": "Al pasar una LAN de cable a Wi-Fi cambian la norma y el protocolo de acceso al medio, pero los protocolos de comunicación como IP, DHCP y DNS siguen siendo los mismos.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. Cambian las capas 1 y 2: la norma (802.3 → 802.11) y el acceso al medio (CSMA/CD → CSMA/CA). Los <b>protocolos de comunicación</b> (capas 3 a 7) son software y no dependen del medio.",
+   "seccion": "snp",
+   "dificil": true
+  },
+  {
+   "id": 166,
+   "tema": "norma",
+   "tipo": "vf",
+   "enunciado": "La velocidad de transmisión de una LAN depende del protocolo TCP/IP que tengan configurado las estaciones.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "La velocidad la fija la <b>norma</b> de comunicación (por ejemplo 802.3u = 100 Mbps), que implementa el hardware. TCP/IP es un conjunto de protocolos de software y no define velocidades.",
+   "seccion": "snp",
+   "dificil": true
+  },
+  {
+   "id": 167,
+   "tema": "norma",
+   "tipo": "vf",
+   "enunciado": "CSMA/CD es un protocolo de comunicación de capa 2 que forma parte de la suite TCP/IP.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "Dos errores en uno. CSMA/CD es un <b>protocolo de acceso al medio</b>, no de comunicación, y lo define la <b>norma 802.3</b>, no TCP/IP.",
+   "seccion": "snp",
+   "dificil": true
+  },
+  {
+   "id": 168,
+   "tema": "norma",
+   "tipo": "vf",
+   "enunciado": "Una norma de comunicación la implementa el hardware, mientras que un protocolo de comunicación lo implementa el software.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. La <b>norma</b> (capas 1 y 2) está en la placa de red, el cable y el switch. El <b>protocolo</b> (capas 3 a 7) está en el sistema operativo y las aplicaciones.",
+   "seccion": "snp",
+   "dificil": true
+  },
+  {
+   "id": 169,
+   "tema": "eth",
+   "tipo": "vf",
+   "enunciado": "La trama 802.3 tiene un tamaño mínimo de 64 bytes contando el preámbulo y el delimitador de inicio.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "El mínimo de <b>64 bytes</b> (y el máximo de 1518) se cuenta desde la <b>MAC destino hasta el FCS</b>. El preámbulo (7 bytes) y el SD (1 byte) son de sincronización y <b>no cuentan</b>.",
+   "seccion": "s8",
+   "dificil": true
+  },
+  {
+   "id": 170,
+   "tema": "eth",
+   "tipo": "vf",
+   "enunciado": "Si el campo de datos de una trama 802.3 tiene menos de 46 bytes, se completa con relleno para llegar al tamaño mínimo de la trama.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. 6 + 6 + 2 + 46 + 4 = 64. Si los datos no llegan a 46 bytes se agrega <b>padding</b>. El mínimo existe para que CSMA/CD alcance a detectar una colisión mientras la trama todavía se está transmitiendo.",
+   "seccion": "s8",
+   "dificil": true
+  },
+  {
+   "id": 171,
+   "tema": "eth",
+   "tipo": "vf",
+   "enunciado": "La regla 5-4-3 permite hasta 5 segmentos unidos por 4 repetidores, y solo 3 de esos segmentos pueden tener estaciones conectadas.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. 5 segmentos, 4 repetidores, 3 segmentos poblados. Los otros dos solo unen repetidores. Todo el conjunto es un único dominio de colisión.",
+   "seccion": "s8",
+   "dificil": true
+  },
+  {
+   "id": 172,
+   "tema": "eth",
+   "tipo": "vf",
+   "enunciado": "En 10BASE2, el 2 indica que cada segmento de coaxil fino admite hasta 200 metros.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "El 2 es un redondeo: el límite real de 10BASE2 es <b>185 metros</b>. En 10BASE5 el 5 sí coincide con los 500 m del coaxil grueso.",
+   "seccion": "s8",
+   "dificil": true
+  },
+  {
+   "id": 173,
+   "tema": "eth",
+   "tipo": "vf",
+   "enunciado": "100BASE-TX utiliza los cuatro pares del cable UTP categoría 5 para llegar a 100 Mbps.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "100BASE-TX usa <b>2 pares</b>: uno para transmitir y otro para recibir (pines 1-2 y 3-6), igual que 10BASE-T. Los cuatro pares se usan desde 1000BASE-T.",
+   "seccion": "s9",
+   "dificil": true
+  },
+  {
+   "id": 174,
+   "tema": "eth",
+   "tipo": "vf",
+   "enunciado": "1000BASE-T usa los cuatro pares del cable y transmite en ambos sentidos a la vez por cada par.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. Gigabit sobre cobre usa los 4 pares en los dos sentidos simultáneamente; un DSP cancela el eco para separar lo que se envía de lo que se recibe.",
+   "seccion": "s9",
+   "dificil": true
+  },
+  {
+   "id": 175,
+   "tema": "eth",
+   "tipo": "vf",
+   "enunciado": "Un hub puede trabajar en full duplex si todas las PCs conectadas tienen placas de red de 100 Mbps.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "Con un hub el medio es compartido, así que es <b>siempre half duplex</b>, sin importar la velocidad de las placas. El full duplex necesita un enlace dedicado, como el de una PC con un <b>switch</b>.",
+   "seccion": "s9",
+   "dificil": true
+  },
+  {
+   "id": 176,
+   "tema": "eth",
+   "tipo": "vf",
+   "enunciado": "En 10 Gigabit Ethernet no existe el modo half duplex, por lo que CSMA/CD no se utiliza.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. 10 Gigabit es <b>solo full duplex</b>: no hay colisiones posibles, así que CSMA/CD no actúa (aunque 802.3 lo siga definiendo).",
+   "seccion": "s9",
+   "dificil": true
+  },
+  {
+   "id": 177,
+   "tema": "eth",
+   "tipo": "vf",
+   "enunciado": "Fast Ethernet (802.3u) mantiene el formato de trama de 802.3 y agrega la posibilidad de usar cable coaxil.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "Mantiene la trama, sí, pero Fast Ethernet <b>no soporta coaxil</b>: funciona sobre par trenzado y fibra.",
+   "seccion": "s9",
+   "dificil": true
+  },
+  {
+   "id": 178,
+   "tema": "wifi",
+   "tipo": "vf",
+   "enunciado": "En 802.11 se usa CSMA/CA porque una estación no puede detectar colisiones mientras transmite: su propia señal tapa a las demás.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. Por aire no se puede escuchar mientras se transmite, así que no hay detección: se trata de <b>evitar</b> la colisión (espera aleatoria) y se confirma cada trama con ACK.",
+   "seccion": "s10",
+   "dificil": true
+  },
+  {
+   "id": 179,
+   "tema": "wifi",
+   "tipo": "vf",
+   "enunciado": "El mecanismo RTS/CTS es obligatorio en 802.11 y se usa antes de cada trama de datos.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "RTS/CTS es <b>opcional</b>. Se usa para mitigar el problema del nodo oculto, sobre todo con tramas grandes, porque agrega tráfico de control.",
+   "seccion": "s10",
+   "dificil": true
+  },
+  {
+   "id": 180,
+   "tema": "wifi",
+   "tipo": "vf",
+   "enunciado": "En el problema del nodo oculto, una estación cree que el canal está ocupado cuando en realidad está libre para ella.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "Eso describe al <b>nodo expuesto</b>. En el <b>nodo oculto</b> pasa lo contrario: la estación cree que el canal está <b>libre</b> porque no oye al otro emisor, transmite y chocan en el AP.",
+   "seccion": "s10",
+   "dificil": true
+  },
+  {
+   "id": 181,
+   "tema": "wifi",
+   "tipo": "vf",
+   "enunciado": "Ocultar el SSID de una red Wi-Fi es una medida de seguridad suficiente, porque impide que los clientes se asocien al AP.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "El SSID es el <b>nombre</b> de la red, no una medida de seguridad: aunque se oculte, viaja en otras tramas y se puede averiguar. La seguridad la da el cifrado (WPA2 con AES).",
+   "seccion": "s10",
+   "dificil": true
+  },
+  {
+   "id": 182,
+   "tema": "wifi",
+   "tipo": "vf",
+   "enunciado": "Para conectarse a un access point, un cliente primero se asocia y después se autentica.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "El orden es <b>escaneo → autenticación → asociación</b>. La asociación es el último paso, recién después se intercambian datos.",
+   "seccion": "s10",
+   "dificil": true
+  },
+  {
+   "id": 183,
+   "tema": "wifi",
+   "tipo": "vf",
+   "enunciado": "En modo ad hoc los equipos inalámbricos se comunican directamente entre sí, sin necesidad de un access point.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. Ad hoc es de igual a igual, para pocos equipos y redes temporales. En modo <b>infraestructura</b> todo pasa por el AP.",
+   "seccion": "s10",
+   "dificil": true
+  },
+  {
+   "id": 184,
+   "tema": "wifi",
+   "tipo": "vf",
+   "enunciado": "Wi-Fi y Ethernet comparten la misma trama de capa 2, con dos direcciones MAC, y solo difieren en la capa física.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "Wi-Fi cambia las capas 1 <b>y 2</b>: otro medio, otro acceso al medio (CSMA/CA) y otra trama, que puede llevar hasta 3 o 4 direcciones MAC.",
+   "seccion": "s10",
+   "dificil": true
+  },
+  {
+   "id": 185,
+   "tema": "wifi",
+   "tipo": "vf",
+   "enunciado": "802.11a y 802.11g llegan a 54 Mbps, pero 802.11a trabaja en la banda de 5 GHz y 802.11g en la de 2,4 GHz.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. Misma velocidad máxima, distinta banda. 802.11b también es 2,4 GHz, pero llega a 11 Mbps.",
+   "seccion": "s10",
+   "dificil": true
+  },
+  {
+   "id": 186,
+   "tema": "disp",
+   "tipo": "vf",
+   "enunciado": "Cuando un paquete atraviesa un router, se mantienen las direcciones IP de origen y destino, pero la trama se arma de nuevo con otras direcciones MAC.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. El <b>paquete</b> viaja igual de punta a punta (salvo NAT). La <b>trama</b> solo vale en cada tramo: en cada router se descarta y se arma una nueva con las MAC del siguiente salto.",
+   "seccion": "s11",
+   "dificil": true
+  },
+  {
+   "id": 187,
+   "tema": "disp",
+   "tipo": "vf",
+   "enunciado": "Cuando una PC envía datos a un servidor de otra red, la trama sale con la dirección MAC del servidor como destino.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "La IP destino es la del servidor, pero la <b>MAC destino es la del gateway</b> (el router), que es el siguiente salto. La PC ni siquiera puede averiguar la MAC de un equipo de otra red con ARP.",
+   "seccion": "s11",
+   "dificil": true
+  },
+  {
+   "id": 188,
+   "tema": "disp",
+   "tipo": "vf",
+   "enunciado": "Una dirección MAC tiene 48 bits, y los primeros 24 identifican al fabricante de la placa.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. 6 bytes (12 dígitos hexadecimales): los 3 primeros son el <b>OUI</b> del fabricante y los otros 3 identifican la placa.",
+   "seccion": "s11",
+   "dificil": true
+  },
+  {
+   "id": 189,
+   "tema": "disp",
+   "tipo": "vf",
+   "enunciado": "Reemplazar los hubs de una red por switches aumenta la cantidad de dominios de broadcast.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "Aumentan los dominios de <b>colisión</b> (uno por puerto en uso). El dominio de <b>broadcast</b> sigue siendo uno solo: el switch reenvía los broadcast por todos los puertos. Solo lo parten un router o las VLAN.",
+   "seccion": "s13",
+   "dificil": true
+  },
+  {
+   "id": 190,
+   "tema": "disp",
+   "tipo": "vf",
+   "enunciado": "Un router separa dominios de colisión y también dominios de broadcast.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. Cada interfaz del router es un dominio de colisión distinto y también un dominio de broadcast distinto: el router no reenvía broadcast.",
+   "seccion": "s13",
+   "dificil": true
+  },
+  {
+   "id": 191,
+   "tema": "disp",
+   "tipo": "vf",
+   "enunciado": "Un switch de 24 puertos con 10 PCs conectadas forma 10 dominios de colisión y 10 dominios de broadcast.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "10 dominios de <b>colisión</b> sí (uno por puerto en uso), pero <b>1 solo</b> de broadcast, porque no hay router ni VLAN.",
+   "seccion": "s13",
+   "dificil": true
+  },
+  {
+   "id": 192,
+   "tema": "disp",
+   "tipo": "vf",
+   "enunciado": "El puente y el switch trabajan en capa 2 y deciden por qué puerto reenviar una trama según la dirección MAC destino.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. El switch es un puente multipuerto: los dos son de capa 2 y filtran o reenvían tramas mirando la MAC destino.",
+   "seccion": "s12",
+   "dificil": true
+  },
+  {
+   "id": 193,
+   "tema": "disp",
+   "tipo": "vf",
+   "enunciado": "El transceiver es un dispositivo de capa 2 que convierte las tramas en señales para el medio.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "El transceiver es de <b>capa 1</b>: transmisor y receptor de la señal. No entiende tramas. En par trenzado viene incorporado en la NIC.",
+   "seccion": "s12",
+   "dificil": true
+  },
+  {
+   "id": 194,
+   "tema": "sw",
+   "tipo": "vf",
+   "enunciado": "Un switch aprende en qué puerto está cada equipo mirando la dirección MAC destino de las tramas que recibe.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "Aprende con la MAC <b>origen</b> (\"esta MAC vino por este puerto\") y <b>decide</b> con la MAC destino.",
+   "seccion": "s14",
+   "dificil": true
+  },
+  {
+   "id": 195,
+   "tema": "sw",
+   "tipo": "vf",
+   "enunciado": "Cuando un switch inunda una trama cuyo destino no conoce, esa trama pasa a ser un broadcast.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "<b>Inundar no es broadcast</b>. La trama sigue siendo unicast (con la MAC del destino real); solo sale por todos los puertos, y las placas que no son el destino la descartan.",
+   "seccion": "s14",
+   "dificil": true
+  },
+  {
+   "id": 196,
+   "tema": "sw",
+   "tipo": "vf",
+   "enunciado": "Si la MAC destino de una trama está asociada al mismo puerto por el que entró, el switch la descarta.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto: eso es <b>filtrar</b>. El destino está del mismo lado (por ejemplo, detrás de un hub en ese puerto), así que no tiene sentido reenviarla.",
+   "seccion": "s14",
+   "dificil": true
+  },
+  {
+   "id": 197,
+   "tema": "sw",
+   "tipo": "vf",
+   "enunciado": "STP elimina los bucles deshabilitando físicamente los enlaces redundantes, que deben desconectarse de la red.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "STP <b>bloquea lógicamente</b> los puertos redundantes: los cables siguen conectados y quedan de <b>respaldo</b>. Si cae un enlace activo, STP habilita uno bloqueado.",
+   "seccion": "s14b",
+   "dificil": true
+  },
+  {
+   "id": 198,
+   "tema": "sw",
+   "tipo": "vf",
+   "enunciado": "Dos PCs conectadas a un mismo switch pero en VLAN distintas pueden comunicarse sin un router, porque comparten el switch.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "Cada VLAN es un dominio de broadcast y normalmente una subred distinta. Para comunicar dos VLAN hace falta un <b>router</b> (o un switch de capa 3).",
+   "seccion": "s14b",
+   "dificil": true
+  },
+  {
+   "id": 199,
+   "tema": "sw",
+   "tipo": "vf",
+   "enunciado": "En un enlace troncal, las tramas viajan con una etiqueta 802.1Q que indica a qué VLAN pertenecen.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. El troncal lleva varias VLAN, así que cada trama va <b>etiquetada</b> (802.1Q, 12 bits de VLAN-ID). En los enlaces de acceso la trama viaja sin etiqueta.",
+   "seccion": "s14b",
+   "dificil": true
+  },
+  {
+   "id": 200,
+   "tema": "lan",
+   "tipo": "vf",
+   "enunciado": "Que una red sea peer to peer o de servidor dedicado depende del sistema operativo de red, no del cableado ni de la norma.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. Sobre la misma red física puede haber un grupo de trabajo (todos Windows 10/11) o un dominio (un Windows Server con Active Directory).",
+   "seccion": "s15",
+   "dificil": true
+  },
+  {
+   "id": 201,
+   "tema": "lan",
+   "tipo": "vf",
+   "enunciado": "En una red de servidor dedicado, todos los recursos compartidos tienen que estar ubicados en el servidor.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "Detalle del slide que suele preguntarse: los recursos pueden estar en el servidor o en <b>cualquier nodo del dominio</b>. Lo centralizado es la administración y la validación, no la ubicación física.",
+   "seccion": "s15",
+   "dificil": true
+  },
+  {
+   "id": 202,
+   "tema": "lan",
+   "tipo": "vf",
+   "enunciado": "Un usuario entra por la red a una carpeta en la que tiene Control total en el recurso compartido y Lectura en NTFS; su permiso efectivo es Control total.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "Por red se evalúan las dos capas y rige <b>la más restrictiva</b>: Control total (compartido) contra Lectura (NTFS) da <b>Lectura</b>.",
+   "seccion": "s15",
+   "dificil": true
+  },
+  {
+   "id": 203,
+   "tema": "lan",
+   "tipo": "vf",
+   "enunciado": "Si un usuario trabaja sentado en la PC donde está la carpeta, solo se aplican los permisos NTFS; los del recurso compartido no intervienen.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. Los permisos de <b>recurso compartido</b> solo actúan cuando se entra <b>por la red</b>. Localmente rige solo NTFS.",
+   "seccion": "s15",
+   "dificil": true
+  },
+  {
+   "id": 204,
+   "tema": "lan",
+   "tipo": "vf",
+   "enunciado": "Un usuario tiene Lectura en NTFS por su cuenta y Modificar por un grupo al que pertenece; su permiso NTFS es Lectura, porque se aplica el más restrictivo.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "Dentro de una misma capa los permisos del usuario y de sus grupos <b>se suman</b>: queda <b>Modificar</b>. \"El más restrictivo\" se aplica entre capas (compartido contra NTFS), no dentro de NTFS.",
+   "seccion": "s15",
+   "dificil": true
+  },
+  {
+   "id": 205,
+   "tema": "lan",
+   "tipo": "vf",
+   "enunciado": "Una denegación explícita en NTFS prevalece aunque el usuario tenga Control total por pertenecer a otro grupo.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. La <b>denegación explícita</b> gana sobre cualquier permiso concedido.",
+   "seccion": "s15",
+   "dificil": true
+  },
+  {
+   "id": 206,
+   "tema": "lan",
+   "tipo": "vf",
+   "enunciado": "Active Directory necesita un servidor DNS, porque los equipos del dominio encuentran al controlador de dominio mediante registros DNS.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. Sin DNS no hay dominio: los clientes buscan al controlador de dominio con registros <b>SRV</b>. Por eso en el TP5 se instala DNS junto con AD.",
+   "seccion": "s15",
+   "dificil": true
+  },
+  {
+   "id": 207,
+   "tema": "lan",
+   "tipo": "vf",
+   "enunciado": "Si el servidor DHCP no responde, una PC con Windows se asigna sola una dirección del rango 169.254.0.0/16 y solo puede comunicarse con equipos de su mismo enlace.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. Es la dirección de <b>enlace local</b> (APIPA). Ver una 169.254.x.x en <code>ipconfig</code> es la señal típica de que falló el DHCP.",
+   "seccion": "s18a",
+   "dificil": true
+  },
+  {
+   "id": 208,
+   "tema": "cab",
+   "tipo": "vf",
+   "enunciado": "El cable horizontal fijo puede medir hasta 100 metros, desde el patch panel hasta la roseta.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "El tramo fijo es de <b>90 metros</b>. Los 100 metros son del <b>canal</b> completo, sumando los patch cords de las dos puntas.",
+   "seccion": "s16",
+   "dificil": true
+  },
+  {
+   "id": 209,
+   "tema": "cab",
+   "tipo": "vf",
+   "enunciado": "El subsistema de área de trabajo comprende desde la roseta hasta el equipo del usuario.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. Conectar la PC del usuario a la red es del área de trabajo. El horizontal va del rack del piso hasta la roseta.",
+   "seccion": "s16",
+   "dificil": true
+  },
+  {
+   "id": 210,
+   "tema": "cab",
+   "tipo": "vf",
+   "enunciado": "Para conectar dos PCs directamente sin switch se usa un cable cruzado, armado con T568A en una punta y T568B en la otra.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. Equipos <b>iguales</b> → cruzado (1↔3 y 2↔6). Equipos distintos → derecho. Hoy Auto-MDIX lo resuelve solo, pero para el parcial vale la regla clásica.",
+   "seccion": "s16",
+   "dificil": true
+  },
+  {
+   "id": 211,
+   "tema": "cab",
+   "tipo": "vf",
+   "enunciado": "Las convenciones T568A y T568B se diferencian en que se intercambian los pares azul y marrón.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "Se intercambian el par <b>verde</b> y el par <b>naranja</b>. Azul y marrón quedan iguales en las dos.",
+   "seccion": "s16",
+   "dificil": true
+  },
+  {
+   "id": 212,
+   "tema": "cab",
+   "tipo": "vf",
+   "enunciado": "La norma TIA-606 define cómo se conectan a tierra los equipos y racks de telecomunicaciones.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "La puesta a tierra es la <b>TIA-607</b>. La TIA-606 es <b>administración y etiquetado</b>.",
+   "seccion": "s17",
+   "dificil": true
+  },
+  {
+   "id": 213,
+   "tema": "cab",
+   "tipo": "vf",
+   "enunciado": "El cableado vertical (backbone) une las salas de telecomunicaciones de los distintos pisos con la sala de equipos.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. El vertical une las plantas (IDF) con la sala principal (MDF); el de campus une edificios.",
+   "seccion": "s16",
+   "dificil": true
+  },
+  {
+   "id": 214,
+   "tema": "cab",
+   "tipo": "vf",
+   "enunciado": "En 100BASE-TX se usan los pines 1, 2, 3 y 6 del conector, mientras que en Gigabit Ethernet se usan los 8 pines.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. En 10/100 Mbps: 1-2 transmiten y 3-6 reciben. Gigabit usa los 4 pares.",
+   "seccion": "s16",
+   "dificil": true
+  },
+  {
+   "id": 215,
+   "tema": "tcp",
+   "tipo": "vf",
+   "enunciado": "La capa de acceso a la red del modelo TCP/IP equivale a las capas física y de enlace del modelo OSI.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. TCP/IP tiene 4 capas: acceso a la red (OSI 1 y 2), Internet (3), transporte (4) y aplicación (5, 6 y 7).",
+   "seccion": "s18",
+   "dificil": true
+  },
+  {
+   "id": 216,
+   "tema": "tcp",
+   "tipo": "vf",
+   "enunciado": "El saludo de tres vías de TCP está formado por SYN, ACK y SYN-ACK, en ese orden.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "El orden es <b>SYN → SYN-ACK → ACK</b>. El servidor responde al SYN con SYN-ACK y el cliente cierra con ACK.",
+   "seccion": "s18t",
+   "dificil": true
+  },
+  {
+   "id": 217,
+   "tema": "tcp",
+   "tipo": "vf",
+   "enunciado": "Si un segmento TCP lleva el número de secuencia 1 y 500 bytes de datos, el receptor responde con ACK 500.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "El ACK es el <b>próximo byte que se espera</b>: llegaron los bytes 1 a 500, así que responde <b>ACK 501</b>.",
+   "seccion": "s18t",
+   "dificil": true
+  },
+  {
+   "id": 218,
+   "tema": "tcp",
+   "tipo": "vf",
+   "enunciado": "UDP no garantiza la entrega ni el orden, por lo que no se usa en servicios que necesitan una respuesta, como la resolución de nombres.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "DNS usa justamente <b>UDP</b> (puerto 53): son consultas cortas, y si no llega la respuesta la aplicación vuelve a preguntar. UDP es rápido y liviano, no inútil.",
+   "seccion": "s18t",
+   "dificil": true
+  },
+  {
+   "id": 219,
+   "tema": "tcp",
+   "tipo": "vf",
+   "enunciado": "DNS usa el puerto 53 y DHCP los puertos 67 y 68, normalmente sobre UDP.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. DHCP: 67 el servidor y 68 el cliente.",
+   "seccion": "s18a",
+   "dificil": true
+  },
+  {
+   "id": 220,
+   "tema": "tcp",
+   "tipo": "vf",
+   "enunciado": "El DHCP Discover se envía por broadcast y no atraviesa routers, por eso hace falta un servidor DHCP en cada red o un agente que retransmita el pedido.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. El cliente todavía no tiene IP, así que pregunta por broadcast, y el router no reenvía broadcast.",
+   "seccion": "s18a",
+   "dificil": true
+  },
+  {
+   "id": 221,
+   "tema": "tcp",
+   "tipo": "vf",
+   "enunciado": "ARP sirve para obtener la dirección IP de un equipo a partir de su dirección MAC.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "Es al revés: ARP obtiene la <b>MAC</b> a partir de la <b>IP</b>. Lo inverso (de MAC a IP) lo hacía RARP.",
+   "seccion": "s18i",
+   "dificil": true
+  },
+  {
+   "id": 222,
+   "tema": "tcp",
+   "tipo": "vf",
+   "enunciado": "Cada router que atraviesa un paquete le resta 1 al TTL; si llega a 0, el paquete se descarta y se avisa al origen con un mensaje ICMP.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. Así se evitan los paquetes que dan vueltas para siempre, y es el mecanismo que usa <code>tracert</code> para descubrir los saltos.",
+   "seccion": "s18i",
+   "dificil": true
+  },
+  {
+   "id": 223,
+   "tema": "tcp",
+   "tipo": "vf",
+   "enunciado": "Si un ping a una PC de la misma red no responde, se puede concluir que no hay conexión física entre los dos equipos.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "No necesariamente: el <b>firewall de Windows</b> bloquea por defecto el ICMP entrante. Se vio en el TP4: sin respuesta al ping, pero la red funcionaba.",
+   "seccion": "s18i",
+   "dificil": true
+  },
+  {
+   "id": 224,
+   "tema": "tcp",
+   "tipo": "vf",
+   "enunciado": "POP3 sincroniza el correo entre el servidor y varios dispositivos, mientras que IMAP lo descarga al equipo y lo borra del servidor.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "Están invertidos. <b>POP3</b> descarga; <b>IMAP</b> sincroniza y deja el correo en el servidor.",
+   "seccion": "s18a",
+   "dificil": true
+  },
+  {
+   "id": 225,
+   "tema": "tcp",
+   "tipo": "vf",
+   "enunciado": "HTTPS es HTTP sobre TLS y usa por defecto el puerto 443.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. HTTP usa el 80 y HTTPS, cifrado con TLS, el 443.",
+   "seccion": "s18a",
+   "dificil": true
+  },
+  {
+   "id": 226,
+   "tema": "tcp",
+   "tipo": "vf",
+   "enunciado": "En la capa de aplicación de TCP/IP se ubica el navegador, mientras que el protocolo HTTP pertenece a la capa de transporte.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "En la capa de aplicación está el <b>protocolo</b> (HTTP), no el programa. HTTP es de aplicación; viaja sobre TCP, que es el de transporte.",
+   "seccion": "s18a",
+   "dificil": true
+  },
+  {
+   "id": 227,
+   "tema": "tcp",
+   "tipo": "vf",
+   "enunciado": "El puerto de origen que usa un navegador para conectarse a un servidor web suele ser un puerto dinámico, mayor a 49151.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. El servidor escucha en un puerto bien conocido (80 o 443) y el cliente usa como origen un puerto <b>dinámico</b> (49152 a 65535).",
+   "seccion": "s18t",
+   "dificil": true
+  },
+  {
+   "id": 228,
+   "tema": "tcp",
+   "tipo": "vf",
+   "enunciado": "NAT reemplaza la dirección IP privada de origen por la IP pública del router cuando el paquete sale a Internet.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. Así varias PCs con IP privada salen a Internet con una sola IP pública.",
+   "seccion": "s18i",
+   "dificil": true
+  },
+  {
+   "id": 229,
+   "tema": "ip",
+   "tipo": "vf",
+   "enunciado": "La dirección 172.20.5.10 es una dirección privada de clase B.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. El rango privado de clase B es de 172.16.0.0 a 172.31.255.255, y 172.20 cae adentro.",
+   "seccion": "s18b",
+   "dificil": true
+  },
+  {
+   "id": 230,
+   "tema": "ip",
+   "tipo": "vf",
+   "enunciado": "La dirección 127.0.0.1 puede asignarse a la placa de red para que otros equipos se comuniquen con esa PC.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "127.x es <b>loopback</b>: el equipo se habla a sí mismo y nunca sale a la red. Por eso ninguna red puede empezar con 127.",
+   "seccion": "s18b",
+   "dificil": true
+  },
+  {
+   "id": 231,
+   "tema": "ip",
+   "tipo": "vf",
+   "enunciado": "Con la máscara 255.255.255.224 cada subred tiene 32 direcciones, de las cuales 30 se pueden asignar a hosts.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. /27 deja 5 bits de host: 2<sup>5</sup> = 32 direcciones, menos la de red y la de broadcast = 30.",
+   "seccion": "s18b",
+   "dificil": true
+  },
+  {
+   "id": 232,
+   "tema": "ip",
+   "tipo": "vf",
+   "enunciado": "La dirección 192.168.10.64/26 es una dirección de host válida.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "Con /26 el salto es 64: las subredes empiezan en .0, .64, .128 y .192. La .64 es la <b>dirección de red</b>, no se asigna a un host.",
+   "seccion": "s18b",
+   "dificil": true
+  },
+  {
+   "id": 233,
+   "tema": "ip",
+   "tipo": "vf",
+   "enunciado": "192.168.10.127 es la dirección de broadcast de la subred 192.168.10.0/25.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. /25 → salto 128: la subred va de .0 a .127, y la última es el broadcast.",
+   "seccion": "s18b",
+   "dificil": true
+  },
+  {
+   "id": 234,
+   "tema": "ip",
+   "tipo": "vf",
+   "enunciado": "La IP 129.10.5.4 con máscara 255.255.255.0 es de clase C, porque usa una máscara /24.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "La clase sale del <b>primer octeto</b>: 129 está entre 128 y 191, así que es de clase B. Con /24 tiene bits prestados: es una B subneteada (sin clase), no una C. Es la trampa del parcial anterior con 129.102.197.23.",
+   "seccion": "s18b",
+   "dificil": true
+  },
+  {
+   "id": 235,
+   "tema": "ip",
+   "tipo": "vf",
+   "enunciado": "Si a una red clase B se le prestan 4 bits, se obtienen 16 subredes de 4094 hosts útiles cada una.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. /16 + 4 = /20: 2<sup>4</sup> = 16 subredes y quedan 12 bits de host: 2<sup>12</sup> − 2 = 4094.",
+   "seccion": "sej",
+   "dificil": true
+  },
+  {
+   "id": 236,
+   "tema": "ip",
+   "tipo": "vf",
+   "enunciado": "La IP 172.16.45.200/20 pertenece a la subred 172.16.32.0.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. /20 → salto 16 en el tercer octeto: 32 ≤ 45 &lt; 48, así que la red es 172.16.32.0 y el broadcast 172.16.47.255.",
+   "seccion": "sej",
+   "dificil": true
+  },
+  {
+   "id": 237,
+   "tema": "ip",
+   "tipo": "vf",
+   "enunciado": "Para obtener al menos 6 subredes de una red clase C hay que prestar 2 bits.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "2 bits dan 2<sup>2</sup> = 4 subredes, no alcanza. Hacen falta <b>3 bits</b> (2<sup>3</sup> = 8).",
+   "seccion": "sej",
+   "dificil": true
+  },
+  {
+   "id": 238,
+   "tema": "ip",
+   "tipo": "vf",
+   "enunciado": "Una subred /30 tiene 2 direcciones útiles para hosts, por eso se usa en enlaces punto a punto entre routers.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. 2 bits de host: 4 direcciones − 2 = 2 útiles, justo una para cada punta del enlace.",
+   "seccion": "s18b",
+   "dificil": true
+  },
+  {
+   "id": 239,
+   "tema": "ip",
+   "tipo": "vf",
+   "enunciado": "La operación AND entre la IP de un host y su máscara da como resultado la dirección de broadcast de la red.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "La AND da la <b>dirección de red</b> (pone en 0 los bits de host). El broadcast es poner esos bits en 1.",
+   "seccion": "s18b",
+   "dificil": true
+  },
+  {
+   "id": 240,
+   "tema": "ip",
+   "tipo": "vf",
+   "enunciado": "Si la red del destino es distinta de la propia, el host le envía el paquete directamente al destino y usa ARP para conseguir su MAC.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "Si el destino está en <b>otra red</b>, el host se lo entrega al <b>gateway</b> y usa ARP para conseguir la MAC del gateway, no la del destino.",
+   "seccion": "s18b",
+   "dificil": true
+  },
+  {
+   "id": 241,
+   "tema": "lan",
+   "tipo": "vf",
+   "enunciado": "En una red con Active Directory, un usuario puede iniciar sesión en distintas estaciones con las mismas credenciales, porque la autenticación se hace de forma centralizada.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. En un dominio el usuario se crea una sola vez en Active Directory y el controlador de dominio lo valida desde cualquier PC del dominio.",
+   "seccion": "s15",
+   "origen": "hoja de práctica"
+  },
+  {
+   "id": 242,
+   "tema": "lan",
+   "tipo": "vf",
+   "enunciado": "En una red peer to peer, cambiar la contraseña de un usuario en una computadora la actualiza automáticamente en todos los equipos de la red.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "En peer to peer los usuarios son <b>locales</b>: cada PC tiene su propia base. Cambiar la contraseña en una PC no toca las demás; hay que hacerlo equipo por equipo.",
+   "seccion": "s15",
+   "origen": "hoja de práctica"
+  },
+  {
+   "id": 243,
+   "tema": "cab",
+   "tipo": "vf",
+   "enunciado": "El cableado horizontal comprende el tramo que une el rack de telecomunicaciones con la roseta del puesto de trabajo.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. Horizontal: del rack del piso a la roseta (90 m de cable fijo). De la roseta a la PC ya es el área de trabajo.",
+   "seccion": "s16",
+   "origen": "hoja de práctica"
+  },
+  {
+   "id": 244,
+   "tema": "eth",
+   "tipo": "vf",
+   "enunciado": "Una red 1000BASE-T puede implementarse con cable UTP categoría 5e o superior.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. 1000BASE-T (802.3ab) usa los 4 pares de un cable Cat 5e o superior, hasta 100 m.",
+   "seccion": "s9",
+   "origen": "hoja de práctica"
+  },
+  {
+   "id": 245,
+   "tema": "sw",
+   "tipo": "vf",
+   "enunciado": "Si un switch recibe una trama cuya dirección MAC destino desconoce, la reenvía únicamente al router.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 1,
+   "explicacion": "Si no conoce el destino, la <b>inunda</b>: la reenvía por <b>todos los puertos</b> menos por el que entró. El switch no sabe dónde está el router y no lo trata distinto.",
+   "seccion": "s14",
+   "origen": "hoja de práctica"
+  },
+  {
+   "id": 246,
+   "tema": "tcp",
+   "tipo": "vf",
+   "enunciado": "DHCP permite automatizar la configuración IP de las estaciones de trabajo.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. Entrega IP, máscara, puerta de enlace y DNS con el proceso DORA.",
+   "seccion": "s18a",
+   "origen": "hoja de práctica"
+  },
+  {
+   "id": 247,
+   "tema": "tcp",
+   "tipo": "vf",
+   "enunciado": "TCP es adecuado para aplicaciones en las que la confiabilidad es prioritaria frente al tiempo de entrega.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. TCP garantiza entrega y orden a costa de más demora (saludo, ACK, retransmisión). Si lo prioritario es el tiempo, como en voz o video, conviene UDP.",
+   "seccion": "s18t",
+   "origen": "hoja de práctica"
+  },
+  {
+   "id": 248,
+   "tema": "tcp",
+   "tipo": "vf",
+   "enunciado": "El comando tracert permite identificar los dispositivos intermedios que recorre un paquete IP.",
+   "opciones": [
+    "Verdadero",
+    "Falso"
+   ],
+   "correcta": 0,
+   "explicacion": "Correcto. tracert manda paquetes con TTL 1, 2, 3… y cada router que lo descarta responde con ICMP, revelando cada salto.",
+   "seccion": "s18i",
+   "origen": "hoja de práctica"
+  },
+  {
+   "id": 249,
+   "tema": "lan",
+   "tipo": "mc",
+   "enunciado": "Una empresa incorpora un servidor con Active Directory. ¿Cuál es la principal ventaja respecto de una red peer to peer?",
+   "opciones": [
+    "Mayor velocidad",
+    "Administración centralizada",
+    "Elimina el direccionamiento IP",
+    "Reduce el tráfico"
+   ],
+   "correcta": 1,
+   "explicacion": "La ventaja de un dominio es la <b>administración centralizada</b>: usuarios, grupos, permisos y políticas en un solo lugar. No cambia la velocidad (la da la norma) ni elimina el direccionamiento IP.",
+   "seccion": "s15",
+   "origen": "hoja de práctica"
+  },
+  {
+   "id": 250,
+   "tema": "tcp",
+   "tipo": "mc",
+   "enunciado": "Una PC obtiene automáticamente su dirección IP, pero no puede resolver nombres de dominio. ¿Qué servicio debería verificarse primero?",
+   "opciones": [
+    "DHCP",
+    "DNS",
+    "ARP",
+    "TCP"
+   ],
+   "correcta": 1,
+   "explicacion": "Si obtuvo IP, el <b>DHCP</b> funciona. Traducir nombres a IP es tarea del <b>DNS</b>: hay que revisar el servidor DNS configurado (por ejemplo con <code>nslookup</code>).",
+   "seccion": "s18a",
+   "origen": "hoja de práctica"
+  },
+  {
+   "id": 251,
+   "tema": "tcp",
+   "tipo": "mc",
+   "enunciado": "Una estación puede comunicarse con equipos de su subred pero no con otras redes. ¿Cuál es la causa más probable?",
+   "opciones": [
+    "DNS incorrecto",
+    "Gateway incorrecto",
+    "Máscara demasiado grande",
+    "Cable cruzado"
+   ],
+   "correcta": 1,
+   "explicacion": "Todo lo que va a otra red sale por la <b>puerta de enlace</b>. Si la red local funciona y lo de afuera no, lo más probable es un gateway mal configurado. Un DNS incorrecto fallaría con nombres, pero no por IP.",
+   "seccion": "s18i",
+   "origen": "hoja de práctica"
+  },
+  {
+   "id": 252,
+   "tema": "disp",
+   "tipo": "mc",
+   "enunciado": "¿Qué dispositivo toma decisiones de reenvío utilizando direcciones IP?",
+   "opciones": [
+    "Hub",
+    "Switch",
+    "Router",
+    "Patch panel"
+   ],
+   "correcta": 2,
+   "explicacion": "El <b>router</b> es de capa 3 y decide con la IP. El switch decide con la MAC (capa 2), el hub no decide nada (capa 1) y el patch panel es pasivo.",
+   "seccion": "s12",
+   "origen": "hoja de práctica"
+  },
+  {
+   "id": 253,
+   "tema": "tcp",
+   "tipo": "mc",
+   "enunciado": "Un administrador quiere comprobar únicamente si existe conectividad IP entre dos equipos. ¿Qué comando usaría?",
+   "opciones": [
+    "ipconfig",
+    "ping",
+    "tracert",
+    "nslookup"
+   ],
+   "correcta": 1,
+   "explicacion": "<b>ping</b> prueba la conectividad con ICMP Echo. <code>tracert</code> muestra los saltos, <code>ipconfig</code> la configuración local y <code>nslookup</code> el DNS.",
+   "seccion": "s18i",
+   "origen": "hoja de práctica"
+  },
+  {
+   "id": 254,
+   "tema": "eth",
+   "tipo": "mc",
+   "enunciado": "¿Qué estándar corresponde a Ethernet de 10 Gb/s sobre cobre?",
+   "opciones": [
+    "IEEE 802.3u",
+    "IEEE 802.3ab",
+    "IEEE 802.3an",
+    "IEEE 802.11ax"
+   ],
+   "correcta": 2,
+   "explicacion": "<b>802.3an</b> es 10GBASE-T (Cat 6A, 4 pares). 802.3u es Fast Ethernet, 802.3ab es Gigabit sobre cobre y 802.11ax es Wi-Fi 6.",
+   "seccion": "s9",
+   "origen": "hoja de práctica"
+  },
+  {
+   "id": 255,
+   "tema": "ip",
+   "tipo": "mc",
+   "enunciado": "Para 172.16.80.195/27, ¿cuáles son la red, el broadcast y el rango de hosts?",
+   "opciones": [
+    "Red 172.16.80.192 · broadcast 172.16.80.223 · hosts .193 a .222",
+    "Red 172.16.80.160 · broadcast 172.16.80.191 · hosts .161 a .190",
+    "Red 172.16.80.192 · broadcast 172.16.80.255 · hosts .193 a .254",
+    "Red 172.16.80.0 · broadcast 172.16.80.255 · hosts .1 a .254"
+   ],
+   "correcta": 0,
+   "explicacion": "/27 → máscara 255.255.255.224 → salto 32 en el cuarto octeto. 192 ≤ 195 &lt; 224: red <b>.192</b>, broadcast <b>.223</b> (uno antes de la siguiente red) y hosts de <b>.193 a .222</b>.",
+   "seccion": "sej",
+   "origen": "hoja de práctica"
+  },
+  {
+   "id": 256,
+   "tema": "ip",
+   "tipo": "mc",
+   "enunciado": "Para 192.168.30.158 con máscara 255.255.255.192, ¿cuál es la dirección de red?",
+   "opciones": [
+    "192.168.30.0",
+    "192.168.30.128",
+    "192.168.30.144",
+    "192.168.30.192"
+   ],
+   "correcta": 1,
+   "explicacion": "255.255.255.192 = /26 → salto 64: las redes empiezan en .0, .64, .128 y .192. 128 ≤ 158 &lt; 192, así que la red es <b>192.168.30.128</b>.",
+   "seccion": "sej",
+   "origen": "hoja de práctica"
+  },
+  {
+   "id": 257,
+   "tema": "ip",
+   "tipo": "mc",
+   "enunciado": "¿Cuántos hosts útiles admite una red /26?",
+   "opciones": [
+    "64",
+    "62",
+    "126",
+    "30"
+   ],
+   "correcta": 1,
+   "explicacion": "/26 deja 32 − 26 = 6 bits de host: 2<sup>6</sup> = 64 direcciones, menos la de red y la de broadcast = <b>62</b>.",
+   "seccion": "s18b",
+   "origen": "hoja de práctica"
+  },
+  {
+   "id": 258,
+   "tema": "ip",
+   "tipo": "mc",
+   "enunciado": "Una empresa recibe un bloque /21. ¿Cuántas direcciones IPv4 tiene?",
+   "opciones": [
+    "512",
+    "1024",
+    "2046",
+    "2048"
+   ],
+   "correcta": 3,
+   "explicacion": "/21 deja 11 bits de host: 2<sup>11</sup> = <b>2048 direcciones</b> en total. Si preguntaran hosts útiles serían 2046 (la trampa de la opción c).",
+   "seccion": "s18b",
+   "origen": "hoja de práctica"
+  },
+  {
+   "id": 259,
+   "tema": "lan",
+   "tipo": "mc",
+   "enunciado": "Un usuario inicia sesión en el dominio desde cualquier computadora con el mismo usuario y contraseña. ¿Qué componente de la infraestructura lo hace posible?",
+   "opciones": [
+    "El servidor DHCP",
+    "El controlador de dominio con Active Directory",
+    "El switch administrable",
+    "El recurso compartido de su carpeta"
+   ],
+   "correcta": 1,
+   "explicacion": "Las cuentas están una sola vez en <b>Active Directory</b>, en el <b>controlador de dominio</b>, que valida el ingreso desde cualquier PC del dominio (y para encontrarlo, los equipos usan el DNS).",
+   "seccion": "s15",
+   "origen": "hoja de práctica"
+  },
+  {
+   "id": 260,
+   "tema": "disp",
+   "tipo": "mc",
+   "enunciado": "Una oficina reemplaza un hub por un switch y mantiene el resto de la infraestructura. ¿Qué dos ventajas técnicas obtiene?",
+   "opciones": [
+    "Un dominio de colisión por puerto y full duplex con ancho de banda dedicado",
+    "Más dominios de broadcast y direcciones IP automáticas",
+    "Mayor alcance del cable y menos dominios de colisión",
+    "Cifrado del tráfico y separación en VLAN automática"
+   ],
+   "correcta": 0,
+   "explicacion": "El switch da un <b>dominio de colisión por puerto</b> (adiós colisiones entre PCs) y permite <b>full duplex</b> con ancho de banda dedicado, porque solo reenvía por el puerto del destino. El dominio de broadcast sigue siendo uno solo y la distancia la sigue limitando el cable.",
+   "seccion": "s13",
+   "origen": "hoja de práctica"
   }
  ]
 }

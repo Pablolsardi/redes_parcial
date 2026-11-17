@@ -49,7 +49,11 @@
   function comenzar(){
     simOn=!banco&&sim&&!!window.Subneteo; subAns={}; subRes=null;
     if(simOn){
-      qs=mezclar(D.preguntas.filter(function(q){return q.tipo==='vf';})).slice(0,19);
+      /* 14 V/F difíciles (estilo parcial: largas, con un detalle que las cambia) + 5 del resto */
+      var vfs=D.preguntas.filter(function(q){return q.tipo==='vf';});
+      var dif=mezclar(vfs.filter(function(q){return q.dificil;})).slice(0,14);
+      var resto=mezclar(vfs.filter(function(q){return !q.dificil;})).slice(0,19-dif.length);
+      qs=mezclar(dif.concat(resto));
       var r=Math.random(); ex=Subneteo.genReq(r<0.6?'B':(r<0.85?'C':'A'));
     }else qs=banco?banco.slice():delTema();
     answers={}; done=false;
