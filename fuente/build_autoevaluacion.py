@@ -183,6 +183,44 @@ EXAM_JS = (RAIZ / "fuente" / "examen_motor.js").read_text(encoding="utf-8")
 SUB_JS = (RAIZ / "fuente" / "subneteo.js").read_text(encoding="utf-8")
 
 EXAM_CSS = r"""
+.h-cab{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.h-cab h3{margin:0}
+#histBorrar{font-size:13px;color:var(--mut)}
+.h-vacio{color:var(--mut);margin:6px 0 0}
+.h-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:12px 0}
+.h-kpis>div{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--bg)}
+.h-kpis b{display:block;font-size:22px;font-weight:800;letter-spacing:-.01em}
+.h-kpis span{font-size:12.5px;color:var(--mut);line-height:1.35;display:block}
+.h-tabla{overflow-x:auto;margin-top:10px}
+.h-tabla table{width:100%;border-collapse:collapse;font-size:14px}
+.h-tabla th{text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--mut);padding:6px 8px;border-bottom:1.5px solid var(--line)}
+.h-tabla td{padding:8px;border-bottom:1px solid var(--line);vertical-align:middle;white-space:nowrap}
+.h-tabla td:nth-child(3){white-space:normal;min-width:140px}
+.h-tabla .btn{padding:5px 10px;font-size:13px}
+.h-tipo{display:inline-block;font-size:12px;font-weight:700;border-radius:99px;padding:2px 9px;background:var(--infobg);color:var(--acc)}
+.h-sim{background:var(--warnbg);color:var(--warn)}.h-practica{background:var(--okbg);color:var(--acc2)}
+.h-ok{color:var(--acc2);font-weight:700}.h-bad{color:var(--bad);font-weight:700}
+.logban{margin:14px 0 0;padding:10px 14px;border-radius:10px;background:var(--infobg);border:1px solid var(--line);font-size:14.5px}
+.i-ver{display:flex;flex-direction:column;gap:3px;border-radius:12px;padding:12px 16px;border-left:5px solid var(--acc);background:var(--infobg)}
+.i-ver>b{font-size:19px}.i-ver span{font-size:14.5px;line-height:1.5}
+.i-ok{border-color:var(--acc2);background:var(--okbg)}.i-ok>b{color:var(--acc2)}
+.i-mid{border-color:var(--warn);background:var(--warnbg)}.i-mid>b{color:var(--warn)}
+.i-bad{border-color:var(--bad);background:var(--badbg)}.i-bad>b{color:var(--bad)}
+.i-h{margin:18px 0 8px;font-size:15px}
+.i-tend{display:flex;align-items:flex-end;gap:8px;height:130px;padding:4px 2px 0;border-bottom:1.5px solid var(--line)}
+.i-col{flex:1;max-width:46px;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:3px}
+.i-col span{font-size:11.5px;font-weight:700}
+.i-col i{display:block;width:100%;border-radius:6px 6px 0 0;background:var(--acc)}
+.i-col i.nosub{background:repeating-linear-gradient(45deg,var(--acc),var(--acc) 5px,var(--badbg) 5px,var(--badbg) 9px)}
+.i-col small{font-size:11px;color:var(--mut);margin-bottom:-18px}
+.i-nota{font-size:13.5px;color:var(--mut);margin:24px 0 0}
+.i-temas{list-style:none;padding:0;margin:0}
+.i-temas li{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(80px,1fr) auto;gap:10px;align-items:center;padding:6px 0;border-bottom:1px solid var(--line);font-size:14px}
+.i-bar{height:8px;border-radius:99px;background:var(--badbg);overflow:hidden}.i-bar i{display:block;height:100%;background:var(--acc2)}
+.i-num{font-size:12.5px;color:var(--mut);white-space:nowrap}
+.i-tips{margin:0;padding-left:20px}.i-tips li{margin:6px 0;font-size:14.5px;line-height:1.5}
+@media (max-width:640px){.i-temas li{grid-template-columns:1fr;gap:4px}.h-tabla td:nth-child(4){display:none}.h-tabla th:nth-child(4){display:none}}
+
 .simbox{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 14px;margin:10px 0}.simbox p{margin:6px 0}.sim-ok{color:var(--acc2)}.sim-bad{color:var(--bad)}
 .ops{display:grid;gap:6px}
 .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:16px 0}
@@ -229,7 +267,7 @@ def pagina_examen(modo):
     tiempo_html = "" if prac else """<div class="panel"><h3>Tiempo</h3><div class="sub">Si se termina el tiempo, el examen se envía automáticamente. Sin límite, el reloj solo cuenta lo que tardás.</div>
 <div class="chips" id="tiempos" style="margin-bottom:0"><button type="button" data-m="0" class="on">Sin límite</button><button type="button" data-m="10">10 min</button><button type="button" data-m="20">20 min</button><button type="button" data-m="30">30 min</button><button type="button" data-m="45">45 min</button><button type="button" data-m="60">60 min</button>
 <label class="otro">Otro: <input id="tOtro" type="number" min="1" max="300" inputmode="numeric" placeholder="min"> min</label></div></div>"""
-    modo_html = "" if prac else """<div class="panel"><h3>Modo</h3><div class="sub">El simulacro arma un parcial como el real: 19 de verdadero o falso al azar + 1 ejercicio de subneteo, 60 minutos y medio punto menos por cada incorrecta.</div>
+    modo_html = "" if prac else """<div class="panel"><h3>Modo</h3><div class="sub">El simulacro arma un parcial como el real: 19 de verdadero o falso (14 difíciles, con la trampa en un detalle, y 5 del resto) + 1 ejercicio de subneteo, 60 minutos y medio punto menos por cada incorrecta.</div>
 <div class="chips" id="modos" style="margin-bottom:0"><button type="button" data-sim="0" class="on">Examen por tema</button><button type="button" data-sim="1">🎯 Simulacro del parcial</button></div></div>"""
     stats_html = ("""<div class="stats"><span class="st"><span>Contestadas</span><b id="sResp">0 / 0</b></span><span class="st ok"><span>✓ Correctas</span><b id="sOk">0</b></span><span class="st bad"><span>✗ Incorrectas</span><b id="sBad">0</b></span><span class="st tm"><span>⏱</span><b id="sTiempo">00:00</b></span><div class="track"><div class="fill" id="progFill"></div></div></div>
 <button type="button" class="btn" id="enviar">Terminar</button>"""
@@ -247,8 +285,11 @@ def pagina_examen(modo):
 <div class="panel" id="temasBox"><h3>Tema</h3><div class="sub">Hacelo completo o elegí un tema.</div><div class="chips" id="chips" style="margin-bottom:0"></div></div>
 {tiempo_html}
 <div class="panel"><div id="setupInfo"></div><button type="button" class="btn big" id="comenzar">Comenzar examen</button></div>
+<div class="panel" id="insBox"><h3>Cómo venís para el parcial</h3><div id="ins"></div></div>
+<div class="panel" id="histBox"><div class="h-cab"><h3>Historial de intentos</h3><span id="histBorrar"></span></div><div class="sub">Los simulacros, exámenes y prácticas que terminás quedan guardados en este navegador, con su duración y su resultado. Tocá <b>Ver resumen</b> para volver a ver la corrección completa.</div><div id="hist"></div></div>
 </section>
 <section id="resultado" class="hidden">
+<div class="logban hidden" id="rLog"></div>
 <h2 style="margin-top:16px">Resultado · <span id="rTema"></span></h2>
 <div class="porTiempo hidden" id="rPorTiempo">⏱ Se terminó el tiempo: el examen se envió automáticamente.</div>
 <div class="score"><div class="k-nota"><b id="rNota">0%</b><span id="rNotaLbl">Nota</span></div><div class="k-ok"><b id="rOk">0</b>Correctas</div><div class="k-bad"><b id="rBad">0</b>Incorrectas</div><div class="k-none"><b id="rNone">0</b>Sin responder</div><div class="k-tm"><b id="rTiempo">00:00</b>Tiempo</div></div>
@@ -266,7 +307,7 @@ def pagina_examen(modo):
 <div class="aviso" id="aviso"><span id="avisoTxt"></span><button type="button" class="btn" id="enviarIgual">{aviso_btn}</button><button type="button" class="btn sec" id="seguir">Seguir respondiendo</button></div>
 </div></div>
 <script>window.__DATA__={json.dumps(DATA, ensure_ascii=False)};window.__MODO__="{modo}";</script>
-{"" if prac else "<script>" + SUB_JS + "</script>"}
+<script>{SUB_JS}</script>
 <script>{EXAM_JS}</script>
 <script>{THEME_JS}</script>
 </body>
