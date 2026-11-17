@@ -5,7 +5,8 @@
   var setup=$('setup'), run=$('run'), res=$('resultado'), list=$('lista'), chips=$('chips'), bar=$('bar'),
       aviso=$('aviso'), avisoTxt=$('avisoTxt'), filtros=$('filtros'), tiempos=$('tiempos');
   var tema='todos', limite=0, banco=null, qs=[], answers={}, done=false, t0=0, timer=null, ultimoTiempo=0, etiqueta='';
-  var sim=false, simOn=false, ex=null, subAns={}, subRes=null, modos=$('modos');
+  var sim=false, simOn=false, ex=null, subAns={}, subRes=null, modos=$('modos'), viendo=null, porTiempoUlt=false;
+  var porId={}; D.preguntas.forEach(function(q){porId[q.id]=q;});
   function mezclar(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;}return a;}
   function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML;}
   function let(q,i){return q.tipo==='vf'?(i===0?'V':'F'):L[i]+')';}
@@ -56,7 +57,7 @@
       qs=mezclar(dif.concat(resto));
       var r=Math.random(); ex=Subneteo.genReq(r<0.6?'B':(r<0.85?'C':'A'));
     }else qs=banco?banco.slice():delTema();
-    answers={}; done=false;
+    answers={}; done=false; viendo=null;
     etiqueta=simOn?'Simulacro del parcial':(banco?'Reintento de incorrectas':(tema==='todos'?'Todos los temas':temaNombre[tema]));
     setup.classList.add('hidden'); res.classList.add('hidden'); run.classList.remove('hidden'); bar.classList.remove('hidden');
     aviso.classList.remove('on'); $('runTitulo').textContent=etiqueta;
@@ -172,10 +173,18 @@
   function terminar(porTiempo){
     if(done) return; done=true; clearInterval(timer); ultimoTiempo=(Date.now()-t0)/1000;
     if(!PRAC&&limite>0) ultimoTiempo=Math.min(ultimoTiempo,limite);
+    if(simOn) subRes=Subneteo.corregir(ex,subAns);
+    mostrar(porTiempo);
+    guardar(porTiempo);
+  }
+  function mostrar(porTiempo){
     var c=cuenta(), nota=c.total?Math.round(100*c.ok/c.total):0;
+    var rl=$('rLog'); rl.classList.toggle('hidden',!viendo);
+    if(viendo) rl.innerHTML='📋 Estás viendo un intento del historial: <b>'+esc(viendo.etiqueta)+'</b> · '+fechaLarga(viendo.fecha)+'. <button type="button" class="lnk" id="rLogVolver">Volver al historial</button>';
+    $('repetir').classList.toggle('hidden',!!viendo);
+    $('otroTema').textContent=viendo?'Volver al historial':(PRAC?'Elegir otro tema':'Elegir otro tema o tiempo');
     $('rNota').textContent=nota+'%'; $('rNotaLbl').textContent='Nota'; var rs=$('rSim'); rs.classList.add('hidden');
     if(simOn){
-      subRes=Subneteo.corregir(ex,subAns);
       var pts=c.ok-0.5*c.bad, f=function(x){return String(x).replace('.',',');};
       $('rNota').textContent=f(pts)+' / 19'; $('rNotaLbl').textContent='Puntaje V/F';
       $('rNone').textContent=qs.length-c.ok-c.bad;
@@ -203,7 +212,7 @@
     }
     $('rRepaso').innerHTML=h;
     var inc=qs.filter(function(q){var a=answers[q.id];return a!==undefined&&a!==q.correcta;});
-    var rb=$('reintentarInc'); rb.classList.toggle('hidden',!inc.length);
+    var rb=$('reintentarInc'); rb.classList.toggle('hidden',!inc.length||!!viendo);
     rb.textContent='Reintentar solo las incorrectas ('+inc.length+')'; rb.__inc=inc;
     run.classList.remove('hidden'); res.classList.remove('hidden'); bar.classList.add('hidden'); aviso.classList.remove('on');
     render(); filtrar('todas'); window.scrollTo({top:0,behavior:'instant'});
@@ -216,13 +225,132 @@
   }
   filtros.addEventListener('click',function(e){var b=e.target.closest('button');if(b)filtrar(b.getAttribute('data-f'));});
 
-  function aSetup(){
+  /* ---------- historial de intentos (en este navegador) ---------- */
+  var KEY='redes-intentos', MAX=60;
+  function leer(){try{var v=JSON.parse(localStorage.getItem(KEY)||'[]');return Array.isArray(v)?v:[];}catch(e){return [];}}
+  function escribir(v){try{localStorage.setItem(KEY,JSON.stringify(v.slice(0,MAX)));return true;}catch(e){return false;}}
+  function guardar(porTiempo){
+    var c=cuenta(), reg={id:Date.now(), fecha:new Date().toISOString(), pagina:MODO, sim:simOn, banco:!!banco, tema:simOn?'':tema,
+      etiqueta:etiqueta, dur:Math.round(ultimoTiempo), limite:PRAC?0:limite, porTiempo:!!porTiempo,
+      ok:c.ok, bad:c.bad, none:c.none, total:c.total, nota:c.total?Math.round(100*c.ok/c.total):0,
+      q:qs.map(function(q){return q.id;}), a:answers};
+    if(simOn){reg.pts=c.ok-0.5*c.bad; reg.ex=ex; reg.subAns=subAns; reg.subOk=!!subRes.todo; reg.subCampos=subRes.ok+'/'+subRes.total;}
+    var v=leer(); v.unshift(reg); escribir(v); pintarHist();
+  }
+  function tipoDe(r){return r.sim?'Simulacro':(r.pagina==='practica'?'Práctica':'Examen');}
+  function fechaCorta(iso){var d=new Date(iso);return d.toLocaleDateString('es-AR',{day:'2-digit',month:'2-digit'})+' '+d.toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit',hour12:false});}
+  function fechaLarga(iso){var d=new Date(iso);return d.toLocaleDateString('es-AR',{weekday:'long',day:'numeric',month:'long'})+', '+d.toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit',hour12:false})+' h';}
+  function coma(x){return String(Math.round(x*10)/10).replace('.',',');}
+  function resultadoDe(r){
+    if(r.sim) return '<b>'+coma(r.pts)+'</b> / 19 · subneteo '+(r.subOk?'<span class="h-ok">✓ bien</span>':'<span class="h-bad">✗ con errores</span>');
+    return '<b>'+r.nota+'%</b> · '+r.ok+' bien, '+r.bad+' mal'+(r.none?', '+r.none+' sin responder':'');
+  }
+  /* ---------- insights: cómo venís para el parcial ---------- */
+  function pct(a,b){return b?Math.round(100*a/b):0;}
+  function pintarInsights(v){
+    var box=$('ins'); if(!box) return;
+    var base=v.filter(function(r){return !r.banco;});
+    if(!base.length){box.innerHTML='<p class="h-vacio">Cuando termines tu primer intento, acá vas a ver cómo venís: tendencia, temas flojos y hábitos que te restan puntos. Lo más útil es hacer <b>simulacros</b>.</p>';return;}
+    var tot={ok:0,bad:0,none:0}, porSec={}, vf={V:{ok:0,n:0},F:{ok:0,n:0}}, dif={d:{ok:0,n:0},n:{ok:0,n:0}};
+    base.forEach(function(r){r.q.forEach(function(id){var q=porId[id]; if(!q) return; var a=r.a?r.a[id]:undefined;
+      var st=a===undefined?'none':(a===q.correcta?'ok':'bad'); tot[st]++;
+      var s_=porSec[q.seccion]=porSec[q.seccion]||{ok:0,bad:0,none:0}; s_[st]++;
+      if(a!==undefined){ if(q.tipo==='vf'){var k=q.correcta===0?'V':'F'; vf[k].n++; if(st==='ok') vf[k].ok++;}
+        var g=q.dificil?dif.d:dif.n; g.n++; if(st==='ok') g.ok++; }
+    });});
+    base.forEach(function(r){if(!r.sim) return; var s_=porSec.sej=porSec.sej||{ok:0,bad:0,none:0}; s_[r.subOk?'ok':'bad']++;});
+    var sims=base.filter(function(r){return r.sim;}).slice().reverse();
+    var ult=sims.slice(-3), h='';
+    // veredicto
+    if(sims.length){
+      var prom=ult.reduce(function(t,r){return t+r.pts;},0)/ult.length, p100=Math.round(100*prom/19), subB=ult.filter(function(r){return r.subOk;}).length;
+      var nivel=(p100>=75&&subB===ult.length)?['ok','Vas bien']:((p100>=55&&subB>=Math.ceil(ult.length/2))?['mid','Cerca, falta afinar']:['bad','A reforzar']);
+      h+='<div class="i-ver i-'+nivel[0]+'"><b>'+nivel[1]+'</b><span>En tus últimos '+(ult.length===1?'simulacro':ult.length+' simulacros')+' promediaste <b>'+coma(prom)+' de 19</b> en las V/F ('+p100+'%) y resolviste bien el subneteo '+(ult.length===1?(subB?'':'no '):subB+' de '+ult.length+' veces')+'. '
+        +(subB<ult.length?'Ojo: el subneteo tiene que estar bien para aprobar. ':'')+'Es una referencia orientativa, no una predicción de la nota.</span></div>';
+    }else{
+      h+='<div class="i-ver i-mid"><b>Sin simulacros todavía</b><span>Tenés intentos de práctica, pero para saber cómo venís para el parcial hacé un <b>simulacro</b>: 19 V/F con descuento + el ejercicio de subneteo, en 60 minutos.</span></div>';
+    }
+    // kpis
+    var resp=tot.ok+tot.bad, tpq=sims.length?sims.reduce(function(t,r){return t+r.dur/20;},0)/sims.length:0;
+    h+='<div class="h-kpis"><div><b>'+base.length+'</b><span>intento'+(base.length===1?'':'s')+' ('+sims.length+' simulacro'+(sims.length===1?'':'s')+')</span></div>'
+      +'<div><b>'+pct(tot.ok,resp)+'%</b><span>de acierto en lo que respondiste</span></div>'
+      +'<div><b>'+(tot.ok+tot.bad+tot.none)+'</b><span>preguntas vistas</span></div>'
+      +(sims.length?'<div><b>'+fmt(tpq)+'</b><span>por pregunta en simulacro (el parcial da 3:00)</span></div>':'')+'</div>';
+    // tendencia
+    if(sims.length>=2){
+      var u=sims.slice(-10); h+='<h4 class="i-h">Tendencia en los simulacros</h4><div class="i-tend">';
+      u.forEach(function(r,i){var al=Math.max(4,Math.round(100*Math.max(0,r.pts)/19));
+        h+='<div class="i-col" title="'+fechaCorta(r.fecha)+': '+coma(r.pts)+' / 19"><span>'+coma(r.pts)+'</span><i style="height:'+al+'%" class="'+(r.subOk?'':'nosub')+'"></i><small>'+(i+1)+'</small></div>';});
+      var d=u[u.length-1].pts-u[0].pts;
+      h+='</div><p class="i-nota">'+(d>0.25?'📈 Mejoraste '+coma(d)+' puntos desde el primero de esta serie.':(d<-0.25?'📉 Bajaste '+coma(-d)+' puntos desde el primero de esta serie.':'➖ Estás estable.'))+' Las barras rayadas son simulacros con el subneteo mal.</p>';
+    }
+    // temas flojos
+    var secs=Object.keys(porSec).map(function(k){var x=porSec[k];return {k:k,n:x.ok+x.bad+x.none,mal:x.bad+x.none,acc:pct(x.ok,x.ok+x.bad+x.none)};})
+      .filter(function(x){return x.n>=2&&x.mal>0;}).sort(function(a,b){return a.acc-b.acc||b.mal-a.mal;}).slice(0,6);
+    if(secs.length){
+      h+='<h4 class="i-h">Dónde más fallás</h4><ul class="i-temas">';
+      secs.forEach(function(x){h+='<li><span class="i-nom">'+secLink(x.k)+'</span><span class="i-bar"><i style="width:'+x.acc+'%"></i></span><span class="i-num">'+x.acc+'% · '+x.mal+' de '+x.n+' sin acertar</span></li>';});
+      h+='</ul>';
+    }
+    // hábitos
+    var tips=[];
+    var simB=sims.reduce(function(t,r){return t+r.bad;},0), simN=sims.reduce(function(t,r){return t+r.none;},0);
+    if(sims.length){
+      var malPorSim=simB/sims.length, accSim=pct(sims.reduce(function(t,r){return t+r.ok;},0),sims.reduce(function(t,r){return t+r.ok+r.bad;},0));
+      if(malPorSim>=4&&accSim<70) tips.push('Contestás mucho con poca seguridad: <b>'+coma(malPorSim)+' incorrectas por simulacro</b> te restan '+coma(malPorSim/2)+' puntos. Si dudás entre V y F sin ninguna pista, dejarla en blanco no resta.');
+      else if(simN/sims.length>=4&&accSim>=80) tips.push('Dejás muchas en blanco (<b>'+coma(simN/sims.length)+' por simulacro</b>) y cuando contestás acertás el '+accSim+'%. Con ese nivel conviene arriesgar más: si tenés más de 1 chance en 3, contestar suma en promedio.');
+      if(tpq>180) tips.push('Vas lento: <b>'+fmt(tpq)+' por pregunta</b> y el parcial da 3:00 (60 minutos para 20). Dejá el subneteo con tiempo de sobra.');
+    }
+    if(vf.V.n>=5&&vf.F.n>=5){var aV=pct(vf.V.ok,vf.V.n), aF=pct(vf.F.ok,vf.F.n);
+      if(aV-aF>=12) tips.push('Te equivocás más en las <b>falsas</b> ('+aF+'% contra '+aV+'% en las verdaderas): leé cada afirmación hasta el final, la trampa suele estar en un solo detalle.');
+      else if(aF-aV>=12) tips.push('Te equivocás más en las <b>verdaderas</b> ('+aV+'% contra '+aF+'% en las falsas): estás desconfiando de más. Si no encontrás el detalle que la rompe, probablemente sea verdadera.');}
+    if(dif.d.n>=5&&dif.n.n>=5){var aD=pct(dif.d.ok,dif.d.n), aN=pct(dif.n.ok,dif.n.n);
+      if(aN-aD>=15) tips.push('En las V/F <b>difíciles</b> (las de estilo parcial) acertás el '+aD+'% y en el resto el '+aN+'%. Practicá con el simulacro, que trae 14 de esas.');}
+    if(tips.length) h+='<h4 class="i-h">Hábitos que te están restando</h4><ul class="i-tips">'+tips.map(function(t){return '<li>'+t+'</li>';}).join('')+'</ul>';
+    box.innerHTML=h;
+  }
+
+  var confirmando=false;
+  function pintarHist(){
+    var box=$('hist'); if(!box) return; var v=leer(); pintarInsights(v);
+    var del=$('histBorrar');
+    if(!v.length){box.innerHTML='<p class="h-vacio">Todavía no hay intentos. Cuando termines un simulacro, un examen o una práctica, va a aparecer acá con su tiempo y su resultado.</p>'; del.innerHTML=''; return;}
+    var h='';
+    h+='<div class="h-tabla"><table><thead><tr><th>Fecha</th><th>Tipo</th><th>De qué</th><th>Duración</th><th>Resultado</th><th></th></tr></thead><tbody>';
+    v.forEach(function(r){
+      h+='<tr><td>'+fechaCorta(r.fecha)+'</td><td><span class="h-tipo h-'+(r.sim?'sim':r.pagina)+'">'+tipoDe(r)+'</span></td><td>'+esc(r.etiqueta)+'</td>'
+        +'<td>'+fmt(r.dur)+(r.porTiempo?' <span class="h-bad" title="Se terminó el tiempo">⏱</span>':'')+'</td><td>'+resultadoDe(r)+'</td>'
+        +'<td><button type="button" class="btn sec h-ver" data-id="'+r.id+'">Ver resumen</button></td></tr>';
+    });
+    box.innerHTML=h+'</tbody></table></div>';
+    del.innerHTML=confirmando?'¿Borrar los '+v.length+' intentos? <button type="button" class="lnk" data-b="si">Sí, borrar</button> · <button type="button" class="lnk" data-b="no">Cancelar</button>'
+      :'<button type="button" class="lnk" data-b="pedir">Borrar historial</button>';
+  }
+  if($('histBorrar')) $('histBorrar').addEventListener('click',function(e){var b=e.target.closest('[data-b]');if(!b)return;var k=b.getAttribute('data-b');
+    if(k==='pedir') confirmando=true; else{ if(k==='si') escribir([]); confirmando=false;} pintarHist();});
+  if($('hist')) $('hist').addEventListener('click',function(e){var b=e.target.closest('.h-ver');if(!b)return;
+    var r=leer().find(function(x){return String(x.id)===b.getAttribute('data-id');}); if(r) ver(r);});
+  function ver(r){
+    viendo=r; simOn=!!r.sim&&!!window.Subneteo; banco=null; tema=r.tema||'todos';
+    qs=r.q.map(function(id){return porId[id];}).filter(Boolean);
+    answers={}; Object.keys(r.a||{}).forEach(function(k){if(porId[k]) answers[k]=r.a[k];});
+    ex=r.ex||null; subAns=r.subAns||{}; subRes=simOn&&ex?Subneteo.corregir(ex,subAns):null;
+    if(simOn&&!subRes) simOn=false;
+    etiqueta=r.etiqueta; ultimoTiempo=r.dur; done=true; clearInterval(timer);
+    setup.classList.add('hidden'); $('runTitulo').textContent=etiqueta;
+    mostrar(r.porTiempo);
+  }
+  document.addEventListener('click',function(e){if(e.target&&e.target.id==='rLogVolver'){aSetup(true);}});
+
+  function aSetup(alHist){
     clearInterval(timer); done=false; run.classList.add('hidden'); res.classList.add('hidden'); bar.classList.add('hidden');
-    setup.classList.remove('hidden'); renderChips(); window.scrollTo({top:0,behavior:'instant'});
+    setup.classList.remove('hidden'); renderChips(); pintarHist();
+    var hb=$('histBox'); if(alHist&&hb) hb.scrollIntoView({behavior:'instant',block:'start'}); else window.scrollTo({top:0,behavior:'instant'});
+    viendo=null;
   }
   $('reintentarInc').addEventListener('click',function(){banco=this.__inc.slice(); aSetup();});
   $('repetir').addEventListener('click',function(){comenzar();});
-  $('otroTema').addEventListener('click',function(){banco=null; aSetup();});
+  $('otroTema').addEventListener('click',function(){var h=!!viendo; banco=null; aSetup(h);});
 
-  renderChips();
+  renderChips(); pintarHist();
 })();
